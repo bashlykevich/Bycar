@@ -1,0 +1,59 @@
+﻿<Window x:Class="bycar3.Views.Administration.ConnectionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        Title="IMBS: ДРАЙВ - Вход в систему" 
+        Height="150" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10,1,0,1"
+            Content="Пользователь"/>        
+        <Label
+            Margin="10,1,0,1"
+            Grid.Row="1"
+            Grid.Column="0"
+            Content="Пароль"/>
+        <Label
+            Margin="10,1,0,1"
+            Grid.Row="2"
+            Grid.Column="0"
+            Content="Конфигурация"/>
+        
+        <TextBox
+            Name="edtLogin"
+            Margin="3"
+            Grid.Row="0"
+            Grid.Column="1"/>
+        <TextBox
+            Name="edtPassword"
+            Margin="3"
+            Grid.Row="1"
+            Grid.Column="1"/>
+        <ComboBox
+            Name="edtConfig"
+            Margin="3"
+            Grid.Row="2"
+            Grid.Column="1"/>
+        <Button
+            HorizontalAlignment="Right"
+            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+            Name="btnConnect"
+            Content="Войти"
+            Margin="2"
+            Width="100"
+            Grid.Row="3"
+            Grid.Column="1" Click="btnConnect_Click" />
+    </Grid>
+</Window>

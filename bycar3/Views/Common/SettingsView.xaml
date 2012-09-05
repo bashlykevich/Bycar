@@ -1,0 +1,386 @@
+﻿<Window x:Class="bycar3.Views.Common.SettingsView"
+          
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройки" 
+        Height="580" Width="700"
+        ResizeMode="NoResize"                
+        Loaded="Window_Loaded"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <TabControl
+            TabStripPlacement="Left" 
+            Margin="5"
+            Grid.Row="0">
+            <TabItem 
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Stretch">
+                <TabItem.Header>
+                    <StackPanel 
+                        Width="120"
+                        HorizontalAlignment="Stretch" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\profile_edit.png" />
+                        <TextBlock Text="О компании" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid
+                    Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="0" 
+                        Content="Название" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="1" 
+                        Content="Фактический адрес" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="2" 
+                        Content="Юридический адрес" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="3" 
+                        Content="Пункт погрузки" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="4" 
+                        Content="Руководитель" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="5" 
+                        Content="Главный бухгалтер" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="6" 
+                        Content="ОКПО" />
+                    <Label 
+                         Grid.Column="0" 
+                        Grid.Row="7" 
+                        Content="УНН" />                    
+                    <TextBox 
+                        Name="edtName"
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="3"
+                        Grid.Row="0" 
+                        Margin="2"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        VerticalScrollBarVisibility="Visible"/>
+
+                    <TextBox 
+                        Name="edtAddress"
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="3"
+                        Grid.Row="1" 
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        Margin="2"
+                        VerticalScrollBarVisibility="Visible"/>
+                    <TextBox 
+                        Name="edtJAddress"
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="3"
+                        Grid.Row="2" 
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        Margin="2"
+                        VerticalScrollBarVisibility="Visible"/>
+                    <TextBox 
+                        Name="edtLoadPoint"
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="3"
+                        Grid.Row="3" 
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        Margin="2"
+                        VerticalScrollBarVisibility="Visible"/>
+                    <TextBox 
+                        Name="edtCompanyHead"
+                        Height="26"
+                        Grid.Column="1"                         
+                        Grid.ColumnSpan="3"
+                        Margin="5"
+                        Grid.Row="4" />
+                    <TextBox 
+                        Name="edtAccountant"
+                        Height="26"
+                        Grid.Column="1"                         
+                        Grid.ColumnSpan="3"
+                        Margin="5"
+                        Grid.Row="5" />
+                    <TextBox 
+                        Name="edtOKPO"
+                        Height="26"
+                        Grid.Column="1"                         
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        Grid.Row="6" />
+                    <TextBox 
+                        Name="edtUNN"
+                        Height="26"
+                        Grid.Column="1"                         
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        Grid.Row="7" />                    
+                    <Border 
+                        CornerRadius="10"            
+                        BorderBrush="Aqua"
+                        BorderThickness="1"
+                        Grid.Row="8"
+                        Grid.ColumnSpan="4"
+                        Grid.Column="0">
+                        <StackPanel
+                            Orientation="Vertical">
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Button 
+                                    IsEnabled="True"                            
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnBAAdd" 
+                                    Click="btnBAAdd_Click"
+                                    Height="34">
+                                        <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+                                </Button>
+                                <Button 
+                                    IsEnabled="True"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnBAEdit"
+                                    Click="btnBAEdit_Click"
+                                    Width="33" Height="34">
+                                    <Image Source="\Content\Icons\IconDetailEdit.png" Height="30" Width="28"/>
+                                </Button>
+                                <Button 
+                                    IsEnabled="True"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnBADelete"
+                                    Click="btnBADelete_Click"
+                                    Width="33" Height="34">
+                                    <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28"/>
+                                </Button>
+                            </StackPanel>
+                            <DataGrid 
+                                Name="dgItems"     
+                                Height="150"
+                             ItemsSource="{Binding}"
+                             AutoGenerateColumns="False"                                                                                            
+                             CanUserReorderColumns="False"                              
+                             RowBackground="#FFF0F0F0" 
+                             FontWeight="Normal" 
+                             MouseDoubleClick="dgItems_MouseDoubleClick"
+                             HorizontalGridLinesBrush="LightGray" 
+                             VerticalGridLinesBrush="LightGray">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankName}" Header="Банк" Width="0.2*"/>
+                                    <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankMFO}" Header="МФО" Width="0.2*"/>
+                                    <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankAccount}" Header="№ р/с" Width="0.2*"/>
+                                    <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=Description}" Header="Примечание" Width="0.2*"/>
+                                    <DataGridCheckBoxColumn  IsReadOnly="True"  Binding="{Binding Path=IsMain}" Header="Основной" Width="0.2*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem 
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Stretch">
+                <TabItem.Header                    >
+                    <StackPanel 
+                        Width="120"
+                        HorizontalAlignment="Stretch" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\Gear.png" />
+                        <TextBlock Text="Настройки" Margin="2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"                        
+                        Content="Базовая валюта системы"/>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"                        
+                        Content="Валюта прихода по умолчанию"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"                        
+                        Content="Поле поиска по умолчанию"/>
+
+                    <Label
+                        Visibility="Hidden"
+                        Grid.Column="0"
+                        Grid.Row="3"                        
+                        Content="Поиск в главном окне"/>
+                    <Label Grid.Row="3"                        
+                           Visibility="Hidden"
+                        Content="Отложенный поиск (после нажатия Enter) рекомендуется для слабых ПК, на которых" HorizontalAlignment="Left" ClipToBounds="False" Margin="2,27,0,27" Grid.ColumnSpan="3" Width="542" />
+
+                    <ComboBox
+                        IsEnabled="False"
+                        Name="edtBasicCurrency"
+                        Grid.Column="1"
+                        Margin="6,4,98,4" Width="96" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="6,4,98,4"
+                        Name="edtDefaultIncomeCurrency" Width="96" />
+                    <ComboBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="6,4,98,4"
+                        Name="edtDefaultSearchField" Width="96" />
+                    <ComboBox
+                        Visibility="Hidden"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="5,4,133,55"
+                        Name="edtSearchTypeInMainWindow" Width="210" Grid.ColumnSpan="2">
+                        <ComboBoxItem Content="Быстрый поиск (автоматический)" IsSelected="True"/>
+                        <ComboBoxItem Content="Отложенный поиск"/>
+                    </ComboBox>
+                    <Label 
+                        Visibility="Hidden"
+                        ClipToBounds="False" Content="используется сканнер штрих-кодов" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="2,49,0,5" Width="212" Grid.Row="3" />
+                </Grid>
+            </TabItem>
+            <TabItem 
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Stretch">
+                <TabItem.Header>
+                    <StackPanel 
+                        Width="120"
+                        HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\User-icon.png" />
+                        <TextBlock Text="Пользователи" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>                        
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        VerticalAlignment="Stretch"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Orientation="Vertical">                        
+                        <StackPanel    
+                            Name="spButtons"
+                            Orientation="Horizontal">
+                            <Button 
+                                IsEnabled="True"
+                                Click="btnUserAdd_Click"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnUserAdd" 
+                                    Height="34">
+                                <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+                            </Button>
+                            <Button 
+                                IsEnabled="True"
+                                Click="btnUserEdit_Click"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnUserEdit"                                 
+                                    Width="33" Height="34">
+                                <Image Source="\Content\Icons\IconDetailEdit.png" Height="30" Width="28"/>
+                            </Button>
+                            <Button 
+                                    IsEnabled="True"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                    Name="btnUserDelete"                                    
+                                Click="btnUserDelete_Click"
+                                    Width="33" Height="34">
+                                <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28"/>
+                            </Button>
+                        </StackPanel>                        
+                        <DataGrid 
+                            VerticalAlignment="Stretch"
+                            Name="dgUsers"
+                            Height="150"
+                            IsReadOnly="True"
+                            MouseDoubleClick="dgUsers_MouseDoubleClick"
+                             ItemsSource="{Binding}"
+                             AutoGenerateColumns="False"                                                                                            
+                             CanUserReorderColumns="False"                              
+                             RowBackground="#FFF0F0F0" 
+                             FontWeight="Normal"                              
+                             HorizontalGridLinesBrush="LightGray" 
+                             VerticalGridLinesBrush="LightGray">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn     Binding="{Binding Path=name}" Header="Пользователь" Width="0.6*"/>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=is_admin}" Header="Администратор?" Width="0.4*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel                                
+                            Visibility="Collapsed"
+                            Orientation="Horizontal">
+                            <CheckBox 
+                                VerticalAlignment="Center"
+                                Margin="5"
+                                Name="edtAutoLogin"/>
+                            <TextBlock TextWrapping="Wrap" Margin="3" >Не спрашивать пароль при входе.<LineBreak/>
+                                Автоматически входить под пользователем:
+                            </TextBlock>
+                            <ComboBox 
+                                Name="edtAutoLoginUser" 
+                                VerticalAlignment="Center"
+                                Margin="3"
+                                HorizontalAlignment="Stretch"                                
+                                HorizontalContentAlignment="Stretch" Width="229" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid            
+            Grid.Row="1">
+            <Button
+                Name="btnSave"
+                Click="btnSave_Click"
+                Content="Сохранить"
+                BorderThickness="0.01"
+                BorderBrush="Gray"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Margin="473,6,10,6" Height="28" Width="95" />
+        </Grid>
+    </Grid>
+</Window>

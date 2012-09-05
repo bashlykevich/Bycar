@@ -1,0 +1,192 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              FontFamily="Times New Roman"
+              FontSize="13"
+              FontWeight="Bold"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="20.5cm">
+    <Section Padding="35">
+
+        <Paragraph FontWeight="Normal">
+            <xrd:InlineDocumentValue PropertyName="ReportDate1" /> - <xrd:InlineDocumentValue PropertyName="ReportDate2" />
+        </Paragraph>
+        <Paragraph>
+            ТОВАР: <xrd:InlineDocumentValue PropertyName="SpareName" />
+        </Paragraph>
+        <Paragraph>
+            КОД: <xrd:InlineDocumentValue PropertyName="SpareCodeShatem" />
+        </Paragraph>
+        <Paragraph>
+            КОД МАГАЗИНА: <xrd:InlineDocumentValue PropertyName="SpareCode" />
+        </Paragraph>
+
+        <!-- Таблица ТОВАРНЫЙ РАЗДЕЛ -->
+        <xrd:SectionDataGroup DataGroupName="ItemList">
+            <Table BorderBrush="Black"
+               BorderThickness="0.01cm"
+               CellSpacing="0">
+                <Table.Columns>
+                    <TableColumn Width="0.05*"/>
+                    <TableColumn Width="0.1*"/>
+                    <TableColumn Width="0.3*"/>                    
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.2*"/>
+                </Table.Columns>
+                <TableRowGroup>
+                    <TableRow FontSize="10">
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                №
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                № отгрузки
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Покупатель
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Дата продажи
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Количество
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Цена, руб
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                НДС, %
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Сумма, руб
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                    <xrd:TableRowForDataTable 
+                        FontWeight="Normal"
+                        TableName="mtable">
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="Num" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="OutgoNum" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="AccountName" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="OutgoDate" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="Q" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="P"/>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="VAT"/>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="T"/>
+                            </Paragraph>
+                        </TableCell>
+                    </xrd:TableRowForDataTable>
+                    <TableRow>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                ИТОГО:
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineDocumentValue PropertyName="asum" />
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                </TableRowGroup>
+            </Table>
+        </xrd:SectionDataGroup>
+    </Section>
+</FlowDocument>

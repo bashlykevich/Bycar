@@ -1,0 +1,330 @@
+﻿<Window x:Class="bycar3.Views.Spare_Outgo.SpareOutgoEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        ResizeMode="CanResize"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        Title="Отгрузка товаров" 
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="600" MinWidth="800"
+        Height="600" Width="800">
+    
+    <Grid            
+        Name="grMain"        
+        Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="rdHeader" Height="90"/>
+            <RowDefinition Name="rdCenter" Height="*"/>
+            <RowDefinition Name="rdButtonBar" Height="36"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="660"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border 
+            Grid.Column="0"
+            Grid.Row="0"
+            CornerRadius="10"            
+            BorderBrush="Aqua"
+            BorderThickness="1" Margin="0">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Width="660">
+                    <Label Margin="2" 
+                           Width="80"
+                           Content="Номер:"/>
+                    <TextBox Margin="5" Name="edtNumber" IsEnabled="False" Width="60"/>
+                    <Label Margin="2" Content="Дата:"/>
+                    <DatePicker
+                    Margin="0,4,2,4" 
+                    Width="120"
+                    Name="edtDate"/>
+                    <Label Margin="3" Content="Валюта:" Width="53" />
+                    <ComboBox 
+                        Margin="0,6,6,6"
+                        Width="84"
+                        Name="edtCurrency"/>
+                    <CheckBox 
+                    Name="edtOpened" 
+                    Content="Текущая открытая накладная" 
+                    IsChecked="False" Margin="5,9,0,4"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="2" Width="80" Content="Примечание:"/>
+                    <TextBox 
+                    Name="edtDescription"
+                    Margin="5"
+                        Height="42"
+                        Width="550"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        VerticalScrollBarVisibility="Visible"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Grid 
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Name="grCenter">
+            <Grid.RowDefinitions>
+                <RowDefinition Name="rdAppendixRow" Height="30"/>
+                <RowDefinition Name="rdSpareTableRow"  Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Expander
+                ToolTip="Дополнительная информация о текущей расходной накладной"
+            Background="#FFAFCBF2"            
+            Grid.Row="0"            
+            Margin="6,3,3,3"
+            Name="expAppendix"
+            IsExpanded="False"
+            Expanded="Expander_Expanded"                                            
+            Collapsed="expAppendix_Collapsed"
+            Header="Дополнительно">
+                <Border              
+            Margin="0,5"
+            CornerRadius="10"            
+            BorderBrush="Aqua"
+            BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="2,2,5,2" Text="Покупатель"/>
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="2,2,5,2" Text="Адрес"/>
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Margin="2,2,5,2" Text="УНН"/>
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Margin="2,2,5,2" Text="Адрес разгрузки" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" Margin="2,2,5,2" Text="Владелец авто" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Margin="2,2,5,2" Text="Основание отпуска" Grid.ColumnSpan="2" />                        
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Margin="2,2,5,2" Text="Доверенность" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Margin="2,2,5,2" Text="Товар сдал" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Margin="2,2,5,2" Text="Товар принял" Grid.ColumnSpan="2" />
+
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="4" Margin="2,2,5,2" Text="Путевой лист" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5" Margin="2,2,5,2" Text="Водитель" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="6" Margin="2,2,5,2" Text="Автомобиль" Grid.ColumnSpan="2" />
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="7" Margin="2,2,5,2" Text="Прицеп" Grid.ColumnSpan="2" />
+
+
+                        <StackPanel Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="0" Margin="2" Orientation="Horizontal" >
+                            <ComboBox 
+                                Width="350" 
+                                Name="edtCustomer" 
+                                ItemsSource="{Binding}"
+                                DisplayMemberPath="name"
+                                SelectedValuePath="id"   
+                                SelectionChanged="edtCustomer_SelectionChanged" />
+                            <Button                         
+                                Margin="2"
+                                Click="btnAccountSelect_Click"
+                                Name="btnAccountSelect"                                                 
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                <Button.Content>
+                                    <Image Height="auto" Width="15" Source="\Content\Icons\IconSelect.png" />
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        
+                        <TextBox Name="edtUNN"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Margin="2" />
+                        <TextBox Name="edtAddress"  Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Margin="2" />
+                        <TextBox Name="edtUnloading" Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="2" Margin="2" />
+                        <TextBox Name="edtTruckOwner"  Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="3" Margin="2" />
+                        <TextBox Name="edtBasement"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" Margin="2" />
+                        <TextBox Name="edtProcuration"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Margin="2" />
+                        <TextBox Name="edtDeliverer"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Margin="2" />
+                        <TextBox Name="edtAccepter"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Margin="2" />
+
+                        <TextBox Name="edtTripSheet"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="4" Margin="2" />
+                        <TextBox Name="edtDriver"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="5" Margin="2" />
+                        <TextBox Name="edtTruck"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="6" Margin="2" />
+                        <TextBox Name="edtTrailer"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="7" Margin="2" />
+
+
+                    </Grid>                    
+                </Border>
+            </Expander>
+
+            <!-- Таблица товаров -->
+            <Border 
+            Grid.Row="1"
+            CornerRadius="10"
+            BorderBrush="Aqua"
+            BorderThickness="1">
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="34" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="26" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="10,0,0,0"
+                    Orientation="Horizontal">
+                        <Button 
+                            ToolTip="Добавить товар в данную расходную накладную "
+                            Margin="0,0,2,0"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Click="btnSpareAdd_Click"
+                            Name="btnSpareAdd" >
+                            <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+                        </Button>
+                        <Button 
+                            ToolTip="Удалить товар из данной расходной накладной"
+                            Margin="0,0,2,0"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Click="btnSpareDelete_Click"
+                            Name="btnSpareDelete" >
+                            <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28"/>
+                        </Button>
+                    </StackPanel>
+                    <DataGrid Name="dgSpares" 
+                             Grid.Row="1"
+                             ItemsSource="{Binding}"
+                             AutoGenerateColumns="False"        
+                             IsReadOnly="True"                                                        
+                             CanUserReorderColumns="False"                              
+                             RowBackground="#FFF0F0F0"
+                             FontWeight="Normal" 
+                             HorizontalGridLinesBrush="LightGray" 
+                             VerticalGridLinesBrush="LightGray"
+                             Margin="10,5,5,0">
+                        <DataGrid.Columns>                            
+                            <DataGridTextColumn Width="0.05*" Binding="{Binding Path=codeShatem}" Header="Код"/>
+                            <DataGridTextColumn Width="0.05*" Binding="{Binding Path=code}" Header="Код маг."/>
+                            <DataGridTextColumn Width="0.125*" Binding="{Binding Path=SpareName}" Header="Наименование" />
+                            <DataGridTextColumn Width="0.05*" Binding="{Binding Path=BrandName}" Header="Брэнд"/>
+                            <DataGridTextColumn Width="0.085*" Binding="{Binding Path=quantity}" Header="Количество"/>
+                            <DataGridTextColumn Width="0.065*" Binding="{Binding Path=VatRateName}" Header="НДС, %"/>                            
+                            <DataGridTextColumn Width="0.075*" Binding="{Binding Path=purchase_price}" Header="Цена c НДС, руб"/>                            
+                            <DataGridTextColumn Width="0.1*" Binding="{Binding Path=sum1}" Header="Сумма с НДС, руб"/>
+                            <DataGridTextColumn Width="0.075*" Binding="{Binding Path=discount}" Header="Скидка, руб"/>
+                            <DataGridTextColumn Width="0.15*" Binding="{Binding Path=total1}" Header="Сумма со скидкой, руб"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Name="edtSum" Margin="20,0,0,0" Grid.Row="2" Content="Сумма: "/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="0,3,3,3"
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <CheckBox
+                ToolTip="Товары, указанные в накладной, не будут списаны"
+                Name="cbEmptySpareOutgo" IsEnabled="False" Content="Без списания" />
+            <Button 
+                ToolTip="Просмотр и печать товарного чека"
+                Margin="5,0,5,0"
+                Width="140"      
+                Click="btnSalesCheck_Click"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Name="btnSalesCheck">
+                <Button.Content>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\IconPrint.png" />
+                        <TextBlock Text="Товарный чек" 
+                                   Margin="2,0,0,0" 
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button 
+                ToolTip="Перейти к предварительному просмотру и печати текущей товарно-транспортной накладной с приложением"
+                Margin="5,0,5,0"
+                Width="180"      
+                Click="btnExporTtnNWithAppendix_Click"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Name="btnExporTtnNWithAppendix">
+                <Button.Content>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\IconPrint.png" />
+                        <TextBlock Text="ТТН + приложение" 
+                                   Margin="2,0,0,0" 
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>           
+            <Button 
+                ToolTip="Перейти к предварительному просмотру и печати текущей товарной накладной"
+                Margin="5,0,5,0"
+                Width="90"                
+                Click="btnExport_Click"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Name="btnExport">
+                <Button.Content>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\IconPrint.png" />
+                        <TextBlock Text="ТН" 
+                                   Margin="2,0,0,0" 
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button
+                ToolTip="Закрыть окно, сохранив внесенные измения"
+                Margin="5,0,5,0"
+                Width="80"      
+                Click="btnOk_Click"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Name="btnOk">
+                <Button.Content>
+                    <StackPanel 
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
+                        <TextBlock Text="Ок" Margin="2,0,10,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button
+                ToolTip="Закрыть окно, не сохраняя последние внесенные изменения"
+                Margin="5,0,5,0"
+                Width="90"
+                Click="btnCancel_Click"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Name="btnCancel">
+                <Button.Content>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\IconCancel.png" />
+                        <TextBlock Text="Отмена" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+
+</Window>

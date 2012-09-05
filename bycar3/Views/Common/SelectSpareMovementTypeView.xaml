@@ -1,0 +1,11 @@
+﻿<Window x:Class="bycar3.Views.Common.SelectSpareMovementTypeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Новая запись" Height="145" Width="230"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource ResourceKey=ShatemWindow}">
+    <Grid Width="208" Height="104">
+        <Button Content="Приход" Height="34" HorizontalAlignment="Left" Margin="12,12,0,0" Name="btnIncome" VerticalAlignment="Top" Width="184" Click="btnIncome_Click" />
+        <Button Content="Отгрузка" Height="34" HorizontalAlignment="Left" Margin="12,52,0,0" Name="btnOutgo" VerticalAlignment="Top" Width="184" Click="btnOutgo_Click" />
+    </Grid>
+</Window>

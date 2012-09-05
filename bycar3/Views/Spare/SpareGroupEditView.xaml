@@ -1,0 +1,60 @@
+﻿<Window x:Class="bycar3.Views.SpareGroupEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Группа" 
+        Height="160" 
+        Width="400" 
+        ResizeMode="NoResize"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        WindowStartupLocation="CenterScreen">    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition Width="0.65*"/>
+         </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5"
+            Content="Название группы"/>
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5"
+            Content="Краткое описание"/>
+        <TextBox 
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="8"
+            Name="edtName"/>
+        <TextBox 
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="8"
+            Name="edtDescr"/>
+        <StackPanel 
+            Grid.Row="2"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <Button
+                Name="btnOk"
+                Width="80"
+                Margin="8"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Click="btnOK_Click"
+                Content="Ok" />
+            <Button 
+                Name="btnCancel"
+                Width="80"
+                Margin="8"
+                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Click="btnCancel_Click"
+                Content="Отмена" />
+        </StackPanel>
+    </Grid>
+</Window>

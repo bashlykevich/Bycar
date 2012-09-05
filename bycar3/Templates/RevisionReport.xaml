@@ -1,0 +1,148 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              FontFamily="Times New Roman"
+              FontSize="13"
+              FontWeight="Bold"
+              PageHeight="29.7cm" 
+              PageWidth="21cm" 
+              ColumnWidth="21.5cm">
+    <Section Padding="35">
+        <Paragraph>Инвентаризация
+            <xrd:InlineDocumentValue PropertyName="p1" />
+        </Paragraph>
+        <Paragraph></Paragraph>
+
+        <!-- Таблица ТОВАРНЫЙ РАЗДЕЛ -->
+        <xrd:SectionDataGroup DataGroupName="ItemList">
+            <Table BorderBrush="Black"
+               BorderThickness="0.01cm"
+               CellSpacing="0">
+                <Table.Columns>
+                    <TableColumn Width="0.05*"/>
+                    <TableColumn Width="*"/>                    
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.2*"/>
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.15*"/>                    
+                </Table.Columns>
+                <TableRowGroup>
+                    <TableRow FontSize="10">
+                        <TableCell BorderBrush="Black"
+                                   BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                №
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Наименование
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Код маг.
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Код
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Остаток
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Фактически
+                            </Paragraph>
+                        </TableCell>                        
+                    </TableRow>
+                    <xrd:TableRowForDataTable 
+                        FontWeight="Normal"
+                        TableName="mtable">
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="t1" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="t2" />
+                            </Paragraph>
+                        </TableCell>                       
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="t4" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="t5" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="t6" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="t7" />
+                            </Paragraph>
+                        </TableCell>
+
+                    </xrd:TableRowForDataTable>
+                    <TableRow>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                            </Paragraph>
+                        </TableCell>                    
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                            </Paragraph>
+                        </TableCell>                      
+                    </TableRow>
+                </TableRowGroup>
+            </Table>
+        </xrd:SectionDataGroup>
+
+    </Section>
+</FlowDocument>

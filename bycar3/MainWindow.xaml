@@ -1,0 +1,351 @@
+﻿<Window x:Class="bycar3.MainWindow"
+        xmlns:l="clr-namespace:UIControls;assembly=UIControls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:bycar="clr-namespace:bycar3.Views.Main_window"
+        Title="IMBS: АРМ &quot;Драйв&quot;"
+        WindowState="Maximized" 
+        KeyDown="Window_KeyDown"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        MinHeight="700" 
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        MinWidth="800" mc:Ignorable="d">
+    <Grid 
+        Background="#FFAFCBF2">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="rdMenu"
+                           Height="30"/>
+            <RowDefinition Name="rdToolbar"
+                           Height="40"/>
+            <RowDefinition Name="rdWorkSpace"/>
+            <RowDefinition Name="rdStatusBar"
+                           Height="35"/>
+        </Grid.RowDefinitions>
+        <Menu Name="mMainMenu" 
+              Style="{DynamicResource ResourceKey=MainMenuStyle}"
+              Grid.Row="0"
+              IsMainMenu="True"               
+              Height="30"               
+              Padding="5,0,5,0">            
+            <MenuItem Header="_Справочники">
+                <MenuItem.Icon>
+                    <Image Height="20" Source="Content\Menu\m_books.png" />
+                </MenuItem.Icon>
+                <MenuItem Name="mi_Banks" Header="Банки" Click="mi_Banks_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\banks.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Brands" Header="Брэнды" Click="mi_Brands_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\brands.gif" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Currencies" Header="Валюты" Click="mi_Currencies_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\currency.jpg" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Units" Header="Единицы измерения" Click="mi_Units_Click" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\units-icon.jpg" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Accounts" Header="Контрагенты" Click="mi_Accounts_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\partner_32.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_CarMarks" Header="Марки автомобилей" Click="mi_CarMarks_Click" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\shopping_cart_32.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_CarProducers" Header="Производители автомобилей" Click="mi_CarProducers_Click" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\icon_car.gif" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Warehouses" Header="Склады" Click="mi_Warehouses_Click" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\icon_warehouse.jpg" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_VatRates" Header="Ставки НДС" Click="mi_VatRates_Click" >
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\vat_icon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>            
+            <MenuItem Header="_Настройки">
+                <MenuItem.Icon>
+                    <Image Height="20" Source="Content\Menu\m_settings.png" />
+                </MenuItem.Icon>
+                <MenuItem Name="mi_Settings_RevisionOn"
+                          Header="Ввод остатков"                          
+                          Click="mi_Settings_RevisionOn_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\dss_32.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem 
+                    Name="mi_Settings_Settings"
+                    Click="mi_Settings_Settings_Click"
+                    Header="Настройки программы">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\cvs_32.png" />
+                    </MenuItem.Icon>
+                </MenuItem>                
+                <MenuItem 
+                    Name="miLogout"
+                    Click="miLogout_Click"
+                    Header="Конец сеанса пользователя">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Icons\Log-Out-icon.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem                         
+                Header="_Отчёты">
+                <MenuItem.Icon>                    
+                        <Image Width="20" Height="20" Source="Content\Menu\report_32.png" />                    
+                </MenuItem.Icon>
+                <MenuItem Name="mi_Reports_DailySales" Header="Продажи за день/период" Click="mi_Reports_DailySales_Click">
+                    <MenuItem.Icon>
+                        <Image Height="20" Source="Content\Menu\r_sales_all.gif" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Reports_SpareSalesByCode" Header="Продажи запчасти за период" Click="mi_Reports_SpareSalesByCode_Click">
+                    <MenuItem.Icon>
+                        <Image Height="20" Source="Content\Menu\r_sales_one.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="mi_Reports_RequestList" Header="Лист заявки" Click="mi_Reports_RequestList_Click" >
+                    <MenuItem.Icon>
+                        <Image Height="20" Source="Content\Menu\r_request.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem 
+                Visibility="Hidden"
+                Header="_О программе">
+                <MenuItem.Icon>
+                    <Image Height="20" Source="Content\Menu\m_about.png" />
+                </MenuItem.Icon>
+                <MenuItem 
+                    Header="О программе"
+                    Name="miAbout_About"
+                    Click="miAbout_About_Click">
+                    <MenuItem.Icon>
+                        <Image Width="20" Height="20" Source="Content\Menu\icon-info.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Файл"
+                      Visibility="Hidden">
+                <MenuItem.Icon>
+                    <Image Height="20" Source="Content\Menu\m_file.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem         
+                Visibility="Hidden"
+                Header="_Отчёты Excel">
+                <MenuItem Name="mi_Reports_Test" Header="test" 
+                          IsEnabled="False"
+                          Click="mi_Reports_Test_Click" />
+                <MenuItem Name="mi_Reports_Remains" Header="Остатки" Click="mi_Reports_Remains_Click" />
+                <MenuItem Name="mi_Reports_Incomes" Header="Поступления" Click="mi_Reports_Incomes_Click"/>
+                <MenuItem Name="mi_Reports_Outgoes" Header="Отгрузки" Click="mi_Reports_Outgoes_Click"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Name="mToolBarTray"
+                    Orientation="Horizontal"
+                    Background="#FFAFCBF2"                    
+                    HorizontalAlignment="Stretch"
+                    Margin="4"
+                    Grid.Row="1">
+            <Button Name="btnWorkspaceSpares" 
+                    ToolTip="Переход к списку запчастей, разбитому на группы"
+                    Click="btnWorkspaceSpares_Click"
+                    Margin="0"
+                    VerticalAlignment="Stretch"                         
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Button.Content>
+                    <Grid Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Grid.Column="0"
+                            Source="Content\Icons\IconSpares.png"/>
+                        <TextBlock 
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Номенклатура"/>
+                    </Grid>
+                </Button.Content>
+            </Button>            
+            <Button Name="btnWorkspaceMovements"
+                    ToolTip="Переход к спискам поступлений, отгрузок, счет-фактур, переоценок"
+                    Click="btnWorkspaceMovements_Click"                        
+                    Margin="2,0,2,0"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    VerticalAlignment="Stretch" >
+                <Button.Content>
+                    <Grid Margin="2,0,2,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Grid.Column="0"
+                            Source="Content\Icons\IconMovements.png"/>
+                        <TextBlock 
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Документооборот"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button Name="btnRevision" 
+                    ToolTip="Переход в окное инвентаризации, в котором можно провести сравнение отчетных данных с фактическими"
+                    Click="btnRevision_Click"
+                    Margin="0"
+                    VerticalAlignment="Stretch"                         
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Button.Content>
+                    <Grid Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Grid.Column="0"
+                            Width="30"
+                            Source="Content\Icons\icon-inventory.png"/>
+                        <TextBlock 
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Инвентаризация"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button Name="btnItemAdd"  
+                    ToolTip="Добавить новый товар в базу"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="btnItemAdd_Click">
+                <Image Source="Content\Icons\IconNew.png" Height="26" />
+            </Button>
+            <Button Name="btnItemEdit"
+                    ToolTip="Редактировать выделенный товар"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="btnItemEdit_Click">
+                <Image Source="Content\Icons\IconEdit.png" Height="26"/>
+            </Button>
+            <Button Name="btnItemCopy"
+                    ToolTip="Создать копию выделенной записи"
+                    IsEnabled="False"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="btnItemCopy_Click">
+                <Image Source="Content\Icons\IconCopy.png" Height="26"/>
+            </Button>
+            <Button  Name="btnItemDelete"
+                     ToolTip="Удалить из базы выделенный товар"
+                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                     Click="btnItemDelete_Click">
+                <Image Source="Content\Icons\IconDelete.png" Height="26"/>
+            </Button>            
+            <ComboBox Name="edtSearchField" 
+                      ToolTip="Выберите поле, по которому будет производиться поиск товара"
+                      Margin="20,0,0,0"
+                      SelectionChanged="edtSearchField_SelectionChanged"
+                      Height="22"
+                      Width="110px">
+                <ComboBoxItem Content="код магазина" IsSelected="True"/>
+                <ComboBoxItem Content="наименование"/>
+                <ComboBoxItem Content="код"/>                
+            </ComboBox>            
+            <l:SearchTextBox Name="edtSearchText" 
+                             Height="21" 
+                             Width="200"        
+                             KeyDown="edtSearchText_KeyDown"
+                             SearchMode="Instant"
+                             Search="SearchTextBox_Search"   />
+            <ToggleButton 
+                Visibility="Collapsed"
+                Name="tbtnSearchOnly"
+                Margin="1"                
+                VerticalAlignment="Stretch"  
+                Content="ЛУПА"/>
+            <CheckBox
+                ToolTip="Отобразить только товары в наличии"
+                Name="edtShowRests"
+                Content="Остатки"
+                Margin="8,8,8,2"
+                Click="edtShowRests_Click"/>
+            <Image 
+                Margin="3,0,5,0"
+                Height="26"
+                Source="Content\Icons\IconRemains.png"/>
+            <StackPanel Name="spRevisionPanel" 
+                        Height="30"
+                        Orientation="Horizontal"
+                        Margin="10,0,5,0">
+                <Label 
+                    Margin="3,3,0,3"
+                    Content="Валюта: "/>
+                <ComboBox Name="edtCurrentCurrency" 
+                          ToolTip="Выберите валюту, в которой будет отображаться стоимость поступлений в данном окне"
+                          SelectionChanged="edtCurrentCurrency_SelectionChanged"
+                          Margin="4"
+                          Width="70"/>
+                <Image 
+                    Margin="3,0,3,0"
+                    Height="26"
+                Source="Content\Icons\IconCurrency.png"/>                
+            </StackPanel>            
+            <ToggleButton Name="btnBasket" 
+                          Visibility="Visible"
+                    ToolTip="Режим корзины"
+                          Focusable="False"
+                    Click="btnBasket_Click"
+                    PreviewGotKeyboardFocus="btnBasket_PreviewGotKeyboardFocus"
+                    Margin="1"                          
+                    VerticalAlignment="Stretch"                         
+                    HorizontalAlignment="Right">
+                <ToggleButton.Content>
+                    <Grid Margin="2,0,2,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Grid.Column="0"
+                            Source="Content\Icons\IconSpares.png"/>
+                        <TextBlock 
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text=" Корзина "/>
+                    </Grid>
+                </ToggleButton.Content>
+            </ToggleButton>
+        </StackPanel>
+        <Grid Name="mMainGrid"
+                      Background="#FFAFCBF2"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Grid.Row="2">
+        </Grid>
+        <StatusBar Name="mStatusBar"                   
+                   Background="#FFAFCBF2"
+                   Grid.Row="3">
+            <StatusBarItem>                
+                <Label Name="lbSparesQ" HorizontalAlignment="Stretch" />
+            </StatusBarItem>
+        </StatusBar>        
+    </Grid>
+</Window>

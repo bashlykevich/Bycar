@@ -1,0 +1,50 @@
+﻿<Window x:Class="bycar3.Views.BrandsEditView"
+        Icon="\Content\Menu\brands.gif"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Брэнд" Height="205" Width="447" 
+        ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource ResourceKey=ShatemWindow}">
+    <Grid Height="155">
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,12,12,0" Name="edtName" VerticalAlignment="Top" Width="290" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Название брэнда" VerticalAlignment="Top" Width="105" />
+        <TextBox Height="61" HorizontalAlignment="Right" Margin="0,41,12,0" Name="edtDescr" VerticalAlignment="Top" Width="290" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="tbDesc" Text="Описание" VerticalAlignment="Top" Width="92" />
+                
+        <Button
+            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+             Margin="328,122,10,0"
+		HorizontalAlignment="Left"
+	        VerticalAlignment="Top" 
+                Width="90"
+                Click="button1_Click"
+                Name="btnCancel">
+            <Button.Content>
+                <StackPanel
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                    <Image Height="auto" Width="30" Source="\Content\Icons\IconCancel.png" />
+                    <TextBlock Text="Отмена" Margin="2,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button      
+            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                Width="80"                  
+                Click="btnOK_Click"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Margin="247,122,10,0" 
+                Name="btnOk">
+            <Button.Content>
+                <StackPanel 
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                    <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
+                    <TextBlock Text="Ок" Margin="2,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>

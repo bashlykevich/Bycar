@@ -1,0 +1,923 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C6D2016F-8329-4416-991F-C3434D7684C2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bycar3</RootNamespace>
+    <AssemblyName>bycar3</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Classic_Truck.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodeReason.Reports">
+      <HintPath>Libs\CodeReason.Reports.dll</HintPath>
+    </Reference>
+    <Reference Include="DataStreams">
+      <HintPath>Libs\DataStreams.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="Rubenhak.Common.WPF">
+      <HintPath>Libs\Rubenhak.Common.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="UIControls">
+      <HintPath>Libs\UIControls.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\WPFToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="bycar.cs" />
+    <Compile Include="Core\Marvin.cs" />
+    <Compile Include="External Code\ConsoleManager.cs" />
+    <Compile Include="Reporting\ReportViewDailySales.xaml.cs">
+      <DependentUpon>ReportViewDailySales.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSalesCheck.xaml.cs">
+      <DependentUpon>ReportViewSalesCheck.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSpareSalesByPeriod.xaml.cs">
+      <DependentUpon>ReportViewSpareSalesByPeriod.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="External Code\BalloonDecorator.cs" />
+    <Compile Include="External Code\CurrencyHelper.cs" />
+    <Compile Include="External Code\Office2003XmlTable.cs" />
+    <Compile Include="External Code\PagingCollectionView.cs" />
+    <Compile Include="External Code\RusNumber.cs" />
+    <Compile Include="Reporting\Reporter.cs" />
+    <Compile Include="Reporting\ReportViewInvoice.xaml.cs">
+      <DependentUpon>ReportViewInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewOverpricing.xaml.cs">
+      <DependentUpon>ReportViewOverpricing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewRequest.xaml.cs">
+      <DependentUpon>ReportViewRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewRevision.xaml.cs">
+      <DependentUpon>ReportViewRevision.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSpareOutgoTTN.xaml.cs">
+      <DependentUpon>ReportViewSpareOutgoTTN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSpareOutgoTTNAppendix.xaml.cs">
+      <DependentUpon>ReportViewSpareOutgoTTNAppendix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSpareOutgoTTNWithAppendix.xaml.cs">
+      <DependentUpon>ReportViewSpareOutgoTTNWithAppendix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\NbrbServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\AccountsEditView.xaml.cs">
+      <DependentUpon>AccountsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\AccountsView.xaml.cs">
+      <DependentUpon>AccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account Types\AccountTypesEditView.xaml.cs">
+      <DependentUpon>AccountTypesEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account Types\AccountTypesView.xaml.cs">
+      <DependentUpon>AccountTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\BankAccountEditView.xaml.cs">
+      <DependentUpon>BankAccountEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin Units\AdminUnitsEditView.xaml.cs">
+      <DependentUpon>AdminUnitsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin Units\AdminUnitsView.xaml.cs">
+      <DependentUpon>AdminUnitsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin Units\UserEditView.xaml.cs">
+      <DependentUpon>UserEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\ConnectionView.xaml.cs">
+      <DependentUpon>ConnectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Banks\BanksEditView.xaml.cs">
+      <DependentUpon>BanksEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Banks\BanksView.xaml.cs">
+      <DependentUpon>BanksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Brands\BrandsEditView.xaml.cs">
+      <DependentUpon>BrandsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Brands\BrandsView.xaml.cs">
+      <DependentUpon>BrandsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CarMarksProducers\CarMarksEditView.xaml.cs">
+      <DependentUpon>CarMarksEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CarMarksProducers\CarMarksView.xaml.cs">
+      <DependentUpon>CarMarksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CarMarksProducers\CarProducersEditView.xaml.cs">
+      <DependentUpon>CarProducersEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CarMarksProducers\CarProducersView.xaml.cs">
+      <DependentUpon>CarProducersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clients\ClientsEditView.xaml.cs">
+      <DependentUpon>ClientsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clients\ClientsView.xaml.cs">
+      <DependentUpon>ClientsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\LoadingWindowView.xaml.cs">
+      <DependentUpon>LoadingWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\ProfileBankAccountDialog.xaml.cs">
+      <DependentUpon>ProfileBankAccountDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SelectReportDataView.xaml.cs">
+      <DependentUpon>SelectReportDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SelectReportSalesByCodeDate.xaml.cs">
+      <DependentUpon>SelectReportSalesByCodeDate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SelectSpareMovementTypeView.xaml.cs">
+      <DependentUpon>SelectSpareMovementTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SelectView.xaml.cs">
+      <DependentUpon>SelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SimpleSpareSelectView.xaml.cs">
+      <DependentUpon>SimpleSpareSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contacts\ContactsEditView.xaml.cs">
+      <DependentUpon>ContactsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contacts\ContactsView.xaml.cs">
+      <DependentUpon>ContactsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Currency\CurrenciesByDatesView.xaml.cs">
+      <DependentUpon>CurrenciesByDatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Currency\CurrenciesEditView.xaml.cs">
+      <DependentUpon>CurrenciesEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Currency\CurrenciesInput.xaml.cs">
+      <DependentUpon>CurrenciesInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Currency\CurrenciesView.xaml.cs">
+      <DependentUpon>CurrenciesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Currency\CurrencyRateEditView.xaml.cs">
+      <DependentUpon>CurrencyRateEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Invoice\InvoiceEditView.xaml.cs">
+      <DependentUpon>InvoiceEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Invoice\SpareInInvoiceEditView.xaml.cs">
+      <DependentUpon>SpareInInvoiceEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Invoice\SpareInInvoiceSelectView2.xaml.cs">
+      <DependentUpon>SpareInInvoiceSelectView2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main window\UCBasket.xaml.cs">
+      <DependentUpon>UCBasket.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main window\UCMovements.xaml.cs">
+      <DependentUpon>UCMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main window\UCSpares.xaml.cs">
+      <DependentUpon>UCSpares.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overpricing\OverpricingEditView.xaml.cs">
+      <DependentUpon>OverpricingEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overpricing\SpareInOverpricingSelectView.xaml.cs">
+      <DependentUpon>SpareInOverpricingSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reporting\OfferingMovement\OfferingMovementReportView.xaml.cs">
+      <DependentUpon>OfferingMovementReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reporting\ReportFilterIncomesView.xaml.cs">
+      <DependentUpon>ReportFilterIncomesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reporting\ReportFilterOutgoesView.xaml.cs">
+      <DependentUpon>ReportFilterOutgoesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reporting\ReportFilterRemainsView.xaml.cs">
+      <DependentUpon>ReportFilterRemainsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportViewSpareOutgo.xaml.cs">
+      <DependentUpon>ReportViewSpareOutgo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reporting\SimpleReport.xaml.cs">
+      <DependentUpon>SimpleReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\RequestEditView.xaml.cs">
+      <DependentUpon>RequestEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\SpareInRequestSelectView.xaml.cs">
+      <DependentUpon>SpareInRequestSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Revision2\Revision2EditView.xaml.cs">
+      <DependentUpon>Revision2EditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Revision3\Revision3EditView.xaml.cs">
+      <DependentUpon>Revision3EditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Revision\RevisionEditView.xaml.cs">
+      <DependentUpon>RevisionEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Revision\SpareInRevisionSelectView.xaml.cs">
+      <DependentUpon>SpareInRevisionSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sales\SaleEditView.xaml.cs">
+      <DependentUpon>SaleEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Income\SpareIncomeEditView.xaml.cs">
+      <DependentUpon>SpareIncomeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Income\SpareIncomeSmart.xaml.cs">
+      <DependentUpon>SpareIncomeSmart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Income\SpareInIncomeEditView.xaml.cs">
+      <DependentUpon>SpareInIncomeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Income\SpareInIncomeSelectView.xaml.cs">
+      <DependentUpon>SpareInIncomeSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Income\SpareInIncomeSimpleEditView.xaml.cs">
+      <DependentUpon>SpareInIncomeSimpleEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Outgo\SpareInOutgoEditView.xaml.cs">
+      <DependentUpon>SpareInOutgoEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Outgo\SpareInOutgoSelectView.xaml.cs">
+      <DependentUpon>SpareInOutgoSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare Outgo\SpareOutgoEditView.xaml.cs">
+      <DependentUpon>SpareOutgoEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare\SpareAnalogueEditView.xaml.cs">
+      <DependentUpon>SpareAnalogueEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare\SpareEditView.xaml.cs">
+      <DependentUpon>SpareEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Spare\SpareGroupEditView.xaml.cs">
+      <DependentUpon>SpareGroupEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\UnitsEditView.xaml.cs">
+      <DependentUpon>UnitsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\UnitsView.xaml.cs">
+      <DependentUpon>UnitsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VAT Rates\VATRatesEditView.xaml.cs">
+      <DependentUpon>VATRatesEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VAT Rates\VATRatesView.xaml.cs">
+      <DependentUpon>VATRatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\WarehousesEditView.xaml.cs">
+      <DependentUpon>WarehousesEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\WarehousesView.xaml.cs">
+      <DependentUpon>WarehousesView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Resource Include="Content\Icons\KnobAdd.png" />
+    <Resource Include="Content\Icons\KnobRemove.png" />
+    <Resource Include="Content\Menu\cvs_32.png" />
+    <Resource Include="Content\Menu\dss_32.png" />
+    <Resource Include="Content\Menu\partner_32.png" />
+    <Resource Include="Content\Menu\proyector_32.png" />
+    <Resource Include="Content\Menu\report_32.png" />
+    <Resource Include="Content\Menu\sales_32.png" />
+    <Resource Include="Content\Menu\shopping_cart_32.png" />
+    <Resource Include="Content\Menu\banks.png" />
+    <Resource Include="Content\Menu\bank_icon.jpg" />
+    <Resource Include="Content\Menu\brands.gif" />
+    <Resource Include="Content\Menu\currency.jpg" />
+    <Resource Include="Content\Menu\units-icon.jpg" />
+    <Resource Include="Content\Menu\cars.gif" />
+    <Resource Include="Content\Menu\icon_brands.png" />
+    <Resource Include="Content\Menu\icon_car.gif" />
+    <Resource Include="Content\Menu\icon_warehouse.jpg" />
+    <Resource Include="Content\Menu\main.gif" />
+    <Resource Include="Content\Menu\vat_icon.jpg" />
+    <Resource Include="Content\Menu\vat_icon.png" />
+    <Resource Include="Content\Menu\warehouse-icon.gif" />
+    <Resource Include="Content\Menu\icon-info.png" />
+    <Resource Include="Content\img\OutgoByInvoice.png" />
+    <Resource Include="Content\Menu\m_about.png" />
+    <Resource Include="Content\Menu\m_books.png" />
+    <Resource Include="Content\Menu\m_file.png" />
+    <Resource Include="Content\Menu\m_settings.png" />
+    <Resource Include="Content\Icons\icon-inventory.gif" />
+    <Resource Include="Content\Icons\icon-inventory.png" />
+    <Resource Include="Content\Icons\invoices.png" />
+    <Resource Include="Content\Icons\overpricing.png" />
+    <Resource Include="Content\Icons\edit-clear.png" />
+    <Resource Include="Content\Icons\Ok-icon.png" />
+    <Resource Include="Content\Icons\overpricingfill.png" />
+    <Resource Include="Content\Icons\icon-recalc.png" />
+    <Resource Include="Content\Menu\i_analogues.png" />
+    <Resource Include="Content\Menu\i_income.png" />
+    <Resource Include="Content\Menu\r_request.png" />
+    <Resource Include="Content\Menu\r_sales_all.gif" />
+    <Resource Include="Content\Menu\r_sales_one.png" />
+    <Resource Include="Content\Icons\icon_overview.gif" />
+    <Resource Include="Content\Icons\1768.png" />
+    <Resource Include="Content\Icons\Gear.png" />
+    <Resource Include="Content\Icons\Misc Settings.png" />
+    <Resource Include="Content\Icons\profile_edit.png" />
+    <Resource Include="Content\Icons\User-icon.png" />
+    <Resource Include="Content\Icons\Log-Out-icon.png" />
+    <Content Include="Templates\OfferingMovementReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\SpareOutgoReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Reporting\ReportViewDailySales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewOverpricing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewRevision.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewSalesCheck.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewSpareOutgoTTN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Include="Templates\SpareOutgoTTNReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Reporting\ReportViewSpareOutgoTTNAppendix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Include="Templates\SpareOutgoTTNAppendixReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Reporting\ReportViewSpareOutgoTTNWithAppendix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Include="Templates\SpareOutgoTTNWithAppendixReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\InvoiceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\OverpricingReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\RequestReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\RevisionReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Reporting\ReportViewSpareSalesByPeriod.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Content Include="Templates\DailySalesReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\SpareSalesByCodePeriodReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\SalesCheckReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Views\Account\AccountsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\AccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account Types\AccountTypesEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account Types\AccountTypesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\BankAccountEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin Units\AdminUnitsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin Units\AdminUnitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin Units\UserEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administration\ConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Banks\BanksEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Banks\BanksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Brands\BrandsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Brands\BrandsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CarMarksProducers\CarMarksEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CarMarksProducers\CarMarksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CarMarksProducers\CarProducersEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CarMarksProducers\CarProducersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clients\ClientsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clients\ClientsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\LoadingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\ProfileBankAccountDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SelectReportDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SelectReportSalesByCodeDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SelectSpareMovementTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SimpleSpareSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contacts\ContactsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contacts\ContactsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Currency\CurrenciesByDatesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Currency\CurrenciesEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Currency\CurrenciesInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Currency\CurrenciesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Currency\CurrencyRateEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Invoice\InvoiceEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Invoice\SpareInInvoiceEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Invoice\SpareInInvoiceSelectView2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main window\UCBasket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main window\UCMovements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main window\UCSpares.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overpricing\OverpricingEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overpricing\SpareInOverpricingSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reporting\OfferingMovement\OfferingMovementReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reporting\ReportFilterIncomesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reporting\ReportFilterOutgoesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reporting\ReportFilterRemainsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\ReportViewSpareOutgo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reporting\SimpleReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\RequestEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\SpareInRequestSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Revision2\Revision2EditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Revision3\Revision3EditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Revision\RevisionEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Revision\SpareInRevisionSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sales\SaleEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Income\SpareIncomeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Income\SpareIncomeSmart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Income\SpareInIncomeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Income\SpareInIncomeSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Income\SpareInIncomeSimpleEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Outgo\SpareInOutgoEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Outgo\SpareInOutgoSelectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare Outgo\SpareOutgoEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare\SpareAnalogueEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare\SpareEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Spare\SpareGroupEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Units\UnitsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Units\UnitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VAT Rates\VATRatesEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VAT Rates\VATRatesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Warehouse\WarehousesEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Warehouse\WarehousesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Service References\NbrbServiceReference\ExRates.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bycar\bycar.csproj">
+      <Project>{43A3ABB2-BAF1-4420-8CF2-F0D3CE85D1B1}</Project>
+      <Name>bycar</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NbrbServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\NbrbServiceReference\configuration.svcinfo" />
+    <None Include="Service References\NbrbServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\NbrbServiceReference\ExRates.disco" />
+    <Resource Include="Content\img\img_copy.png" />
+    <Resource Include="Content\img\img_delete.png" />
+    <Resource Include="Content\img\img_edit.png" />
+    <Resource Include="Content\img\img_new.png" />
+    <Resource Include="Content\img\search-icon.png" />
+    <None Include="Classic_Truck.ico" />
+    <Resource Include="Content\img\minus.png" />
+    <Resource Include="Content\img\plus.png" />
+    <Resource Include="Content\img\IconMovements.png" />
+    <Resource Include="Content\img\IconSearch.png" />
+    <Resource Include="Content\img\IconSpares.png" />
+    <Resource Include="Content\img\IconAdd.png" />
+    <Resource Include="Content\img\IconCopy.png" />
+    <Resource Include="Content\img\IconDelete.png" />
+    <Resource Include="Content\img\IconEdit.png" />
+    <Resource Include="Content\img\IconSearch2.png" />
+    <Resource Include="Content\Icons\IconCancel.png" />
+    <Resource Include="Content\Icons\IconCopy.png" />
+    <Resource Include="Content\Icons\IconCurrency.png" />
+    <Resource Include="Content\Icons\IconDelete.png" />
+    <Resource Include="Content\Icons\IconDetailDelete.png" />
+    <Resource Include="Content\Icons\IconDetailEdit.png" />
+    <Resource Include="Content\Icons\IconDetailNew.png" />
+    <Resource Include="Content\Icons\IconEdit.png" />
+    <Resource Include="Content\Icons\IconMovements.png" />
+    <Resource Include="Content\Icons\IconNew.png" />
+    <Resource Include="Content\Icons\IconOk.png" />
+    <Resource Include="Content\Icons\IconPrint.png" />
+    <Resource Include="Content\Icons\IconSpares.png" />
+    <Resource Include="Content\Icons\IconMovesIN.png" />
+    <Resource Include="Content\Icons\IconMovesOut.png" />
+    <Resource Include="Content\Icons\IconSelect.png" />
+    <Resource Include="Content\Icons\IconRemains.png" />
+    <Content Include="Libs\WPFToolkit.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\NbrbServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

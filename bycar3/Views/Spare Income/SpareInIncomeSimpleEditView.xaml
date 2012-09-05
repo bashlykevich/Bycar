@@ -1,0 +1,65 @@
+﻿<Window x:Class="bycar3.Views.Spare_Income.SpareInIncomeSimpleEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        ResizeMode="NoResize"
+        xmlns:custom="clr-namespace:Samples.Controls"
+        xmlns:local="clr-namespace:Rubenhak.Common.WPF;assembly=Rubenhak.Common.WPF"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        Title="Товар в накладной" Height="276" Width="278">
+    <Grid Height="233" Width="248">
+        <TextBox local:TextBoxMaskBehavior.Mask="Decimal" 
+                 local:TextBoxMaskBehavior.MinimumValue="0"                  
+                 KeyboardNavigation.TabIndex="0"
+                 Height="23" 
+                 Width="120" 
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Top" 
+                 Margin="117,7,0,0" 
+                 Name="edtQ"                                   
+                 TextChanged="edtQ_TextChanged" 
+                 KeyUp="edtQ_KeyUp"
+                 GotFocus="edtQ_GotFocus" />
+        <Label Content="Количество" Height="28" HorizontalAlignment="Left" Margin="12,6,0,0" Name="label1" VerticalAlignment="Top" Width="99" />
+        <Label Content="Отпускная цена" Height="28" HorizontalAlignment="Left" Margin="12,34,0,0" Name="label2" VerticalAlignment="Top" Width="99" />
+
+        <TextBox local:TextBoxMaskBehavior.Mask="Decimal" 
+                 local:TextBoxMaskBehavior.MinimumValue="0" 
+                 GotFocus="edtPriceFull_GotFocus"
+                 FocusableChanged="edtPriceFull_FocusableChanged"
+                 KeyUp="edtPriceFull_KeyUp"
+                 Height="23" 
+                 KeyboardNavigation.TabIndex="1"
+                 HorizontalAlignment="Left" 
+                 Margin="117,36,0,0" 
+                 Name="edtPriceFull" VerticalAlignment="Top" Width="120" TextChanged="edtPriceFull_TextChanged" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="117,65,0,0" 
+                 Name="textBox3" VerticalAlignment="Top" Width="120" IsEnabled="False" Text="Без НДС" />
+        <TextBox Height="23" HorizontalAlignment="Left" IsEnabled="False" Margin="117,94,0,0" Name="textBox4" VerticalAlignment="Top" Width="120" Text="0%" />
+        <TextBox Height="23" HorizontalAlignment="Left" IsEnabled="False" Margin="117,123,0,0" Name="edtPrice" VerticalAlignment="Top" Width="120" />
+        
+        <Label Content="НДС" Height="28" HorizontalAlignment="Left" Margin="12,65,0,0" Name="label3" VerticalAlignment="Top" Width="99" />
+        <Label Content="Надбавка" Height="28" HorizontalAlignment="Left" Margin="12,92,0,0" Name="label4" VerticalAlignment="Top" Width="99" />
+        <Label Content="Покупная цена" Height="28" HorizontalAlignment="Left" Margin="12,121,0,0" Name="label5" VerticalAlignment="Top" Width="99" />
+        
+        <TextBox Height="23" HorizontalAlignment="Left" IsEnabled="False" Margin="117,152,0,0" Name="edtTotalSum" VerticalAlignment="Top" Width="120" />
+        <Label Content="Сумма" Height="28" HorizontalAlignment="Left" Margin="12,150,0,0" Name="label6" VerticalAlignment="Top" Width="99" />
+
+        <Button Width="80"
+                Height="30"
+                KeyboardNavigation.TabIndex="2"
+                Click="btnOk_Click"
+                HorizontalAlignment="Left" Margin="161,198,0,0" Name="btnOk" 
+            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Button.Content>
+                <StackPanel 
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                    <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
+                    <TextBlock Text="Ок" Margin="2,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>

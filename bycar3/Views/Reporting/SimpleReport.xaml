@@ -1,0 +1,8 @@
+﻿<Window x:Class="bycar3.Views.Reporting.SimpleReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SimpleReport" Height="300" Width="534">
+    <Grid>
+        <DocumentViewer Name="documentViewer" />
+    </Grid>
+</Window>

@@ -1,0 +1,206 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              FontFamily="Times New Roman"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              PageWidth="29.7cm" PageHeight="21cm" ColumnWidth="29.5cm">
+    <xrd:ReportProperties>
+        <xrd:ReportProperties.ReportName>SimpleReport</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Накладная</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+    <Section Padding="80,90,20,10" FontSize="12">                    
+        <Paragraph 
+            FontSize="16"
+            TextAlignment="Center">Реестр розничных цен на товар №<xrd:InlineDocumentValue PropertyName="IncomeNumber" /> от <xrd:InlineDocumentValue PropertyName="IncomeDate" />
+        </Paragraph>
+        <Paragraph>
+            Приложение к <xrd:InlineDocumentValue PropertyName="BaseDoc" /> от <xrd:InlineDocumentValue PropertyName="BaseDocDate" />
+        </Paragraph>
+        <Paragraph>
+            Поставщик: <xrd:InlineDocumentValue PropertyName="AccountName" />
+        </Paragraph>
+        <xrd:SectionDataGroup DataGroupName="ItemList">            
+            <Table CellSpacing="0" BorderBrush="Black" BorderThickness="0.02cm">
+                <Table.Resources>
+                    <!-- Style for header/footer rows. -->
+                    <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="FontSize" Value="11"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+
+                    <!-- Style for data rows. -->
+                    <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+                        <Setter Property="FontSize" Value="10"/>
+                    </Style>
+
+                    <!-- Style for data cells. -->
+                    <Style TargetType="{x:Type TableCell}">
+                        <Setter Property="Padding" Value="0.1cm"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0.01cm"/>
+                    </Style>
+                </Table.Resources>
+
+                <Table.Columns>
+                    <TableColumn Width="0.05*" />                    
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.125*" />
+                </Table.Columns>
+                <TableRowGroup Style="{StaticResource headerFooterRowStyle}">
+                    <TableRow>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>№</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Наименование</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Код</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Код маг.</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Ед.изм.</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Кол-во</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Цена</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Надбавка %</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Надбавка</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>НДС, %</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>НДС</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Цена розн.</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Сумма</Bold>
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                </TableRowGroup>
+                <TableRowGroup Style="{StaticResource dataRowStyle}">
+                    <xrd:TableRowForDataTable TableName="OfferingsInMovement">
+                        <TableCell>
+                            <Paragraph>
+                                <xrd:InlineTableCellValue PropertyName="Number" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                <xrd:InlineTableCellValue PropertyName="SpareName" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                <xrd:InlineTableCellValue PropertyName="SpareCodeShatem" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                <xrd:InlineTableCellValue PropertyName="SpareCode" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                <xrd:InlineTableCellValue PropertyName="UnitName"/>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="quantity" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="Price" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="Markup"/>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="MarkupBasic" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="VAT" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="VATBasic"/>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="SalePrice" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="Amount"/>
+                            </Paragraph>
+                        </TableCell>
+                    </xrd:TableRowForDataTable>
+                </TableRowGroup>
+            </Table>
+        </xrd:SectionDataGroup>
+        <Paragraph>
+            Всего на сумму: <xrd:InlineDocumentValue PropertyName="StringSum" />
+        </Paragraph>
+        <Paragraph>
+            Товар получил: <xrd:InlineDocumentValue PropertyName="param1" />
+        </Paragraph>
+    </Section>
+</FlowDocument>
