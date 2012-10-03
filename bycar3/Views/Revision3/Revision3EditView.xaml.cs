@@ -299,6 +299,7 @@ namespace bycar3.Views.Revision3
             da = new DataAccess();            
             LoadGroups(false);
             LoadSpares();
+            edtDate.SelectedDate = DateTime.Now;
                
         }
 
@@ -469,7 +470,7 @@ namespace bycar3.Views.Revision3
             MessageBoxResult mbr = MessageBox.Show("Операция может занять некоторое время! Продолжить?", "Уведомление", MessageBoxButton.YesNo);
             if (mbr == MessageBoxResult.Yes)
             {
-                Reporter.GenerateRevisionReport(FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly));
+                Reporter.GenerateRevisionReport(FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly), edtDate.SelectedDate.Value);
             }
         }
 

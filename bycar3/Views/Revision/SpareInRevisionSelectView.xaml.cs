@@ -187,7 +187,8 @@ namespace bycar3.Views.Revision
             bool InRevisionExist = da.GetRemains(_SpareIncomeID).Where(x => x.SpareID == _SpareID).Count()>0;
             // если есть, спросить, добавить ли его новой позицией или приплюсовать 1 шт. к уже внесенному
             if (InRevisionExist)
-            {
+            {                
+
                 string QM = "Добавить отдельной позицией?";
                 // (ДА - появится новая строчка с данным товаром; НЕТ - добавится 1 шт. к уже существущей строчке с товаром)?";
                 if (MessageBox.Show(QM, "Есть такая деталь в списке!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -205,6 +206,18 @@ namespace bycar3.Views.Revision
                     offering.PInBasic = 0;
                     offering.POutBasic = 0;
                     offering.SBasic = 0;
+
+                    if (CurrencyRateCode == "BYR")
+                        offering.CurrencyID = 1;
+                    else
+                        if (CurrencyRateCode == "USD")
+                            offering.CurrencyID = 2;
+                        else
+                            if (CurrencyRateCode == "EUR")
+                                offering.CurrencyID = 3;
+                            else
+                                if (CurrencyRateCode == "RUR")
+                                    offering.CurrencyID = 4;
 
                     string VATName = "Без НДС";
                     da.InOfferingCreate(offering, _SpareID, _SpareIncomeID, VATName);
@@ -233,6 +246,18 @@ namespace bycar3.Views.Revision
                 offering.SBasic = 0;
 
                 string VATName = "Без НДС";
+
+                if(CurrencyRateCode == "BYR")
+                    offering.CurrencyID = 1; else
+                    if (CurrencyRateCode == "USD")
+                    offering.CurrencyID = 2;
+                else
+                        if (CurrencyRateCode == "EUR")
+                    offering.CurrencyID = 3;
+                else
+                            if (CurrencyRateCode == "RUR")
+                    offering.CurrencyID = 4;
+
                 da.InOfferingCreate(offering, _SpareID, _SpareIncomeID, VATName);
                 SpareContainer.Instance.Update(_SpareID);
             }            

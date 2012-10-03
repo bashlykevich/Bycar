@@ -25,12 +25,13 @@ namespace bycar3.Reporting
     public partial class ReportViewRevision : Window
     {
         List<SpareView> items = null;
-       
-        public ReportViewRevision(List<SpareView> itms)
+        DateTime d;
+        public ReportViewRevision(List<SpareView> itms, DateTime dt)
         {
             InitializeComponent();
             DataAccess da = new DataAccess();
             items = itms;
+            d = dt;
         }
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -80,9 +81,9 @@ namespace bycar3.Reporting
                     Marvin.Instance.Log(exc.Message);
                     throw exc;
                 }
-                string strDate = DateTime.Now.Day.ToString();
+                string strDate = d.Day.ToString();
                 string mnth = "";
-                switch (DateTime.Now.Month)
+                switch (d.Month)
                 {
                     case 1:
                         mnth = "января";
@@ -121,7 +122,7 @@ namespace bycar3.Reporting
                         mnth = "декабря";
                         break;
                 }
-                strDate += " " + mnth + " " + DateTime.Now.Year + " г.";
+                strDate += " " + mnth + " " + d.Year + " г.";
 
                 data.ReportDocumentValues.Add("p1", strDate); // print date is now                
 

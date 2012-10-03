@@ -27,13 +27,15 @@ namespace bycar3.Reporting
         #region DATAMEMBERS
         DateTime date = DateTime.Now;
         DateTime dateTo = DateTime.Now;
+        int warehouseID;
         #endregion
 
-        public ReportViewDailySales(DateTime dt, DateTime dtTo)
+        public ReportViewDailySales(DateTime dt, DateTime dtTo, int wid)
         {
             InitializeComponent();
             date = dt;
             dateTo = dtTo;
+            warehouseID = wid;
         }
         
         private void Window_Activated(object sender, EventArgs e)
@@ -56,6 +58,7 @@ namespace bycar3.Reporting
                 // описываем столбцы таблицы            
                 dt.Columns.Add("Num", typeof(int));
                 dt.Columns.Add("SpareName", typeof(string));
+                dt.Columns.Add("WarehouseName", typeof(string));
                 dt.Columns.Add("SpareCodeShatem", typeof(string));
                 dt.Columns.Add("SpareCode", typeof(string));                
                 dt.Columns.Add("Q", typeof(int));
@@ -65,7 +68,7 @@ namespace bycar3.Reporting
                 dt.Columns.Add("SaleDate", typeof(string));
                 
                 // забиваем таблицу данными                
-                List<SpareInSpareOutgoView> LIST2 = da.GetSpareInSpareOutgoByPeriod(date, dateTo);
+                List<SpareInSpareOutgoView> LIST2 = warehouseID>0?da.GetSpareInSpareOutgoByPeriod(date, dateTo, warehouseID): da.GetSpareInSpareOutgoByPeriod(date, dateTo);
                 decimal asum = 0;
                 try
                 {                    
@@ -75,7 +78,8 @@ namespace bycar3.Reporting
                         dt.Rows.Add(new object[] { 
                             i+1,
                             LIST2[i].SpareName,
-                            LIST2[i].codeShatem,   
+                            LIST2[i].WarehouseName,
+                            LIST2[i].codeShatem,                               
                             LIST2[i].code,
                             LIST2[i].quantity,
                             LIST2[i].purchase_price,
@@ -104,7 +108,7 @@ namespace bycar3.Reporting
                     strDate = strDateFrom + " - " + strDateTo;
                 }
                 data.ReportDocumentValues.Add("ReportDate", strDate); // print date is now
-                data.ReportDocumentValues.Add("asum", asum);
+                data.ReportDocumentValues.Add("asum", asum);                
                 data.DataTables.Add(dt);
                 
                 DateTime dateTimeStart = DateTime.Now; // start time measure here

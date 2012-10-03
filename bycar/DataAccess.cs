@@ -2954,6 +2954,16 @@ namespace bycar
                         select s;
             return items.ToList();
         }
+        public List<SpareInSpareOutgoView> GetSpareInSpareOutgoByPeriod(DateTime dfrom, DateTime dto, int warehouseID)
+        {
+            var items = from s in objDataContext.SpareInSpareOutgoViews
+                        where (s.OutgoDate.Value >= dfrom
+                        && s.OutgoDate.Value <= dto
+                        && s.WarehouseID == warehouseID)
+                        orderby s.OutgoDate.Value
+                        select s;
+            return items.ToList();
+        }
         public List<SpareInSpareOutgoView> GetSpareInSpareOutgoByCodePeriod(int SpareID, DateTime dfrom, DateTime dto)
         {            
             var items = from s in objDataContext.SpareInSpareOutgoViews

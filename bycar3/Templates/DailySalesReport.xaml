@@ -4,7 +4,7 @@
               FontFamily="Times New Roman"
               FontSize="13"
               FontWeight="Bold"
-              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="20.5cm">
+              PageWidth="29.7cm" PageHeight="21cm" ColumnWidth="29cm">
     <Section Padding="35">
 
         <Paragraph>Продажи за период</Paragraph>
@@ -21,6 +21,7 @@
                 <Table.Columns>
                     <TableColumn Width="0.075*"/>
                     <TableColumn Width="*"/>
+                    <TableColumn Width="0.2*"/>
                     <TableColumn Width="0.2*"/>
                     <TableColumn Width="0.2*"/>
                     <TableColumn Width="0.15*"/>
@@ -41,6 +42,12 @@
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
                                 Наименование
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Склад
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -104,6 +111,12 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Left">
+                                <xrd:InlineTableCellValue PropertyName="WarehouseName" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
                                 <xrd:InlineTableCellValue PropertyName="SpareCodeShatem" />
                             </Paragraph>
                         </TableCell>
@@ -154,6 +167,12 @@
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
                                 ИТОГО:
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"

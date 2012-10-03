@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using bycar;
 using System.Collections;
+using bycar.Utils;
 
 namespace bycar3.External_Code
 {
@@ -22,7 +23,41 @@ namespace bycar3.External_Code
                 return items; 
             }
         }
-        
+        double RS = 0;
+        public double RemainsSum()
+        {
+            if (spares == null)
+                Update();
+            return RS;
+        }
+        private double CalcRemainsSum()
+        {
+            RS = 0;                                    
+            List<SpareView> remains = spares.Where(i => i.QRest.HasValue).ToList();
+            remains = remains.Where(i => i.QRest > 0).ToList();
+            foreach (SpareView sv in remains)
+            {
+                DataAccess da = new DataAccess();
+                List<SpareInSpareIncomeView> items = da.GetIncomes(sv.id);
+                foreach (SpareInSpareIncomeView i in items)
+                {                    
+                    decimal POutBasic = 0;
+                    if (!i.POutBasic.HasValue)
+                    {
+                        string IncomeCurrencyCode = i.CurrencyCode;
+                        decimal PIn = i.PIn.Value;
+                        POutBasic = CurrencyHelper.GetBasicPrice(IncomeCurrencyCode, PIn);
+                    }
+                    else
+                    {
+                        POutBasic = i.POutBasic.Value;
+                    }
+                    RS += (double)(POutBasic*i.QRest.Value);
+                }
+            }
+            return RS;
+        }    
+
         public List<SpareView> Remains
         {
             get
@@ -51,6 +86,7 @@ namespace bycar3.External_Code
         {
             DataAccess da = new DataAccess();
             spares = da.GetSpares();
+            RS = CalcRemainsSum();
         }
         
         /*

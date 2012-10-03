@@ -8,10 +8,10 @@ namespace bycar3.Reporting
 {
     public class Reporter
     {
-        public static void GenerateRevisionReport(List<SpareView> items)
+        public static void GenerateRevisionReport(List<SpareView> items, DateTime dt)
         {
             //TODO: вывести показ отчета в отдельный процесс
-            ReportViewRevision r = new ReportViewRevision(items);
+            ReportViewRevision r = new ReportViewRevision(items, dt);
             r.ShowDialog();
         }
         public static void GenerateRequestReport()
@@ -74,10 +74,10 @@ namespace bycar3.Reporting
             ReportViewSpareOutgoTTNWithAppendix r = new ReportViewSpareOutgoTTNWithAppendix(SpareIncomeId);
             r.ShowDialog();
         }
-        public static void GenerateDailySalesReport(DateTime date, DateTime dateTo)
+        public static void GenerateDailySalesReport(DateTime date, DateTime dateTo, int WarehouseID)
         {
             //TODO: вывести показ отчета в отдельный процесс
-            ReportViewDailySales r = new ReportViewDailySales(date, dateTo);
+            ReportViewDailySales r = new ReportViewDailySales(date, dateTo, WarehouseID);
             r.ShowDialog();
         }
         public static void GenerateSpareSalesReportByPeriod(int SpareID, DateTime dateFrom, DateTime dateTo)

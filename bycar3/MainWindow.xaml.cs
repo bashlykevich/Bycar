@@ -34,6 +34,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Diagnostics;
 using bycar3.Core;
+using System.Globalization;
 
 namespace bycar3
 {
@@ -980,9 +981,16 @@ namespace bycar3
         }
         public void PrintRemains()
         {
-            lbSparesQ.Content = "Все наименования: " + SpareContainer.Instance.Spares.Count + ". ";
-            lbSparesQ.Content += "Наименования с остатком: " + SpareContainer.Instance.Remains.Count + ". ";
-            lbSparesQ.Content += "Сумма остатков: " + SpareContainer.Instance.Remains.Sum(x => x.QRest) + ". ";
+            lbSparesQ.Content = "Все наименования: "
+                                + SpareContainer.Instance.Spares.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
+                                + ". ";
+            lbSparesQ.Content += "Наименования с остатком: " 
+                                + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
+                                + ". ";
+            //lbSparesQ.Content += "Сумма остатков: " + SpareContainer.Instance.Remains.Sum(x => x.QRest) + ". ";            
+            lbSparesQ.Content += "Сумма остатков: " 
+                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
+                            + " единиц базовой валюты.";            
             // + "; остатков: " + SpareContainer.Instance.Remains.Count;
             //settings_profile p = da.getProfileCurrent();
             //if (p.UseScanner == 1)
@@ -1052,7 +1060,7 @@ namespace bycar3
             SelectReportDataView v = new SelectReportDataView();
             bool? res = v.ShowDialog();
             if (v.ReportDate.HasValue && v.ReportDateTo.HasValue)
-                Reporter.GenerateDailySalesReport(v.ReportDate.Value, v.ReportDateTo.Value);
+                Reporter.GenerateDailySalesReport(v.ReportDate.Value, v.ReportDateTo.Value, v.WarehouseID);
         }
 
         private void mi_Reports_SpareSalesByCode_Click(object sender, RoutedEventArgs e)

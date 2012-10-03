@@ -24,7 +24,7 @@ namespace bycar3.Views.Spare_Outgo
         public int _SpareID = -1;
         public string _SpareName = "";
         public int _SpareInSpareIncomeID = -1;
-        public int _AvailableQuantity = 0;
+        public decimal _AvailableQuantity = 0;
         public decimal _Price = 1;
         public int _SpareOutgoID = -1;
         public string CurrentCurrencyCode = "";
@@ -61,13 +61,13 @@ namespace bycar3.Views.Spare_Outgo
         }
         void CalculateSum()
         {
-            int Q = 0;
+            decimal Q = 0;
             decimal P = 0;
             decimal S = 0;
             decimal D = 0;
             decimal T = 0;
 
-            int.TryParse(edtQuantity.Text, out Q);
+            decimal.TryParse(edtQuantity.Text, out Q);
             if (Q > _AvailableQuantity)
             {
                 Q = _AvailableQuantity;
@@ -82,13 +82,13 @@ namespace bycar3.Views.Spare_Outgo
         }
         void CalculateSum2()
         {
-            
-            int Quantity = 0;
+
+            decimal Quantity = 0;
             decimal Discount = 0;
             decimal Price = 0;
             decimal Total = 0;
             decimal Sum1 = 0;
-            Int32.TryParse(edtQuantity.Text, out Quantity);
+            decimal.TryParse(edtQuantity.Text, out Quantity);
             decimal.TryParse(edtPrice.Text, out Price);
             decimal.TryParse(edtDiscount.Text, out Discount);
             Sum1 = Quantity * Price;

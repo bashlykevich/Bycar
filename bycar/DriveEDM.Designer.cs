@@ -749,22 +749,6 @@ namespace bycar
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SpareInSpareOutgoView> SpareInSpareOutgoViews
-        {
-            get
-            {
-                if ((_SpareInSpareOutgoViews == null))
-                {
-                    _SpareInSpareOutgoViews = base.CreateObjectSet<SpareInSpareOutgoView>("SpareInSpareOutgoViews");
-                }
-                return _SpareInSpareOutgoViews;
-            }
-        }
-        private ObjectSet<SpareInSpareOutgoView> _SpareInSpareOutgoViews;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SpareInSpareIncomeView> SpareInSpareIncomeViews
         {
             get
@@ -873,6 +857,22 @@ namespace bycar
             }
         }
         private ObjectSet<settings_profile> _settings_profile;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SpareInSpareOutgoView> SpareInSpareOutgoViews
+        {
+            get
+            {
+                if ((_SpareInSpareOutgoViews == null))
+                {
+                    _SpareInSpareOutgoViews = base.CreateObjectSet<SpareInSpareOutgoView>("SpareInSpareOutgoViews");
+                }
+                return _SpareInSpareOutgoViews;
+            }
+        }
+        private ObjectSet<SpareInSpareOutgoView> _SpareInSpareOutgoViews;
 
         #endregion
         #region AddTo Methods
@@ -1198,14 +1198,6 @@ namespace bycar
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SpareInSpareOutgoViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSpareInSpareOutgoViews(SpareInSpareOutgoView spareInSpareOutgoView)
-        {
-            base.AddObject("SpareInSpareOutgoViews", spareInSpareOutgoView);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SpareInSpareIncomeViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSpareInSpareIncomeViews(SpareInSpareIncomeView spareInSpareIncomeView)
@@ -1259,6 +1251,14 @@ namespace bycar
         public void AddTosettings_profile(settings_profile settings_profile)
         {
             base.AddObject("settings_profile", settings_profile);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SpareInSpareOutgoViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSpareInSpareOutgoViews(SpareInSpareOutgoView spareInSpareOutgoView)
+        {
+            base.AddObject("SpareInSpareOutgoViews", spareInSpareOutgoView);
         }
 
         #endregion
@@ -15637,6 +15637,54 @@ namespace bycar
         private global::System.Int32 _id;
         partial void OnidChanging(global::System.Int32 value);
         partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WarehouseID
+        {
+            get
+            {
+                return _WarehouseID;
+            }
+            set
+            {
+                OnWarehouseIDChanging(value);
+                ReportPropertyChanging("WarehouseID");
+                _WarehouseID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WarehouseID");
+                OnWarehouseIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WarehouseID;
+        partial void OnWarehouseIDChanging(Nullable<global::System.Int32> value);
+        partial void OnWarehouseIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WarehouseName
+        {
+            get
+            {
+                return _WarehouseName;
+            }
+            set
+            {
+                OnWarehouseNameChanging(value);
+                ReportPropertyChanging("WarehouseName");
+                _WarehouseName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WarehouseName");
+                OnWarehouseNameChanged();
+            }
+        }
+        private global::System.String _WarehouseName;
+        partial void OnWarehouseNameChanging(global::System.String value);
+        partial void OnWarehouseNameChanged();
 
         #endregion
     
