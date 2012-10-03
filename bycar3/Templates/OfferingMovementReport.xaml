@@ -7,7 +7,7 @@
         <xrd:ReportProperties.ReportName>SimpleReport</xrd:ReportProperties.ReportName>
         <xrd:ReportProperties.ReportTitle>Накладная</xrd:ReportProperties.ReportTitle>
     </xrd:ReportProperties>
-    <Section Padding="80,90,20,10" FontSize="12">                    
+    <Section Padding="15" FontSize="12">                    
         <Paragraph 
             FontSize="16"
             TextAlignment="Center">Реестр розничных цен на товар №<xrd:InlineDocumentValue PropertyName="IncomeNumber" /> от <xrd:InlineDocumentValue PropertyName="IncomeDate" />
@@ -44,17 +44,17 @@
                 <Table.Columns>
                     <TableColumn Width="0.05*" />                    
                     <TableColumn Width="*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.1*" />
-                    <TableColumn Width="0.125*" />
+                    <TableColumn Width="0.25*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
                 </Table.Columns>
                 <TableRowGroup Style="{StaticResource headerFooterRowStyle}">
                     <TableRow>
@@ -92,10 +92,20 @@
                             <Paragraph TextAlignment="Center">
                                 <Bold>Цена</Bold>
                             </Paragraph>
-                        </TableCell>
+                        </TableCell>                        
                         <TableCell>
                             <Paragraph TextAlignment="Center">
                                 <Bold>Надбавка %</Bold>
+                            </Paragraph>
+                        </TableCell>                        
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>НДС, %</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Сумма</Bold>
                             </Paragraph>
                         </TableCell>
                         <TableCell>
@@ -105,22 +115,12 @@
                         </TableCell>
                         <TableCell>
                             <Paragraph TextAlignment="Center">
-                                <Bold>НДС, %</Bold>
-                            </Paragraph>
-                        </TableCell>
-                        <TableCell>
-                            <Paragraph TextAlignment="Center">
                                 <Bold>НДС</Bold>
                             </Paragraph>
-                        </TableCell>
+                        </TableCell>                        
                         <TableCell>
                             <Paragraph TextAlignment="Center">
-                                <Bold>Цена розн.</Bold>
-                            </Paragraph>
-                        </TableCell>
-                        <TableCell>
-                            <Paragraph TextAlignment="Center">
-                                <Bold>Сумма</Bold>
+                                <Bold>Сумма + надбавка + НДС</Bold>
                             </Paragraph>
                         </TableCell>
                     </TableRow>
@@ -169,30 +169,67 @@
                         </TableCell>
                         <TableCell>
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="MarkupBasic" />
-                            </Paragraph>
-                        </TableCell>
-                        <TableCell>
-                            <Paragraph TextAlignment="Center">
                                 <xrd:InlineTableCellValue PropertyName="VAT" />
                             </Paragraph>
                         </TableCell>
                         <TableCell>
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="VATBasic"/>
+                                <xrd:InlineTableCellValue PropertyName="Sum" />
                             </Paragraph>
-                        </TableCell>
+                        </TableCell>                        
                         <TableCell>
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="SalePrice" />
+                                <xrd:InlineTableCellValue PropertyName="MarkupBasic" />
                             </Paragraph>
-                        </TableCell>
+                        </TableCell>                        
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="VATBasic"/>
+                            </Paragraph>
+                        </TableCell>                        
                         <TableCell>
                             <Paragraph TextAlignment="Center">
                                 <xrd:InlineTableCellValue PropertyName="Amount"/>
                             </Paragraph>
                         </TableCell>
                     </xrd:TableRowForDataTable>
+                </TableRowGroup>
+                <TableRowGroup Style="{StaticResource headerFooterRowStyle}">
+                    <TableRow>
+                        <TableCell ColumnSpan="9">
+                            <Paragraph TextAlignment="Left">
+                                ИТОГО:
+                            </Paragraph>
+                        </TableCell>                        
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>
+                                    <xrd:InlineDocumentValue PropertyName="TS" />
+                                </Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>
+                                    <xrd:InlineDocumentValue PropertyName="TMS" />
+                                </Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>
+                                    <xrd:InlineDocumentValue PropertyName="TVS" />
+                                </Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>
+                                    <xrd:InlineDocumentValue PropertyName="TTS" />
+                                </Bold>
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
                 </TableRowGroup>
             </Table>
         </xrd:SectionDataGroup>

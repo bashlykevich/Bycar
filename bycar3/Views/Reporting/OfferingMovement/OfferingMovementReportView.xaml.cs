@@ -59,6 +59,9 @@ namespace bycar3.Views.Reporting.OfferingMovement
                 data.ReportDocumentValues.Add("IncomeNumber", Income.num);
 
                 decimal ts = 0;
+                decimal _S = 0;
+                decimal _MS = 0;
+                decimal _VS = 0;                
                 DataAccess da = new DataAccess();
                 string BCC = da.getBasicCurrencyCode();
                 Income.currencyReference.Load();
@@ -73,12 +76,12 @@ namespace bycar3.Views.Reporting.OfferingMovement
                 dt.Columns.Add("SpareCode", typeof(string));
                 dt.Columns.Add("UnitName", typeof(string));
                 dt.Columns.Add("Quantity", typeof(int));
-                dt.Columns.Add("Price", typeof(double));
-                dt.Columns.Add("Markup", typeof(double));
-                dt.Columns.Add("MarkupBasic", typeof(double));
+                dt.Columns.Add("Price", typeof(double));                
+                dt.Columns.Add("Markup", typeof(double));                
                 dt.Columns.Add("VAT", typeof(double));
-                dt.Columns.Add("VATBasic", typeof(double));
-                dt.Columns.Add("SalePrice", typeof(double));
+                dt.Columns.Add("Sum", typeof(double));
+                dt.Columns.Add("MarkupBasic", typeof(double));
+                dt.Columns.Add("VATBasic", typeof(double));                
                 dt.Columns.Add("Amount", typeof(double));
                 // забиваем таблицу данными
                 List<ReportIncome> list = new List<ReportIncome>();                
@@ -88,42 +91,39 @@ namespace bycar3.Views.Reporting.OfferingMovement
                     string CompanyName = da.getProfileCurrent().CompanyName;                    
                     for (int i = 0; i < list.Count; i++)
                     {
-                        decimal Price = list[i].PIn.Value;
-                        decimal PriceFull = list[i].POut.Value;
-                        decimal Vat = Price * list[i].VatRate / 100;                        
-                        decimal Total = list[i].S.Value;                                                
-                        decimal up = Price * list[i].Markup / 100;
-                        ts += Total;
+                        decimal Q = list[i].QIn;
+                        decimal P = list[i].PIn.Value;
+                        decimal S = P * Q;
+                        decimal M = list[i].Markup;
+                        decimal V = list[i].VatRate;
+                        decimal T = list[i].S.Value;
+                        decimal MS = S * M / 100;
+                        decimal VS = S * V / 100;
+                        //MS = Math.Round(MS * 100) / 100;
+                        //VS = Math.Round(VS * 100) / 100;
+
+                        _MS += MS;
+                        _VS += VS;
+                        _S += S;
+                        ts += T;
                                                
                         dt.Rows.Add(
-                            new object[] {
-                            // Number int
-                            i+1,
-                            //dt.Columns.Add("SpareName", typeof(string));
+                            new object[] {                            
+                            i+1,                            
                             list[i].SpareName,
                             list[i].codeShatem,
-                            list[i].code,
-                //dt.Columns.Add("UnitName", typeof(string));
-                            list[i].UnitName,
-                //dt.Columns.Add("Quantity", int
-                            list[i].QIn,
-                //dt.Columns.Add("Price", double
-                            Price,
-                //dt.Columns.Add("Markup", double
-                            list[i].Markup,
-                //dt.Columns.Add("MarkupBasic", double
-                            up,
-                //dt.Columns.Add("VAT", double
-                            list[i].VatRate,
-                //dt.Columns.Add("VATBasic", double
-                            Vat,
-                //dt.Columns.Add("SalePrice", double
-                            PriceFull,
-                //dt.Columns.Add("Amount", double
-                            Total
+                            list[i].code,                
+                            list[i].UnitName,                
+                            Q,                
+                            P,
+                            M,
+                            V,
+                            S,
+                            MS,
+                            VS,
+                            T
                              });
                     }
-
                 }
                 catch (Exception exc)
                 {
@@ -132,6 +132,10 @@ namespace bycar3.Views.Reporting.OfferingMovement
                 string sts = RSDN.RusCurrency.Str(ts, CCC);
                 data.ReportDocumentValues.Add("StringSum", sts);
                 settings_profile profile = da.getProfileCurrent();
+                data.ReportDocumentValues.Add("TS", _S);
+                data.ReportDocumentValues.Add("TMS", _MS);
+                data.ReportDocumentValues.Add("TVS", _VS);
+                data.ReportDocumentValues.Add("TTS", ts);
                 data.ReportDocumentValues.Add("param1", profile.CompanyHead);
                 data.ReportDocumentValues.Add("param2", profile.CompanyName);
                 if (Income.base_doc_date.HasValue)
