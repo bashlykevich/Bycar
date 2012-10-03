@@ -27,13 +27,15 @@ namespace bycar3.Reporting
         DateTime dateFrom = DateTime.Now;
         DateTime dateTo = DateTime.Now;
         SpareView Spare = null;
+        int WarehouseID = 0;
         #endregion
 
-        public ReportViewSpareSalesByPeriod(DateTime df, DateTime dt, int SpareID)
+        public ReportViewSpareSalesByPeriod(DateTime df, DateTime dt, int SpareID, int WID)
         {
             InitializeComponent();
             dateTo = dt;
             dateFrom = df;
+            WarehouseID = WID;
             DataAccess db = new DataAccess();
             Spare = db.GetSpareView(SpareID);
             if (Spare == null)
@@ -58,6 +60,7 @@ namespace bycar3.Reporting
                 DataTable dt = new DataTable("mtable");
                 // описываем столбцы таблицы            
                 dt.Columns.Add("Num", typeof(int));
+                dt.Columns.Add("WarehouseName", typeof(string));
                 dt.Columns.Add("OutgoNum", typeof(string));
                 dt.Columns.Add("AccountName", typeof(string));
                 dt.Columns.Add("OutgoDate", typeof(string));
@@ -67,7 +70,7 @@ namespace bycar3.Reporting
                 dt.Columns.Add("T", typeof(double));
 
                 // забиваем таблицу данными                
-                List<SpareInSpareOutgoView> LIST2 = da.GetSpareInSpareOutgoByCodePeriod(Spare.id, dateFrom, dateTo);
+                List<SpareInSpareOutgoView> LIST2 = da.GetSpareInSpareOutgoByCodePeriod(Spare.id, dateFrom, dateTo, WarehouseID);
                 decimal asum = 0;
                 try
                 {
@@ -83,6 +86,7 @@ namespace bycar3.Reporting
                             on = so.IDN.ToString();
                         dt.Rows.Add(new object[] { 
                             i+1,
+                            LIST2[i].WarehouseName,
                             on,
                             AN,
                             od,

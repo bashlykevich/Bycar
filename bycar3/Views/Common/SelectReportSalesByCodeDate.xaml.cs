@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using bycar;
 
 namespace bycar3.Views.Common
 {
@@ -21,14 +22,24 @@ namespace bycar3.Views.Common
         public DateTime? DateFrom = null;
         public DateTime? DateTo = null;
         public int SpareID = 0;
-
+        public int WarehouseID = 0;
         public SelectReportSalesByCodeDate()
         {
             InitializeComponent();
             edtReportDateFrom.SelectedDate = DateTime.Now;
             edtReportDateTo.SelectedDate = DateTime.Now;
+            LoadWarehouses();
         }
-
+        void LoadWarehouses()
+        {
+            DataAccess da = new DataAccess();
+            List<warehouse> l = da.GetWarehouses();
+            warehouse w = new warehouse();
+            w.name = "Все склады";
+            l.Add(w);
+            edtWarehouse.DataContext = l;
+            edtWarehouse.SelectedItem = w;
+        }   
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             if (SpareID == 0)
@@ -37,6 +48,7 @@ namespace bycar3.Views.Common
             {
                 DateFrom = edtReportDateFrom.SelectedDate;
                 DateTo = edtReportDateTo.SelectedDate;
+                WarehouseID = (edtWarehouse.SelectedItem as warehouse).id;
                 Close();
             }
         }

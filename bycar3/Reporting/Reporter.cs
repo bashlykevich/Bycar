@@ -80,9 +80,9 @@ namespace bycar3.Reporting
             ReportViewDailySales r = new ReportViewDailySales(date, dateTo, WarehouseID);
             r.ShowDialog();
         }
-        public static void GenerateSpareSalesReportByPeriod(int SpareID, DateTime dateFrom, DateTime dateTo)
+        public static void GenerateSpareSalesReportByPeriod(int SpareID, DateTime dateFrom, DateTime dateTo, int WarehouseID)
         {
-            ReportViewSpareSalesByPeriod r = new ReportViewSpareSalesByPeriod(dateFrom, dateTo, SpareID);
+            ReportViewSpareSalesByPeriod r = new ReportViewSpareSalesByPeriod(dateFrom, dateTo, SpareID, WarehouseID);
             r.ShowDialog();
         }
     }

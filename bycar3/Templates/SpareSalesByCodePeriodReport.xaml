@@ -4,7 +4,8 @@
               FontFamily="Times New Roman"
               FontSize="13"
               FontWeight="Bold"
-              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="20.5cm">
+              PageWidth="29.7cm" 
+              PageHeight="21cm" ColumnWidth="29cm">
     <Section Padding="35">
 
         <Paragraph FontWeight="Normal">
@@ -27,8 +28,9 @@
                CellSpacing="0">
                 <Table.Columns>
                     <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.1*"/>
-                    <TableColumn Width="0.3*"/>                    
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="0.15*"/>
+                    <TableColumn Width="*"/>                    
                     <TableColumn Width="0.15*"/>
                     <TableColumn Width="0.15*"/>
                     <TableColumn Width="0.15*"/>
@@ -41,6 +43,12 @@
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
                                 №
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                Склад
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -98,6 +106,12 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="WarehouseName" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
                                 <xrd:InlineTableCellValue PropertyName="OutgoNum" />
                             </Paragraph>
                         </TableCell>
@@ -139,6 +153,11 @@
                         </TableCell>
                     </xrd:TableRowForDataTable>
                     <TableRow>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Left">
+                            </Paragraph>
+                        </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Left">

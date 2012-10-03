@@ -1070,7 +1070,7 @@ namespace bycar3
             SelectReportSalesByCodeDate v = new SelectReportSalesByCodeDate();
             bool? res = v.ShowDialog();
             if (v.SpareID > 0 && v.DateTo.HasValue && v.DateFrom.HasValue)
-                Reporter.GenerateSpareSalesReportByPeriod(v.SpareID, v.DateFrom.Value, v.DateTo.Value);
+                Reporter.GenerateSpareSalesReportByPeriod(v.SpareID, v.DateFrom.Value, v.DateTo.Value, v.WarehouseID);
         }
 
         private void mi_Reports_RequestList_Click(object sender, RoutedEventArgs e)
