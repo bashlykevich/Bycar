@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace bycar.Utils
+﻿namespace bycar.Utils
 {
     public interface CommonSelectItem
     {
@@ -12,15 +7,17 @@ namespace bycar.Utils
             get;
             set;
         }
+
         string _Name
         {
             get;
             set;
         }
+
         string __Description
         {
             get;
             set;
-        }    
+        }
     }
 }

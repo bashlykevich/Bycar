@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using bycar;
 
 namespace bycar.Utils
 {
-    class CurrencyHelper
+    internal class CurrencyHelper
     {
         /*march22
         public static double GetBasicPrice(string CurrencyCode, double Price)
@@ -90,6 +86,7 @@ namespace bycar.Utils
             return BasicPrice;
         }
         */
+
         public static decimal GetBasicPrice(string CurrencyCode, decimal Price)
         {
             decimal BasicPrice = 0;
@@ -170,7 +167,7 @@ namespace bycar.Utils
             }
             return BasicPrice;
         }
-        
+
         public static string BasicCurrencyCode
         {
             get
@@ -199,14 +196,14 @@ namespace bycar.Utils
                 {
                     if (CurrencyCode.Contains("BYR"))
                     {
-                        Price = BasicPrice * RateUsd;                        
+                        Price = BasicPrice * RateUsd;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateUsd / RateEur;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateUsd / RateRur;
                     }
                 }
@@ -217,11 +214,11 @@ namespace bycar.Utils
                         Price = BasicPrice * RateEur;
                     }
                     if (CurrencyCode.Contains("USD"))
-                    {                        
+                    {
                         Price = BasicPrice * RateEur / RateUsd;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateEur / RateRur;
                     }
                 }
@@ -229,15 +226,15 @@ namespace bycar.Utils
                 if (BasicCurrencyCode.Contains("RUR"))
                 {
                     if (CurrencyCode.Contains("BYR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur / RateEur;
                     }
                     if (CurrencyCode.Contains("USD"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur / RateUsd;
                     }
                 }
@@ -249,18 +246,18 @@ namespace bycar.Utils
                         Price = BasicPrice / RateUsd;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice / RateEur;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
-                        Price = BasicPrice / RateRur; 
+                    {
+                        Price = BasicPrice / RateRur;
                     }
                 }
             }
+
             //march22 return Math.Round(Price);
             return Math.Round(Price);
         }
     }
 }
-

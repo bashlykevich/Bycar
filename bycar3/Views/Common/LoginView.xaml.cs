@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.Core;
 
@@ -25,20 +18,25 @@ namespace bycar3.Views.Common
             InitializeComponent();
             LoadUsers();
         }
-        List<admin_unit> items;
-        void LoadUsers()
+
+        private List<admin_unit> items;
+
+        private void LoadUsers()
         {
             DataAccess db = new DataAccess();
             items = db.GetAdminUnits();
             edtUser.DataContext = items;
             edtUser.SelectedIndex = 0;
         }
+
         public bool Res = false;
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             TryLogin();
         }
-        void TryLogin()
+
+        private void TryLogin()
         {
             int UserID = (int)edtUser.SelectedValue;
             admin_unit user = items.FirstOrDefault(x => x.id == UserID);
@@ -62,6 +60,7 @@ namespace bycar3.Views.Common
                 edtPassword.Focus();
             }
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             edtPassword.Focus();

@@ -1,111 +1,111 @@
 ﻿<Window x:Class="bycar3.Views.Spare_Income.SpareInIncomeSelectView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:l="clr-namespace:UIControls;assembly=UIControls"                
+        xmlns:l="clr-namespace:UIControls;assembly=UIControls"
         Title="Товар в накладной"
         KeyDown="Window_KeyDown"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
-        Height="400" Width="678" 
+        Height="400" Width="678"
         Closing="Window_Closing"
         Loaded="Window_Loaded">
-    <Grid Width="662" 
+    <Grid Width="662"
           Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="34" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="34" />            
+            <RowDefinition Height="34" />
         </Grid.RowDefinitions>
 
         <StackPanel Margin="5,0,12,0"
             VerticalAlignment="Top"
             Orientation="Horizontal">
-            <Button 
+            <Button
                         Margin="0,0,2,0"
                         Click="btnSpareAdd_Click"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Name="btnSpareAdd" >
-                <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+                        Name="btnSpareAdd">
+                <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28" />
             </Button>
             <Button
                         Margin="0,0,2,0"
                         Click="btnSpareEdit_Click"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Name="btnSpareEdit" >
+                        Name="btnSpareEdit">
                 <Image Source="\Content\Icons\IconDetailEdit.png" Height="30" Width="28" />
-            </Button>            
+            </Button>
 
-            <ComboBox Name="edtSearchField" 
+            <ComboBox Name="edtSearchField"
                       Margin="0,0,5,0"
-                      Width="120" 
+                      Width="120"
                       SelectionChanged="edtSearchField_SelectionChanged"
                       Height="22">
-                <ComboBoxItem Content="код магазина"/>
-                <ComboBoxItem Content="наименование"/>
-                <ComboBoxItem Content="код" IsSelected="True"/>
+                <ComboBoxItem Content="код магазина" />
+                <ComboBoxItem Content="наименование" />
+                <ComboBoxItem Content="код" IsSelected="True" />
             </ComboBox>
-            <l:SearchTextBox Name="edtSearchText" 
-                             Height="21" 
+            <l:SearchTextBox Name="edtSearchText"
+                             Height="21"
                              Width="200"
-                             SearchMode="Instant"                             
-                             Search="SearchTextBox_Search"   />
-            <CheckBox Name="cbSctrictSearch"                       
+                             SearchMode="Instant"
+                             Search="SearchTextBox_Search" />
+            <CheckBox Name="cbSctrictSearch"
                       Click="cbSctrictSearch_Checked"
-                      Margin="5,10,0,5"                       
-                      Height="21" Width="133" 
+                      Margin="5,10,0,5"
+                      Height="21" Width="133"
                       Content="Точное совпадение" />
             <CheckBox Name="cbSimpleIncome" Margin="5,10,0,5" Height="21" Width="100" Content="Быстрый ввод" />
         </StackPanel>
 
-        <DataGrid 
+        <DataGrid
             Name="dgSpares"
             Margin="5,5,12,5"
             Grid.Row="1"
-            AutoGenerateColumns="False"                                    
+            AutoGenerateColumns="False"
             ItemsSource="{Binding}"
-            VerticalScrollBarVisibility="Visible"                                          
+            VerticalScrollBarVisibility="Visible"
             IsReadOnly="True"
             MouseDoubleClick="dgSpares_MouseDoubleClick"
             SelectionChanged="dgSpares_SelectionChanged"
-            HorizontalGridLinesBrush="LightGray" 
+            HorizontalGridLinesBrush="LightGray"
             VerticalGridLinesBrush="LightGray"
             CanUserReorderColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=code}" 
-                                               Header="Код магазина"                                                
-                                               Width="0.1*"/>
-                <DataGridTextColumn Binding="{Binding Path=codeShatem}" Header="Код" Width="0.1*"/>
+                <DataGridTextColumn Binding="{Binding Path=code}"
+                                               Header="Код магазина"
+                                               Width="0.1*" />
+                <DataGridTextColumn Binding="{Binding Path=codeShatem}" Header="Код" Width="0.1*" />
                 <DataGridTextColumn Binding="{Binding Path=name}" Header="Наименование" Width="0.5*" />
-                <DataGridTextColumn Binding="{Binding Path=BrandName}" Header="Бренд" Width="0.3*"/>
+                <DataGridTextColumn Binding="{Binding Path=BrandName}" Header="Бренд" Width="0.3*" />
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <StackPanel
             Orientation="Horizontal"
             HorizontalAlignment="Right"
             Margin="10,0,10,0"
             Grid.Row="3">
-            <Label 
-                Name="edtOfferingName"                 
-                Content="Выберите товар..." 
+            <Label
+                Name="edtOfferingName"
+                Content="Выберите товар..."
                 Visibility="Hidden"
-                MaxWidth="200"/>
+                MaxWidth="200" />
             <Button
                 Margin="5,0,5,0"
-                Width="80"      
+                Width="80"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                 Click="btnOk_Click"
                 Name="btnOk">
                 <Button.Content>
-                    <StackPanel 
+                    <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                         <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
                         <TextBlock Text="Ок" Margin="2,0,10,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button.Content>
-            </Button>            
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

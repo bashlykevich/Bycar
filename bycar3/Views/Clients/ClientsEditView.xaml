@@ -12,9 +12,9 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,75,0,0" Name="tbDesc" Text="Комментарии" VerticalAlignment="Top" Width="92" />
 
         <Button
-            Margin="338,145,0,0" 
+            Margin="338,145,0,0"
 		    HorizontalAlignment="Left"
-	        VerticalAlignment="Top" 
+	        VerticalAlignment="Top"
                 Width="90"
                 Click="button1_Click"
                 Name="btnCancel">

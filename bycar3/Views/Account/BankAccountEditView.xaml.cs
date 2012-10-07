@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.Views.Common;
 
@@ -21,22 +11,26 @@ namespace bycar3.Views.Account
     public partial class BankAccountEditView : Window
     {
         public int AccountID = 0;
-        BankAccountView Item = null;
+        private BankAccountView Item = null;
+
         public BankAccountEditView(int AccID)
         {
             InitializeComponent();
             AccountID = AccID;
         }
+
         public BankAccountEditView()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
-        void LoadBanks()
+
+        private void LoadBanks()
         {
             DataAccess da = new DataAccess();
             edtBank.DataContext = da.GetAllBanks();
             edtBank.SelectedIndex = 0;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadBanks();
@@ -71,7 +65,6 @@ namespace bycar3.Views.Account
                     ba.BankAccount = edtAccountNumber.Text;
                     ba.Description = edtDescription.Text;
                     da.BankAccountEdit(ba);
-
                 }
             }
             catch (Exception)
@@ -89,13 +82,14 @@ namespace bycar3.Views.Account
             if (v.Selected != null)
                 edtBank.SelectedValue = v.Selected._Id;
         }
+
         public void LoadItem(int id)
-        {            
+        {
             DataAccess da = new DataAccess();
             Item = da.BankAccountView(id);
             edtAccountNumber.Text = Item.BankAccount;
             edtBank.SelectedValue = Item.BankID;
-            edtDescription.Text = Item.Description;            
+            edtDescription.Text = Item.Description;
         }
     }
 }

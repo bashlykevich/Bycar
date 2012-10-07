@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 
@@ -20,23 +15,26 @@ namespace bycar3.Views.Spare_Outgo
     /// </summary>
     public partial class SpareInOutgoSelectView : Window
     {
-
         #region MEMBERS
+
         public int _SpareOutgoID = -1;
         public string CurrentCurrencyCode = "";
         public SpareOutgoEditView ParentWindow = null;
-        #endregion
+
+        #endregion MEMBERS
 
         #region CUSTOM FUNCTION
-        void LoadAllSpares()
+
+        private void LoadAllSpares()
         {
             if (dgSpares != null)
             {
-                dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i!=null).Where(i => i.QRest > 0).ToList();
+                dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i != null).Where(i => i.QRest > 0).ToList();
                 dgSpares.SelectedIndex = 0;
             }
         }
-        void LoadSpares()
+
+        private void LoadSpares()
         {
             if (edtSearchText != null)
             {
@@ -52,17 +50,19 @@ namespace bycar3.Views.Spare_Outgo
                 LoadAllSpares();
             }
         }
-        void LoadSpares(int SearchFieldIndex, string SearchText)
+
+        private void LoadSpares(int SearchFieldIndex, string SearchText)
         {
             dgSpares.DataContext = SpareContainer.Instance.GetSpares(SearchFieldIndex, SearchText, true, 0, "");
-            if(dgSpares.Items.Count>0)
+            if (dgSpares.Items.Count > 0)
                 dgSpares.SelectedIndex = 0;
         }
-        void LoadIncomes(int SpareID)
+
+        private void LoadIncomes(int SpareID)
         {
             DataAccess da = new DataAccess();
             List<SpareInSpareIncomeView> lst = da.GetIncomes(SpareID);
-            foreach(SpareInSpareIncomeView i in lst)
+            foreach (SpareInSpareIncomeView i in lst)
             {
                 decimal pr1 = CurrencyHelper.GetPrice(CurrentCurrencyCode, i.POutBasic.Value);
                 if (CurrentCurrencyCode == "BYR")
@@ -74,7 +74,8 @@ namespace bycar3.Views.Spare_Outgo
             }
             dgIncomes.DataContext = lst;
         }
-        void SpareSelectionChange()
+
+        private void SpareSelectionChange()
         {
             if (dgSpares.SelectedItem != null)
             {
@@ -87,14 +88,15 @@ namespace bycar3.Views.Spare_Outgo
                 dgIncomes.UpdateLayout();
             }
         }
-        void CreateOutgo()
+
+        private void CreateOutgo()
         {
             if (dgIncomes.SelectedItem != null)
             {
                 SpareInOutgoEditView v = new SpareInOutgoEditView();
                 v._SpareName = (dgIncomes.SelectedItem as SpareInSpareIncomeView).SpareName;
                 v._SpareInSpareIncomeID = (dgIncomes.SelectedItem as SpareInSpareIncomeView).id;
-                v._AvailableQuantity = (int)(dgIncomes.SelectedItem as SpareInSpareIncomeView).QRest.Value;
+                v._AvailableQuantity = (dgIncomes.SelectedItem as SpareInSpareIncomeView).QRest.Value;
                 v._SpareOutgoID = _SpareOutgoID;
                 v._Price = (dgIncomes.SelectedItem as SpareInSpareIncomeView).DF_PriceInCurrency.Value;
                 v.CurrentCurrencyCode = this.CurrentCurrencyCode;
@@ -106,13 +108,13 @@ namespace bycar3.Views.Spare_Outgo
                 {
                     ParentWindow.LoadOfferings();
                     ParentWindow.dgSpares.UpdateLayout();
-                    ParentWindow.dgSpares.ScrollIntoView(dgSpares.Items[dgSpares.Items.Count - 1]);            
+                    ParentWindow.dgSpares.ScrollIntoView(dgSpares.Items[dgSpares.Items.Count - 1]);
                 }
                 LoadSpares();
             }
         }
-        #endregion
 
+        #endregion CUSTOM FUNCTION
 
         // HANDLERS
         public SpareInOutgoSelectView()
@@ -160,6 +162,7 @@ namespace bycar3.Views.Spare_Outgo
         {
             edtSearchText.Focus();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             LoadSpares();

@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 
 namespace bycar3.Views
 {
-        
     public partial class BanksEditView : Window
     {
         public int _ID = 0;
@@ -40,9 +28,10 @@ namespace bycar3.Views
                 EditBank();
             else
                 CreateBank();
-            
+
             this.Close();
         }
+
         public void LoadItem(int id)
         {
             _ID = id;
@@ -54,6 +43,7 @@ namespace bycar3.Views
             edtMFO.Text = b.mfo;
             edtPhone.Text = b.phone;
         }
+
         private void EditBank()
         {
             DataAccess da = new DataAccess();
@@ -66,10 +56,11 @@ namespace bycar3.Views
             item.phone = edtPhone.Text;
             da.BankEdit(item);
         }
+
         private void CreateBank()
         {
             DataAccess da = new DataAccess();
-            bank item = new bank();            
+            bank item = new bank();
             item.mfo = edtMFO.Text;
             item.fax = edtFax.Text;
             item.address = edtAddress.Text;

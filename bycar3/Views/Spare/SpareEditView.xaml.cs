@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.Views.Common;
-using bycar3.External_Code;
-using bycar3.Views.Main_window;
 using bycar3.Core;
+using bycar3.Views.Common;
+using bycar3.Views.Main_window;
 
 namespace bycar3.Views
 {
@@ -26,23 +18,25 @@ namespace bycar3.Views
         public int _id = 0;
         public string _oldName = "";
         public spare _spare = null;
-        
-        string OldBrandName = "";
-        //string OldGroupName = "";
-        int OldGroupID = 0;
 
-        bool IsNew = true;
-        bool TemporarySaved = false;
+        private string OldBrandName = "";
+
+        //string OldGroupName = "";
+        private int OldGroupID = 0;
+
+        private bool IsNew = true;
+        private bool TemporarySaved = false;
 
         public UCSpares ParentWorkspace = null;
         public SpareView SpareViewItem = null;
+
         #region FUNCTIONS CUSTOM
 
         public void LoadItem(int id)
         {
             DataAccess da = new DataAccess();
-            _spare = da.GetSpare(id);            
-            if (_spare != null)            
+            _spare = da.GetSpare(id);
+            if (_spare != null)
             {
                 IsNew = false;
                 if (_spare.brand == null)
@@ -76,18 +70,19 @@ namespace bycar3.Views
                 edtDescr.Text = Description;
             }
         }
-        #endregion
+
+        #endregion FUNCTIONS CUSTOM
 
         public SpareEditView()
         {
             InitializeComponent();
             loadComboBox_Units();
             loadComboBox_Brands();
-            loadComboBox_SpareGroups();            
+            loadComboBox_SpareGroups();
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             if (this._id > 0)
             {
                 _spare = EditItem();
@@ -109,14 +104,15 @@ namespace bycar3.Views
                 {
                     MessageBox.Show("Такой код магазина уже существует!");
                 }
-            }            
+            }
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();            
+            this.Close();
         }
-        bool Validated()
+
+        private bool Validated()
         {
             if (edtBrand.SelectedItem == null)
             {
@@ -130,7 +126,8 @@ namespace bycar3.Views
             }
             return true;
         }
-        spare CreateItem()
+
+        private spare CreateItem()
         {
             if (!Validated())
                 return null;
@@ -139,15 +136,15 @@ namespace bycar3.Views
             string Code = edtCode.Text;
             string CodeShatem = edtCodeShatem.Text;
             int QDemand = 0;
-            Int32.TryParse(edtQ_Demand.Text, out QDemand);            
+            Int32.TryParse(edtQ_Demand.Text, out QDemand);
             int GroupID = (int)edtGroup.SelectedValue;
             int BrandID = (int)edtBrand.SelectedValue;
             int UnitID = (int)edtUnit.SelectedValue;
             string Description = edtDescr.Text;
             return Marvin.Instance.SpareCreate(Name, Code, CodeShatem, QDemand, GroupID, BrandID, UnitID, Description);
+        }
 
-        }    
-        spare EditItem()
+        private spare EditItem()
         {
             if (!Validated())
                 return null;
@@ -162,68 +159,79 @@ namespace bycar3.Views
             string Description = edtDescr.Text;
             return Marvin.Instance.SpareEdit(this._id, Name, Code, CodeShatem, QDemand, GroupID, BrandID, UnitID, Description);
         }
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             loadAnalogues(this._id);
-            _oldName = edtName.Text;            
+            _oldName = edtName.Text;
         }
-        void loadComboBox_Units()
+
+        private void loadComboBox_Units()
         {
             DataAccess da = new DataAccess();
-            List<unit> items = da.GetUnits();            
-            edtUnit.DataContext = items;            
+            List<unit> items = da.GetUnits();
+            edtUnit.DataContext = items;
             edtUnit.SelectedIndex = 0;
         }
-        void loadComboBox_Brands()
+
+        private void loadComboBox_Brands()
         {
             DataAccess da = new DataAccess();
             List<brand> items = da.GetBrands();
-            edtBrand.DataContext = items;            
+            edtBrand.DataContext = items;
         }
-        void loadComboBox_SpareGroups()
+
+        private void loadComboBox_SpareGroups()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             List<spare_group> items = da.GetOnlySpareGroups();
-            edtGroup.DataContext = items;            
+            edtGroup.DataContext = items;
         }
+
         private void loadAnalogues(int spareId)
         {
             DataAccess da = new DataAccess();
-            List<SpareView> items = da.GetAnalogues(spareId);            
+            List<SpareView> items = da.GetAnalogues(spareId);
             dgAnalogues.DataContext = items;
             dgAnalogues.SelectedIndex = 0;
         }
-        void CallSelectWindowBrand()
+
+        private void CallSelectWindowBrand()
         {
             SelectView v = new SelectView();
             v.ClassName = (new brand()).ToString();
             v.ShowDialog();
             loadComboBox_Brands();
+
             //edtBrand.SelectedItem = v.RES;
-            if(v.Selected != null)
+            if (v.Selected != null)
                 edtBrand.SelectedValue = v.Selected._Id;
         }
-        void CallSelectWindowGroup()
+
+        private void CallSelectWindowGroup()
         {
             SelectView v = new SelectView();
             v.ClassName = (new spare_group()).ToString();
             v.ShowDialog();
             loadComboBox_SpareGroups();
-            //edtGroup.SelectedItem = v.RES;   
+
+            //edtGroup.SelectedItem = v.RES;
             if (v.Selected != null)
-            edtGroup.SelectedValue = v.Selected._Id;
+                edtGroup.SelectedValue = v.Selected._Id;
         }
-        void CallSelectWindowUnit()
+
+        private void CallSelectWindowUnit()
         {
             SelectView v = new SelectView();
             v.ClassName = (new unit()).ToString();
             v.ShowDialog();
             loadComboBox_Units();
+
             //edtUnit.SelectedItem = v.RES;
             if (v.Selected != null)
-            edtUnit.SelectedValue = v.Selected._Id;
+                edtUnit.SelectedValue = v.Selected._Id;
         }
+
         private void DeleteSelectedAnalogue()
         {
             int id = 0;
@@ -246,6 +254,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void EditSelectedAnalogue()
         {
             int id = 0;
@@ -272,12 +281,13 @@ namespace bycar3.Views
                 }
             }
         }
-        void CreateAnalogue()
+
+        private void CreateAnalogue()
         {
             SpareAnalogueEditView v = new SpareAnalogueEditView();
             v._id = -1;
             v._spareId1 = this._id;
-            v.ShowDialog();            
+            v.ShowDialog();
             loadAnalogues(this._id);
         }
 
@@ -295,13 +305,13 @@ namespace bycar3.Views
                 else
                 {
                     // создать запись
-                    // получить ID                    
+                    // получить ID
                     this._id = CreateItem().id;
                     if (IsNew)
                         TemporarySaved = true;
                 }
             }
-            if(canCreateAnalogue)
+            if (canCreateAnalogue)
                 CreateAnalogue();
         }
 

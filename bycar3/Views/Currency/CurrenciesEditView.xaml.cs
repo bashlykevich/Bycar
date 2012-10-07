@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 using bycar3.Views.Currency;
 
@@ -21,15 +10,18 @@ namespace bycar3.Views
     public partial class CurrenciesEditView : Window
     {
         public int _id = 0;
-        bool wasBasic = false;
+        private bool wasBasic = false;
+
         public CurrenciesEditView()
         {
             InitializeComponent();
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             if (this._id > 0)
@@ -50,6 +42,7 @@ namespace bycar3.Views
                 da.CurrencyEdit(getItemFromFields());
             }
         }
+
         private void CreateItem()
         {
             if (wasBasic != edtBasic.IsChecked.Value && edtBasic.IsChecked.Value == true)
@@ -60,39 +53,44 @@ namespace bycar3.Views
                 da.CurrencyCreate(getItemFromFields());
             }
         }
-        void RecalulateBasics()
+
+        private void RecalulateBasics()
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите изменить базовую валюту? (Будут обновлены курсы)", "Изменение базовой валюты!", MessageBoxButton.YesNo);
             if (res == MessageBoxResult.Yes)
             {
-                DataAccess da= new DataAccess();
+                DataAccess da = new DataAccess();
                 string OldBasicCode = da.getBasicCurrencyCode();
+
                 // изменить базовую валюту
                 da.CurrencyEdit(getItemFromFields());
+
                 // загрузить курсы валют относительно новой валюты
                 CurrenciesInput v = new CurrenciesInput();
                 v.ShowDialog();
-                // пересчитать приходы                
+
+                // пересчитать приходы
                 da.RecalculateBasics(OldBasicCode);
                 MessageBox.Show("Пересчет завершен! Базовая валюта изменена.");
             }
             else
                 edtBasic.IsChecked = false;
         }
-        currency getItemFromFields()
+
+        private currency getItemFromFields()
         {
             currency item = new currency();
             item.id = _id;
             item.name = edtName.Text;
             item.code = edtCode.Text;
             item.short_name = edtShortName.Text;
-            item.is_basic = edtBasic.IsChecked.HasValue?(edtBasic.IsChecked.Value?1:0):0;
+            item.is_basic = edtBasic.IsChecked.HasValue ? (edtBasic.IsChecked.Value ? 1 : 0) : 0;
             return item;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             wasBasic = edtBasic.IsChecked.Value;
-        }        
+        }
     }
 }

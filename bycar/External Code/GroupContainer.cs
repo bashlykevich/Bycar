@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace bycar.External_Code
 {
-    class GroupContainer
+    internal class GroupContainer
     {
         private static GroupContainer instance = null;
         private List<spare_group> items = null;
+
         public List<spare_group> Groups
         {
             get
@@ -18,25 +18,27 @@ namespace bycar.External_Code
                 return items;
             }
         }
+
         public static GroupContainer Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                     instance = new GroupContainer();
-                return instance; 
+                return instance;
             }
         }
 
         private GroupContainer()
         {
         }
-        
+
         public void Update()
         {
             DataAccess da = new DataAccess();
             items = da.GetSpareGroups();
         }
+
         public void Update(spare_group item) // обновление без удаления
         {
             spare_group ind = items.Where(x => x != null).Where(x => x.id != null).FirstOrDefault(x => x.id == item.id);
@@ -50,10 +52,11 @@ namespace bycar.External_Code
                 items.Add(item);
             }
         }
+
         public void Update(int GroupID)
         {
             throw new Exception("not implemented");
-            /*             
+            /*
             if (items.Where(x => x != null).Where(x => x.id == GroupID).Count() > 0)
             {
                 items.Remove(items.Where(x => x != null).FirstOrDefault(x => x.id == GroupID));
@@ -62,15 +65,18 @@ namespace bycar.External_Code
             spare_group sv = da.GetSpareGroup(GroupID);
             spares.Add(sv);*/
         }
+
         public void Remove(int id)
         {
             spare_group sv = items.FirstOrDefault(x => x.id == id);
             items.Remove(sv);
         }
+
         public spare_group GetSpare(int ID)
         {
             return Groups.FirstOrDefault(s => s.id == ID);
         }
+
         public List<spare_group> GetGroups(int searchFieldIndex, string searchString)
         {
             throw new Exception("not implemented");
@@ -81,19 +87,22 @@ namespace bycar.External_Code
                 case 0:// ПОИСК ПО КОДУ
                     items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.code.ToLower().Contains(searchString.ToLower())).ToList();
                     break;
+
                 case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
                     items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.name.ToLower().Contains(searchString.ToLower())).ToList();
                     break;
+
                 case 2:// ПОИСК ПО КОДУ ШАТЕ-М
                     items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(searchString.ToLower())).ToList();
                     break;
             }
-            
+
             if (items == null)
                 items = new List<SpareView>();
             */
-            return items.ToList();             
+            return items.ToList();
         }
+
         /*
         public List<SpareView> GetSpares(
            int SearchFieldIndex,
@@ -121,6 +130,7 @@ namespace bycar.External_Code
                 }
             }
             else
+
                 //int BrandID
                 if (BrandID > 0)
                 {
@@ -139,6 +149,7 @@ namespace bycar.External_Code
             {
                 ResultList = ResultList.Where(i => i.QRest > 0).ToList();
             }
+
             //int SearchFieldIndex,
             //string SearchText,
             if (SearchText.Length > 0)
@@ -149,9 +160,11 @@ namespace bycar.External_Code
                     case 0:// ПОИСК ПО КОДУ
                         ResultList = ResultList.Where(s => s.code != null).Where(s => s.code.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
                         ResultList = ResultList.Where(s => s.name.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 2:// ПОИСК ПО КОДУ ШАТЕ-М
                         ResultList = ResultList.Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;

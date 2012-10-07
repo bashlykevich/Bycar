@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views.Common
@@ -23,6 +15,7 @@ namespace bycar3.Views.Common
         public DateTime? DateTo = null;
         public int SpareID = 0;
         public int WarehouseID = 0;
+
         public SelectReportSalesByCodeDate()
         {
             InitializeComponent();
@@ -30,7 +23,8 @@ namespace bycar3.Views.Common
             edtReportDateTo.SelectedDate = DateTime.Now;
             LoadWarehouses();
         }
-        void LoadWarehouses()
+
+        private void LoadWarehouses()
         {
             DataAccess da = new DataAccess();
             List<warehouse> l = da.GetWarehouses();
@@ -39,7 +33,8 @@ namespace bycar3.Views.Common
             l.Add(w);
             edtWarehouse.DataContext = l;
             edtWarehouse.SelectedItem = w;
-        }   
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             if (SpareID == 0)
@@ -57,7 +52,7 @@ namespace bycar3.Views.Common
         {
             SimpleSpareSelectView v = new SimpleSpareSelectView();
             bool? res = v.ShowDialog();
-            if(v.SV != null)
+            if (v.SV != null)
             {
                 SpareID = v.SV.id;
                 edtSpare.Text = v.SV.name + " (" + v.SV.codeShatem + ")";

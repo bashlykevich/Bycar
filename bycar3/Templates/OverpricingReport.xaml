@@ -1,15 +1,17 @@
 ﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
               FontSize="13"
               FontFamily="Times New Roman"
               FontWeight="Bold"
-              PageWidth="29.7cm" 
-              PageHeight="21cm" 
+              PageWidth="29.7cm"
+              PageHeight="21cm"
               ColumnWidth="29.2cm">
     <Section Padding="35">
 
-        <Paragraph>Переоценка №<xrd:InlineDocumentValue PropertyName="p1" /> от <xrd:InlineDocumentValue PropertyName="p2" />
+        <Paragraph>Переоценка №
+            <xrd:InlineDocumentValue PropertyName="p1" /> от
+            <xrd:InlineDocumentValue PropertyName="p2" />
         </Paragraph>
         <Paragraph></Paragraph>
 
@@ -19,16 +21,16 @@
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="*"/>
-                    <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.1*"/>
-                    <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.1*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.1*"/>
-                    <TableColumn Width="0.15*"/>                    
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.1*" />
+                    <TableColumn Width="0.15*" />
                 </Table.Columns>
                 <TableRowGroup>
                     <TableRow FontSize="10">
@@ -92,9 +94,8 @@
                                 Сумма нов.
                             </Paragraph>
                         </TableCell>
-                       
                     </TableRow>
-                    <xrd:TableRowForDataTable 
+                    <xrd:TableRowForDataTable
                         FontWeight="Normal"
                         TableName="mtable">
                         <TableCell BorderBrush="Black"
@@ -157,7 +158,6 @@
                                 <xrd:InlineTableCellValue PropertyName="t10" />
                             </Paragraph>
                         </TableCell>
-                        
                     </xrd:TableRowForDataTable>
                     <TableRow>
                         <TableCell BorderBrush="Black"
@@ -167,7 +167,7 @@
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
-                            <Paragraph TextAlignment="Center">                               
+                            <Paragraph TextAlignment="Center">
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -179,13 +179,11 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -215,11 +213,9 @@
                                 <xrd:InlineDocumentValue PropertyName="sum3" />
                             </Paragraph>
                         </TableCell>
-                        
                     </TableRow>
                 </TableRowGroup>
             </Table>
         </xrd:SectionDataGroup>
-
-        </Section>
+    </Section>
 </FlowDocument>

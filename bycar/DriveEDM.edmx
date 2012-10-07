@@ -862,15 +862,15 @@
           <Property Name="description" Type="varchar" MaxLength="500" />
           <Property Name="QIn" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="PIn" Type="decimal" Scale="2" />
-          <Property Name="PInBasic" Type="decimal" Scale="8" />
+          <Property Name="PInBasic" Type="decimal" Scale="2" />
           <Property Name="VatRateID" Type="int" />
           <Property Name="Markup" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="SpareIncomeID" Type="int" />
           <Property Name="CurrencyID" Type="int" />
           <Property Name="S" Type="decimal" Scale="2" />
-          <Property Name="SBasic" Type="decimal" Scale="8" />
+          <Property Name="SBasic" Type="decimal" Scale="2" />
           <Property Name="POut" Type="decimal" Scale="2" />
-          <Property Name="POutBasic" Type="decimal" Scale="8" />
+          <Property Name="POutBasic" Type="decimal" Scale="2" />
           <Property Name="QRest" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="spare_in_spare_outgo">
@@ -888,7 +888,7 @@
           <Property Name="total_sum" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="spare_outgo_id" Type="int" Nullable="false" />
           <Property Name="spare_in_spare_income_id" Type="int" />
-          <Property Name="basic_price" Type="decimal" Scale="8" />
+          <Property Name="basic_price" Type="decimal" Scale="2" />
           <Property Name="discount" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="spare_income">
@@ -2044,6 +2044,26 @@
             <End Role="warehouse" EntitySet="warehouses" />
             <End Role="spare_income" EntitySet="spare_income" />
           </AssociationSet>
+          <EntitySet Name="SpareInSpareIncomeViews" EntityType="bycar3Model.SpareInSpareIncomeView" />
+          <EntitySet Name="Sales" EntityType="bycar3Model.Sale" />
+          <EntitySet Name="Baskets" EntityType="bycar3Model.Basket" />
+          <EntitySet Name="BasketViews" EntityType="bycar3Model.BasketView" />
+          <EntitySet Name="OfferingInBasketItems" EntityType="bycar3Model.OfferingInBasketItem" />
+          <EntitySet Name="admin_unit" EntityType="bycar3Model.admin_unit" />
+          <AssociationSet Name="FK_account_admin_unit" Association="bycar3Model.FK_account_admin_unit">
+            <End Role="admin_unit" EntitySet="admin_unit" />
+            <End Role="account" EntitySet="accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_account_type_admin_unit" Association="bycar3Model.FK_account_type_admin_unit">
+            <End Role="admin_unit" EntitySet="admin_unit" />
+            <End Role="account_type" EntitySet="account_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bank_admin_unit" Association="bycar3Model.FK_bank_admin_unit">
+            <End Role="admin_unit" EntitySet="admin_unit" />
+            <End Role="bank" EntitySet="banks" />
+          </AssociationSet>
+          <EntitySet Name="settings_profile" EntityType="bycar3Model.settings_profile" />
+          <EntitySet Name="SpareInSpareOutgoViews" EntityType="bycar3Model.SpareInSpareOutgoView" />
           <EntitySet Name="spare_in_spare_income" EntityType="bycar3Model.spare_in_spare_income" />
           <EntitySet Name="spare_in_spare_outgo" EntityType="bycar3Model.spare_in_spare_outgo" />
           <AssociationSet Name="FK_spare_in_spare_income_spare" Association="bycar3Model.FK_spare_in_spare_income_spare">
@@ -2082,26 +2102,6 @@
             <End Role="vat_rate" EntitySet="vat_rate" />
             <End Role="spare_in_spare_outgo" EntitySet="spare_in_spare_outgo" />
           </AssociationSet>
-          <EntitySet Name="SpareInSpareIncomeViews" EntityType="bycar3Model.SpareInSpareIncomeView" />
-          <EntitySet Name="Sales" EntityType="bycar3Model.Sale" />
-          <EntitySet Name="Baskets" EntityType="bycar3Model.Basket" />
-          <EntitySet Name="BasketViews" EntityType="bycar3Model.BasketView" />
-          <EntitySet Name="OfferingInBasketItems" EntityType="bycar3Model.OfferingInBasketItem" />
-          <EntitySet Name="admin_unit" EntityType="bycar3Model.admin_unit" />
-          <AssociationSet Name="FK_account_admin_unit" Association="bycar3Model.FK_account_admin_unit">
-            <End Role="admin_unit" EntitySet="admin_unit" />
-            <End Role="account" EntitySet="accounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_account_type_admin_unit" Association="bycar3Model.FK_account_type_admin_unit">
-            <End Role="admin_unit" EntitySet="admin_unit" />
-            <End Role="account_type" EntitySet="account_type" />
-          </AssociationSet>
-          <AssociationSet Name="FK_bank_admin_unit" Association="bycar3Model.FK_bank_admin_unit">
-            <End Role="admin_unit" EntitySet="admin_unit" />
-            <End Role="bank" EntitySet="banks" />
-          </AssociationSet>
-          <EntitySet Name="settings_profile" EntityType="bycar3Model.settings_profile" />
-          <EntitySet Name="SpareInSpareOutgoViews" EntityType="bycar3Model.SpareInSpareOutgoView" />
           </EntityContainer>
         <EntityType Name="account">
           <Key>
@@ -2855,84 +2855,6 @@
           <End Type="bycar3Model.warehouse" Role="warehouse" Multiplicity="0..1" />
           <End Type="bycar3Model.spare_income" Role="spare_income" Multiplicity="*" />
         </Association>
-        <EntityType Name="spare_in_spare_income">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="Int32" Name="num" />
-          <Property Type="String" Name="description" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="QIn" Nullable="false" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="PIn" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="PInBasic" Precision="18" Scale="8" />
-          <Property Type="Decimal" Name="Markup" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Int32" Name="CurrencyID" />
-          <Property Type="Decimal" Name="S" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="SBasic" Precision="18" Scale="8" />
-          <Property Type="Decimal" Name="POut" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="POutBasic" Precision="18" Scale="8" />
-          <Property Type="Decimal" Name="QRest" Precision="10" Scale="0" />
-          <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_income_spare" FromRole="spare_in_spare_income" ToRole="spare" />
-          <NavigationProperty Name="spare_in_invoice" Relationship="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_invoice" />
-          <NavigationProperty Name="spare_in_overpricing" Relationship="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_overpricing" />
-          <NavigationProperty Name="spare_income" Relationship="bycar3Model.FK_spare_in_spare_income_spare_income" FromRole="spare_in_spare_income" ToRole="spare_income" />
-          <NavigationProperty Name="vat_rate" Relationship="bycar3Model.FK_spare_in_spare_income_vat_rate" FromRole="spare_in_spare_income" ToRole="vat_rate" />
-          <NavigationProperty Name="spare_in_spare_outgo" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_spare_outgo" />
-        </EntityType>
-        <EntityType Name="spare_in_spare_outgo">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="Int32" Name="num" />
-          <Property Type="String" Name="description" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="quantity" Nullable="false" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="purchase_price" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="markup_percentage" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="total_sum" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="basic_price" Precision="18" Scale="8" />
-          <Property Type="Decimal" Name="discount" Precision="18" Scale="2" />
-          <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare" FromRole="spare_in_spare_outgo" ToRole="spare" />
-          <NavigationProperty Name="spare_in_spare_income" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" FromRole="spare_in_spare_outgo" ToRole="spare_in_spare_income" />
-          <NavigationProperty Name="spare_outgo" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" FromRole="spare_in_spare_outgo" ToRole="spare_outgo" />
-          <NavigationProperty Name="vat_rate" Relationship="bycar3Model.FK_spare_in_spare_outgo_vat_rate" FromRole="spare_in_spare_outgo" ToRole="vat_rate" />
-        </EntityType>
-        <Association Name="FK_spare_in_spare_income_spare">
-          <End Type="bycar3Model.spare" Role="spare" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_outgo_spare">
-          <End Type="bycar3Model.spare" Role="spare" Multiplicity="1" />
-          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_invoice_spare_in_spare_income">
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_invoice" Role="spare_in_invoice" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_overpricing_spare_in_spare_income">
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="1" />
-          <End Type="bycar3Model.spare_in_overpricing" Role="spare_in_overpricing" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_income_spare_income">
-          <End Type="bycar3Model.spare_income" Role="spare_income" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_income_vat_rate">
-          <End Type="bycar3Model.vat_rate" Role="vat_rate" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_outgo_spare_in_spare_income">
-          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_outgo_spare_outgo">
-          <End Type="bycar3Model.spare_outgo" Role="spare_outgo" Multiplicity="1" />
-          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_spare_in_spare_outgo_vat_rate">
-          <End Type="bycar3Model.vat_rate" Role="vat_rate" Multiplicity="0..1" />
-          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
-        </Association>
         <EntityType Name="SpareInSpareIncomeView">
           <Key>
             <PropertyRef Name="QIn" />
@@ -3115,6 +3037,84 @@
           <Property Type="Int32" Name="WarehouseID" />
           <Property Type="String" Name="WarehouseName" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="spare_in_spare_income">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="num" />
+          <Property Type="String" Name="description" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="QIn" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="PIn" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PInBasic" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Markup" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="CurrencyID" />
+          <Property Type="Decimal" Name="S" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="SBasic" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="POut" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="POutBasic" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="QRest" Precision="10" Scale="2" />
+          <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_income_spare" FromRole="spare_in_spare_income" ToRole="spare" />
+          <NavigationProperty Name="spare_in_invoice" Relationship="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_invoice" />
+          <NavigationProperty Name="spare_in_overpricing" Relationship="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_overpricing" />
+          <NavigationProperty Name="spare_income" Relationship="bycar3Model.FK_spare_in_spare_income_spare_income" FromRole="spare_in_spare_income" ToRole="spare_income" />
+          <NavigationProperty Name="vat_rate" Relationship="bycar3Model.FK_spare_in_spare_income_vat_rate" FromRole="spare_in_spare_income" ToRole="vat_rate" />
+          <NavigationProperty Name="spare_in_spare_outgo" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_spare_outgo" />
+        </EntityType>
+        <EntityType Name="spare_in_spare_outgo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="num" />
+          <Property Type="String" Name="description" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="quantity" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="purchase_price" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="markup_percentage" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="total_sum" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="basic_price" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="discount" Precision="18" Scale="2" />
+          <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare" FromRole="spare_in_spare_outgo" ToRole="spare" />
+          <NavigationProperty Name="spare_in_spare_income" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" FromRole="spare_in_spare_outgo" ToRole="spare_in_spare_income" />
+          <NavigationProperty Name="spare_outgo" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" FromRole="spare_in_spare_outgo" ToRole="spare_outgo" />
+          <NavigationProperty Name="vat_rate" Relationship="bycar3Model.FK_spare_in_spare_outgo_vat_rate" FromRole="spare_in_spare_outgo" ToRole="vat_rate" />
+        </EntityType>
+        <Association Name="FK_spare_in_spare_income_spare">
+          <End Type="bycar3Model.spare" Role="spare" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_outgo_spare">
+          <End Type="bycar3Model.spare" Role="spare" Multiplicity="1" />
+          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_invoice_spare_in_spare_income">
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_invoice" Role="spare_in_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_overpricing_spare_in_spare_income">
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="1" />
+          <End Type="bycar3Model.spare_in_overpricing" Role="spare_in_overpricing" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_income_spare_income">
+          <End Type="bycar3Model.spare_income" Role="spare_income" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_income_vat_rate">
+          <End Type="bycar3Model.vat_rate" Role="vat_rate" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_outgo_spare_in_spare_income">
+          <End Type="bycar3Model.spare_in_spare_income" Role="spare_in_spare_income" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_outgo_spare_outgo">
+          <End Type="bycar3Model.spare_outgo" Role="spare_outgo" Multiplicity="1" />
+          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_spare_in_spare_outgo_vat_rate">
+          <End Type="bycar3Model.vat_rate" Role="vat_rate" Multiplicity="0..1" />
+          <End Type="bycar3Model.spare_in_spare_outgo" Role="spare_in_spare_outgo" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3942,118 +3942,6 @@
             </EndProperty>
             <Condition ColumnName="warehouse_id" IsNull="false" />
           </AssociationSetMapping>
-          <EntitySetMapping Name="spare_in_spare_income">
-            <EntityTypeMapping TypeName="bycar3Model.spare_in_spare_income">
-              <MappingFragment StoreEntitySet="spare_in_spare_income">
-                <ScalarProperty Name="QRest" ColumnName="QRest" />
-                <ScalarProperty Name="POutBasic" ColumnName="POutBasic" />
-                <ScalarProperty Name="POut" ColumnName="POut" />
-                <ScalarProperty Name="SBasic" ColumnName="SBasic" />
-                <ScalarProperty Name="S" ColumnName="S" />
-                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
-                <ScalarProperty Name="Markup" ColumnName="Markup" />
-                <ScalarProperty Name="PInBasic" ColumnName="PInBasic" />
-                <ScalarProperty Name="PIn" ColumnName="PIn" />
-                <ScalarProperty Name="QIn" ColumnName="QIn" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="spare_in_spare_outgo">
-            <EntityTypeMapping TypeName="bycar3Model.spare_in_spare_outgo">
-              <MappingFragment StoreEntitySet="spare_in_spare_outgo">
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="basic_price" ColumnName="basic_price" />
-                <ScalarProperty Name="total_sum" ColumnName="total_sum" />
-                <ScalarProperty Name="markup_percentage" ColumnName="markup_percentage" />
-                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_income_spare" TypeName="bycar3Model.FK_spare_in_spare_income_spare" StoreEntitySet="spare_in_spare_income">
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare">
-              <ScalarProperty Name="id" ColumnName="SpareID" />
-            </EndProperty>
-            <Condition ColumnName="SpareID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare" StoreEntitySet="spare_in_spare_outgo">
-            <EndProperty Name="spare_in_spare_outgo">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare">
-              <ScalarProperty Name="id" ColumnName="spare_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_invoice_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" StoreEntitySet="spare_in_invoice">
-            <EndProperty Name="spare_in_invoice">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="IncomeID" />
-            </EndProperty>
-            <Condition ColumnName="IncomeID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_overpricing_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" StoreEntitySet="spare_in_overpricing">
-            <EndProperty Name="spare_in_overpricing">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="spare_income_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_income_spare_income" TypeName="bycar3Model.FK_spare_in_spare_income_spare_income" StoreEntitySet="spare_in_spare_income">
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare_income">
-              <ScalarProperty Name="id" ColumnName="SpareIncomeID" />
-            </EndProperty>
-            <Condition ColumnName="SpareIncomeID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_income_vat_rate" TypeName="bycar3Model.FK_spare_in_spare_income_vat_rate" StoreEntitySet="spare_in_spare_income">
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="vat_rate">
-              <ScalarProperty Name="id" ColumnName="VatRateID" />
-            </EndProperty>
-            <Condition ColumnName="VatRateID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" StoreEntitySet="spare_in_spare_outgo">
-            <EndProperty Name="spare_in_spare_outgo">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare_in_spare_income">
-              <ScalarProperty Name="id" ColumnName="spare_in_spare_income_id" />
-            </EndProperty>
-            <Condition ColumnName="spare_in_spare_income_id" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare_outgo" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" StoreEntitySet="spare_in_spare_outgo">
-            <EndProperty Name="spare_in_spare_outgo">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="spare_outgo">
-              <ScalarProperty Name="id" ColumnName="spare_outgo_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_spare_in_spare_outgo_vat_rate" TypeName="bycar3Model.FK_spare_in_spare_outgo_vat_rate" StoreEntitySet="spare_in_spare_outgo">
-            <EndProperty Name="spare_in_spare_outgo">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="vat_rate">
-              <ScalarProperty Name="id" ColumnName="vat_rate_id" />
-            </EndProperty>
-            <Condition ColumnName="vat_rate_id" IsNull="false" />
-          </AssociationSetMapping>
           <EntitySetMapping Name="SpareInSpareIncomeViews">
             <EntityTypeMapping TypeName="bycar3Model.SpareInSpareIncomeView">
               <MappingFragment StoreEntitySet="SpareInSpareIncomeView">
@@ -4250,6 +4138,118 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="spare_in_spare_income">
+            <EntityTypeMapping TypeName="bycar3Model.spare_in_spare_income">
+              <MappingFragment StoreEntitySet="spare_in_spare_income">
+                <ScalarProperty Name="QRest" ColumnName="QRest" />
+                <ScalarProperty Name="POutBasic" ColumnName="POutBasic" />
+                <ScalarProperty Name="POut" ColumnName="POut" />
+                <ScalarProperty Name="SBasic" ColumnName="SBasic" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="Markup" ColumnName="Markup" />
+                <ScalarProperty Name="PInBasic" ColumnName="PInBasic" />
+                <ScalarProperty Name="PIn" ColumnName="PIn" />
+                <ScalarProperty Name="QIn" ColumnName="QIn" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spare_in_spare_outgo">
+            <EntityTypeMapping TypeName="bycar3Model.spare_in_spare_outgo">
+              <MappingFragment StoreEntitySet="spare_in_spare_outgo">
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="basic_price" ColumnName="basic_price" />
+                <ScalarProperty Name="total_sum" ColumnName="total_sum" />
+                <ScalarProperty Name="markup_percentage" ColumnName="markup_percentage" />
+                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_income_spare" TypeName="bycar3Model.FK_spare_in_spare_income_spare" StoreEntitySet="spare_in_spare_income">
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare">
+              <ScalarProperty Name="id" ColumnName="SpareID" />
+            </EndProperty>
+            <Condition ColumnName="SpareID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare" StoreEntitySet="spare_in_spare_outgo">
+            <EndProperty Name="spare_in_spare_outgo">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare">
+              <ScalarProperty Name="id" ColumnName="spare_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_invoice_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" StoreEntitySet="spare_in_invoice">
+            <EndProperty Name="spare_in_invoice">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="IncomeID" />
+            </EndProperty>
+            <Condition ColumnName="IncomeID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_overpricing_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" StoreEntitySet="spare_in_overpricing">
+            <EndProperty Name="spare_in_overpricing">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="spare_income_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_income_spare_income" TypeName="bycar3Model.FK_spare_in_spare_income_spare_income" StoreEntitySet="spare_in_spare_income">
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare_income">
+              <ScalarProperty Name="id" ColumnName="SpareIncomeID" />
+            </EndProperty>
+            <Condition ColumnName="SpareIncomeID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_income_vat_rate" TypeName="bycar3Model.FK_spare_in_spare_income_vat_rate" StoreEntitySet="spare_in_spare_income">
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="vat_rate">
+              <ScalarProperty Name="id" ColumnName="VatRateID" />
+            </EndProperty>
+            <Condition ColumnName="VatRateID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare_in_spare_income" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" StoreEntitySet="spare_in_spare_outgo">
+            <EndProperty Name="spare_in_spare_outgo">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare_in_spare_income">
+              <ScalarProperty Name="id" ColumnName="spare_in_spare_income_id" />
+            </EndProperty>
+            <Condition ColumnName="spare_in_spare_income_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_outgo_spare_outgo" TypeName="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" StoreEntitySet="spare_in_spare_outgo">
+            <EndProperty Name="spare_in_spare_outgo">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="spare_outgo">
+              <ScalarProperty Name="id" ColumnName="spare_outgo_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_spare_in_spare_outgo_vat_rate" TypeName="bycar3Model.FK_spare_in_spare_outgo_vat_rate" StoreEntitySet="spare_in_spare_outgo">
+            <EndProperty Name="spare_in_spare_outgo">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="vat_rate">
+              <ScalarProperty Name="id" ColumnName="vat_rate_id" />
+            </EndProperty>
+            <Condition ColumnName="vat_rate_id" IsNull="false" />
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4357,12 +4357,12 @@
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_car_mark_car_mark" >
           <ConnectorPoint PointX="9.25" PointY="5.075" />
-          <ConnectorPoint PointX="9.4166666666666661" PointY="5.0749999999999993" />
-          <ConnectorPoint PointX="9.5833333333333339" PointY="5.075" />
           <ConnectorPoint PointX="10" PointY="5.075" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_client_car_mark" >
           <ConnectorPoint PointX="11.5" PointY="5.075" />
+          <ConnectorPoint PointX="11.666666666666666" PointY="5.0749999999999993" />
+          <ConnectorPoint PointX="11.833333333333334" PointY="5.075" />
           <ConnectorPoint PointX="12.25" PointY="5.075" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_currency_rate_currency" >
@@ -4384,8 +4384,8 @@
           <ConnectorPoint PointX="4.90625" PointY="6.53125" />
           <ConnectorPoint PointX="6.666666666666667" PointY="6.5312499999999991" />
           <ConnectorPoint PointX="6.833333333333333" PointY="6.53125" />
-          <ConnectorPoint PointX="7.666666666666667" PointY="6.5312499999999991" />
-          <ConnectorPoint PointX="7.833333333333333" PointY="6.53125" />
+          <ConnectorPoint PointX="8.0579231770833335" PointY="6.5312499999999991" />
+          <ConnectorPoint PointX="8.2245898437500014" PointY="6.53125" />
           <ConnectorPoint PointX="8.25" PointY="6.53125" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_invoice" >
@@ -4396,10 +4396,10 @@
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_overpricing" >
           <ConnectorPoint PointX="4.5" PointY="1.7746913076923081" />
-          <ConnectorPoint PointX="4.875" PointY="2.1496913076923079" />
-          <ConnectorPoint PointX="4.875" PointY="3" />
+          <ConnectorPoint PointX="4.8785744349011217" PointY="2.1496913076923079" />
           <ConnectorPoint PointX="4.8785744349011217" PointY="3.00357443490112" />
-          <ConnectorPoint PointX="5.1526755650988791" PointY="3.2776755650988791" />
+          <ConnectorPoint PointX="4.9410744349011217" PointY="3.0660744349011191" />
+          <ConnectorPoint PointX="5.1526755650988783" PointY="3.2776755650988783" />
           <ConnectorPoint PointX="5.25" PointY="3.375" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_revision_revision" >
@@ -4407,10 +4407,12 @@
           <ConnectorPoint PointX="6.75" PointY="6.2749999999999986" />
           <ConnectorPoint PointX="7" PointY="6.2749999999999986" />
           <ConnectorPoint PointX="7" PointY="3.5749999999999993" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="3.5749999999999988" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="3.5749999999999993" />
           <ConnectorPoint PointX="8.25" PointY="3.5749999999999993" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_analogue_spare" >
-          <ConnectorPoint PointX="4.5" PointY="3.7679220769230755" />
+          <ConnectorPoint PointX="4.5" PointY="3.5749999999999993" />
           <ConnectorPoint PointX="4.875" PointY="4.1429220769230755" />
           <ConnectorPoint PointX="4.875" PointY="5.2432317692307695" />
           <ConnectorPoint PointX="4.9410744349011217" PointY="5.30930620413189" />
@@ -4418,16 +4420,18 @@
           <ConnectorPoint PointX="5.2567682307692305" PointY="5.625" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_analogue_spare1" >
-          <ConnectorPoint PointX="4.5" PointY="3.7549989999999989" />
-          <ConnectorPoint PointX="4.8473244349011217" PointY="4.1023234349011188" />
-          <ConnectorPoint PointX="5.0589255650988791" PointY="4.313924565098878" />
+          <ConnectorPoint PointX="4.5" PointY="3.486384615384615" />
+          <ConnectorPoint PointX="4.9517762324548071" PointY="4.1230806111380192" />
+          <ConnectorPoint PointX="5.0482237675451938" PointY="4.2590057771403691" />
           <ConnectorPoint PointX="5.15625" PointY="4.4112489999999989" />
           <ConnectorPoint PointX="5.15625" PointY="5.5377115384615383" />
           <ConnectorPoint PointX="5.25" PointY="5.6314615384615383" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_spare" >
           <ConnectorPoint PointX="4.4901538461538468" PointY="3.375" />
-          <ConnectorPoint PointX="4.84732443490112" PointY="3.0178294112527246" />
+          <ConnectorPoint PointX="4.7848244349011209" PointY="3.0803294112527255" />
+          <ConnectorPoint PointX="4.9026755650988791" PointY="2.9624782810549677" />
+          <ConnectorPoint PointX="4.94107443490112" PointY="2.9240794112527251" />
           <ConnectorPoint PointX="5.1526755650988791" PointY="2.7124782810549677" />
           <ConnectorPoint PointX="5.15625" PointY="2.7089038461538468" />
           <ConnectorPoint PointX="5.15625" PointY="1.8589038461538445" />
@@ -4435,23 +4439,19 @@
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_spare" >
           <ConnectorPoint PointX="4.5" PointY="3.574845153846153" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="3.5748451538461516" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.5748451538461521" />
           <ConnectorPoint PointX="5.177083333333333" PointY="3.574845153846153" />
           <ConnectorPoint PointX="5.25" PointY="3.574845153846153" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_revision_spare" >
-          <ConnectorPoint PointX="4.5" PointY="3.3946913076923071" />
-          <ConnectorPoint PointX="4.84732443490112" PointY="3.0473668727911853" />
-          <ConnectorPoint PointX="5.0589255650988791" PointY="2.835765742593428" />
-          <ConnectorPoint PointX="5.1134413076923071" PointY="2.78125" />
-          <ConnectorPoint PointX="5.9513027820512816" PointY="2.7812499999999996" />
-          <ConnectorPoint PointX="6.1179694487179477" PointY="2.78125" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="2.7812499999999996" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="2.78125" />
-          <ConnectorPoint PointX="7.65625" PointY="2.78125" />
-          <ConnectorPoint PointX="7.8160744349011217" PointY="2.9410744349011204" />
-          <ConnectorPoint PointX="7.9339255650988791" PointY="3.0589255650988791" />
-          <ConnectorPoint PointX="8.25" PointY="3.375" />
+          <ConnectorPoint PointX="4.5" PointY="3.7746913076923065" />
+          <ConnectorPoint PointX="4.8753086923076925" PointY="4.1499999999999986" />
+          <ConnectorPoint PointX="4.8875439146157831" PointY="4.1499999999999977" />
+          <ConnectorPoint PointX="5.1770833333333321" PointY="4.1499999999999986" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="4.1499999999999977" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="4.1499999999999986" />
+          <ConnectorPoint PointX="7.875" PointY="4.1499999999999986" />
+          <ConnectorPoint PointX="8.25" PointY="3.7749999999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_spare_group" >
           <ConnectorPoint PointX="2.2456923076923077" PointY="5" />
@@ -4490,23 +4490,17 @@
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_unit" >
           <ConnectorPoint PointX="2.25" PointY="3.3946913076923075" />
           <ConnectorPoint PointX="2.4884413076923071" PointY="3.15625" />
-          <ConnectorPoint PointX="2.6902810267462418" PointY="3.1562499999999996" />
-          <ConnectorPoint PointX="2.8569476934129088" PointY="3.15625" />
-          <ConnectorPoint PointX="3.66174358974359" PointY="3.1562499999999996" />
-          <ConnectorPoint PointX="3.8284102564102569" PointY="3.15625" />
-          <ConnectorPoint PointX="4.6255705128205138" PointY="3.1562499999999991" />
-          <ConnectorPoint PointX="4.82177464102564" PointY="3.15625" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="3.1562499999999987" />
+          <ConnectorPoint PointX="4.6255705128205138" PointY="3.1562499999999982" />
           <ConnectorPoint PointX="5.177083333333333" PointY="3.15625" />
           <ConnectorPoint PointX="6.0346361153846146" PointY="3.15625" />
           <ConnectorPoint PointX="6.0346361153846146" PointY="1.7749999999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_vat_rate" >
-          <ConnectorPoint PointX="4.4901538461538459" PointY="4.875" />
-          <ConnectorPoint PointX="4.8160744349011209" PointY="4.5490794112527224" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="4.431228281054965" />
-          <ConnectorPoint PointX="4.9410744349011209" PointY="4.4240794112527224" />
-          <ConnectorPoint PointX="5.0589255650988791" PointY="4.306228281054965" />
+          <ConnectorPoint PointX="3.5141538461538464" PointY="4.875" />
+          <ConnectorPoint PointX="3.6721563141283085" PointY="4.8146240097601076" />
+          <ConnectorPoint PointX="3.8278436858716911" PointY="4.7551326653693859" />
+          <ConnectorPoint PointX="4.7971563141283085" PointY="4.3847383890440028" />
+          <ConnectorPoint PointX="5.0778436858716915" PointY="4.2774819756848252" />
           <ConnectorPoint PointX="5.09375" PointY="4.2714038461538451" />
           <ConnectorPoint PointX="5.09375" PointY="1.9312499999999986" />
           <ConnectorPoint PointX="5.25" PointY="1.7749999999999986" />
@@ -4516,106 +4510,6 @@
           <ConnectorPoint PointX="5.5451811428982367" PointY="9.9114456571305265" />
           <ConnectorPoint PointX="5.8610688571017624" PointY="9.81667934286947" />
           <ConnectorPoint PointX="6" PointY="9.7749999999999986" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_income" Width="1.5" PointX="8.25" PointY="1.375" Height="0.39999999999999858" IsExpanded="false" />
-        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_outgo" Width="1.5" PointX="10.5" PointY="2.375" Height="0.39999999999999858" IsExpanded="false" />
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare" >
-          <ConnectorPoint PointX="4.5" PointY="3.375" />
-          <ConnectorPoint PointX="4.875" PointY="3" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="2.9999999999999991" />
-          <ConnectorPoint PointX="5.177083333333333" PointY="3" />
-          <ConnectorPoint PointX="5.9513027820512816" PointY="2.9999999999999996" />
-          <ConnectorPoint PointX="6.1179694487179477" PointY="3" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="2.9999999999999996" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="3" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="2.9999999999999996" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="3" />
-          <ConnectorPoint PointX="9" PointY="3" />
-          <ConnectorPoint PointX="9" PointY="1.7749999999999986" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare" >
-          <ConnectorPoint PointX="3.7450769230769234" PointY="3.375" />
-          <ConnectorPoint PointX="3.7450769230769234" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="2.5749999999999975" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="5.9513027820512816" PointY="2.5749999999999988" />
-          <ConnectorPoint PointX="6.1179694487179477" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="2.5749999999999988" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="2.5749999999999988" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="8.9166666666666661" PointY="2.5749999999999988" />
-          <ConnectorPoint PointX="9.0833333333333339" PointY="2.5749999999999993" />
-          <ConnectorPoint PointX="10.5" PointY="2.5749999999999993" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" >
-          <ConnectorPoint PointX="8.25" PointY="1.5749999999999993" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="1.5749999999999986" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="1.5749999999999993" />
-          <ConnectorPoint PointX="6.75" PointY="1.5749999999999993" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" >
-          <ConnectorPoint PointX="8.2567682307692323" PointY="1.7749999999999986" />
-          <ConnectorPoint PointX="7.875" PointY="2.2076706615384634" />
-          <ConnectorPoint PointX="7.875" PointY="3.4750004999999997" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="3.4750004999999993" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="3.4750004999999997" />
-          <ConnectorPoint PointX="6.75" PointY="3.4750004999999997" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare_income" >
-          <ConnectorPoint PointX="6.781252" PointY="9.375" />
-          <ConnectorPoint PointX="6.781252" PointY="8.0249999999999986" />
-          <ConnectorPoint PointX="7.75" PointY="8.0249999999999986" />
-          <ConnectorPoint PointX="7.75" PointY="6.1499999999999986" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="6.1499999999999977" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="6.1499999999999986" />
-          <ConnectorPoint PointX="6.875" PointY="6.1499999999999986" />
-          <ConnectorPoint PointX="6.875" PointY="1.443748000000006" />
-          <ConnectorPoint PointX="8.25" PointY="1.443748000000006" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_vat_rate" >
-          <ConnectorPoint PointX="4.5" PointY="4.8946913076923071" />
-          <ConnectorPoint PointX="4.8160744349011209" PointY="4.5786168727911853" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="4.460765742593428" />
-          <ConnectorPoint PointX="4.9375" PointY="4.4571913076923071" />
-          <ConnectorPoint PointX="4.9375" PointY="2.1499999999999986" />
-          <ConnectorPoint PointX="5.010416666666667" PointY="2.1499999999999977" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="2.1499999999999986" />
-          <ConnectorPoint PointX="5.9513027820512816" PointY="2.1499999999999981" />
-          <ConnectorPoint PointX="6.1179694487179477" PointY="2.1499999999999986" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="2.1499999999999981" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="2.1499999999999986" />
-          <ConnectorPoint PointX="7.91341628959276" PointY="2.1499999999999986" />
-          <ConnectorPoint PointX="8.25" PointY="1.76853846153846" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" >
-          <ConnectorPoint PointX="9.75" PointY="1.7749999999999986" />
-          <ConnectorPoint PointX="10.5" PointY="2.375" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" >
-          <ConnectorPoint PointX="9" PointY="6.375" />
-          <ConnectorPoint PointX="9" PointY="5.525" />
-          <ConnectorPoint PointX="9.5" PointY="5.525" />
-          <ConnectorPoint PointX="9.5" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="10" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="10" PointY="2.7062519999999926" />
-          <ConnectorPoint PointX="10.5" PointY="2.7062519999999926" />
-        </AssociationConnector>
-        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_vat_rate" >
-          <ConnectorPoint PointX="4.5" PointY="4.8946913076923071" />
-          <ConnectorPoint PointX="4.90625" PointY="4.4884413076923071" />
-          <ConnectorPoint PointX="4.90625" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="2.4749999999999983" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="5.9513027820512816" PointY="2.4749999999999992" />
-          <ConnectorPoint PointX="6.1179694487179477" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="2.4749999999999992" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="2.4749999999999992" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="8.9166666666666661" PointY="2.4749999999999992" />
-          <ConnectorPoint PointX="9.0833333333333339" PointY="2.4749999999999996" />
-          <ConnectorPoint PointX="10.5" PointY="2.4749999999999996" />
         </AssociationConnector>
         <EntityTypeShape EntityType="bycar3Model.SpareInSpareIncomeView" Width="1.5" PointX="10.75" PointY="12.75" Height="0.39999999999999858" IsExpanded="false" />
         <EntityTypeShape EntityType="bycar3Model.Sale" Width="1.5" PointX="12.75" PointY="12.75" Height="0.39999999999999858" IsExpanded="false" />
@@ -4641,6 +4535,79 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="bycar3Model.settings_profile" Width="1.5" PointX="14.75" PointY="4.75" Height="0.39999999999999858" IsExpanded="false" />
         <EntityTypeShape EntityType="bycar3Model.SpareInSpareOutgoView" Width="1.5" PointX="8.375" PointY="14.75" Height="5.8263151041666674" />
+        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_income" Width="1.5" PointX="8.25" PointY="1.75" Height="4.6725065104166674" />
+        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_outgo" Width="1.5" PointX="10.5" PointY="0.75" Height="3.5186979166666674" />
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare" >
+          <ConnectorPoint PointX="4.5" PointY="3.54359365384616" />
+          <ConnectorPoint PointX="4.84375" PointY="3.54359365384616" />
+          <ConnectorPoint PointX="4.84375" PointY="2.4968749999999993" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="2.496874999999998" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="2.4968749999999993" />
+          <ConnectorPoint PointX="5.9513027820512816" PointY="2.4968749999999988" />
+          <ConnectorPoint PointX="6.1179694487179477" PointY="2.4968749999999993" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="2.4968749999999988" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="2.4968749999999993" />
+          <ConnectorPoint PointX="8.25" PointY="2.4968749999999993" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare" >
+          <ConnectorPoint PointX="4.5" PointY="3.3946913076923071" />
+          <ConnectorPoint PointX="4.7848244349011209" PointY="3.1098668727911858" />
+          <ConnectorPoint PointX="4.9026755650988791" PointY="2.992015742593428" />
+          <ConnectorPoint PointX="4.9375" PointY="2.9571913076923071" />
+          <ConnectorPoint PointX="4.9375" PointY="0.375" />
+          <ConnectorPoint PointX="10.125" PointY="0.375" />
+          <ConnectorPoint PointX="10.5" PointY="0.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" >
+          <ConnectorPoint PointX="8.25" PointY="1.75" />
+          <ConnectorPoint PointX="7.875" PointY="1.375" />
+          <ConnectorPoint PointX="7.125" PointY="1.375" />
+          <ConnectorPoint PointX="7.125" PointY="2.1496913076923061" />
+          <ConnectorPoint PointX="6.75" PointY="1.7746913076923063" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" >
+          <ConnectorPoint PointX="8.25" PointY="3.4125" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="3.4124999999999996" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="3.4125" />
+          <ConnectorPoint PointX="6.75" PointY="3.4125" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare_income" >
+          <ConnectorPoint PointX="7.5" PointY="9.375" />
+          <ConnectorPoint PointX="7.875" PointY="9" />
+          <ConnectorPoint PointX="7.875" PointY="6.7975065104166674" />
+          <ConnectorPoint PointX="8.25" PointY="6.4225065104166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_vat_rate" >
+          <ConnectorPoint PointX="3.75" PointY="5.2749999999999986" />
+          <ConnectorPoint PointX="3.75" PointY="6.1812499999999986" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.1812499999999977" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.1812499999999986" />
+          <ConnectorPoint PointX="8.25" PointY="6.1812499999999986" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" >
+          <ConnectorPoint PointX="9.75" PointY="3.0093489583333337" />
+          <ConnectorPoint PointX="10.5" PointY="3.0093489583333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" >
+          <ConnectorPoint PointX="9.75" PointY="6.5749999999999993" />
+          <ConnectorPoint PointX="11.75" PointY="6.5749999999999993" />
+          <ConnectorPoint PointX="11.75" PointY="4.6436979166666674" />
+          <ConnectorPoint PointX="11.25" PointY="4.6436979166666674" />
+          <ConnectorPoint PointX="11.25" PointY="4.2686979166666674" />
+        </AssociationConnector>
+        <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_vat_rate" >
+          <ConnectorPoint PointX="3.75" PointY="4.875" />
+          <ConnectorPoint PointX="3.75" PointY="4.0249999999999986" />
+          <ConnectorPoint PointX="4.66697535897436" PointY="4.0249999999999968" />
+          <ConnectorPoint PointX="5.1770833333333339" PointY="4.0249999999999986" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="4.0249999999999977" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="4.0249999999999986" />
+          <ConnectorPoint PointX="8" PointY="4.0249999999999986" />
+          <ConnectorPoint PointX="8" PointY="1.5" />
+          <ConnectorPoint PointX="10.125" PointY="1.5" />
+          <ConnectorPoint PointX="10.125" PointY="1.8796744791666669" />
+          <ConnectorPoint PointX="10.5" PointY="1.8796744791666669" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

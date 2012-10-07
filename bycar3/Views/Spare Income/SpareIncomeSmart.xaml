@@ -1,9 +1,9 @@
 ﻿<Window x:Class="bycar3.Views.Spare_Income.SpareIncomeSmart"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Style="{DynamicResource ResourceKey=ShatemWindow}"        
-        KeyDown="Window_KeyDown"        
-        Title="Поступление" 
+        Style="{DynamicResource ResourceKey=ShatemWindow}"
+        KeyDown="Window_KeyDown"
+        Title="Поступление"
         Height="400" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,37 +16,37 @@
                   CanUserDeleteRows="False"
                   CanUserResizeRows="False"
                              ItemsSource="{Binding}"
-                             AutoGenerateColumns="False"                                     
-                             CanUserReorderColumns="False"                    
-                             RowBackground="#FFF0F0F0" 
-                             FontWeight="Normal" 
-                             HorizontalGridLinesBrush="LightGray" 
-                             VerticalGridLinesBrush="LightGray"                                               
+                             AutoGenerateColumns="False"
+                             CanUserReorderColumns="False"
+                             RowBackground="#FFF0F0F0"
+                             FontWeight="Normal"
+                             HorizontalGridLinesBrush="LightGray"
+                             VerticalGridLinesBrush="LightGray"
                              Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=num}" Header="№" Width="0.05*" />
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=SpareName}" Header="Наименование" Width="0.14*" />
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=SpareCodeShatem}" Header="Код" Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=SpareCode}" Header="Код маг." Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=BrandName}" Header="Брэнд" Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=GroupName}" Header="Подгруппа" Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=ParentGroupName}" Header="Группа" Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=QIn}" Header="Количество" Width="0.1*"/>
-                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=PIn}" Header="Цена покупная" Width="0.15*"/>
-                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=Markup}" Header="Наценка, %" Width="0.1*"/>                
-                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=POut}" Header="Цена отпускная" Width="0.16*"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=S}" Header="Сумма" Width="0.12*"/>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=SpareCodeShatem}" Header="Код" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=SpareCode}" Header="Код маг." Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=BrandName}" Header="Брэнд" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=GroupName}" Header="Подгруппа" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=ParentGroupName}" Header="Группа" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=QIn}" Header="Количество" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=PIn}" Header="Цена покупная" Width="0.15*" />
+                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=Markup}" Header="Наценка, %" Width="0.1*" />
+                <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=POut}" Header="Цена отпускная" Width="0.16*" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=S}" Header="Сумма" Width="0.12*" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-        <Button Name="btnNext" 
+            <Button Name="btnNext"
                 HorizontalAlignment="Left"
                 Content="Далее"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                Click="btnNext_Click"                
+                Click="btnNext_Click"
                 Margin="5"
                 Height="30"
-                Width="200"/>
+                Width="200" />
             <Label Margin="5,5,0,5" Content="Поиск: " />
             <Label Name="edtSearchString" Width="200" Margin="5" />
         </StackPanel>

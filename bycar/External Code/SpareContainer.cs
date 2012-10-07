@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using bycar;
-using System.Collections;
 using bycar.Utils;
 
 namespace bycar3.External_Code
@@ -15,24 +12,27 @@ namespace bycar3.External_Code
 
         public List<SpareView> Spares
         {
-            get 
+            get
             {
                 if (spares == null)
                     Update();
                 List<SpareView> items = spares;
-                return items; 
+                return items;
             }
         }
-        double RS = 0;
+
+        private double RS = 0;
+
         public double RemainsSum()
         {
             if (spares == null)
                 Update();
             return RS;
         }
+
         private double CalcRemainsSum()
         {
-            RS = 0;                                    
+            RS = 0;
             List<SpareView> remains = spares.Where(i => i.QRest.HasValue).ToList();
             remains = remains.Where(i => i.QRest > 0).ToList();
             foreach (SpareView sv in remains)
@@ -40,7 +40,7 @@ namespace bycar3.External_Code
                 DataAccess da = new DataAccess();
                 List<SpareInSpareIncomeView> items = da.GetIncomes(sv.id);
                 foreach (SpareInSpareIncomeView i in items)
-                {                    
+                {
                     decimal POutBasic = 0;
                     if (!i.POutBasic.HasValue)
                     {
@@ -52,11 +52,11 @@ namespace bycar3.External_Code
                     {
                         POutBasic = i.POutBasic.Value;
                     }
-                    RS += (double)(POutBasic*i.QRest.Value);
+                    RS += (double)(POutBasic * i.QRest.Value);
                 }
             }
             return RS;
-        }    
+        }
 
         public List<SpareView> Remains
         {
@@ -68,31 +68,32 @@ namespace bycar3.External_Code
                 return remains.Where(i => i.QRest > 0).ToList();
             }
         }
+
         public static SpareContainer Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                     instance = new SpareContainer();
-                return instance; 
+                return instance;
             }
         }
 
         private SpareContainer()
         {
         }
-        
+
         public void Update()
         {
             DataAccess da = new DataAccess();
             spares = da.GetSpares();
             RS = CalcRemainsSum();
         }
-        
+
         /*
          * OLD
         public void Update(SpareView spare)
-        {            
+        {
             if (Spares.Where(x => x!= null).Where(x => x.id != null).Where(x => x.id == spare.id).Count() > 0)
             {
                 SpareView sv = spares.Where(x => x != null).Where(x => x.id != null).FirstOrDefault(x => x.id == spare.id);
@@ -101,7 +102,7 @@ namespace bycar3.External_Code
             }
             Spares.Add(spare);
         }*/
-        
+
         public void Update(SpareView spare) // обновление без удаления
         {
             List<SpareView> items = this.Spares;
@@ -116,6 +117,7 @@ namespace bycar3.External_Code
                 spares.Add(spare);
             }
         }
+
         public void Update(int SpareId)
         {
             List<SpareView> items = this.Spares.ToList();
@@ -131,47 +133,54 @@ namespace bycar3.External_Code
                 SpareView sv = db.GetSpareView(SpareId);
                 spares.Add(sv);
             }
-        } 
+        }
+
         /*
         public void Update(int SpareId)
-        {            
+        {
             if (spares.Where(x => x != null).Where(x => x.id == SpareId).Count() > 0)
             {
                 spares.Remove(spares.Where(x => x != null).FirstOrDefault(x => x.id == SpareId));
             }
             DataAccess da = new DataAccess();
             SpareView sv = da.GetSpareView(SpareId);
-            spares.Add(sv);            
-        }*/        
+            spares.Add(sv);
+        }*/
+
         public void Remove(int id)
         {
-            SpareView sv = spares.FirstOrDefault(x => x.id == id);            
+            SpareView sv = spares.FirstOrDefault(x => x.id == id);
             spares.Remove(sv);
-        }        
+        }
+
         public SpareView GetSpare(int ID)
         {
             return Spares.FirstOrDefault(s => s.id == ID);
-        }        
+        }
+
         public List<SpareView> GetSpares(int searchFieldIndex, string searchString)
         {
             List<SpareView> items = new List<SpareView>();
             searchString = searchString.ToLower();
-                switch (searchFieldIndex)
-                {
-                    case 0:// ПОИСК ПО КОДУ
-                        items = Spares.Where(s => s != null).Where(s => s.code != null).Where(s => s.code.ToLower().Contains(searchString.ToLower())).ToList();
-                        break;
-                    case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
-                        items = Spares.Where(s => s != null).Where(s => s.name != null).Where(s => s.name.ToLower().Contains(searchString.ToLower())).ToList();
-                        break;
-                    case 2:// ПОИСК ПО КОДУ ШАТЕ-М
-                        items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(searchString.ToLower())).ToList();
-                        break;
-                }            
+            switch (searchFieldIndex)
+            {
+                case 0:// ПОИСК ПО КОДУ
+                    items = Spares.Where(s => s != null).Where(s => s.code != null).Where(s => s.code.ToLower().Contains(searchString.ToLower())).ToList();
+                    break;
+
+                case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
+                    items = Spares.Where(s => s != null).Where(s => s.name != null).Where(s => s.name.ToLower().Contains(searchString.ToLower())).ToList();
+                    break;
+
+                case 2:// ПОИСК ПО КОДУ ШАТЕ-М
+                    items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(searchString.ToLower())).ToList();
+                    break;
+            }
             if (items == null)
                 items = new List<SpareView>();
             return items.ToList();
         }
+
         public List<SpareView> GetSparesStrict(int searchFieldIndex, string searchString)
         {
             List<SpareView> items = new List<SpareView>();
@@ -181,9 +190,11 @@ namespace bycar3.External_Code
                 case 0:// ПОИСК ПО КОДУ
                     items = Spares.Where(s => s != null).Where(s => s.code != null).Where(s => s.code.ToLower().Equals(searchString)).ToList();
                     break;
+
                 case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
                     items = Spares.Where(s => s != null).Where(s => s.name != null).Where(s => s.name.ToLower().Equals(searchString)).ToList();
                     break;
+
                 case 2:// ПОИСК ПО КОДУ ШАТЕ-М
                     items = Spares.Where(s => s != null).Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Equals(searchString)).ToList();
                     break;
@@ -191,7 +202,8 @@ namespace bycar3.External_Code
             if (items == null)
                 items = new List<SpareView>();
             return items.ToList();
-        }        
+        }
+
         public List<SpareView> GetSpares(
            int SearchFieldIndex,
            string SearchText,
@@ -218,6 +230,7 @@ namespace bycar3.External_Code
                 }
             }
             else
+
                 //int BrandID
                 if (BrandID > 0)
                 {
@@ -236,6 +249,7 @@ namespace bycar3.External_Code
             {
                 ResultList = ResultList.ToList().Where(i => i.QRest > 0).ToList();
             }
+
             //int SearchFieldIndex,
             //string SearchText,
             if (SearchText.Length > 0)
@@ -246,9 +260,11 @@ namespace bycar3.External_Code
                     case 0:// ПОИСК ПО КОДУ
                         ResultList = ResultList.ToList().Where(s => s.code != null).Where(s => s.code.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
                         ResultList = ResultList.ToList().Where(s => s.name.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 2:// ПОИСК ПО КОДУ ШАТЕ-М
                         ResultList = ResultList.ToList().Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
@@ -257,6 +273,5 @@ namespace bycar3.External_Code
 
             return ResultList.ToList();
         }
-
     }
 }

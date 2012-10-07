@@ -1,6 +1,6 @@
 ﻿<Window x:Class="bycar3.Views.AccountsEditView"
         Icon="\Content\Menu\partner_32.png"
-                
+
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Контрагент" Height="460" Width="447" ResizeMode="NoResize"
@@ -14,11 +14,11 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="tbDesc" Text="Описание" VerticalAlignment="Top" Width="92" />
 
         <Button
-                HorizontalAlignment="Right"                
-                Margin="0,391,12,22" 
+                HorizontalAlignment="Right"
+                Margin="0,391,12,22"
                 Width="80"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                Click="button1_Click"            
+                Click="button1_Click"
                 Name="btnCancel" Height="25">
             <Button.Content>
                 <StackPanel
@@ -30,14 +30,14 @@
             </Button.Content>
         </Button>
 
-        <Button                
-                Width="80"                          
-                HorizontalAlignment="Left" Margin="246,391,0,22" 
+        <Button
+                Width="80"
+                HorizontalAlignment="Left" Margin="246,391,0,22"
                 Click="btnOK_Click"
             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                Name="btnOk" Height="25" >
+                Name="btnOk" Height="25">
             <Button.Content>
-                <StackPanel 
+                <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                     <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
@@ -58,41 +58,41 @@
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,205,12,0" Name="edtShippingDest" VerticalAlignment="Top" Width="270" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,205,0,0" Name="textBlock8" Text="Место назначения" VerticalAlignment="Top" Width="113" />
 
-        <Button 
+        <Button
             ToolTip="Добавить расчётный счёт"
             IsEnabled="True"
             Margin="12,234,382,170"
             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-            Name="btnBAAdd" 
+            Name="btnBAAdd"
             Click="btnBAAdd_Click"
             Height="34">
-            <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+            <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28" />
         </Button>
-        <Button 
+        <Button
             ToolTip="Удалить выделенный расчётный счёт"
                         IsEnabled="True"
-                        Margin="49,234,343,170"                        
+                        Margin="49,234,343,170"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Name="btnBADelete" 
+                        Name="btnBADelete"
             Click="btnBADelete_Click"
             Width="33" Height="34">
-            <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28"/>
+            <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28" />
         </Button>
-        <DataGrid Name="dgSpares"                              
+        <DataGrid Name="dgSpares"
                              ItemsSource="{Binding}"
-                             AutoGenerateColumns="False"                                                                                            
-                             CanUserReorderColumns="False"                              
-                             RowBackground="#FFF0F0F0" 
-                             FontWeight="Normal" 
-                             HorizontalGridLinesBrush="LightGray" 
-                             VerticalGridLinesBrush="LightGray"                             
+                             AutoGenerateColumns="False"
+                             CanUserReorderColumns="False"
+                             RowBackground="#FFF0F0F0"
+                             FontWeight="Normal"
+                             HorizontalGridLinesBrush="LightGray"
+                             VerticalGridLinesBrush="LightGray"
                              Margin="3,274,12,53">
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankName}" Header="Банк" Width="0.3*"/>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankMFO}" Header="МФО" Width="0.2*"/>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankAccount}" Header="№ р/с" Width="0.3*"/>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=Description}" Header="Примечание" Width="0.2*"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankName}" Header="Банк" Width="0.3*" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankMFO}" Header="МФО" Width="0.2*" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=BankAccount}" Header="№ р/с" Width="0.3*" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=Description}" Header="Примечание" Width="0.2*" />
             </DataGrid.Columns>
-        </DataGrid>        
+        </DataGrid>
     </Grid>
 </Window>

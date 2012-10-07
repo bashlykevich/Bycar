@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.Views.Common;
-using bycar3.Views.Spare_Income;
-using bycar3.Views.Spare_Outgo;
 using bycar3.Views.Invoice;
 using bycar3.Views.Overpricing;
 using bycar3.Views.Revision2;
 using bycar3.Views.Sales;
+using bycar3.Views.Spare_Income;
+using bycar3.Views.Spare_Outgo;
 
 namespace bycar3.Views.Main_window
 {
@@ -27,7 +19,7 @@ namespace bycar3.Views.Main_window
     /// </summary>
     public partial class UCMovements : UserControl
     {
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public MainWindow ParentWindow = null;
 
         public UCMovements()
@@ -36,6 +28,7 @@ namespace bycar3.Views.Main_window
         }
 
         #region CUSTOM FUNCTIONS
+
         // обновить данные в окошке
         public void RefreshWindow()
         {
@@ -45,12 +38,13 @@ namespace bycar3.Views.Main_window
             if (!da.getProfileCurrent().BasicCurrencyCode.Contains("BYR"))
                 tabItemOverpricing.Visibility = System.Windows.Visibility.Collapsed;
             else
-                tabItemOverpricing.Visibility = System.Windows.Visibility.Visible;            
-        }        
+                tabItemOverpricing.Visibility = System.Windows.Visibility.Visible;
+        }
+
         private void LoadSpareIncome()
         {
             da = new DataAccess();
-            List<SpareIncomeView> list =  da.SpareIncomeGetAll();
+            List<SpareIncomeView> list = da.SpareIncomeGetAll();
             foreach (SpareIncomeView s in list)
             {
                 string strDate = "";
@@ -58,13 +52,13 @@ namespace bycar3.Views.Main_window
                 if (s.Date.Month < 10)
                     strDate += "0";
                 strDate += s.Date.Month + ".";
-                if(s.Date.Day<10)
-                    strDate +="0";
-                strDate+=s.Date.Day;
-                                
+                if (s.Date.Day < 10)
+                    strDate += "0";
+                strDate += s.Date.Day;
+
                 s.DateString = strDate;
             }
-            dgSpareMovementIn.DataContext = list.OrderByDescending( s => s.Date);
+            dgSpareMovementIn.DataContext = list.OrderByDescending(s => s.Date);
         }
 
         private void LoadSpareOutgo()
@@ -85,11 +79,12 @@ namespace bycar3.Views.Main_window
             }
             dgSpareMovementOut.DataContext = list.OrderByDescending(s => s.Date);
         }
+
         private void LoadInvoices()
         {
             da = new DataAccess();
             List<invoice> list = da.InvoiceGet();
-            foreach(invoice s in list)
+            foreach (invoice s in list)
             {
                 if (s.InvoiceDate != null)
                 {
@@ -106,12 +101,14 @@ namespace bycar3.Views.Main_window
             }
             dgInvoices.DataContext = list.OrderByDescending(s => s.InvoiceDate);
         }
+
         public void LoadSales()
         {
             da = new DataAccess();
-            List<Sale> list = da.SaleGet();            
+            List<Sale> list = da.SaleGet();
             dgSales.DataContext = list.OrderByDescending(s => s.Number);
         }
+
         private void LoadOverpricings()
         {
             da = new DataAccess();
@@ -130,7 +127,7 @@ namespace bycar3.Views.Main_window
             }
             dgOverpricing.DataContext = list.OrderByDescending(s => s.createdOn);
         }
-        
+
         private void LoadRevisions()
         {/*
             da = new DataAccess();
@@ -149,6 +146,7 @@ namespace bycar3.Views.Main_window
             }
             dgRevision.DataContext = list;*/
         }
+
         public void ItemCreate()
         {
             // определить, какая из вкладок активна
@@ -156,27 +154,31 @@ namespace bycar3.Views.Main_window
             switch (selectedTabIndex)
             {
                 //case 2: // вызвать минидиалог выбора типа накладной - отгрузка или приход
-                  //  SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
-                    //selView.ShowDialog();
-                    //break;
+                //  SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
+                //selView.ShowDialog();
+                //break;
                 case 0: // поступление
                     CreateSpareMovementIn();
                     break;
+
                 case 1: // отгрузка
                     CreateSpareMovementOut();
                     break;
+
                 case 2: // счёт-фактура
                     CreateInvoice();
                     break;
+
                 case 3: // переоценка
                     CreateOverpricing();
                     break;
+
                 case 4: // ревизия
                     CreateRevision();
                     break;
             }
         }
-              
+
         public void ItemEdit()
         {
             // определить, какая из вкладок активна
@@ -184,23 +186,29 @@ namespace bycar3.Views.Main_window
             switch (selectedTabIndex)
             {
                 //case 2: // вызвать минидиалог выбора типа накладной - отгрузка или приход
-                    //SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
-                    //selView.ShowDialog();
-                  //  break;
+                //SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
+                //selView.ShowDialog();
+                //  break;
                 case 0: // поступление
+
                     // вызвать диалог прихода
                     EditSelectedSpareMovementIn();
                     break;
+
                 case 1: // отгрузка
+
                     // вызвать диалог добавление отгрузки
                     EditSelectedSpareMovementOut();
                     break;
+
                 case 2: // счёт-фактура
                     EditInvoice();
                     break;
+
                 case 3: // переоценка
                     EditOverpicing();
                     break;
+
                 case 4: // ревизия
                     EditRevision();
                     break;
@@ -214,22 +222,28 @@ namespace bycar3.Views.Main_window
             switch (item.Name)
             {
                 //case 2: // вызвать минидиалог выбора типа накладной - отгрузка или приход
-                    //SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
-                    //selView.ShowDialog();
-                  //  break;
+                //SelectSpareMovementTypeView selView = new SelectSpareMovementTypeView();
+                //selView.ShowDialog();
+                //  break;
                 case "tabControlSpareMovements": // поступление
+
                     // вызвать диалог прихода
                     DeleteSelectedSpareMovementIn();
                     break;
+
                 case "tabItemOfferingsOut": // отгрузка
-                    // удаление отгрузки            
+
+                    // удаление отгрузки
                     DeleteSelectedSpareMovementOut();
                     break;
+
                 case "tabItemInvoices": // инвойс
-                    // удаление отгрузки            
+
+                    // удаление отгрузки
                     DeleteInvoice();
                     break;
-                case "tabItemOverpricing": // переоценка                    
+
+                case "tabItemOverpricing": // переоценка
                     DeleteOverpicing();
                     break;
                 /*case 4: // ревизия
@@ -240,6 +254,7 @@ namespace bycar3.Views.Main_window
                     break;
             }
         }
+
         private void CreateSpareMovementIn()
         {
             // вызвать диалог добавление прихода
@@ -248,27 +263,31 @@ namespace bycar3.Views.Main_window
             v.ShowDialog();
             LoadSpareIncome();
         }
+
         private void CreateInvoice()
         {
             // вызвать диалог добавление прихода
-            InvoiceEditView v = new InvoiceEditView();            
+            InvoiceEditView v = new InvoiceEditView();
             v.ShowDialog();
             LoadInvoices();
         }
+
         private void CreateOverpricing()
         {
             // вызвать диалог добавление прихода
-            OverpricingEditView v = new OverpricingEditView();            
+            OverpricingEditView v = new OverpricingEditView();
             v.ShowDialog();
             LoadOverpricings();
         }
+
         private void CreateRevision()
         {
             // вызвать диалог добавление прихода
-            Revision2EditView v = new Revision2EditView();            
+            Revision2EditView v = new Revision2EditView();
             v.ShowDialog();
             LoadRevisions();
         }
+
         private void CreateSpareMovementOut()
         {
             // вызвать диалог добавление прихода
@@ -277,6 +296,7 @@ namespace bycar3.Views.Main_window
             v.ShowDialog();
             LoadSpareOutgo();
         }
+
         private void EditSelectedSpareMovementIn()
         {
             int id = 0;
@@ -296,6 +316,7 @@ namespace bycar3.Views.Main_window
                 LoadSpareIncome();
             }
         }
+
         private void EditInvoice()
         {
             int id = 0;
@@ -309,11 +330,12 @@ namespace bycar3.Views.Main_window
             }
             if (id > 0)
             {
-                InvoiceEditView v = new InvoiceEditView(b.id);                
+                InvoiceEditView v = new InvoiceEditView(b.id);
                 v.ShowDialog();
                 LoadInvoices();
             }
         }
+
         private void EditOverpicing()
         {
             int id = 0;
@@ -327,11 +349,12 @@ namespace bycar3.Views.Main_window
             }
             if (id > 0)
             {
-                OverpricingEditView v = new OverpricingEditView(b.id);                
+                OverpricingEditView v = new OverpricingEditView(b.id);
                 v.ShowDialog();
                 LoadOverpricings();
             }
         }
+
         private void EditRevision()
         {
             int id = 0;
@@ -345,7 +368,7 @@ namespace bycar3.Views.Main_window
             }
             if (id > 0)
             {
-                Revision2EditView v = new Revision2EditView(b.id);                
+                Revision2EditView v = new Revision2EditView(b.id);
                 v.ShowDialog();
                 LoadRevisions();
             }*/
@@ -363,29 +386,29 @@ namespace bycar3.Views.Main_window
                 id = b.id;
             }
             if (id > 0)
-            {                
+            {
                 SpareOutgoEditView v = new SpareOutgoEditView();
                 v._id = b.id;
-                v.ShowDialog();                
+                v.ShowDialog();
                 LoadSpareOutgo();
             }
         }
 
         private void DeleteSelectedSpareMovementIn()
-        {            
+        {
             DataGrid dg = dgSpareMovementIn;
             if (dg.SelectedItems.Count > 0)
             {
                 MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записи?", "Удаление", MessageBoxButton.YesNo);
                 if (res == MessageBoxResult.Yes)
-                {                   
+                {
                     foreach (SpareIncomeView sov in dg.SelectedItems)
-                    {                        
+                    {
                         da.SpareIncomeDelete(sov.id);
                     }
                     LoadSpareIncome();
                 }
-            }            
+            }
         }
 
         private void DeleteSelectedSpareMovementOut()
@@ -395,18 +418,19 @@ namespace bycar3.Views.Main_window
             if (dg.SelectedItems.Count > 0)
             {
                 MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записи?", "Удаление", MessageBoxButton.YesNo);
-                if (res == MessageBoxResult.Yes)                
-                    DeleteFlag = true;                
+                if (res == MessageBoxResult.Yes)
+                    DeleteFlag = true;
             }
-            if(DeleteFlag)
+            if (DeleteFlag)
             {
-                foreach(SpareOutgoView sov in dg.SelectedItems)
+                foreach (SpareOutgoView sov in dg.SelectedItems)
                 {
-                    da.SpareOutgoDelete(sov.id);                    
+                    da.SpareOutgoDelete(sov.id);
                 }
                 LoadSpareOutgo();
-            }            
+            }
         }
+
         private void DeleteInvoice()
         {
             DataGrid dg = dgInvoices;
@@ -423,6 +447,7 @@ namespace bycar3.Views.Main_window
                 }
             }
         }
+
         private void DeleteSale()
         {
             DataGrid dg = dgSales;
@@ -439,6 +464,7 @@ namespace bycar3.Views.Main_window
                 }
             }
         }
+
         private void DeleteOverpicing()
         {
             DataGrid dg = dgOverpricing;
@@ -455,6 +481,7 @@ namespace bycar3.Views.Main_window
                 }
             }
         }
+
         private void DeleteRevision()
         {
             int id = 0;
@@ -476,7 +503,9 @@ namespace bycar3.Views.Main_window
                 }
             }*/
         }
-        #endregion
+
+        #endregion CUSTOM FUNCTIONS
+
         // HANDLERS
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -487,6 +516,7 @@ namespace bycar3.Views.Main_window
         {
             LoadSpareOutgo();
         }
+
         private void tabControlSpareIncome_Loaded(object sender, RoutedEventArgs e)
         {
             LoadSpareIncome();
@@ -497,10 +527,10 @@ namespace bycar3.Views.Main_window
             EditSelectedSpareMovementIn();
 
             /* DEBUG CODE
-             * string s = 
+             * string s =
                  "DataGrid:   " + dgSpareMovementIn.ActualHeight + "\n";
             s += "TabItem:    " + tabControlSpareIncome.ActualHeight + "\n";
-            s += "TabControl: " + tabControlSpareMovements.ActualHeight + "\n";            
+            s += "TabControl: " + tabControlSpareMovements.ActualHeight + "\n";
             s += "Grid:       " + grMain.ActualHeight + "\n";
             s += "UserCtrl:   " + this.ActualHeight + "\n";
             MessageBox.Show(s);*/
@@ -529,7 +559,7 @@ namespace bycar3.Views.Main_window
         private void dgOverpricing_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             EditOverpicing();
-        }      
+        }
 
         private void tabItemRevision_Loaded(object sender, RoutedEventArgs e)
         {
@@ -547,45 +577,49 @@ namespace bycar3.Views.Main_window
             {
                 switch (tabControlSpareMovements.SelectedIndex)
                 {
-                    case 0: // поступление товаров                
-                        ParentWindow.btnItemAdd.IsEnabled = true;                        
+                    case 0: // поступление товаров
+                        ParentWindow.btnItemAdd.IsEnabled = true;
                         ParentWindow.btnItemEdit.IsEnabled = true;
                         ParentWindow.btnItemAdd.ToolTip = "Создать новую приходную накладную";
                         ParentWindow.btnItemDelete.ToolTip = "Удалить выделенную приходную накладную";
                         ParentWindow.btnItemEdit.ToolTip = "Редактировать выделенную приходную накладную";
                         break;
+
                     case 1: // отгрузка товаров
-                        ParentWindow.btnItemAdd.IsEnabled = true;                        
+                        ParentWindow.btnItemAdd.IsEnabled = true;
                         ParentWindow.btnItemEdit.IsEnabled = true;
                         ParentWindow.btnItemAdd.ToolTip = "Создать новую расходную накладную";
                         ParentWindow.btnItemDelete.ToolTip = "Удалить выделенную расходную накладную";
                         ParentWindow.btnItemEdit.ToolTip = "Редактировать выделенную расходную накладную";
                         break;
+
                     case 2: // счет-фактура
-                        ParentWindow.btnItemAdd.IsEnabled = true;                        
+                        ParentWindow.btnItemAdd.IsEnabled = true;
                         ParentWindow.btnItemEdit.IsEnabled = true;
                         ParentWindow.btnItemAdd.ToolTip = "Создать новую счёт-фактуру";
                         ParentWindow.btnItemDelete.ToolTip = "Удалить выделенную счёт-фактуру";
                         ParentWindow.btnItemEdit.ToolTip = "Редактировать выделенную счёт-фактуру";
                         LoadSpareOutgo();
                         break;
+
                     case 3: // переоценка
-                        ParentWindow.btnItemAdd.IsEnabled = true;                        
+                        ParentWindow.btnItemAdd.IsEnabled = true;
                         ParentWindow.btnItemEdit.IsEnabled = true;
                         ParentWindow.btnItemAdd.ToolTip = "Создать новый бланк переоценки";
                         ParentWindow.btnItemDelete.ToolTip = "Удалить выделенный бланк переоценки";
                         ParentWindow.btnItemEdit.ToolTip = "Редактировать выделенный бланк переоценки";
                         break;
+
                     case 4: // корзины (быстрые покупки)
-                        ParentWindow.btnItemAdd.IsEnabled = false;                        
+                        ParentWindow.btnItemAdd.IsEnabled = false;
                         ParentWindow.btnItemEdit.IsEnabled = false;
-                        break;  
+                        break;
                 }
-            }   
+            }
             if (!da.getProfileCurrent().BasicCurrencyCode.Contains("BYR"))
                 tabItemOverpricing.Visibility = System.Windows.Visibility.Collapsed;
             else
-                tabItemOverpricing.Visibility = System.Windows.Visibility.Visible;            
+                tabItemOverpricing.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void tabItemSales_Loaded(object sender, RoutedEventArgs e)
@@ -601,6 +635,6 @@ namespace bycar3.Views.Main_window
                 SaleEditView v = new SaleEditView(SaleID);
                 v.ShowDialog();
             }
-        }                
+        }
     }
 }

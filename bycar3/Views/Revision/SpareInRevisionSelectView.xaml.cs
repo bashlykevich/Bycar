@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.External_Code;
 using bycar3.Core;
+using bycar3.External_Code;
 
 namespace bycar3.Views.Revision
 {
@@ -24,15 +20,16 @@ namespace bycar3.Views.Revision
         #region MEMBERS
 
         public RevisionEditView _ParentWindow = null;
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public int _SpareIncomeID = -1;
         public int _OfferingNumber = 0;
         public string CurrencyRateCode;
-        #endregion
+
+        #endregion MEMBERS
 
         #region FUNCTIONS
 
-        string GetSelectedSpareName()
+        private string GetSelectedSpareName()
         {
             string result = "";
             try
@@ -55,7 +52,7 @@ namespace bycar3.Views.Revision
             return result;
         }
 
-        int GetSelectedSpareId()
+        private int GetSelectedSpareId()
         {
             int result = 0;
             try
@@ -78,12 +75,12 @@ namespace bycar3.Views.Revision
             return result;
         }
 
-        void LoadSpares()
+        private void LoadSpares()
         {
             LoadSpares(null, "");
         }
 
-        void LoadSpares(int? searchFieldIndex, string searchString)
+        private void LoadSpares(int? searchFieldIndex, string searchString)
         {
             da = new DataAccess();
             List<SpareView> items = new List<SpareView>();
@@ -98,7 +95,7 @@ namespace bycar3.Views.Revision
             dgSpares.DataContext = items;
         }
 
-        void SpareSearch()
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
@@ -107,14 +104,14 @@ namespace bycar3.Views.Revision
                 LoadSpares(searchFieldIndex, searchString);
             }
         }
-               
-        void SpareAdd()
+
+        private void SpareAdd()
         {
             Marvin.Instance.SpareCreate();
             LoadSpares();
         }
 
-        void SpareEdit()
+        private void SpareEdit()
         {
             if (dgSpares.SelectedItem == null)
                 return;
@@ -123,7 +120,7 @@ namespace bycar3.Views.Revision
             LoadSpares();
         }
 
-        void SpareDelete()
+        private void SpareDelete()
         {
             int id = 0;
             SpareView b = null;
@@ -145,12 +142,12 @@ namespace bycar3.Views.Revision
             }
         }
 
-        void ShowSelectedSpareName()
+        private void ShowSelectedSpareName()
         {
             edtOfferingName.Content = GetSelectedSpareName();
         }
 
-        void SearchFieldOnMouseEnter()
+        private void SearchFieldOnMouseEnter()
         {
             if (edtSearchText.Text.Equals("Введите текст..."))
             {
@@ -161,7 +158,7 @@ namespace bycar3.Views.Revision
             }
         }
 
-        void SearchFieldOnKeyPressed(KeyEventArgs e)
+        private void SearchFieldOnKeyPressed(KeyEventArgs e)
         {
             string searchString = edtSearchText.Text;
             switch (e.Key)
@@ -179,17 +176,19 @@ namespace bycar3.Views.Revision
             }
         }
 
-        void AddNewOffering()
+        private void AddNewOffering()
         {
             string _SpareName = GetSelectedSpareName();
             int _SpareID = GetSelectedSpareId();
+
             // проверить, есть ли списке введенных данный товар
-            bool InRevisionExist = da.GetRemains(_SpareIncomeID).Where(x => x.SpareID == _SpareID).Count()>0;
+            bool InRevisionExist = da.GetRemains(_SpareIncomeID).Where(x => x.SpareID == _SpareID).Count() > 0;
+
             // если есть, спросить, добавить ли его новой позицией или приплюсовать 1 шт. к уже внесенному
             if (InRevisionExist)
-            {                
-
+            {
                 string QM = "Добавить отдельной позицией?";
+
                 // (ДА - появится новая строчка с данным товаром; НЕТ - добавится 1 шт. к уже существущей строчке с товаром)?";
                 if (MessageBox.Show(QM, "Есть такая деталь в списке!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -202,7 +201,7 @@ namespace bycar3.Views.Revision
                     offering.QIn = 1;
                     offering.POut = 1;
                     offering.S = 1;
-                    
+
                     offering.PInBasic = 0;
                     offering.POutBasic = 0;
                     offering.SBasic = 0;
@@ -247,22 +246,24 @@ namespace bycar3.Views.Revision
 
                 string VATName = "Без НДС";
 
-                if(CurrencyRateCode == "BYR")
-                    offering.CurrencyID = 1; else
+                if (CurrencyRateCode == "BYR")
+                    offering.CurrencyID = 1;
+                else
                     if (CurrencyRateCode == "USD")
-                    offering.CurrencyID = 2;
-                else
+                        offering.CurrencyID = 2;
+                    else
                         if (CurrencyRateCode == "EUR")
-                    offering.CurrencyID = 3;
-                else
+                            offering.CurrencyID = 3;
+                        else
                             if (CurrencyRateCode == "RUR")
-                    offering.CurrencyID = 4;
+                                offering.CurrencyID = 4;
 
                 da.InOfferingCreate(offering, _SpareID, _SpareIncomeID, VATName);
                 SpareContainer.Instance.Update(_SpareID);
-            }            
+            }
         }
-        #endregion
+
+        #endregion FUNCTIONS
 
         // HANDLERS
         public SpareInRevisionSelectView()
@@ -283,8 +284,8 @@ namespace bycar3.Views.Revision
         private void edtSearchText_KeyDown(object sender, KeyEventArgs e)
         {
             SearchFieldOnKeyPressed(e);
-        }        
-       
+        }
+
         private void btnSpareAdd_Click(object sender, RoutedEventArgs e)
         {
             SpareAdd();
@@ -330,6 +331,7 @@ namespace bycar3.Views.Revision
         {
             SpareSearch();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();

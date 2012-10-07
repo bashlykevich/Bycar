@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 
 namespace bycar3.Views
@@ -20,14 +9,17 @@ namespace bycar3.Views
     public partial class VATRatesEditView : Window
     {
         public int _id = 0;
+
         public VATRatesEditView()
         {
             InitializeComponent();
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             if (this._id > 0)
@@ -43,12 +35,14 @@ namespace bycar3.Views
             DataAccess da = new DataAccess();
             da.VATRateEdit(getItemFromFields());
         }
+
         private void CreateItem()
         {
             DataAccess da = new DataAccess();
             da.VATRateCreate(getItemFromFields());
         }
-        vat_rate getItemFromFields()
+
+        private vat_rate getItemFromFields()
         {
             vat_rate item = new vat_rate();
             item.id = this._id;
@@ -56,7 +50,7 @@ namespace bycar3.Views
             item.rate = 0;
             decimal tmp = 0;
             decimal.TryParse(edtRate.Text, out tmp);
-            item.rate = tmp;           
+            item.rate = tmp;
             return item;
         }
     }

@@ -10,12 +10,12 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Название" VerticalAlignment="Top" Width="92" />
         <TextBox Height="61" HorizontalAlignment="Right" Margin="0,41,12,0" Name="edtDescr" VerticalAlignment="Top" Width="303" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="tbDesc" Text="Описание" VerticalAlignment="Top" Width="92" />
-        
+
         <Button
-            Margin="330,125,10,0" 
+            Margin="330,125,10,0"
             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
 		    HorizontalAlignment="Left"
-	        VerticalAlignment="Top"                 
+	        VerticalAlignment="Top"
                 Click="button1_Click"
                 Name="btnCancel">
             <Button.Content>
@@ -31,7 +31,7 @@
             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
             HorizontalAlignment="Left" Margin="257,125,0,0" Name="btnOK" VerticalAlignment="Top" Click="btnOK_Click">
             <Button.Content>
-                <StackPanel 
+                <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                     <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />

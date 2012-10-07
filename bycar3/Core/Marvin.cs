@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Threading;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using bycar;
+using bycar3.External_Code;
 using bycar3.Views;
 using bycar3.Views.Main_window;
-using bycar3.External_Code;
-using System.IO;
 
 namespace bycar3.Core
 {
-    enum Views { Spares, Outgoes, Incomes, Spare };
+    internal enum Views { Spares, Outgoes, Incomes, Spare };
 
     public class Marvin
     {
         public admin_unit CurrentUser = null;
 
         #region SINGLETON
+
         private static readonly Marvin instance = new Marvin();
+
         public static Marvin Instance
         {
-            get { return instance;}
+            get { return instance; }
         }
+
         /// Защищенный конструктор нужен, чтобы предотвратить создание экземпляра класса Singleton
-        protected Marvin() 
+        protected Marvin()
         {
             try
             {
@@ -41,8 +40,11 @@ namespace bycar3.Core
                 this.Log(e.Message);
             }
         }
-        #endregion                        
+
+        #endregion SINGLETON
+
         public static int LastCheckedID = 0;
+
         private void timer_Elapsed(object source, System.Timers.ElapsedEventArgs e)
         {
             lock (SpareContainer.Instance)
@@ -59,7 +61,6 @@ namespace bycar3.Core
                     {
                         if (log.EventType == "U" || log.EventType == "I")
                         {
-
                             SpareView item = db.SpareViews.FirstOrDefault(x => x.id == log.RecordID);
                             if (item != null)
                             {
@@ -93,21 +94,25 @@ namespace bycar3.Core
         }
 
         #region ПОЛЯ
-        Views CurrentView = Views.Spares;
-        UCSpares mainWindowObj = null;
-        int spid = 0;
+
+        private Views CurrentView = Views.Spares;
+        private UCSpares mainWindowObj = null;
+        private int spid = 0;
         protected System.Timers.Timer timer;
-        #endregion
+
+        #endregion ПОЛЯ
 
         #region СВОЙСТВА
+
         public UCSpares MainWindowObj
         {
             get { return mainWindowObj; }
             set { mainWindowObj = value; }
         }
+
         public int SPID
         {
-            get 
+            get
             {
                 if (spid == 0)
                 {
@@ -117,15 +122,19 @@ namespace bycar3.Core
                 return spid;
             }
         }
-        #endregion
+
+        #endregion СВОЙСТВА
+
         // МЕТОДЫ
-        bool ready()
+        private bool ready()
         {
             if (mainWindowObj == null)
+
                 //throw new Exception("mainWindowObj == null");
                 return false;
             return true;
         }
+
         // логгирование
         public void Log(string text)
         {
@@ -149,11 +158,12 @@ namespace bycar3.Core
             // Close the stream:
             log.Close();*/
         }
+
         // ЗАПЧАСТЬ - ДОБАВИТЬ
         public SpareView SpareCreate()
         {
             if (!ready())
-                return null;// null;           
+                return null;// null;
             SpareView result = null;
 
             SpareEditView v = new SpareEditView();
@@ -170,15 +180,15 @@ namespace bycar3.Core
             }
             return result;
         }
-        
+
         public SpareView SpareCreateSilent(string Name, string CodeShatem, string GroupName, string ParentGroupName, string BrandName, string UnitName, string Description)
         {
-            DataAccess da = new DataAccess();           
+            DataAccess da = new DataAccess();
             spare s = da.SpareCreateSilent(Name, CodeShatem, GroupName, ParentGroupName, BrandName, UnitName, Description);
             SpareView SpareViewItem = da.GetSpareView(s.id);
             SpareContainer.Instance.Update(SpareViewItem);
             int BrandID = SpareViewItem.BrandID;
-            int GroupID = SpareViewItem.GroupID;           
+            int GroupID = SpareViewItem.GroupID;
             if (SpareContainer.Instance.Spares.Where(i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
             {
                 if (s.brand == null)
@@ -187,6 +197,7 @@ namespace bycar3.Core
             }
             return SpareViewItem;
         }
+
         // ЗАПЧАСТЬ - ДОБАВИТЬ - СОХРАНИТЬ
         public spare SpareCreate(string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, int UnitID, string Description)
         {
@@ -199,7 +210,7 @@ namespace bycar3.Core
             sp.q_demand_clear = QDemand;
             sp.q_rest = 0;
             sp.description = Description;
-            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);            
+            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);
             SpareView SpareViewItem = da.GetSpareView(s.id);
             SpareContainer.Instance.Update(SpareViewItem);
 
@@ -211,9 +222,10 @@ namespace bycar3.Core
             }
             return s;
         }
+
         // ЗАПЧАСТЬ - ДОБАВИТЬ - СОХРАНИТЬ
         public spare SpareCreate(string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, string UnitName, string Description)
-        {             
+        {
             DataAccess da = new DataAccess();
             spare sp = new spare();
             sp.name = Name;
@@ -224,6 +236,7 @@ namespace bycar3.Core
             sp.q_rest = 0;
             sp.description = Description;
             spare s = da.SpareCreate(sp, BrandID, GroupID, UnitName);
+
             //Feb15 int GroupID = s.spare_group.id;
             SpareView SpareViewItem = da.GetSpareView(s.id);
             SpareContainer.Instance.Update(SpareViewItem);
@@ -231,10 +244,11 @@ namespace bycar3.Core
             if (SpareContainer.Instance.Spares.Where(
                     i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
             {
-                da.SpareGroupCreate(GroupID, BrandID);                
+                da.SpareGroupCreate(GroupID, BrandID);
             }
             return s;
         }
+
         // ЗАПЧАСТЬ - РЕДАКТИРОВАТЬ
         public void SpareEdit(int SpareID)
         {
@@ -250,6 +264,7 @@ namespace bycar3.Core
                 MainWindowObj.dgSpares.SelectedItem = SpareContainer.Instance.Spares.FirstOrDefault(x => x.id == SpareID);
             }
         }
+
         // ЗАПЧАСТЬ - РЕДАКТИРОВАТЬ - СОХРАНИТЬ
         public spare SpareEdit(int SpareID, string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, int UnitID, string Description)
         {
@@ -270,27 +285,29 @@ namespace bycar3.Core
             string OldBrandName = sp.BrandName;
             int OldBrandID = sp.brand.id;
             int OldGroupID = sp.spare_group.id;
-            
+
             spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);
             SpareView SpareViewItem = da.GetSpareView(s.id);
             SpareContainer.Instance.Update(SpareViewItem);
+
             //string BrandName = SpareViewItem.BrandName;
 
             if (OldBrandID != BrandID || OldGroupID != GroupID)
             {
                 if (SpareContainer.Instance.Spares.Where(i => i.BrandID == OldBrandID && i.GroupID == OldGroupID).Count() == 0)
                 {
-                    da.SpareGroupDelete(OldBrandID, OldGroupID);                    
+                    da.SpareGroupDelete(OldBrandID, OldGroupID);
                     mainWindowObj.LoadGroups(false);
                 }
                 if (SpareContainer.Instance.Spares.Where(i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
                 {
-                    da.SpareGroupCreate(GroupID, BrandID);                    
+                    da.SpareGroupCreate(GroupID, BrandID);
                     mainWindowObj.LoadGroups(false);
                 }
             }
             return s;
         }
+
         // ЗАПЧАСТЬ - УДАЛИТЬ
         public void SpareDelete(SpareView item)
         {
@@ -309,15 +326,17 @@ namespace bycar3.Core
                 int GroupID = item.GroupID;
                 da.SpareDelete(item.id);
                 SpareContainer.Instance.Remove(item.id);
-                // проверить, не последняя ли это деталь в брэнде в данной группе                        
+
+                // проверить, не последняя ли это деталь в брэнде в данной группе
                 if (cnt < 2)
                 {
                     da.SpareGroupDelete(BrandID, GroupID);
                 }
             }
+
             //catch (Exception ex)
             {
-            //    this.Log(ex.Message);
+                //    this.Log(ex.Message);
             }
         }
     }

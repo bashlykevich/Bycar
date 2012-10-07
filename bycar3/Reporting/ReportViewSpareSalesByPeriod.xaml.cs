@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
 using bycar;
 using CodeReason.Reports;
-using System.IO;
-using System.Data;
-using System.Windows.Xps.Packaging;
 
 namespace bycar3.Reporting
 {
@@ -24,11 +16,13 @@ namespace bycar3.Reporting
     public partial class ReportViewSpareSalesByPeriod : Window
     {
         #region DATAMEMBERS
-        DateTime dateFrom = DateTime.Now;
-        DateTime dateTo = DateTime.Now;
-        SpareView Spare = null;
-        int WarehouseID = 0;
-        #endregion
+
+        private DateTime dateFrom = DateTime.Now;
+        private DateTime dateTo = DateTime.Now;
+        private SpareView Spare = null;
+        private int WarehouseID = 0;
+
+        #endregion DATAMEMBERS
 
         public ReportViewSpareSalesByPeriod(DateTime df, DateTime dt, int SpareID, int WID)
         {
@@ -41,6 +35,7 @@ namespace bycar3.Reporting
             if (Spare == null)
                 return;
         }
+
         private void Window_Activated(object sender, EventArgs e)
         {
             try
@@ -58,7 +53,8 @@ namespace bycar3.Reporting
 
                 // Таблица ТОВАРЫ В НАКЛАДНОЙ
                 DataTable dt = new DataTable("mtable");
-                // описываем столбцы таблицы            
+
+                // описываем столбцы таблицы
                 dt.Columns.Add("Num", typeof(int));
                 dt.Columns.Add("WarehouseName", typeof(string));
                 dt.Columns.Add("OutgoNum", typeof(string));
@@ -69,7 +65,7 @@ namespace bycar3.Reporting
                 dt.Columns.Add("VAT", typeof(string));
                 dt.Columns.Add("T", typeof(double));
 
-                // забиваем таблицу данными                
+                // забиваем таблицу данными
                 List<SpareInSpareOutgoView> LIST2 = da.GetSpareInSpareOutgoByCodePeriod(Spare.id, dateFrom, dateTo, WarehouseID);
                 decimal asum = 0;
                 try
@@ -84,7 +80,7 @@ namespace bycar3.Reporting
                         spare_outgo so = da.SpareOutgoGet(OutgoID);
                         if (so != null)
                             on = so.IDN.ToString();
-                        dt.Rows.Add(new object[] { 
+                        dt.Rows.Add(new object[] {
                             i+1,
                             LIST2[i].WarehouseName,
                             on,
@@ -92,7 +88,7 @@ namespace bycar3.Reporting
                             od,
                             LIST2[i].quantity,
                             LIST2[i].purchase_price,
-                            LIST2[i].VatRateName,                            
+                            LIST2[i].VatRateName,
                             LIST2[i].total_sum
                         });
                     }
@@ -109,36 +105,47 @@ namespace bycar3.Reporting
                     case 1:
                         mnth = "января";
                         break;
+
                     case 2:
                         mnth = "февраля";
                         break;
+
                     case 3:
                         mnth = "марта";
                         break;
+
                     case 4:
                         mnth = "апреля";
                         break;
+
                     case 5:
                         mnth = "мая";
                         break;
+
                     case 6:
                         mnth = "июня";
                         break;
+
                     case 7:
                         mnth = "июля";
                         break;
+
                     case 8:
                         mnth = "августа";
                         break;
+
                     case 9:
                         mnth = "сентября";
                         break;
+
                     case 10:
                         mnth = "октября";
                         break;
+
                     case 11:
                         mnth = "ноября";
                         break;
+
                     case 12:
                         mnth = "декабря";
                         break;
@@ -155,36 +162,47 @@ namespace bycar3.Reporting
                     case 1:
                         mnth = "января";
                         break;
+
                     case 2:
                         mnth = "февраля";
                         break;
+
                     case 3:
                         mnth = "марта";
                         break;
+
                     case 4:
                         mnth = "апреля";
                         break;
+
                     case 5:
                         mnth = "мая";
                         break;
+
                     case 6:
                         mnth = "июня";
                         break;
+
                     case 7:
                         mnth = "июля";
                         break;
+
                     case 8:
                         mnth = "августа";
                         break;
+
                     case 9:
                         mnth = "сентября";
                         break;
+
                     case 10:
                         mnth = "октября";
                         break;
+
                     case 11:
                         mnth = "ноября";
                         break;
+
                     case 12:
                         mnth = "декабря";
                         break;

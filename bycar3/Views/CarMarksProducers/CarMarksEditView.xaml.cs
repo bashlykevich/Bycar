@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.Views.Common;
 
@@ -21,6 +12,7 @@ namespace bycar3.Views
     public partial class CarMarksEditView : Window
     {
         public int _id = 0;
+
         public CarMarksEditView()
         {
             InitializeComponent();
@@ -39,15 +31,17 @@ namespace bycar3.Views
 
         private void EditItem()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             da.CarMarkEdit(getItemFromFields(), edtProducer.SelectedItem.ToString());
         }
+
         private void CreateItem()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             da.CarMarkCreate(getItemFromFields(), edtProducer.SelectedItem.ToString());
         }
-        car_mark getItemFromFields()
+
+        private car_mark getItemFromFields()
         {
             car_mark item = new car_mark();
             item.id = this._id;
@@ -55,17 +49,19 @@ namespace bycar3.Views
             item.description = edtDescr.Text;
             return item;
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        void loadComboBox_CarProducers()
+
+        private void loadComboBox_CarProducers()
         {
             edtProducer.Items.Clear();
             edtProducer.UpdateLayout();
             DataAccess da = new DataAccess();
             List<car_producer> items = da.GetCarProducers();
-            foreach(car_producer i in items)
+            foreach (car_producer i in items)
             {
                 edtProducer.Items.Add(i.name);
             }

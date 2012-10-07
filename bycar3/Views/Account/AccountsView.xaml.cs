@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -24,18 +17,21 @@ namespace bycar3.Views
             InitializeComponent();
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();
-            List<AccountView> items = da.GetAllAccountViews();            
+            List<AccountView> items = da.GetAllAccountViews();
             this.DataContext = items;
         }
+
         private void CreateItem()
         {
             AccountsEditView v = new AccountsEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;
@@ -52,15 +48,17 @@ namespace bycar3.Views
                 v._id = b.id;
                 v.edtName.Text = b.name;
                 v.edtDescr.Text = b.description;
-                v.edtAddress.Text = b.address;                
+                v.edtAddress.Text = b.address;
                 v.edtDiscount.Text = b.discount.ToString();
                 v.edtOKPO.Text = b.okpo.ToString();
+
                 //v.edtScore.Text = b.bank_score;
                 v.edtShippingBase.Text = b.shipping_base;
                 v.edtShippingDest.Text = b.shipping_point;
+
                 //v.edtType.SelectedItem = b.account_type.name;
                 //v.edtBank.SelectedItem = b.bank.name;
-                v.edtUNN.Text = b.unn;                
+                v.edtUNN.Text = b.unn;
                 v.ShowDialog();
                 ReloadList();
             }
@@ -70,7 +68,7 @@ namespace bycar3.Views
         {
             try
             {
-                EditSelectedItem();                
+                EditSelectedItem();
             }
             catch (Exception)
             {
@@ -86,15 +84,16 @@ namespace bycar3.Views
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            EditSelectedItem();            
+            EditSelectedItem();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
         }
-        void DeleteItem()
-        {            
+
+        private void DeleteItem()
+        {
             if (dgList.SelectedItems.Count > 0)
             {
                 MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записи?", "Удаление", MessageBoxButton.YesNo);
@@ -107,7 +106,7 @@ namespace bycar3.Views
                     }
                     ReloadList();
                 }
-            }                      
+            }
         }
     }
 }

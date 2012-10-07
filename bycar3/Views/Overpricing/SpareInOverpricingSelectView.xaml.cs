@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using bycar3.External_Code;
 using bycar;
+using bycar3.External_Code;
 
 namespace bycar3.Views.Overpricing
 {
@@ -22,25 +16,27 @@ namespace bycar3.Views.Overpricing
     {
         #region MEMBERS
 
-        DataAccess da;
+        private DataAccess da;
         public int _ParentItemID = -1;
         public OverpricingEditView ParentWindow = null;
-        #endregion
+
+        #endregion MEMBERS
 
         public SpareInOverpricingSelectView()
         {
             InitializeComponent();
             da = new DataAccess();
-        }   
+        }
 
         #region CUSTOM FUNCTION
-        void LoadSpares()
-        {            
+
+        private void LoadSpares()
+        {
             dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i.QRest > 0).ToList();
             dgSpares.SelectedIndex = 0;
         }
-        
-        void SpareSearch()
+
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
@@ -50,23 +46,28 @@ namespace bycar3.Views.Overpricing
                     LoadSpares(edtSearchField.SelectedIndex, edtSearchText.Text);
             }
         }
-        void LoadSpares(int SearchFieldIndex, string SearchText)
+
+        private void LoadSpares(int SearchFieldIndex, string SearchText)
         {
             dgSpares.DataContext = SpareContainer.Instance.GetSpares(SearchFieldIndex, SearchText, true, 0, "");
             if (dgSpares.Items.Count > 0)
                 dgSpares.SelectedIndex = 0;
         }
-        void AddSelectedSpareToOverpricing()
+
+        private void AddSelectedSpareToOverpricing()
         {
             // получаем ID запчасти
             int SpareID = (dgSpares.SelectedItem as SpareView).id;
+
             // получаем список неизрасходованных поступлений данной запчасти
             List<SpareInSpareIncomeView> incomes = da.GetIncomes(SpareID);
+
             // каждое поступление прикрепляем к переоценке
-            foreach(SpareInSpareIncomeView income in incomes)
+            foreach (SpareInSpareIncomeView income in incomes)
             {
                 // создаем новую запись в таблице переоценки
                 spare_in_overpricing sio = new spare_in_overpricing();
+
                 // наполняем данными
                 sio.num = 0;
                 sio.overpricing = da.OverpricingGet(_ParentItemID);
@@ -78,6 +79,7 @@ namespace bycar3.Views.Overpricing
                 sio.spare = da.GetSpare(SpareID);
                 sio.sumOld = income.S;
                 sio.spare_in_spare_income = da.InOfferingGet(income.id);
+
                 // сохраняем в БД
                 da.OverpricingOfferingCreate(sio);
             }
@@ -87,9 +89,9 @@ namespace bycar3.Views.Overpricing
                 ParentWindow.dgSpares.UpdateLayout();
                 ParentWindow.dgSpares.ScrollIntoView(dgSpares.Items[dgSpares.Items.Count - 1]);
             }
-                        
         }
-        #endregion
+
+        #endregion CUSTOM FUNCTION
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -99,7 +101,7 @@ namespace bycar3.Views.Overpricing
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }       
+        }
 
         private void dgIncomes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -125,6 +127,7 @@ namespace bycar3.Views.Overpricing
         {
             edtSearchText.Focus();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();

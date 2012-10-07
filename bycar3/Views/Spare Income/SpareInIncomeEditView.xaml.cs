@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
-using System.Globalization;
 
 namespace bycar3.Views.Spare_Income
 {
@@ -23,7 +15,7 @@ namespace bycar3.Views.Spare_Income
     {
         #region MEMBERS
 
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public int _OfferingID = -1;
         public int _SpareID = -1;
         public string _SpareName = "";
@@ -31,15 +23,15 @@ namespace bycar3.Views.Spare_Income
         public int _OfferingNumber = 0;
         public string CurrentCurrencyCode = "";
         public bool IsSimpleInput = false;
-        bool EditMode = false;
+        private bool EditMode = false;
 
-        decimal sum = 0;
+        private decimal sum = 0;
 
-        #endregion
+        #endregion MEMBERS
 
         #region FUNCTONS
 
-        void LoadOffering()
+        private void LoadOffering()
         {
             LoadVATs();
             if (_SpareName.Length > 35)
@@ -71,7 +63,7 @@ namespace bycar3.Views.Spare_Income
             }
         }
 
-        void CheckQuantity()
+        private void CheckQuantity()
         {
             double x = 0;
             if (Double.TryParse(edtQ.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out x))
@@ -84,7 +76,7 @@ namespace bycar3.Views.Spare_Income
                 bQuantity.Visibility = System.Windows.Visibility.Visible;
         }
 
-        void CheckPrice()
+        private void CheckPrice()
         {
             double x = 0;
             if (Double.TryParse(edtPrice.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out x))
@@ -96,7 +88,8 @@ namespace bycar3.Views.Spare_Income
             else
                 bPrice.Visibility = System.Windows.Visibility.Visible;
         }
-        void CheckPriceFull()
+
+        private void CheckPriceFull()
         {
             double x = 0;
             if (Double.TryParse(edtPriceFull.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out x))
@@ -109,7 +102,7 @@ namespace bycar3.Views.Spare_Income
                 bPriceFull.Visibility = System.Windows.Visibility.Visible;
         }
 
-        void CheckMakeup()
+        private void CheckMakeup()
         {
             double x = -1;
             if (Double.TryParse(edtMakeup.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out x))
@@ -122,10 +115,11 @@ namespace bycar3.Views.Spare_Income
                 bMakeup.Visibility = System.Windows.Visibility.Visible;
         }
 
-        void CalculateSum(int param)
+        private void CalculateSum(int param)
         {
             if (bPrice.Visibility == System.Windows.Visibility.Hidden
                 && bQuantity.Visibility == System.Windows.Visibility.Hidden
+
                 //                && bMakeup.Visibility == System.Windows.Visibility.Hidden
                 && bPriceFull.Visibility == System.Windows.Visibility.Hidden)
             {
@@ -140,12 +134,13 @@ namespace bycar3.Views.Spare_Income
                     decimal.TryParse(edtPrice.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out price);
                     Int32.TryParse(edtMakeup.Text, out markup);
                     decimal.TryParse(edtPriceFull.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out fullprice);
-                    // округляем до 50 рублей    
+
+                    // округляем до 50 рублей
                     if (CurrentCurrencyCode.Contains("BYR"))
-                    {                        
+                    {
                         decimal tmpd = Math.Round(price / 50, 0);
                         price = tmpd * 50;
-                                                
+
                         tmpd = Math.Round(fullprice / 50, 0);
                         fullprice = tmpd * 50;
                     }
@@ -173,6 +168,7 @@ namespace bycar3.Views.Spare_Income
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
+
                         case 1: // иземенено цена за единицу
                             s1 = quantity * price;
                             sm = s1 * markup / 100;
@@ -187,6 +183,7 @@ namespace bycar3.Views.Spare_Income
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
+
                         case 2: // иземенено процент надбавки
                             s1 = quantity * price;
                             sm = s1 * markup / 100;
@@ -201,6 +198,7 @@ namespace bycar3.Views.Spare_Income
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
+
                         case 3: // иземенено НДС
                             s1 = quantity * price;
                             sm = s1 * markup / 100;
@@ -215,6 +213,7 @@ namespace bycar3.Views.Spare_Income
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
+
                         case 4: // иземенено отпускная цена
                             sum = quantity * fullprice;
                             if (price != null)
@@ -236,7 +235,7 @@ namespace bycar3.Views.Spare_Income
                         fullprice = Math.Round(fullprice, 2);
                     }
                     edtTotalSum.Text = sum.ToString();
-                    if(fpbefore != fullprice)
+                    if (fpbefore != fullprice)
                         edtPriceFull.Text = fullprice.ToString();
                     EditMode = false;
                 }
@@ -247,9 +246,9 @@ namespace bycar3.Views.Spare_Income
             }
         }
 
-        bool CreateItem()
+        private bool CreateItem()
         {
-            spare_in_spare_income offering = getItemFromFields();                        
+            spare_in_spare_income offering = getItemFromFields();
             string vat = edtVAT.SelectedItem.ToString();
             if (_SpareID > 0 && offering != null)
             {
@@ -261,9 +260,9 @@ namespace bycar3.Views.Spare_Income
                 return false;
         }
 
-        bool EditItem()
+        private bool EditItem()
         {
-            spare_in_spare_income offering = getItemFromFields();           
+            spare_in_spare_income offering = getItemFromFields();
             string vat = edtVAT.SelectedItem.ToString();
             if (offering != null)
             {
@@ -276,7 +275,7 @@ namespace bycar3.Views.Spare_Income
                 return false;
         }
 
-        bool SaveItem()
+        private bool SaveItem()
         {
             if (this._OfferingID > 0)
             {
@@ -289,14 +288,14 @@ namespace bycar3.Views.Spare_Income
             }
         }
 
-        spare_in_spare_income getItemFromFields()
+        private spare_in_spare_income getItemFromFields()
         {
             spare_in_spare_income item = new spare_in_spare_income();
             try
             {
                 // set currency
                 item.CurrencyID = da.GetCurrency(this.CurrentCurrencyCode).id;
-                
+
                 item.id = this._OfferingID;
                 item.Markup = decimal.Parse(edtMakeup.Text, CultureInfo.InvariantCulture);
                 item.num = _OfferingNumber + 1;
@@ -316,7 +315,7 @@ namespace bycar3.Views.Spare_Income
             return item;
         }
 
-        void LoadVATs()
+        private void LoadVATs()
         {
             edtVAT.Items.Clear();
             var items = da.GetVATRates();
@@ -327,7 +326,7 @@ namespace bycar3.Views.Spare_Income
             edtVAT.SelectedItem = "Без НДС";
         }
 
-        void CreateVatRate()
+        private void CreateVatRate()
         {
             EditMode = true;
             VATRatesEditView v = new VATRatesEditView();
@@ -338,7 +337,7 @@ namespace bycar3.Views.Spare_Income
             CalculateSum(0);
         }
 
-        #endregion
+        #endregion FUNCTONS
 
         // HANDLERS
         public SpareInIncomeEditView()
@@ -367,7 +366,7 @@ namespace bycar3.Views.Spare_Income
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadOffering();
-            edtQ.Focus(); 
+            edtQ.Focus();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -381,7 +380,6 @@ namespace bycar3.Views.Spare_Income
             {
                 MessageBox.Show("Проверьте правильность заполнения полей!");
             }
-
         }
 
         private void btnAddVAT_Click(object sender, RoutedEventArgs e)
@@ -393,7 +391,7 @@ namespace bycar3.Views.Spare_Income
         {
             CalculateSum(3);
         }
-       
+
         private void edtQ_GotFocus(object sender, RoutedEventArgs e)
         {
             if (edtQ.Text == "0")
@@ -416,7 +414,7 @@ namespace bycar3.Views.Spare_Income
             {
                 edtMakeup.SelectAll();
             }
-        }        
+        }
 
         private void edtQ_KeyUp(object sender, KeyEventArgs e)
         {
@@ -443,6 +441,7 @@ namespace bycar3.Views.Spare_Income
                 btnOk.Focus();
             string after = edtPriceFull.Text;
         }
+
         private void edtPriceFull_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             string before = edtPriceFull.Text;
@@ -450,6 +449,7 @@ namespace bycar3.Views.Spare_Income
             CalculateSum(4);
             string after = edtPriceFull.Text;
         }
+
         private void edtPriceFull_GotFocus(object sender, RoutedEventArgs e)
         {
             string before = edtPriceFull.Text;
@@ -459,6 +459,7 @@ namespace bycar3.Views.Spare_Income
             }
             string after = edtPriceFull.Text;
         }
+
         private void edtPriceFull_KeyDown(object sender, KeyEventArgs e)
         {
             string before = edtPriceFull.Text;
@@ -466,13 +467,13 @@ namespace bycar3.Views.Spare_Income
             CalculateSum(4);
             string after = edtPriceFull.Text;
         }
+
         private void edtPriceFull_TextChanged(object sender, TextChangedEventArgs e)
         {
             string before = edtPriceFull.Text;
             CheckPriceFull();
             CalculateSum(4);
             string after = edtPriceFull.Text;
-        }              
-
+        }
     }
 }

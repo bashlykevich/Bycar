@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -30,17 +21,20 @@ namespace bycar3.Views
             CreateItem();
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();
             this.DataContext = da.GetAllAccountTypes();
         }
+
         private void CreateItem()
         {
             AccountTypesEditView v = new AccountTypesEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;
@@ -72,7 +66,7 @@ namespace bycar3.Views
         {
             try
             {
-                EditSelectedItem();             
+                EditSelectedItem();
             }
             catch (Exception)
             {
@@ -82,14 +76,14 @@ namespace bycar3.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnDelete_Click_1(object sender, RoutedEventArgs e)
         {
             DeleteItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             int id = 0;
             account_type b = null;

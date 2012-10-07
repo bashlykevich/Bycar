@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.Views.Spare_Income;
 using bycar3.Reporting;
-using bycar3.Views.Invoice;
-using bycar3.External_Code;
 
 namespace bycar3.Views.Overpricing
 {
@@ -24,11 +14,12 @@ namespace bycar3.Views.Overpricing
     public partial class OverpricingEditView : Window
     {
         #region DATA MEMBERS
-        DataAccess da = new DataAccess();        
-        bool ToDeleteOnClose = false;
-        overpricing Item = null;
-        
-        #endregion
+
+        private DataAccess da = new DataAccess();
+        private bool ToDeleteOnClose = false;
+        private overpricing Item = null;
+
+        #endregion DATA MEMBERS
 
         public OverpricingEditView()
         {
@@ -49,7 +40,7 @@ namespace bycar3.Views.Overpricing
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
             Load();
         }
 
@@ -63,7 +54,8 @@ namespace bycar3.Views.Overpricing
             }
             return 0;
         }
-        void Load()
+
+        private void Load()
         {
             if (Item == null)
             {
@@ -77,12 +69,12 @@ namespace bycar3.Views.Overpricing
             else
             {
                 edtNumber.Text = Item.num.ToString();
-                edtDate.SelectedDate = Item.createdOn.Value;                
+                edtDate.SelectedDate = Item.createdOn.Value;
                 edtPercentIncrease.Text = Item.increasePerc.ToString();
                 CheckIfPosted();
             }
             LoadOfferings();
-        }        
+        }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -94,10 +86,12 @@ namespace bycar3.Views.Overpricing
         {
             // сохранить корневой элемент
             Save();
+
             //добавить новый товар в список
             AddNewOffering();
         }
-        void AddNewOffering()
+
+        private void AddNewOffering()
         {
             SpareInOverpricingSelectView v = new SpareInOverpricingSelectView();
             v._ParentItemID = Item.id;
@@ -105,7 +99,7 @@ namespace bycar3.Views.Overpricing
             v.ShowDialog();
             LoadOfferings();
         }
-        
+
         private void btnSpareDelete_Click(object sender, RoutedEventArgs e)
         {
             if (dgSpares.SelectedItem == null)
@@ -115,11 +109,13 @@ namespace bycar3.Views.Overpricing
             {
                 // сохранить накладную
                 Save();
+
                 // удалить выделенный товар
                 DeleteSelectedOffering();
             }
         }
-        void DeleteSelectedOffering()
+
+        private void DeleteSelectedOffering()
         {
             try
             {
@@ -132,29 +128,30 @@ namespace bycar3.Views.Overpricing
                 MessageBox.Show(e.Message);
             }
         }
+
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-
-            Save();            
+            Save();
             Reporter.GenerateOverpricingReport(Item.id);
         }
 
-     
-        overpricing getItemFromFields()
+        private overpricing getItemFromFields()
         {
             overpricing i = new overpricing();
             i.createdOn = edtDate.SelectedDate.Value;
+
             //i.description = edt
             int pers = 0;
             Int32.TryParse(edtPercentIncrease.Text, out pers);
             i.increasePerc = pers;
             return i;
         }
+
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ToDeleteOnClose = false;
             Save();
-            Close();            
+            Close();
         }
 
         private void btnPost_Click(object sender, RoutedEventArgs e)
@@ -166,19 +163,23 @@ namespace bycar3.Views.Overpricing
         {
             OverpricingUndoPost();
         }
-        void FillWithRemains()
+
+        private void FillWithRemains()
         {
             int num = 1;
-            // получить список приходов, по которым есть остатки 
+
+            // получить список приходов, по которым есть остатки
             List<SpareInSpareIncomeView> incomes = da.GetActualIncomes();
             foreach (SpareInSpareIncomeView income in incomes)
             {
                 int SpareID = income.SpareID.Value;
+
                 // создаем новую запись в таблице переоценки
                 spare_in_overpricing sio = new spare_in_overpricing();
+
                 // наполняем данными
                 sio.num = num++;
-                
+
                 sio.percentOld = (int)income.Markup;
                 sio.priceOld = income.POut.Value;
                 sio.purchasePrice = income.PIn.Value;
@@ -189,17 +190,21 @@ namespace bycar3.Views.Overpricing
 
                 sio.overpricing = da.OverpricingGet(Item.id);
                 sio.spare_in_spare_income = da.InOfferingGet(income.id);
+
                 // сохраняем в БД
                 da.OverpricingOfferingCreate(sio);
             }
         }
+
         private void btnFillWithRemains_Click(object sender, RoutedEventArgs e)
         {
             Save();
             FillWithRemains();
             LoadOfferings();
         }
+
         private bool isManualEditCommit;
+
         private void HandleMainDataGridCellEditEnding(
           object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -211,6 +216,7 @@ namespace bycar3.Views.Overpricing
                 isManualEditCommit = false;
             }
         }
+
         private void dgSpares_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             HandleMainDataGridCellEditEnding(sender, e);
@@ -223,7 +229,8 @@ namespace bycar3.Views.Overpricing
                     da.OverpricingOfferingEdit(siov);
                 }
         }
-        void Recalc()
+
+        private void Recalc()
         {
             int perc = 0;
             int.TryParse(edtPercentIncrease.Text, out perc);
@@ -238,12 +245,13 @@ namespace bycar3.Views.Overpricing
             }
             dgSpares.DataContext = items;
         }
+
         private void btnRecalc_Click(object sender, RoutedEventArgs e)
         {
-          Recalc();
+            Recalc();
         }
 
-        void OverpricingPost()
+        private void OverpricingPost()
         {
             Item.commited = true;
             Save();
@@ -251,18 +259,20 @@ namespace bycar3.Views.Overpricing
             RecalcIncomesPrices();
             CheckIfPosted();
         }
-        void OverpricingUndoPost()
+
+        private void OverpricingUndoPost()
         {
             Item.commited = false;
             Save();
             RecalcIncomesPricesBack();
             CheckIfPosted();
         }
-        void CheckIfPosted()
-        {   
+
+        private void CheckIfPosted()
+        {
             bool flag = false;
-            if(Item != null)
-                if(Item.commited.HasValue)
+            if (Item != null)
+                if (Item.commited.HasValue)
                     flag = Item.commited.Value;
 
             edtDate.IsEnabled = !flag;
@@ -276,7 +286,7 @@ namespace bycar3.Views.Overpricing
 
             btnCancelPost.IsEnabled = flag;
         }
-        
+
         /*
         int Save_OLD()
         {
@@ -301,6 +311,7 @@ namespace bycar3.Views.Overpricing
             }
             return Item.id;
         }*/
+
         //void Fill()
         //{
         //    edtDate.SelectedDate = Item.createdOn.Value;
@@ -308,7 +319,7 @@ namespace bycar3.Views.Overpricing
         //    edtPercentIncrease.Text = Item.increasePerc.ToString();
         //    CheckIfPosted();
         //}
-        void Fill(int ID)
+        private void Fill(int ID)
         {
             Item = da.OverpricingGet(ID);
             edtDate.SelectedDate = Item.createdOn.Value;
@@ -316,7 +327,8 @@ namespace bycar3.Views.Overpricing
             edtPercentIncrease.Text = Item.increasePerc.ToString();
             CheckIfPosted();
         }
-        void RecalcIncomesPrices()
+
+        private void RecalcIncomesPrices()
         {
             List<SpareInOverpricingView> items = da.OverpricingOfferingGet(Item.id);
             foreach (SpareInOverpricingView siov in items)
@@ -324,7 +336,8 @@ namespace bycar3.Views.Overpricing
                 da.SetNewIncomePrice(siov.IncomeID, siov.percentNew.Value);
             }
         }
-        void RecalcIncomesPricesBack()
+
+        private void RecalcIncomesPricesBack()
         {
             List<SpareInOverpricingView> items = da.OverpricingOfferingGet(Item.id);
             foreach (SpareInOverpricingView siov in items)
@@ -332,18 +345,18 @@ namespace bycar3.Views.Overpricing
                 da.SetNewIncomePrice(siov.IncomeID, siov.percentOld.Value);
             }
         }
-        void Save()
+
+        private void Save()
         {
-           
-           
-               // переписываем данные с формы в объект                    
-                    Item.createdOn = edtDate.SelectedDate;
-                    int ip = 0;
-                    int.TryParse(edtPercentIncrease.Text, out ip);
-                    Item.increasePerc = ip;
-                    da.OverpricingEdit(Item);               
+            // переписываем данные с формы в объект
+            Item.createdOn = edtDate.SelectedDate;
+            int ip = 0;
+            int.TryParse(edtPercentIncrease.Text, out ip);
+            Item.increasePerc = ip;
+            da.OverpricingEdit(Item);
         }
-        void Delete()
+
+        private void Delete()
         {
             da.OverpricingDelete(Item.id);
         }

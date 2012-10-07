@@ -1,51 +1,51 @@
 ﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
               FontSize="8"
               FontWeight="Bold"
               FontFamily="Times New Roman"
               PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="20.5cm">
     <Section Padding="70,50,40,0">
         <!-- ТОП-Таблица грузоотправитель-грузополучатель -->
-        <Table CellSpacing="0" 
+        <Table CellSpacing="0"
                FontSize="8"
                Margin="120,70,0,70"
-               BorderBrush="Black"                               
+               BorderBrush="Black"
                BorderThickness="0.01cm">
             <Table.Columns>
-                <TableColumn Width="3.5cm"/>
-                <TableColumn Width="3.5cm"/>
-                <TableColumn Width="3.5cm"/>
+                <TableColumn Width="3.5cm" />
+                <TableColumn Width="3.5cm" />
+                <TableColumn Width="3.5cm" />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow FontWeight="Normal">
-                    <TableCell                        
-                        BorderBrush="Black"                
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3"
                             TextAlignment="Center">
                             Грузоотправитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
-                        BorderBrush="Black"                
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3"
                             TextAlignment="Center">
                             Грузополучатель
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
-                        BorderBrush="Black"                
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3,3,3,0"
                             TextAlignment="Center">
                             Заказчик автомобильной
                         </Paragraph>
-                        <Paragraph 
+                        <Paragraph
                             Margin="3,0,3,3"
                             TextAlignment="Center">
                             перевозки. Плательщик
@@ -53,28 +53,28 @@
                     </TableCell>
                 </TableRow>
                 <TableRow FontWeight="Bold">
-                    <TableCell                        
-                        BorderBrush="Black"                          
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3"
                             TextAlignment="Center">
                             <xrd:InlineDocumentValue PropertyName="param6" />
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
-                        BorderBrush="Black"                
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3"
                             TextAlignment="Center">
                             <xrd:InlineDocumentValue PropertyName="param7" />
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
-                        BorderBrush="Black"                
+                    <TableCell
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
-                        <Paragraph 
+                        <Paragraph
                             Margin="3"
                             TextAlignment="Center">
                             <xrd:InlineDocumentValue PropertyName="param7" />
@@ -85,8 +85,8 @@
         </Table>
 
         <!-- ДАТА -->
-        <Paragraph 
-            FontSize="10"            
+        <Paragraph
+            FontSize="10"
             Padding="40,0,0,0">
             <xrd:InlineDocumentValue PropertyName="ReportDate" />
         </Paragraph>
@@ -94,12 +94,12 @@
         <!-- ТТН добавка 1 -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="2cm"/>
-                <TableColumn Width="4cm"/>
-                <TableColumn Width="1.77cm"/>
-                <TableColumn/>
-                <TableColumn Width="2.5cm"/>
-                <TableColumn/>
+                <TableColumn Width="2cm" />
+                <TableColumn Width="4cm" />
+                <TableColumn Width="1.77cm" />
+                <TableColumn />
+                <TableColumn Width="2.5cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -108,7 +108,7 @@
                             Автомобиль
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -120,7 +120,7 @@
                             Прицеп
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -132,7 +132,7 @@
                             Путевой лист №
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -142,7 +142,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -150,7 +149,6 @@
                         </Paragraph>
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -159,10 +157,8 @@
                     </TableCell>
 
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
                 </TableRow>
             </TableRowGroup>
@@ -171,10 +167,10 @@
         <!-- ТТН добавка 2 -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="2cm"/>
-                <TableColumn Width="10cm"/>
-                <TableColumn Width="2cm"/>
-                <TableColumn/>
+                <TableColumn Width="2cm" />
+                <TableColumn Width="10cm" />
+                <TableColumn Width="2cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -183,7 +179,7 @@
                             Владелец автомобиля
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -195,7 +191,7 @@
                             Водитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -205,7 +201,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -213,7 +208,6 @@
                         </Paragraph>
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -227,8 +221,8 @@
         <!-- ТТН добавка 3 -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="6cm"/>
-                <TableColumn/>
+                <TableColumn Width="6cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -236,7 +230,7 @@
                         <Paragraph>
                             Заказчик автоперевозки (плательщик)</Paragraph>
                     </TableCell>
-                    <TableCell                         
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -246,7 +240,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -260,8 +253,8 @@
         <!-- СВОДНАЯ ИНФА - 2 строки -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="3cm"/>
-                <TableColumn/>
+                <TableColumn Width="3cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -270,7 +263,7 @@
                             Грузоотправитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -280,7 +273,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="150,0,0,3" FontSize="6">
@@ -294,7 +286,7 @@
                             Грузополучатель
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -304,7 +296,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="150,0,0,3" FontSize="6">
@@ -318,10 +309,10 @@
         <!-- ТТН добавка 4 -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="3cm"/>
-                <TableColumn Width="4cm"/>
-                <TableColumn Width="3cm"/>
-                <TableColumn/>
+                <TableColumn Width="3cm" />
+                <TableColumn Width="4cm" />
+                <TableColumn Width="3cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -330,7 +321,7 @@
                             Основание отпуска
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -342,7 +333,7 @@
                             Пункт погрузки
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -352,7 +343,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -360,7 +350,6 @@
                         </Paragraph>
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -374,8 +363,8 @@
         <!-- ТТН добавка 5 -->
         <Table>
             <Table.Columns>
-                <TableColumn Width="3cm"/>
-                <TableColumn/>
+                <TableColumn Width="3cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -384,7 +373,7 @@
                             Пункт разгрузки
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -394,7 +383,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -408,11 +396,10 @@
                             Переадресовка
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-                            
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -422,7 +409,7 @@
                             Доп.сведения
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -433,22 +420,21 @@
             </TableRowGroup>
         </Table>
 
-
         <!-- Таблица ТОВАРНЫЙ РАЗДЕЛ -->
         <xrd:SectionDataGroup DataGroupName="ItemList">
             <Table BorderBrush="Black"
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.25*"/>
-                    <TableColumn Width="0.35*"/>
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.25*" />
+                    <TableColumn Width="0.35*" />
                 </Table.Columns>
                 <TableRowGroup>
                     <TableRow FontSize="10">
@@ -585,19 +571,16 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -609,7 +592,6 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -627,7 +609,6 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                
                             </Paragraph>
                         </TableCell>
                     </TableRow>
@@ -647,13 +628,11 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -683,7 +662,6 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                     </TableRow>
@@ -702,9 +680,9 @@
         <!--ПОДВАЛ ТАБЛИЦЫ #1-->
         <Table>
             <Table.Columns>
-                <TableColumn Width="4cm"/>
-                <TableColumn Width="3cm"/>
-                <TableColumn Width="*"/>
+                <TableColumn Width="4cm" />
+                <TableColumn Width="3cm" />
+                <TableColumn Width="*" />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -713,7 +691,7 @@
                             Количество ездок (заездов)
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph TextAlignment="Center">
@@ -727,7 +705,7 @@
         <!--ПОДВАЛ ТАБЛИЦЫ #2-->
         <Table>
             <Table.Columns>
-                <TableColumn Width="2cm"/>
+                <TableColumn Width="2cm" />
                 <TableColumn />
             </Table.Columns>
             <TableRowGroup>
@@ -742,7 +720,6 @@
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -752,10 +729,10 @@
         <!--ПОДВАЛ ТАБЛИЦЫ #3-->
         <Table>
             <Table.Columns>
-                <TableColumn Width="2cm"/>
-                <TableColumn Width="3cm"/>
-                <TableColumn Width="1.5cm"/>
-                <TableColumn/>
+                <TableColumn Width="2cm" />
+                <TableColumn Width="3cm" />
+                <TableColumn Width="1.5cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -779,7 +756,7 @@
                             Всего стоимость с НДС:
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="3"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
@@ -795,10 +772,10 @@
         <Table
             CellSpacing="0">
             <Table.Columns>
-                <TableColumn Width="2.1cm"/>
-                <TableColumn Width="5cm"/>
-                <TableColumn Width="2cm"/>
-                <TableColumn/>
+                <TableColumn Width="2.1cm" />
+                <TableColumn Width="5cm" />
+                <TableColumn Width="2cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -807,7 +784,7 @@
                             Отпуск разрешил
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0.01cm">
                         <Paragraph>
@@ -819,7 +796,7 @@
                             Товар принял водитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -829,9 +806,8 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -839,16 +815,14 @@
                         </Paragraph>
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0">
                         <Paragraph Margin="20,0,0,3" FontSize="6">
                             (должность, фамилия, инициалы, подпись)
                         </Paragraph>
                     </TableCell>
-
                 </TableRow>
                 <TableRow>
                     <TableCell>
@@ -856,7 +830,7 @@
                             Сдал грузоотправитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0.01cm">
                         <Paragraph>
@@ -868,7 +842,7 @@
                             по доверенности
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -878,9 +852,8 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                         <Paragraph Margin="20,0,0,3" FontSize="6">
@@ -888,16 +861,14 @@
                         </Paragraph>
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0">
                         <Paragraph Margin="20,0,0,3" FontSize="6">
                             (номер, дата)
                         </Paragraph>
                     </TableCell>
-
                 </TableRow>
                 <TableRow>
                     <TableCell>
@@ -905,11 +876,10 @@
                             Номер пломбы
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                     <TableCell>
@@ -917,7 +887,7 @@
                             выданной
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
@@ -927,121 +897,105 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0">
                         <Paragraph Margin="20,0,0,3" FontSize="6">
                             (наименование организации)
                         </Paragraph>
                     </TableCell>
-
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
-
                     </TableCell>
                     <TableCell>
                         <Paragraph>
                             Принял грузополучатель
                         </Paragraph>
                     </TableCell>
-                    <TableCell                         
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
                             <xrd:InlineDocumentValue PropertyName="accepter" />
                         </Paragraph>
                     </TableCell>
-
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                     </TableCell>
                     <TableCell>
-
                     </TableCell>
                     <TableCell>
                         <Paragraph Margin="20,0,0,3" FontSize="6">
                             (должность, фамилия, инициалы, подпись)
                         </Paragraph>
                     </TableCell>
-
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
-
                     </TableCell>
                     <TableCell>
                         <Paragraph>
                             Номер пломбы
                         </Paragraph>
                     </TableCell>
-                    <TableCell                        
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell  
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
                 <TableRow FontSize="26">
-                    <TableCell  
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell  
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                         BorderThickness="0,0,0.01cm,0">
@@ -1049,7 +1003,7 @@
                             Штамп (печать) грузооправителя
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2">
                         <Paragraph>
                             Штамп (печать) грузополучателя
@@ -1166,7 +1120,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
@@ -1227,7 +1180,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1253,7 +1205,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
@@ -1271,32 +1222,27 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1316,55 +1262,46 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell>
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1410,7 +1347,7 @@
                             Расстояние перевоз, по группам дорог, км
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1418,7 +1355,7 @@
                             Код экспедирования
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                        RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1426,7 +1363,7 @@
                             За транспортные услуги
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1434,7 +1371,7 @@
                             Поправочный коэффициент
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1442,12 +1379,11 @@
                             Штраф
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
@@ -1505,7 +1441,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1580,7 +1515,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1588,74 +1522,62 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1684,15 +1606,15 @@
             </Table.Columns>
             <TableRowGroup>
                 <TableRow FontSize="6">
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
-                        BorderBrush="Black"                               
+                        BorderBrush="Black"
                         BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
                             Расчёт стоимости
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1700,7 +1622,7 @@
                             За тонны
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                        RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1708,7 +1630,7 @@
                             За расстояние перевозки
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1716,7 +1638,7 @@
                             За специальный транспорт
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1724,7 +1646,7 @@
                             За транспортные услуги
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1732,7 +1654,7 @@
                             Погрузочно-разгрузочные работы, т.
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1740,7 +1662,7 @@
                             Сверхнормативный простой
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1748,7 +1670,7 @@
                             Прочие доплаты
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         RowSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1756,7 +1678,7 @@
                             Доп. услуги экспедирования
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="2"
                         BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -1801,7 +1723,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1809,7 +1730,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
@@ -1882,7 +1802,6 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1896,74 +1815,62 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -1977,74 +1884,62 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -2058,74 +1953,62 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -2139,74 +2022,62 @@
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                         <Paragraph TextAlignment="Center">
-
                         </Paragraph>
                     </TableCell>
                     <TableCell></TableCell>
                     <TableCell BorderBrush="Black"
                                BorderThickness="0,0,0,0.01cm">
                         <Paragraph>
-
                         </Paragraph>
                     </TableCell>
                 </TableRow>
@@ -2228,26 +2099,26 @@
                     <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
-
                     </TableCell>
                 </TableRow>
             </TableRowGroup>
         </Table>
     </Section>
-    <Section 
+    <Section
         BreakPageBefore="True"
         Padding="70,50,40,20">
         <!-- ДАТА -->
-        <Paragraph 
+        <Paragraph
             FontSize="10">
-            Приложение к ТТН №<xrd:InlineDocumentValue PropertyName="Num" /> от
+            Приложение к ТТН №
+            <xrd:InlineDocumentValue PropertyName="Num" /> от
             <xrd:InlineDocumentValue PropertyName="ReportDate" />
         </Paragraph>
         <!-- СВОДНАЯ ИНФА - 5 строк -->
         <Table FontSize="10">
             <Table.Columns>
-                <TableColumn Width="3cm"/>
-                <TableColumn/>
+                <TableColumn Width="3cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -2256,7 +2127,7 @@
                             Грузоотправитель:
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0">
                         <Paragraph>
@@ -2270,7 +2141,7 @@
                             Грузополучатель:
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0">
                         <Paragraph>
@@ -2287,15 +2158,15 @@
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.25*"/>
-                    <TableColumn Width="0.35*"/>
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.25*" />
+                    <TableColumn Width="0.35*" />
                 </Table.Columns>
                 <TableRowGroup>
                     <TableRow FontSize="6">
@@ -2413,7 +2284,7 @@
                             </Paragraph>
                         </TableCell>
                     </TableRow>
-                    <xrd:TableRowForDataTable 
+                    <xrd:TableRowForDataTable
                         FontWeight="Normal"
                         TableName="mtable">
                         <TableCell BorderBrush="Black"
@@ -2443,7 +2314,7 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="Amount"/>
+                                <xrd:InlineTableCellValue PropertyName="Amount" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -2455,13 +2326,13 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="VATAmount"/>
+                                <xrd:InlineTableCellValue PropertyName="VATAmount" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="Total"/>
+                                <xrd:InlineTableCellValue PropertyName="Total" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -2486,13 +2357,11 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -2522,7 +2391,6 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                     </TableRow>
@@ -2541,10 +2409,10 @@
         <!--ПОДВАЛ ТАБЛИЦЫ -->
         <Table FontSize="10">
             <Table.Columns>
-                <TableColumn Width="4cm"/>
-                <TableColumn Width="3cm"/>
-                <TableColumn Width="1.5cm"/>
-                <TableColumn/>
+                <TableColumn Width="4cm" />
+                <TableColumn Width="3cm" />
+                <TableColumn Width="1.5cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -2553,7 +2421,7 @@
                             Отпуск разрешил
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="3"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
@@ -2564,7 +2432,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph Margin="120,0,0,3" FontSize="6">
@@ -2578,7 +2445,7 @@
                             Сдал грузоотправитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="3"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
@@ -2589,7 +2456,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph
@@ -2615,7 +2481,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph

@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.NbrbServiceReference;
-using System.Data;
 
 namespace bycar3.Views.Currency
 {
@@ -22,23 +15,26 @@ namespace bycar3.Views.Currency
     public partial class CurrenciesByDatesView : Window
     {
         // CUSTOM FUNCTIONS
-        void LoadRates()
+        private void LoadRates()
         {
             LoadRates(DateTime.Now);
         }
-        void LoadRates(DateTime dt)
+
+        private void LoadRates(DateTime dt)
         {
             edtDate.SelectedDate = dt;
-            // искать курсы на заданную даты в базе            
+
+            // искать курсы на заданную даты в базе
             // если не найдено, то предложить загрузить их из интернета
             if (!LoadRatesFromDB(dt))
                 LoadRatesFromWeb(dt);
         }
 
-        bool LoadRatesFromDB(DateTime dt)
+        private bool LoadRatesFromDB(DateTime dt)
         {
             bool res = true;
             DataAccess da = new DataAccess();
+
             // USD
             currency_rate r1 = da.getCurrencyRate("USD", dt);
             if (r1 != null)
@@ -60,7 +56,7 @@ namespace bycar3.Views.Currency
             return res;
         }
 
-        void LoadRatesFromWeb(DateTime date)
+        private void LoadRatesFromWeb(DateTime date)
         {
             try
             {
@@ -83,10 +79,11 @@ namespace bycar3.Views.Currency
             }
         }
 
-        void AddRates()
+        private void AddRates()
         {
             DataAccess da = new DataAccess();
             List<currency_rate> rates = new List<currency_rate>();
+
             // USD
             currency c1 = da.GetCurrency("USD");
             currency_rate r1 = new currency_rate();
@@ -119,7 +116,7 @@ namespace bycar3.Views.Currency
         {
             InitializeComponent();
         }
-        
+
         private void btnRatesInput_Click(object sender, RoutedEventArgs e)
         {
             CurrenciesInput v = new CurrenciesInput(edtDate.SelectedDate.Value);
@@ -128,15 +125,15 @@ namespace bycar3.Views.Currency
 
         private void edtDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (edtDate.SelectedDate.Value.Date > DateTime.Now.Date)            
+            if (edtDate.SelectedDate.Value.Date > DateTime.Now.Date)
                 MessageBox.Show("Курсы будущих периодов неизвестны!");
-             else
+            else
                 LoadRates(edtDate.SelectedDate.Value);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadRates();
-        }        
+        }
     }
 }

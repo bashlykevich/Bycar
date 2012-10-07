@@ -9,10 +9,10 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Тип контрагента" VerticalAlignment="Top" Width="92" />
         <TextBox Height="61" HorizontalAlignment="Right" Margin="0,41,12,0" Name="edtDescr" VerticalAlignment="Top" Width="303" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="tbDesc" Text="Описание" VerticalAlignment="Top" Width="92" />
-        
+
         <Button
             HorizontalAlignment="Left"
-            Margin="338,122,0,0" 
+            Margin="338,122,0,0"
             VerticalAlignment="Top"
             Width="90"
             Click="button1_Click"
@@ -27,15 +27,15 @@
             </Button.Content>
         </Button>
 
-        <Button                
-                Width="80"                  
+        <Button
+                Width="80"
                 Click="btnOK_Click"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="257,122,0,0" 
+                Margin="257,122,0,0"
                 Name="btnOk">
             <Button.Content>
-                <StackPanel 
+                <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                     <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />

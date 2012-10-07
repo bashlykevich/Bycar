@@ -1,7 +1,7 @@
 ﻿<Window x:Class="bycar3.Reporting.ReportViewSpareOutgo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Расход - ТН" 
+        Title="Расход - ТН"
         WindowState="Maximized"
         Activated="Window_Activated"
         Height="300" Width="300">

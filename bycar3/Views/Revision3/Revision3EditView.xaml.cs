@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 using bycar3.Reporting;
@@ -22,58 +16,71 @@ namespace bycar3.Views.Revision3
     public partial class Revision3EditView : Window
     {
         #region MEMBERS
-        int SelectedSpareID = 0;
-        
+
+        private int SelectedSpareID = 0;
+
         public bool RevisionModeOn = false;
-        int _searchFieldIndex = 0;
+        private int _searchFieldIndex = 0;
+
         public int _SearchFieldIndex
         {
             get { return _searchFieldIndex; }
             set
             {
                 _searchFieldIndex = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        string _searchText = "";
+
+        private string _searchText = "";
+
         public void _SearchTextAndIndex(string SText, int SIndex)
         {
             _searchFieldIndex = SIndex;
             _SearchText = SText;
         }
+
         public string _SearchText
         {
             get { return _searchText; }
             set
             {
                 _searchText = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        bool _remainsOnly = false;
+
+        private bool _remainsOnly = false;
+
         public bool _RemainsOnly
         {
             get { return _remainsOnly; }
             set
             {
                 _remainsOnly = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        bool _mismatchOnly = false;
+
+        private bool _mismatchOnly = false;
+
         public bool _MismatchOnly
         {
             get { return _mismatchOnly; }
             set
             {
-                _mismatchOnly = value;                
+                _mismatchOnly = value;
                 LoadSpares2();
             }
         }
-        int _groupID = 39;
+
+        private int _groupID = 39;
 
         public int _GroupID
         {
@@ -81,11 +88,13 @@ namespace bycar3.Views.Revision3
             set
             {
                 _groupID = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        string _brandName = "";
+
+        private string _brandName = "";
 
         public string _BrandName
         {
@@ -93,11 +102,13 @@ namespace bycar3.Views.Revision3
             set
             {
                 _brandName = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        int _brandID = 0;
+
+        private int _brandID = 0;
 
         public int _BrandID
         {
@@ -105,25 +116,30 @@ namespace bycar3.Views.Revision3
             set
             {
                 _brandID = value;
+
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
-        void _GroupIDBrandName(int GroupID, string BrandName)
+
+        private void _GroupIDBrandName(int GroupID, string BrandName)
         {
             _groupID = GroupID;
             _brandName = BrandName;
+
             //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
             LoadSpares2();
         }
-         
-        #endregion
 
-        DataAccess da = new DataAccess();
+        #endregion MEMBERS
+
+        private DataAccess da = new DataAccess();
+
         public void LoadSpares()
         {
             LoadSpares2();
         }
+
         public void LoadSpares2()
         {
             try
@@ -137,9 +153,10 @@ namespace bycar3.Views.Revision3
             {
             }
         }
+
         // загрузить список групп в дерево
         public void LoadGroups(bool expand)
-        {            
+        {
             da = new DataAccess();
             treeSpareGroups.Items.Clear();
             var list = da.GetSpareGroups().Where(g => g.ParentGroup == null).OrderBy(g => g.name);
@@ -155,6 +172,7 @@ namespace bycar3.Views.Revision3
             }
             treeSpareGroups.UpdateLayout();
         }
+
         // построение дерева
         private int BuildTreeBrunch(TreeViewItem root, int parent_id, bool expand)
         {
@@ -175,6 +193,7 @@ namespace bycar3.Views.Revision3
                     {
                         TreeViewItem tvi1 = new TreeViewItem();
                         tvi1.Header = s;
+
                         //tvi1.Name = "TVIBrand" + s;
                         tvi1.IsExpanded = expand;
                         tvi.Items.Add(tvi1);
@@ -186,10 +205,12 @@ namespace bycar3.Views.Revision3
             }
             return count;
         }
+
         /*Feb15
         public List<string> getBrandsInSpareGroup(string groupName)
         {
             List<string> items = new List<string>();
+
             //List<SpareView> spares = getSparesByGroupName(groupName);
             List<SpareView> spares = SpareContainer.Instance.Spares.Where(x => x.GroupName == groupName).ToList();
             List<brand> brands = da.GetBrands();
@@ -203,9 +224,11 @@ namespace bycar3.Views.Revision3
             items.Sort();
             return items;
         }*/
+
         public List<string> getBrandsInSpareGroup(int GroupID)
         {
             List<string> items = new List<string>();
+
             //List<SpareView> spares = getSparesByGroupName(groupName);
             List<SpareView> spares = SpareContainer.Instance.Spares.Where(x => x.GroupID == GroupID).ToList();
             List<brand> brands = da.GetBrands();
@@ -219,7 +242,8 @@ namespace bycar3.Views.Revision3
             items.Sort();
             return items;
         }
-        //========================================================        
+
+        //========================================================
         public List<SpareView> FilterSpares(
            int SearchFieldIndex,
            string SearchText,
@@ -246,6 +270,7 @@ namespace bycar3.Views.Revision3
                 }
             }
             else
+
                 //int BrandID
                 if (BrandID > 0)
                 {
@@ -262,11 +287,13 @@ namespace bycar3.Views.Revision3
             {
                 ResultList = ResultList.Where(i => i.QRest > 0).ToList();
             }
+
             //bool MismatchOnly,
             if (MismatchOnly)
             {
                 ResultList = ResultList.Where(i => i.QRest.Value != (int)i.q_rest.Value).ToList();
             }
+
             //int SearchFieldIndex,
             //string SearchText,
             if (SearchText.Length > 0)
@@ -277,9 +304,11 @@ namespace bycar3.Views.Revision3
                     case 0:// ПОИСК ПО КОДУ
                         ResultList = ResultList.Where(s => s.code != null).Where(s => s.code.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
                         ResultList = ResultList.Where(s => s.name.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
+
                     case 2:// ПОИСК ПО КОДУ ШАТЕ-М
                         ResultList = ResultList.Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(SearchText.ToLower())).ToList();
                         break;
@@ -288,6 +317,7 @@ namespace bycar3.Views.Revision3
 
             return ResultList.ToList();
         }
+
         //============================================================
         public Revision3EditView()
         {
@@ -296,11 +326,10 @@ namespace bycar3.Views.Revision3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            da = new DataAccess();            
+            da = new DataAccess();
             LoadGroups(false);
             LoadSpares();
             edtDate.SelectedDate = DateTime.Now;
-               
         }
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,13 +341,14 @@ namespace bycar3.Views.Revision3
         {
             ItemSearch();
         }
-        void ItemSearch()
+
+        private void ItemSearch()
         {
             // получение параметров
             string SearchText = edtSearchText.Text;
             int SearcFieldIndex = edtSearchField.SelectedIndex;
-            _SearchTextAndIndex(SearchText, SearcFieldIndex);            
-        }         
+            _SearchTextAndIndex(SearchText, SearcFieldIndex);
+        }
 
         private void edtShowRests_Click(object sender, RoutedEventArgs e)
         {
@@ -329,13 +359,15 @@ namespace bycar3.Views.Revision3
         {
             GroupsTreeViewSelectionChanged();
         }
-        void GroupsTreeViewSelectionChanged()
+
+        private void GroupsTreeViewSelectionChanged()
         {
             TreeViewItem selectedItem = treeSpareGroups.SelectedItem as TreeViewItem;
             if (selectedItem != null)
             {
                 string selectedItemHeader = selectedItem.Header.ToString();
                 DataAccess da = new DataAccess();
+
                 // Если выбрана не группа, а брэнд, отобразить список групп с двумя наложенными фильтрами:
                 //  1. Выбранный брэнд
                 //  2. Родительская для выранного брэнда группа
@@ -343,7 +375,7 @@ namespace bycar3.Views.Revision3
                 if (!da.isSpareGroup(selectedItemHeader))
                 {
                     //tree_cm_Create.IsEnabled = false;
-                   // tree_cm_Delete.IsEnabled = false;
+                    // tree_cm_Delete.IsEnabled = false;
                     //tree_cm_Edit.IsEnabled = false;
                     string brandName = selectedItemHeader;
                     if (selectedItem != null)
@@ -365,9 +397,10 @@ namespace bycar3.Views.Revision3
                 {
                     //tree_cm_Create.IsEnabled = true;
                     //tree_cm_Edit.IsEnabled = true;
-                    /// Если выбрана группа, отобразить элементы всех дочерних подгрупп                    
+                    /// Если выбрана группа, отобразить элементы всех дочерних подгрупп
                     int GroupID = 0;
                     Int32.TryParse((selectedItem.Name.Replace("TVIId", " ")), out GroupID);
+
                     //if (selectedItem == treeSpareGroups.Items[0])
                     //    tree_cm_Delete.IsEnabled = false;
                     //else
@@ -377,7 +410,9 @@ namespace bycar3.Views.Revision3
             }
             dgSpares.SelectedIndex = 0;
         }
+
         private bool isManualEditCommit;
+
         private void HandleMainDataGridCellEditEnding(
           object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -389,6 +424,7 @@ namespace bycar3.Views.Revision3
                 isManualEditCommit = false;
             }
         }
+
         private void dgSpares_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             HandleMainDataGridCellEditEnding(sender, e);
@@ -400,12 +436,13 @@ namespace bycar3.Views.Revision3
                     else
                         i.q_rest = 0;
         }
-    
+
         private void btnNullRealQ_Click(object sender, RoutedEventArgs e)
         {
             SetQToZero();
         }
-        void SetQToZero()
+
+        private void SetQToZero()
         {
             MessageBoxResult mbr = MessageBox.Show("Операция может занять некоторое время! Продолжить?", "Уведомление", MessageBoxButton.YesNo);
             if (mbr == MessageBoxResult.Yes)
@@ -414,7 +451,8 @@ namespace bycar3.Views.Revision3
                 LoadSpares();
             }
         }
-        void ShowMismatch()
+
+        private void ShowMismatch()
         {
             _MismatchOnly = btnShowMismatch.IsChecked.Value;
         }
@@ -424,7 +462,7 @@ namespace bycar3.Views.Revision3
             ShowMismatch();
         }
 
-        void SparePlus()
+        private void SparePlus()
         {
             if (dgSpares.SelectedItem != null)
             {
@@ -438,7 +476,8 @@ namespace bycar3.Views.Revision3
                 }
             }
         }
-        void SpareMinus()
+
+        private void SpareMinus()
         {
             if (dgSpares.SelectedItem != null)
             {
@@ -449,13 +488,14 @@ namespace bycar3.Views.Revision3
                         (dgSpares.SelectedItem as SpareView).q_rest = 0;
                     else
                     {
-                        if ((dgSpares.SelectedItem as SpareView).q_rest.Value>0)
-                        (dgSpares.SelectedItem as SpareView).q_rest--;
+                        if ((dgSpares.SelectedItem as SpareView).q_rest.Value > 0)
+                            (dgSpares.SelectedItem as SpareView).q_rest--;
                         da.SpareUpdateQReal(i.id, i.q_rest.Value);
                     }
                 }
             }
         }
+
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
             SparePlus();
@@ -465,7 +505,8 @@ namespace bycar3.Views.Revision3
         {
             SpareMinus();
         }
-        void Print()
+
+        private void Print()
         {
             MessageBoxResult mbr = MessageBox.Show("Операция может занять некоторое время! Продолжить?", "Уведомление", MessageBoxButton.YesNo);
             if (mbr == MessageBoxResult.Yes)
@@ -478,6 +519,7 @@ namespace bycar3.Views.Revision3
         {
             Print();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             ItemSearch();

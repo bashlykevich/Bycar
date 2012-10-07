@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-using System.Collections;
+﻿using System.Collections;
 using System.ComponentModel;
+using System.Windows.Data;
 
 namespace bycar3.External_Code
 {
-    class PagingCollectionView:CollectionView
+    internal class PagingCollectionView : CollectionView
     {
         private readonly IList _innerList;
         private readonly int _itemsPerPage;

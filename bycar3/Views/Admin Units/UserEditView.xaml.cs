@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 
 namespace bycar3.Views.Admin_Units
@@ -19,17 +8,20 @@ namespace bycar3.Views.Admin_Units
     /// </summary>
     public partial class UserEditView : Window
     {
-        admin_unit user = null;
+        private admin_unit user = null;
+
         public UserEditView()
         {
             InitializeComponent();
         }
+
         public UserEditView(int UserID)
         {
             InitializeComponent();
             LoadItem(UserID);
         }
-        void LoadItem(int UserID)
+
+        private void LoadItem(int UserID)
         {
             DataAccess db = new DataAccess();
             user = db.AdminUnitGet(UserID);
@@ -39,15 +31,17 @@ namespace bycar3.Views.Admin_Units
             edtPasswordConfirm.Password = user.password;
             edtIsAdmin.IsChecked = user.is_admin > 0;
         }
-        admin_unit SaveItem()
+
+        private admin_unit SaveItem()
         {
             if (user == null)
                 user = new admin_unit();
             user.name = edtName.Text;
             user.password = edtPassword.Password;
-            user.is_admin = edtIsAdmin.IsChecked.HasValue?( edtIsAdmin.IsChecked.Value ? 1 : 0):0;
+            user.is_admin = edtIsAdmin.IsChecked.HasValue ? (edtIsAdmin.IsChecked.Value ? 1 : 0) : 0;
             return user;
         }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             // check pass confirm
@@ -65,7 +59,7 @@ namespace bycar3.Views.Admin_Units
             if (user == null)
             {
                 // create
-                // check username                
+                // check username
                 if (db.UserNameExist(edtName.Text))
                 {
                     MessageBox.Show("Пользователь с таким именем уже существует!");

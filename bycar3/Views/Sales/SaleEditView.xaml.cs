@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.Reporting;
 
@@ -20,13 +12,15 @@ namespace bycar3.Views.Sales
     /// </summary>
     public partial class SaleEditView : Window
     {
-        int SaleID = 0;
+        private int SaleID = 0;
+
         public SaleEditView(int saleID)
         {
             InitializeComponent();
             SaleID = saleID;
             LoadSales();
         }
+
         public void LoadSales()
         {
             DataAccess db = new DataAccess();
@@ -66,7 +60,8 @@ namespace bycar3.Views.Sales
                 LoadSales();
             }
         }
-        void Print()
+
+        private void Print()
         {
             if (dgBasket.Items.Count > 0)
             {
@@ -78,6 +73,7 @@ namespace bycar3.Views.Sales
                 MessageBox.Show("Корзина пуста!");
             }
         }
+
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             Print();

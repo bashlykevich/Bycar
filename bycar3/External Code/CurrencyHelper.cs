@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using bycar;
 
 namespace bycar3.External_Code
 {
-    class CurrencyHelper
+    internal class CurrencyHelper
     {
         public static string BasicCurrencyCode
         {
@@ -117,14 +114,14 @@ namespace bycar3.External_Code
                 {
                     if (CurrencyCode.Contains("BYR"))
                     {
-                        Price = BasicPrice * RateUsd;                        
+                        Price = BasicPrice * RateUsd;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateUsd / RateEur;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateUsd / RateRur;
                     }
                 }
@@ -135,11 +132,11 @@ namespace bycar3.External_Code
                         Price = BasicPrice * RateEur;
                     }
                     if (CurrencyCode.Contains("USD"))
-                    {                        
+                    {
                         Price = BasicPrice * RateEur / RateUsd;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateEur / RateRur;
                     }
                 }
@@ -147,15 +144,15 @@ namespace bycar3.External_Code
                 if (BasicCurrencyCode.Contains("RUR"))
                 {
                     if (CurrencyCode.Contains("BYR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur / RateEur;
                     }
                     if (CurrencyCode.Contains("USD"))
-                    {                        
+                    {
                         Price = BasicPrice * RateRur / RateUsd;
                     }
                 }
@@ -167,12 +164,12 @@ namespace bycar3.External_Code
                         Price = BasicPrice / RateUsd;
                     }
                     if (CurrencyCode.Contains("EUR"))
-                    {                        
+                    {
                         Price = BasicPrice / RateEur;
                     }
                     if (CurrencyCode.Contains("RUR"))
-                    {                        
-                        Price = BasicPrice / RateRur; 
+                    {
+                        Price = BasicPrice / RateRur;
                     }
                 }
             }
@@ -183,4 +180,3 @@ namespace bycar3.External_Code
         }
     }
 }
-

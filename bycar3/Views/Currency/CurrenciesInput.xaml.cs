@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using bycar;
 using System.Data;
+using System.Windows;
+using System.Windows.Documents;
+using bycar;
 using bycar3.NbrbServiceReference;
 
 namespace bycar3.Views.Currency
@@ -22,19 +14,21 @@ namespace bycar3.Views.Currency
     public partial class CurrenciesInput : Window
     {
         // CUSTOM FUNCTIONS
-        void LoadRates(DateTime dt)
-        {            
+        private void LoadRates(DateTime dt)
+        {
             edtDate.SelectedDate = dt;
-            // искать курсы на заданную даты в базе            
+
+            // искать курсы на заданную даты в базе
             // если не найдено, то предложить загрузить их из интернета
             if (!LoadRatesFromDB(dt))
                 LoadRatesFromWeb(dt);
         }
-        
-        bool LoadRatesFromDB(DateTime dt)
+
+        private bool LoadRatesFromDB(DateTime dt)
         {
             bool res = true;
             DataAccess da = new DataAccess();
+
             // USD
             currency_rate r1 = da.getCurrencyRate("USD", dt);
             if (r1 != null)
@@ -55,8 +49,8 @@ namespace bycar3.Views.Currency
                 res = false;
             return res;
         }
-        
-        void LoadRatesFromWeb(DateTime date)
+
+        private void LoadRatesFromWeb(DateTime date)
         {
             try
             {
@@ -66,7 +60,7 @@ namespace bycar3.Views.Currency
                 DataRowCollection rows = dt.Rows;
                 int rowIndexUsd = 4;
                 int rowIndexEuro = 5;
-                int rowIndexRur = 15;                
+                int rowIndexRur = 15;
 
                 edtEURO.Text = rows[rowIndexEuro]["Cur_OfficialRate"].ToString();
                 edtUSD.Text = rows[rowIndexUsd]["Cur_OfficialRate"].ToString();
@@ -79,13 +73,14 @@ namespace bycar3.Views.Currency
                 edtRUR.Text = "100";
                 MessageBox.Show("Не удалось загрузить курсы из интернета! Проверьте подключение.");
             }
-                AddRates();            
+            AddRates();
         }
-        
-        void AddRates()
+
+        private void AddRates()
         {
             DataAccess da = new DataAccess();
             List<currency_rate> rates = new List<currency_rate>();
+
             // USD
             currency c1 = da.GetCurrency("USD");
             currency_rate r1 = new currency_rate();
@@ -113,10 +108,11 @@ namespace bycar3.Views.Currency
             da.CurrencyRatesCreate(rates);
         }
 
-        void EditRates()
+        private void EditRates()
         {
             DataAccess da = new DataAccess();
             List<currency_rate> rates = new List<currency_rate>();
+
             // USD
             currency c1 = da.GetCurrency("USD");
             currency_rate r1 = new currency_rate();
@@ -140,9 +136,10 @@ namespace bycar3.Views.Currency
 
             rates.Add(r1);
             rates.Add(r2);
-            rates.Add(r3);            
+            rates.Add(r3);
             da.CurrencyRatesEdit(rates);
-        }        
+        }
+
         // HANDLERS
         public CurrenciesInput(DateTime dt)
         {
@@ -154,7 +151,8 @@ namespace bycar3.Views.Currency
         {
             InitializeComponent();
             LoadRates(DateTime.Now);
-        }        
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EditRates();

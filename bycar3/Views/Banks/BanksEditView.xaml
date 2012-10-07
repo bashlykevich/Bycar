@@ -15,14 +15,14 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="textBlock4" Text="Телефон" VerticalAlignment="Top" Width="92" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,70,168,0" Name="edtFax" VerticalAlignment="Top" Width="147" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,70,0,0" Name="textBlock5" Text="Факс" VerticalAlignment="Top" Width="92" />
-        <Button            
-                Click="btnOK_Click"                
-                Margin="240,180,103,10" 
+        <Button
+                Click="btnOK_Click"
+                Margin="240,180,103,10"
                 Name="btnOk"
-                Width="80"      
+                Width="80"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Button.Content>
-                <StackPanel 
+                <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                     <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
@@ -30,10 +30,10 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button                
+        <Button
                 Width="90"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                Margin="326,180,9,10" 		    
+                Margin="326,180,9,10"
                 Click="button1_Click"
                 Name="btnCancel">
             <Button.Content>
@@ -44,6 +44,6 @@
                     <TextBlock Text="Отмена" Margin="2,0,0,0" VerticalAlignment="Center" />
                 </StackPanel>
             </Button.Content>
-        </Button>        
+        </Button>
     </Grid>
 </Window>

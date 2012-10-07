@@ -1,11 +1,11 @@
 ﻿<Window x:Class="bycar3.Views.AccountsView"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Icon="\Content\Menu\partner_32.png"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"                
-        Title="Справочник: контрагенты" Height="500" Width="625" 
+        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+        Title="Справочник: контрагенты" Height="500" Width="625"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         ResizeMode="NoResize">
@@ -18,52 +18,51 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </Grid.RowDefinitions>
             <StackPanel Margin="10,0,0,0"
                     Orientation="Horizontal">
-                <Button 
+                <Button
                     ToolTip="Создать новую запись"
                         Margin="0,0,2,0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                         Click="btnAdd_Click"
-                        Name="btnAdd" >
-                    <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28"/>
+                        Name="btnAdd">
+                    <Image Source="\Content\Icons\IconDetailNew.png" Height="30" Width="28" />
                 </Button>
                 <Button
                     ToolTip="Редактировать выделенную запись"
                         Margin="0,0,2,0"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                         Click="btnEdit_Click"
-                        Name="btnEdit" >
+                        Name="btnEdit">
                     <Image Source="\Content\Icons\IconDetailEdit.png" Height="30" Width="28" />
                 </Button>
-                <Button 
+                <Button
                     ToolTip="Удалить выделенную запись"
                         Margin="0,0,2,0"
                         Click="btnDelete_Click"
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                         Name="btnDelete">
-                    <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28"/>
+                    <Image Source="\Content\Icons\IconDetailDelete.png" Height="30" Width="28" />
                 </Button>
             </StackPanel>
-            <DataGrid Name="dgList" 
+            <DataGrid Name="dgList"
                              Grid.Row="1"
                              ItemsSource="{Binding}"
-                             AutoGenerateColumns="False"        
-                             IsReadOnly="True"                                                        
-                             CanUserReorderColumns="False" 
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             CanUserReorderColumns="False"
                              MouseDoubleClick="dgList_MouseDoubleClick"
-                             RowBackground="#FFF0F0F0" 
-                             FontWeight="Normal" 
-                             HorizontalGridLinesBrush="LightGray" 
+                             RowBackground="#FFF0F0F0"
+                             FontWeight="Normal"
+                             HorizontalGridLinesBrush="LightGray"
                              VerticalGridLinesBrush="LightGray"
                              Margin="10,5,5,0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=name}" Header="Название" Width="0.4*"/>                                      
-                    <DataGridTextColumn Binding="{Binding Path=unn}" Header="УНН" Width="0.1*"/>
-                    <DataGridTextColumn Binding="{Binding Path=okpo}" Header="ОКПО" Width="0.1*"/>
-                    <DataGridTextColumn Binding="{Binding Path=address}" Header="Адрес" Width="0.4*"/>
+                    <DataGridTextColumn Binding="{Binding Path=name}" Header="Название" Width="0.4*" />
+                    <DataGridTextColumn Binding="{Binding Path=unn}" Header="УНН" Width="0.1*" />
+                    <DataGridTextColumn Binding="{Binding Path=okpo}" Header="ОКПО" Width="0.1*" />
+                    <DataGridTextColumn Binding="{Binding Path=address}" Header="Адрес" Width="0.4*" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Name="edtSum" Margin="20,0,0,0" Grid.Row="2" Content="Сумма: "/>
-        </Grid>        
+            <Label Name="edtSum" Margin="20,0,0,0" Grid.Row="2" Content="Сумма: " />
+        </Grid>
     </Grid>
 </Window>
-

@@ -1,6 +1,6 @@
 ﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
               FontFamily="Times New Roman"
               FontSize="13"
               FontWeight="Bold"
@@ -8,7 +8,7 @@
     <Section Padding="35">
 
         <Paragraph>Продажи за период</Paragraph>
-        <Paragraph FontWeight="Normal">            
+        <Paragraph FontWeight="Normal">
             <xrd:InlineDocumentValue PropertyName="ReportDate" />
         </Paragraph>
         <Paragraph></Paragraph>
@@ -19,16 +19,16 @@
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="0.075*"/>
-                    <TableColumn Width="*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.125*"/>                    
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.2*"/>
+                    <TableColumn Width="0.075*" />
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.125*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.2*" />
                 </Table.Columns>
                 <TableRowGroup>
                     <TableRow FontSize="10">
@@ -73,7 +73,7 @@
                             <Paragraph TextAlignment="Center">
                                 Цена, руб
                             </Paragraph>
-                        </TableCell>                        
+                        </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
@@ -93,7 +93,7 @@
                             </Paragraph>
                         </TableCell>
                     </TableRow>
-                    <xrd:TableRowForDataTable 
+                    <xrd:TableRowForDataTable
                         FontWeight="Normal"
                         TableName="mtable">
                         <TableCell BorderBrush="Black"
@@ -135,25 +135,25 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="P"/>
-                            </Paragraph>
-                        </TableCell>                        
-                        <TableCell BorderBrush="Black"
-                               BorderThickness="0.01cm">
-                            <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="VAT"/>
+                                <xrd:InlineTableCellValue PropertyName="P" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="T"/>
+                                <xrd:InlineTableCellValue PropertyName="VAT" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="SaleDate"/>
+                                <xrd:InlineTableCellValue PropertyName="T" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell BorderBrush="Black"
+                               BorderThickness="0.01cm">
+                            <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="SaleDate" />
                             </Paragraph>
                         </TableCell>
                     </xrd:TableRowForDataTable>
@@ -172,32 +172,27 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
 
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -214,12 +209,11 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                     </TableRow>
                 </TableRowGroup>
             </Table>
-        </xrd:SectionDataGroup>       
+        </xrd:SectionDataGroup>
     </Section>
 </FlowDocument>

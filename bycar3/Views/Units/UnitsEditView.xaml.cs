@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 
 namespace bycar3.Views
@@ -20,10 +9,12 @@ namespace bycar3.Views
     public partial class UnitsEditView : Window
     {
         public int _id = 0;
+
         public UnitsEditView()
         {
             InitializeComponent();
         }
+
         public void LoadItem(int id)
         {
             _id = id;
@@ -32,10 +23,12 @@ namespace bycar3.Views
             edtName.Text = b.name;
             edtDescr.Text = b.description;
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             if (this._id > 0)
@@ -48,15 +41,17 @@ namespace bycar3.Views
 
         private void EditItem()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             da.UnitEdit(getItem());
         }
+
         private void CreateItem()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             da.UnitCreate(getItem());
         }
-        unit getItem()
+
+        private unit getItem()
         {
             unit item = new unit();
             item.id = this._id;

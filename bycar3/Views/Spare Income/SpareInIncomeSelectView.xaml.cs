@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.External_Code;
 using bycar3.Core;
+using bycar3.External_Code;
 
 namespace bycar3.Views.Spare_Income
 {
@@ -24,15 +18,16 @@ namespace bycar3.Views.Spare_Income
         #region MEMBERS
 
         public SpareIncomeEditView _ParentWindow = null;
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public int _SpareIncomeID = -1;
         public int _OfferingNumber = 0;
         public string CurrenctCurrencyCode;
-        #endregion                
+
+        #endregion MEMBERS
 
         #region FUNCTIONS
 
-        string GetSelectedSpareName()
+        private string GetSelectedSpareName()
         {
             string result = "";
             try
@@ -55,7 +50,7 @@ namespace bycar3.Views.Spare_Income
             return result;
         }
 
-        int GetSelectedSpareId()
+        private int GetSelectedSpareId()
         {
             int result = 0;
             try
@@ -78,16 +73,16 @@ namespace bycar3.Views.Spare_Income
             return result;
         }
 
-        void LoadSpares()
+        private void LoadSpares()
         {
             LoadSpares(null, "");
         }
 
-        void LoadSpares(int? searchFieldIndex, string searchString)
+        private void LoadSpares(int? searchFieldIndex, string searchString)
         {
             da = new DataAccess();
             List<SpareView> items = new List<SpareView>();
-            if(searchFieldIndex.HasValue && !searchString.Equals(""))
+            if (searchFieldIndex.HasValue && !searchString.Equals(""))
             {
                 if (cbSctrictSearch.IsChecked.Value)
                 {
@@ -97,14 +92,15 @@ namespace bycar3.Views.Spare_Income
                 {
                     items = SpareContainer.Instance.GetSpares(searchFieldIndex.Value, searchString);
                 }
-            } else
+            }
+            else
             {
                 items = SpareContainer.Instance.Spares;
-            }                        
-            dgSpares.DataContext = items;            
+            }
+            dgSpares.DataContext = items;
         }
 
-        void SpareSearch()
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
@@ -113,14 +109,14 @@ namespace bycar3.Views.Spare_Income
                 LoadSpares(searchFieldIndex, searchString);
             }
         }
-                     
-        void SpareAdd()
+
+        private void SpareAdd()
         {
             Marvin.Instance.SpareCreate();
             LoadSpares();
         }
-        
-        void SpareEdit()
+
+        private void SpareEdit()
         {
             if (dgSpares.SelectedItem == null)
                 return;
@@ -129,7 +125,7 @@ namespace bycar3.Views.Spare_Income
             LoadSpares();
         }
 
-        void SpareDelete()
+        private void SpareDelete()
         {
             int id = 0;
             SpareView b = null;
@@ -151,13 +147,13 @@ namespace bycar3.Views.Spare_Income
                 }
             }
         }
-        
-        void ShowSelectedSpareName()
+
+        private void ShowSelectedSpareName()
         {
             edtOfferingName.Content = GetSelectedSpareName();
-        }               
+        }
 
-        void AddNewOffering()
+        private void AddNewOffering()
         {
             if (cbSimpleIncome.IsChecked.Value)
             {
@@ -182,7 +178,8 @@ namespace bycar3.Views.Spare_Income
                 v.ShowDialog();
             }
         }
-        #endregion
+
+        #endregion FUNCTIONS
 
         //  HANDLERS
 
@@ -196,14 +193,14 @@ namespace bycar3.Views.Spare_Income
             LoadSpares();
             DataAccess db = new DataAccess();
             settings_profile sp = db.getProfileCurrent();
-            cbSimpleIncome.IsChecked = sp.SimpleInput.HasValue ? (sp.SimpleInput.Value == 1?true:false): false;
+            cbSimpleIncome.IsChecked = sp.SimpleInput.HasValue ? (sp.SimpleInput.Value == 1 ? true : false) : false;
             cbSctrictSearch.IsChecked = sp.StrictSearch.HasValue ? (sp.StrictSearch.Value == 1 ? true : false) : false;
-        }        
+        }
 
         private void btnSpareSearch_Click(object sender, RoutedEventArgs e)
         {
             SpareSearch();
-        }        
+        }
 
         private void btnSpareAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -225,16 +222,16 @@ namespace bycar3.Views.Spare_Income
             AddNewOffering();
             _ParentWindow.LoadOfferings();
             _ParentWindow.dgSpares.UpdateLayout();
-            _ParentWindow.dgSpares.ScrollIntoView(dgSpares.Items[dgSpares.Items.Count - 1]);            
+            _ParentWindow.dgSpares.ScrollIntoView(dgSpares.Items[dgSpares.Items.Count - 1]);
         }
 
         private void dgSpares_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowSelectedSpareName();
         }
-        
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             Close();
         }
 
@@ -257,6 +254,7 @@ namespace bycar3.Views.Spare_Income
         {
             edtSearchText.Focus();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();
@@ -266,6 +264,7 @@ namespace bycar3.Views.Spare_Income
         {
             DataAccess db = new DataAccess();
             settings_profile sp = db.getProfileCurrent();
+
             //cbSimpleIncome.IsChecked = sp.SimpleInput.HasValue ? (sp.SimpleInput.Value == 1 ? true : false) : false;
             sp.SimpleInput = cbSimpleIncome.IsChecked.HasValue ? (cbSimpleIncome.IsChecked.Value ? 1 : 0) : 0;
             sp.StrictSearch = cbSctrictSearch.IsChecked.HasValue ? (cbSctrictSearch.IsChecked.Value ? 1 : 0) : 0;

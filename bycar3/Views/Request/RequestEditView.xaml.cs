@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using bycar3.Reporting;
 using bycar;
+using bycar3.Reporting;
 
 namespace bycar3.Views.Request
 {
@@ -21,6 +12,7 @@ namespace bycar3.Views.Request
     public partial class RequestEditView : Window
     {
         public List<SpareView> items = null;
+
         public void RefreshSpares()
         {
             dgSpares.DataContext = null;
@@ -35,7 +27,8 @@ namespace bycar3.Views.Request
             dgSpares.DataContext = items;
             dgSpares.UpdateLayout();
         }
-        void LoadSpares()
+
+        private void LoadSpares()
         {
             decimal sum1 = 0;
             DataAccess da = new DataAccess();
@@ -57,7 +50,6 @@ namespace bycar3.Views.Request
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
         }
 
         public void UpdateGrid()
@@ -65,13 +57,14 @@ namespace bycar3.Views.Request
             dgSpares.DataContext = items;
             dgSpares.UpdateLayout();
         }
+
         private void btnSpareAdd_Click(object sender, RoutedEventArgs e)
         {
             SpareInRequestSelectView v = new SpareInRequestSelectView(this);
-            v.ShowDialog();            
+            v.ShowDialog();
         }
 
-        void SpareDelete()
+        private void SpareDelete()
         {
             if ((dgSpares.SelectedItem as SpareView) != null)
             {
@@ -79,6 +72,7 @@ namespace bycar3.Views.Request
                 RefreshSpares();
             }
         }
+
         private void btnSpareDelete_Click(object sender, RoutedEventArgs e)
         {
             SpareDelete();
@@ -96,7 +90,9 @@ namespace bycar3.Views.Request
                         sv.demand = 0;
                 }
         }
+
         private bool isManualEditCommit;
+
         private void HandleMainDataGridCellEditEnding(
          object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -108,6 +104,7 @@ namespace bycar3.Views.Request
                 isManualEditCommit = false;
             }
         }
+
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
             Reporter.GenerateRequestReport(items);

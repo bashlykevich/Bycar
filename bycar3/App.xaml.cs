@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
-using System.Threading;
-using splashDemo;
-using bycar3.Core;
 using System.Globalization;
-using bycar3.Views.Administration;
-using bycar3.Views.Common;
+using System.Threading;
+using System.Windows;
+using bycar3.Core;
+using splashDemo;
 
 namespace bycar3
 {
@@ -18,16 +12,15 @@ namespace bycar3
     /// </summary>
     public partial class App : Application
     {
-
         private void OnStartUp(Object sender, StartupEventArgs e)
-        {            
+        {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try
             {
                 SplashThreadStart();
                 MainWindow mw = new MainWindow();
                 mw.Show();
-                mw.Activate();                
+                mw.Activate();
                 SplashThreadStop();
             }
             catch (Exception edf2)
@@ -37,15 +30,18 @@ namespace bycar3
                 MessageBox.Show("EXCEPTION: " + edf2.Message + "\nINNER: " + edf2.InnerException.Message);
             }
         }
-        Thread splash = null;
-        void SplashThreadStart()
+
+        private Thread splash = null;
+
+        private void SplashThreadStart()
         {
             splash = new Thread(SplashWindowShow);
             splash.IsBackground = true;
             splash.SetApartmentState(ApartmentState.STA);
             splash.Start();
         }
-        void SplashThreadStop()
+
+        private void SplashThreadStop()
         {
             if (splash != null)
             {
@@ -53,10 +49,10 @@ namespace bycar3
                 splash = null;
             }
         }
-        void SplashWindowShow()
+
+        private void SplashWindowShow()
         {
             new SplashWindow().ShowDialog();
         }
     }
-
 }

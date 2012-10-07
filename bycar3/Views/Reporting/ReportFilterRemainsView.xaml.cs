@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
+
 //using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using bycar3.External_Code;
 
 namespace bycar3.Views.Reporting
 {
@@ -23,7 +13,7 @@ namespace bycar3.Views.Reporting
     public partial class ReportFilterRemainsView : Window
     {
         // CUSTOM FUNCTIONS
-        void LoadComboboxCurrencies()
+        private void LoadComboboxCurrencies()
         {
             DataAccess da = new DataAccess();
             List<currency> x = da.GetCurrency();
@@ -32,6 +22,7 @@ namespace bycar3.Views.Reporting
                 edtCurrency.Items.Add(c.code);
             edtCurrency.SelectedItem = da.getBasicCurrencyCode();
         }
+
         /*
         void GenerateReportRemains()
         {
@@ -63,7 +54,6 @@ namespace bycar3.Views.Reporting
                 r.Merge(Type.Missing);
                 eWorksheet.Cells[row, 1] = header1;
                 row+=2;
-
 
                 int col = 1;
                 int colQ = 0;
@@ -101,7 +91,7 @@ namespace bycar3.Views.Reporting
                 int TableStartRow = row - 1;
                 double TotalAmount = 0;
                 int TotalQ = 0;
-                
+
                 // DATA OUTPUT
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -121,7 +111,7 @@ namespace bycar3.Views.Reporting
 
                     double PriceFull1 = list[i].BasicPrice.Value;
                     double PriceFull = CurrencyHelper.GetPrice(CCC, PriceFull1);
-                    
+
                     tmp = (int)(PriceFull * 100);
                     PriceFull = (double)tmp / 100;
 
@@ -145,7 +135,7 @@ namespace bycar3.Views.Reporting
                     row++;
                 }
                 if (cbTotal.IsChecked.Value)
-                {                    
+                {
                     eWorksheet.Cells[row, colS] = TotalAmount;
                     eWorksheet.Cells[row, colQ] = TotalQ;
                     eWorksheet.Cells[row, 2] = "Итого:";
@@ -163,7 +153,7 @@ namespace bycar3.Views.Reporting
                 Excel.Range rf1 = eWorksheet.get_Range(rngf1);
                 rf1.Merge(Type.Missing);
                 eWorksheet.Cells[row, 1] = footer1;
-                
+
                 eWorkbook.Application.Visible = true;
             }
             catch (Exception exc)

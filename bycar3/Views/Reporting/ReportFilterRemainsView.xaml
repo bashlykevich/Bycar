@@ -1,8 +1,8 @@
 ﻿<Window x:Class="bycar3.Views.Reporting.ReportFilterRemainsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:wpf="clr-namespace:Microsoft.Windows.Controls;assembly=WpfToolkit"             
-        Title="Отчёт: остатки" 
+        xmlns:wpf="clr-namespace:Microsoft.Windows.Controls;assembly=WpfToolkit"
+        Title="Отчёт: остатки"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -21,32 +21,32 @@
             <RowDefinition Height="45" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <StackPanel
-            Grid.Row="0" Grid.Column="0" Margin="5" 
+            Grid.Row="0" Grid.Column="0" Margin="5"
             Orientation="Horizontal">
             <Label Grid.Row="2" Grid.Column="0" Content="Валюта:" />
             <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" Width="80" Name="edtCurrency" />
         </StackPanel>
-        <CheckBox Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" Name="cbName" Content="Наименование товара" IsEnabled="False" IsChecked="True"/>
-        <CheckBox Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" Name="cbUnit" Content="Единица измерения" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5,0,0,0" Name="cbQ" Content="Количество" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="4" Grid.Column="0" Margin="5,0,0,0" Name="cbPrice" Content="Приходная цена" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="5" Grid.Column="0" Margin="5,0,0,0" Name="cbPers" Content="Наценка" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="6" Grid.Column="0" Margin="5,0,0,0" Name="cbVat" Content="НДС" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="7" Grid.Column="0" Margin="5,0,0,0" Name="cbPriceFull" Content="Отпускная цена" IsEnabled="True" IsChecked="True"/>
-        <CheckBox Grid.Row="8" Grid.Column="0" Margin="5,0,0,0" Name="cbTotal" Content="Итого" IsEnabled="True" IsChecked="True"/>        
-       
-        <Button                
-                Width="80"                  
+        <CheckBox Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" Name="cbName" Content="Наименование товара" IsEnabled="False" IsChecked="True" />
+        <CheckBox Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" Name="cbUnit" Content="Единица измерения" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5,0,0,0" Name="cbQ" Content="Количество" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="4" Grid.Column="0" Margin="5,0,0,0" Name="cbPrice" Content="Приходная цена" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="5" Grid.Column="0" Margin="5,0,0,0" Name="cbPers" Content="Наценка" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="6" Grid.Column="0" Margin="5,0,0,0" Name="cbVat" Content="НДС" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="7" Grid.Column="0" Margin="5,0,0,0" Name="cbPriceFull" Content="Отпускная цена" IsEnabled="True" IsChecked="True" />
+        <CheckBox Grid.Row="8" Grid.Column="0" Margin="5,0,0,0" Name="cbTotal" Content="Итого" IsEnabled="True" IsChecked="True" />
+
+        <Button
+                Width="80"
                 Click="btnOk_Click"
-                Grid.Row="9" 
-            Grid.Column="0" Margin="40,5,40,15"  
+                Grid.Row="9"
+            Grid.Column="0" Margin="40,5,40,15"
                 Name="btnOk">
             <Button.Content>
-                <StackPanel 
+                <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                     <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
@@ -54,6 +54,5 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-
     </Grid>
 </Window>

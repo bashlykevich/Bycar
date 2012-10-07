@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using bycar;
 
 namespace bycar3.Views
@@ -20,6 +9,7 @@ namespace bycar3.Views
     public partial class AdminUnitsEditView : Window
     {
         public int _id = 0;
+
         public AdminUnitsEditView()
         {
             InitializeComponent();
@@ -44,6 +34,7 @@ namespace bycar3.Views
             item.description = edtDescr.Text;
             da.AccountTypeEdit(item);
         }
+
         private void CreateItem()
         {
             DataAccess da = new DataAccess();
@@ -52,6 +43,7 @@ namespace bycar3.Views
             item.description = edtDescr.Text;
             da.AccountTypeCreate(item);
         }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

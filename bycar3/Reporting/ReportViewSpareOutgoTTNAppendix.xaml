@@ -1,7 +1,7 @@
 ﻿<Window x:Class="bycar3.Reporting.ReportViewSpareOutgoTTNAppendix"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Приложение к ТТН" 
+        Title="Приложение к ТТН"
         WindowState="Maximized"
         Activated="Window_Activated"
         Height="300" Width="300">

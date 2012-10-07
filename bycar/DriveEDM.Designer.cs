@@ -46,6 +46,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_invoice_unit", "unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.unit), "spare_in_invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_invoice))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_invoice_vat_rate", "vat_rate", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.vat_rate), "spare_in_invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_invoice))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_income_warehouse", "warehouse", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.warehouse), "spare_income", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_income))]
+[assembly: EdmRelationshipAttribute("bycar3Model", "FK_account_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "account", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.account))]
+[assembly: EdmRelationshipAttribute("bycar3Model", "FK_account_type_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "account_type", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.account_type))]
+[assembly: EdmRelationshipAttribute("bycar3Model", "FK_bank_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "bank", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.bank))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_spare_income_spare", "spare", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.spare), "spare_in_spare_income", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_spare_income))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_spare_outgo_spare", "spare", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bycar.spare), "spare_in_spare_outgo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_spare_outgo))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_invoice_spare_in_spare_income", "spare_in_spare_income", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.spare_in_spare_income), "spare_in_invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_invoice))]
@@ -55,9 +58,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_spare_outgo_spare_in_spare_income", "spare_in_spare_income", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.spare_in_spare_income), "spare_in_spare_outgo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_spare_outgo))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_spare_outgo_spare_outgo", "spare_outgo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bycar.spare_outgo), "spare_in_spare_outgo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_spare_outgo))]
 [assembly: EdmRelationshipAttribute("bycar3Model", "FK_spare_in_spare_outgo_vat_rate", "vat_rate", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.vat_rate), "spare_in_spare_outgo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.spare_in_spare_outgo))]
-[assembly: EdmRelationshipAttribute("bycar3Model", "FK_account_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "account", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.account))]
-[assembly: EdmRelationshipAttribute("bycar3Model", "FK_account_type_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "account_type", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.account_type))]
-[assembly: EdmRelationshipAttribute("bycar3Model", "FK_bank_admin_unit", "admin_unit", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bycar.admin_unit), "bank", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bycar.bank))]
 
 #endregion
 
@@ -717,38 +717,6 @@ namespace bycar
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<spare_in_spare_income> spare_in_spare_income
-        {
-            get
-            {
-                if ((_spare_in_spare_income == null))
-                {
-                    _spare_in_spare_income = base.CreateObjectSet<spare_in_spare_income>("spare_in_spare_income");
-                }
-                return _spare_in_spare_income;
-            }
-        }
-        private ObjectSet<spare_in_spare_income> _spare_in_spare_income;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<spare_in_spare_outgo> spare_in_spare_outgo
-        {
-            get
-            {
-                if ((_spare_in_spare_outgo == null))
-                {
-                    _spare_in_spare_outgo = base.CreateObjectSet<spare_in_spare_outgo>("spare_in_spare_outgo");
-                }
-                return _spare_in_spare_outgo;
-            }
-        }
-        private ObjectSet<spare_in_spare_outgo> _spare_in_spare_outgo;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SpareInSpareIncomeView> SpareInSpareIncomeViews
         {
             get
@@ -873,6 +841,38 @@ namespace bycar
             }
         }
         private ObjectSet<SpareInSpareOutgoView> _SpareInSpareOutgoViews;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<spare_in_spare_income> spare_in_spare_income
+        {
+            get
+            {
+                if ((_spare_in_spare_income == null))
+                {
+                    _spare_in_spare_income = base.CreateObjectSet<spare_in_spare_income>("spare_in_spare_income");
+                }
+                return _spare_in_spare_income;
+            }
+        }
+        private ObjectSet<spare_in_spare_income> _spare_in_spare_income;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<spare_in_spare_outgo> spare_in_spare_outgo
+        {
+            get
+            {
+                if ((_spare_in_spare_outgo == null))
+                {
+                    _spare_in_spare_outgo = base.CreateObjectSet<spare_in_spare_outgo>("spare_in_spare_outgo");
+                }
+                return _spare_in_spare_outgo;
+            }
+        }
+        private ObjectSet<spare_in_spare_outgo> _spare_in_spare_outgo;
 
         #endregion
         #region AddTo Methods
@@ -1182,22 +1182,6 @@ namespace bycar
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the spare_in_spare_income EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTospare_in_spare_income(spare_in_spare_income spare_in_spare_income)
-        {
-            base.AddObject("spare_in_spare_income", spare_in_spare_income);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the spare_in_spare_outgo EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTospare_in_spare_outgo(spare_in_spare_outgo spare_in_spare_outgo)
-        {
-            base.AddObject("spare_in_spare_outgo", spare_in_spare_outgo);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SpareInSpareIncomeViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSpareInSpareIncomeViews(SpareInSpareIncomeView spareInSpareIncomeView)
@@ -1259,6 +1243,22 @@ namespace bycar
         public void AddToSpareInSpareOutgoViews(SpareInSpareOutgoView spareInSpareOutgoView)
         {
             base.AddObject("SpareInSpareOutgoViews", spareInSpareOutgoView);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the spare_in_spare_income EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTospare_in_spare_income(spare_in_spare_income spare_in_spare_income)
+        {
+            base.AddObject("spare_in_spare_income", spare_in_spare_income);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the spare_in_spare_outgo EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTospare_in_spare_outgo(spare_in_spare_outgo spare_in_spare_outgo)
+        {
+            base.AddObject("spare_in_spare_outgo", spare_in_spare_outgo);
         }
 
         #endregion

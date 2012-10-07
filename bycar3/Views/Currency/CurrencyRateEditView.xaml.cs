@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views.Currency
@@ -19,8 +9,9 @@ namespace bycar3.Views.Currency
     /// </summary>
     public partial class CurrencyRateEditView : Window
     {
-        // DATA MEMBERS        
+        // DATA MEMBERS
         public float Rate = 1;
+
         public DateTime RateDate = DateTime.Now;
         public int RateID = 0;
         public int CurrencyID = 0;
@@ -28,7 +19,7 @@ namespace bycar3.Views.Currency
         public string BasicCurrencyName = "";
 
         // CUSTOM FUNCTIONS
-        void SaveItem()
+        private void SaveItem()
         {
             if (RateID < 1)
             {
@@ -38,7 +29,8 @@ namespace bycar3.Views.Currency
                 EditRate();
             Close();
         }
-        void EditRate()
+
+        private void EditRate()
         {
             DataAccess da = new DataAccess();
             currency_rate r = new currency_rate();
@@ -50,29 +42,31 @@ namespace bycar3.Views.Currency
             r.rate = rt;
             da.CurrencyRateEdit(r);
         }
-        void CreateRate()
+
+        private void CreateRate()
         {
             DataAccess da = new DataAccess();
             currency_rate r = new currency_rate();
             r.currency = da.GetCurrency(CurrencyID);
             r.rate_date = edtDate.SelectedDate.Value;
             decimal rt = 1;
-            decimal.TryParse(edtRate.Text, out rt);            
-            r.rate = rt;            
+            decimal.TryParse(edtRate.Text, out rt);
+            r.rate = rt;
             da.CurrencyRateCreate(r);
         }
 
-        void Initialize()
+        private void Initialize()
         {
-//            if (RateID > 0)
-            //{                             
-//            }
-//            else
-//            {
-                edtDate.SelectedDate = RateDate;
-                edtRate.Text = Rate.ToString();
-                edtComment.Content = CurrencyName + " = 1 " + BasicCurrencyName;
-//            }
+            //            if (RateID > 0)
+            //{
+            //            }
+            //            else
+            //            {
+            edtDate.SelectedDate = RateDate;
+            edtRate.Text = Rate.ToString();
+            edtComment.Content = CurrencyName + " = 1 " + BasicCurrencyName;
+
+            //            }
         }
 
         // HANDLERS
@@ -85,7 +79,6 @@ namespace bycar3.Views.Currency
         {
             Initialize();
         }
-      
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {

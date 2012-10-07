@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using CodeReason.Reports;
-using System.IO;
-using bycar;
 using System.Data;
+using System.IO;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Xps.Packaging;
+using bycar;
 using bycar3.Core;
+using CodeReason.Reports;
 
 namespace bycar3.Reporting
 {
@@ -25,10 +17,12 @@ namespace bycar3.Reporting
     public partial class ReportViewDailySales : Window
     {
         #region DATAMEMBERS
-        DateTime date = DateTime.Now;
-        DateTime dateTo = DateTime.Now;
-        int warehouseID;
-        #endregion
+
+        private DateTime date = DateTime.Now;
+        private DateTime dateTo = DateTime.Now;
+        private int warehouseID;
+
+        #endregion DATAMEMBERS
 
         public ReportViewDailySales(DateTime dt, DateTime dtTo, int wid)
         {
@@ -37,9 +31,9 @@ namespace bycar3.Reporting
             dateTo = dtTo;
             warehouseID = wid;
         }
-        
+
         private void Window_Activated(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 ReportDocument reportDocument = new ReportDocument();
@@ -49,41 +43,42 @@ namespace bycar3.Reporting
                 reportDocument.XamlImagePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"Templates\");
                 reader.Close();
 
-                ReportData data = new ReportData();                
-                DataAccess da = new DataAccess();                
+                ReportData data = new ReportData();
+                DataAccess da = new DataAccess();
                 string BCC = da.getBasicCurrencyCode();
-                
+
                 // Таблица ТОВАРЫ В НАКЛАДНОЙ
                 DataTable dt = new DataTable("mtable");
-                // описываем столбцы таблицы            
+
+                // описываем столбцы таблицы
                 dt.Columns.Add("Num", typeof(int));
                 dt.Columns.Add("SpareName", typeof(string));
                 dt.Columns.Add("WarehouseName", typeof(string));
                 dt.Columns.Add("SpareCodeShatem", typeof(string));
-                dt.Columns.Add("SpareCode", typeof(string));                
+                dt.Columns.Add("SpareCode", typeof(string));
                 dt.Columns.Add("Q", typeof(int));
-                dt.Columns.Add("P", typeof(double));                
+                dt.Columns.Add("P", typeof(double));
                 dt.Columns.Add("VAT", typeof(string));
                 dt.Columns.Add("T", typeof(double));
                 dt.Columns.Add("SaleDate", typeof(string));
-                
-                // забиваем таблицу данными                
-                List<SpareInSpareOutgoView> LIST2 = warehouseID>0?da.GetSpareInSpareOutgoByPeriod(date, dateTo, warehouseID): da.GetSpareInSpareOutgoByPeriod(date, dateTo);
+
+                // забиваем таблицу данными
+                List<SpareInSpareOutgoView> LIST2 = warehouseID > 0 ? da.GetSpareInSpareOutgoByPeriod(date, dateTo, warehouseID) : da.GetSpareInSpareOutgoByPeriod(date, dateTo);
                 decimal asum = 0;
                 try
-                {                    
+                {
                     for (int i = 0; i < LIST2.Count; i++)
                     {
                         asum += LIST2[i].total_sum;
-                        dt.Rows.Add(new object[] { 
+                        dt.Rows.Add(new object[] {
                             i+1,
                             LIST2[i].SpareName,
                             LIST2[i].WarehouseName,
-                            LIST2[i].codeShatem,                               
+                            LIST2[i].codeShatem,
                             LIST2[i].code,
                             LIST2[i].quantity,
                             LIST2[i].purchase_price,
-                            LIST2[i].VatRateName,                            
+                            LIST2[i].VatRateName,
                             LIST2[i].total_sum,
                             LIST2[i].OutgoDate.Value.ToString("dd.MM.yyyy")
                         });
@@ -108,9 +103,9 @@ namespace bycar3.Reporting
                     strDate = strDateFrom + " - " + strDateTo;
                 }
                 data.ReportDocumentValues.Add("ReportDate", strDate); // print date is now
-                data.ReportDocumentValues.Add("asum", asum);                
+                data.ReportDocumentValues.Add("asum", asum);
                 data.DataTables.Add(dt);
-                
+
                 DateTime dateTimeStart = DateTime.Now; // start time measure here
                 XpsDocument xps = reportDocument.CreateXpsDocument(data);
                 documentViewer.Document = xps.GetFixedDocumentSequence();

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -28,6 +19,7 @@ namespace bycar3.Views
         {
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();
@@ -42,14 +34,15 @@ namespace bycar3.Views
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            EditSelectedItem();            
+            EditSelectedItem();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             int id = 0;
             vat_rate b = null;
@@ -70,6 +63,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void dgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -81,12 +75,14 @@ namespace bycar3.Views
                 ReloadList();
             };
         }
+
         private void CreateItem()
         {
             VATRatesEditView v = new VATRatesEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;

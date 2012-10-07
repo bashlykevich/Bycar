@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -28,9 +19,11 @@ namespace bycar3.Views
         {
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();
+
             //this.DataContext = da.GetContacts();
         }
 
@@ -49,7 +42,8 @@ namespace bycar3.Views
         {
             DeleteItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             /*
             int id = 0;
@@ -71,6 +65,7 @@ namespace bycar3.Views
                 }
             }*/
         }
+
         private void dgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -82,12 +77,14 @@ namespace bycar3.Views
                 ReloadList();
             };
         }
+
         private void CreateItem()
         {
             ContactsEditView v = new ContactsEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             /*
@@ -107,7 +104,7 @@ namespace bycar3.Views
                 v.edtNumber.Text = b.passport_number;
                 v.edtSeries.Text = b.passport_series;
                 v.edtPassportBy.Text = b.passport_by;
-                v.edtDate.SelectedDate = b.passort_date.GetValueOrDefault(DateTime.Now);                
+                v.edtDate.SelectedDate = b.passort_date.GetValueOrDefault(DateTime.Now);
                 v.ShowDialog();
                 ReloadList();
             }*/

@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.External_Code;
 using bycar3.Core;
+using bycar3.External_Code;
 
 namespace bycar3.Views
 {
     /// <summary>
     /// Interaction logic for SpareAnalogueEditView.xaml
-    /// </summary>    
+    /// </summary>
     public partial class SpareAnalogueEditView : Window
     {
-
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public int _id = 0;
         public int _spareId1 = 0;
         public int _spareId2 = 0;
@@ -34,19 +28,20 @@ namespace bycar3.Views
             loadComboBox_Spares();
         }
 
-
         private void EditItem()
         {
             DataAccess da = new DataAccess();
             da.SpareAnalogueEdit(getItemFromFields(), getSelectedSpareName());
         }
+
         private void CreateItem()
         {
             DataAccess da = new DataAccess();
             int _spareId2 = getSelectedSpareId();
             da.SpareAnalogueCreate(getItemFromFields(), _spareId1, _spareId2);
         }
-        string getSelectedSpareName()
+
+        private string getSelectedSpareName()
         {
             string result = "";
             try
@@ -68,7 +63,7 @@ namespace bycar3.Views
             return result;
         }
 
-        int getSelectedSpareId()
+        private int getSelectedSpareId()
         {
             int result = 0;
             try
@@ -90,14 +85,15 @@ namespace bycar3.Views
             return result;
         }
 
-        spare_analogue getItemFromFields()
+        private spare_analogue getItemFromFields()
         {
             spare_analogue item = new spare_analogue();
             item.id = this._id;
             item.is_equal = edtIsBoth.IsChecked.GetValueOrDefault(false) ? 1 : 0;
             return item;
         }
-        void loadComboBox_Spares()
+
+        private void loadComboBox_Spares()
         {
             //DataAccess da = new DataAccess();
             //List<SpareView> items = da.GetSpares();
@@ -118,12 +114,14 @@ namespace bycar3.Views
             int ind = loadSpares();
             dgSpares.SelectedIndex = ind;
         }
+
         private int loadSpares()
         {
             int ind = 0;
             List<SpareView> items = SpareContainer.Instance.Spares.ToList();
             int cntr = 0;
             items.Remove(items.FirstOrDefault(x => x.id == _spareId1));
+
             // убрать уже добавленные аналоги
             List<SpareView> analogues = da.GetAnalogues(_spareId1);
             foreach (SpareView a in analogues)
@@ -141,6 +139,7 @@ namespace bycar3.Views
             dgSpares.DataContext = items;
             return ind;
         }
+
         private void edtSearchText_KeyDown(object sender, KeyEventArgs e)
         {
             string searchString = edtSearchText.Text;
@@ -158,20 +157,22 @@ namespace bycar3.Views
                     break;
             }
         }
+
         private void btnSpareSearch_Click(object sender, RoutedEventArgs e)
         {
             SpareSearch();
         }
-        void SpareSearch()
+
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
                 string searchString = edtSearchText.Text;
                 int searchFieldIndex = edtSearchField.SelectedIndex;
                 ReloadSpares(searchFieldIndex, searchString);
-
             }
         }
+
         private void ReloadSpares(int searchFieldIndex, string searchString)
         {
             //List<SpareView> items = da.GetSpares(searchFieldIndex, searchString);
@@ -180,6 +181,7 @@ namespace bycar3.Views
                 List<SpareView> items = SpareContainer.Instance.GetSpares(searchFieldIndex, searchString);
                 if (items.FirstOrDefault(x => x.id == _spareId1) != null)
                     items.Remove(items.FirstOrDefault(x => x.id == _spareId1));
+
                 // убрать уже добавленные аналоги
                 List<SpareView> analogues = da.GetAnalogues(_spareId1);
                 foreach (SpareView a in analogues)
@@ -228,6 +230,7 @@ namespace bycar3.Views
         {
             EditSelectedItem();
         }
+
         private void EditSelectedItem()
         {
             if (dgSpares.SelectedItem == null)
@@ -241,7 +244,8 @@ namespace bycar3.Views
         {
             DeleteSelectedSpare();
         }
-        void DeleteSelectedSpare()
+
+        private void DeleteSelectedSpare()
         {
             int id = 0;
             SpareView b = null;
@@ -262,6 +266,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SpareSearch();
@@ -276,10 +281,10 @@ namespace bycar3.Views
         {
             SpareSearch();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();
         }
     }
 }
-

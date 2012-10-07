@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 
@@ -21,17 +15,21 @@ namespace bycar3.Views.Invoice
     public partial class SpareInInvoiceSelectView2 : Window
     {
         #region MEMBERS
+
         public int _InvoiceID = -1;
         public string CurrentCurrencyCode = "";
-        #endregion
+
+        #endregion MEMBERS
 
         #region CUSTOM FUNCTION
-        void LoadSpares()
-        {            
+
+        private void LoadSpares()
+        {
             dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i.QRest > 0).ToList();
             dgSpares.SelectedIndex = 0;
         }
-        void SpareSearch()
+
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
@@ -41,13 +39,15 @@ namespace bycar3.Views.Invoice
                     LoadSpares(edtSearchField.SelectedIndex, edtSearchText.Text);
             }
         }
-        void LoadSpares(int SearchFieldIndex, string SearchText)
+
+        private void LoadSpares(int SearchFieldIndex, string SearchText)
         {
             dgSpares.DataContext = SpareContainer.Instance.GetSpares(SearchFieldIndex, SearchText, true, 0, "");
             if (dgSpares.Items.Count > 0)
                 dgSpares.SelectedIndex = 0;
         }
-        void LoadIncomes(int SpareID)
+
+        private void LoadIncomes(int SpareID)
         {
             CurrentCurrencyCode = "BYR";
             DataAccess da = new DataAccess();
@@ -58,7 +58,8 @@ namespace bycar3.Views.Invoice
             }
             dgIncomes.DataContext = lst;
         }
-        void SpareSelectionChange()
+
+        private void SpareSelectionChange()
         {
             if (dgSpares.SelectedItem != null)
             {
@@ -66,7 +67,8 @@ namespace bycar3.Views.Invoice
                 LoadIncomes(SpareID);
             }
         }
-        void CreateOutgo()
+
+        private void CreateOutgo()
         {
             int SpareID = (dgIncomes.SelectedItem as SpareInSpareIncomeView).SpareID.Value;
             SpareInInvoiceEditView v = new SpareInInvoiceEditView();
@@ -76,17 +78,18 @@ namespace bycar3.Views.Invoice
             v._SpareID = SpareID;
             v._InvoiceID = this._InvoiceID;
             v._SpareInSpareIncomeID = (dgIncomes.SelectedItem as SpareInSpareIncomeView).id;
+
             //v._AvailableQuantity = (dgIncomes.SelectedItem as SpareInSpareIncomeView).QRest.Value;
             //v._SpareOutgoID = _SpareOutgoID;
             //v._Price = (dgIncomes.SelectedItem as SpareInSpareIncomeView).PriceInCurrency.Value;
             //v.CurrentCurrencyCode = this.CurrentCurrencyCode;
-            v.ShowDialog();            
+            v.ShowDialog();
             DataAccess da = new DataAccess();
             SpareContainer.Instance.Update(da.GetSpareView(SpareID));
             dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i.QRest > 0).ToList();
         }
-        #endregion
 
+        #endregion CUSTOM FUNCTION
 
         public SpareInInvoiceSelectView2()
         {
@@ -133,6 +136,7 @@ namespace bycar3.Views.Invoice
         {
             edtSearchText.Focus();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();

@@ -1,13 +1,13 @@
 ﻿<Window x:Class="bycar3.Views.Sales.SaleEditView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Корзина быстрой продажи"
-        Height="350" Width="600" 
+        Height="350" Width="600"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"  />
+            <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <DataGrid
@@ -16,7 +16,7 @@
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding}"
                       VerticalScrollBarVisibility="Visible"
-                      IsReadOnly="True"                      
+                      IsReadOnly="True"
                       CanUserReorderColumns="False"
                       RowBackground="#FFF0F0F0"
                       VerticalContentAlignment="Stretch"
@@ -25,34 +25,34 @@
                   PreviewKeyDown="dgBasket_PreviewKeyDown"
                       VerticalGridLinesBrush="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn  
+                <DataGridTextColumn
                                     Binding="{Binding Path=SpareCodeShatem}"
-                                    Header="Код" Width="0.2*"/>
-                <DataGridTextColumn  
+                                    Header="Код" Width="0.2*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=SpareName}"
-                                    Header="Товар" Width="0.3*"/>
-                <DataGridTextColumn  
+                                    Header="Товар" Width="0.3*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=Q}"
-                                    Header=" Q " Width="0.1*"/>
-                <DataGridTextColumn  
+                                    Header=" Q " Width="0.1*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=Pusd}"
-                                    Header=" $ " Width="0.1*"/>
-                <DataGridTextColumn  
+                                    Header=" $ " Width="0.1*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=Peur}"
-                                    Header=" € " Width="0.1*"/>
-                <DataGridTextColumn  
+                                    Header=" € " Width="0.1*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=Prur}"
-                                    Header=" Rur " Width="0.1*"/>
-                <DataGridTextColumn  
+                                    Header=" Rur " Width="0.1*" />
+                <DataGridTextColumn
                                     Binding="{Binding Path=Pbyr}"
-                                    Header=" Br " Width="0.1*"/>
+                                    Header=" Br " Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel 
+        <StackPanel
             Grid.Row="1"
             Orientation="Horizontal"
             HorizontalAlignment="Right">
-            <Button            
+            <Button
                 HorizontalAlignment="Right"
                 Margin="5,0,5,0"
                 Width="90"
@@ -60,12 +60,12 @@
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                 Name="btnPrint">
                 <Button.Content>
-                    <StackPanel 
-                        Orientation="Horizontal" 
+                    <StackPanel
+                        Orientation="Horizontal"
                         HorizontalAlignment="Left">
                         <Image Height="auto" Width="30" Source="\Content\Icons\IconPrint.png" />
-                        <TextBlock Text="Печать" 
-                                   Margin="2,0,0,0" 
+                        <TextBlock Text="Печать"
+                                   Margin="2,0,0,0"
                                    VerticalAlignment="Center" />
                     </StackPanel>
                 </Button.Content>

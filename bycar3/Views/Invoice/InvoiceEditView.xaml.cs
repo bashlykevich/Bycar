@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.Views.Spare_Income;
 using bycar3.Reporting;
 using bycar3.Views.Account;
-using bycar3.Views.Spare_Outgo;
 using bycar3.Views.Common;
+using bycar3.Views.Spare_Outgo;
 
 namespace bycar3.Views.Invoice
 {
@@ -25,15 +18,18 @@ namespace bycar3.Views.Invoice
     public partial class InvoiceEditView : Window
     {
         #region DATA MEMBERS
-        DataAccess da = new DataAccess();
-        invoice Item = null;        
-        decimal InvoiceSum = 0;
-        bool DeleteNew = false;
-        #endregion
+
+        private DataAccess da = new DataAccess();
+        private invoice Item = null;
+        private decimal InvoiceSum = 0;
+        private bool DeleteNew = false;
+
+        #endregion DATA MEMBERS
 
         #region LOGIC METHODS
+
         // загрузка Item из БД, заполнение полей =====================
-        void ItemToForm(int ItemID)
+        private void ItemToForm(int ItemID)
         {
             //.1
             Item = da.InvoiceGet(ItemID);
@@ -51,12 +47,13 @@ namespace bycar3.Views.Invoice
             edtNumber.Text = Item.InvoiceNumber.ToString();
             edtSum.Content = Item.InvoiceSum.ToString();
         }
+
         // заполнение Item из полей, сохранение в БД =================
-        invoice FormToItem()
+        private invoice FormToItem()
         {
             da = new DataAccess();
             if (Item == null)
-                Item = new invoice();            
+                Item = new invoice();
             Item.InvoiceDate = edtDate.SelectedDate.HasValue ? edtDate.SelectedDate.Value : DateTime.Now;
             int AccountID = 0;
             if (edtAccount.SelectedValue != null)
@@ -69,18 +66,20 @@ namespace bycar3.Views.Invoice
             if (bav != null)
             {
                 Item.BankAccountID = bav.id;
-            }            
+            }
             Item.AccountAddress = edtAccountAddress.Text;
             Item.AccountBankMFO = edtAccountBankMFO.Text;
             Item.InvoiceSum = (double)InvoiceSum;
-            int INum = 0; 
+            int INum = 0;
+
             //if(Item.InvoiceNumber.HasValue)
-                //INum = Item.InvoiceNumber.Value;
-            if(Int32.TryParse(edtNumber.Text, out INum))
+            //INum = Item.InvoiceNumber.Value;
+            if (Int32.TryParse(edtNumber.Text, out INum))
                 Item.InvoiceNumber = INum;
             da.InvoiceEdit(Item, AccountID);
             return Item;
         }
+
         // загрузка товаров ==========================================
         public decimal LoadOfferings()
         {
@@ -95,39 +94,43 @@ namespace bycar3.Views.Invoice
             edtSum.Content = "Сумма: " + InvoiceSum.ToString();
             return InvoiceSum;
         }
+
         // загрузка контрагентов =====================================
         private void LoadAccounts()
         {
             //edtAccount.Items.Clear();
             List<account> items = da.GetAllAccounts();
-            edtAccount.DataContext = items;            
+            edtAccount.DataContext = items;
         }
+
         // загрузка данных выбранного контаргента
-        void LoadAccountData()
+        private void LoadAccountData()
         {
             account a = edtAccount.SelectedItem as account;
             if (a != null)
             {
-                edtAccountAddress.Text = a.address;                
+                edtAccountAddress.Text = a.address;
                 edtAccountUNN.Text = a.unn;
             }
         }
+
         // загрузка счетов ====================
-        void LoadBankAccounts()
+        private void LoadBankAccounts()
         {
             if ((edtAccount.SelectedItem as account) != null)
             {
                 edtBankAccount.DataContext = da.BankAccountViewGet((edtAccount.SelectedItem as account).id);
                 edtBankAccount.SelectedIndex = 0;
                 if (Item != null && Item.BankAccountID.HasValue)
-                {                                                                     
-                    if(Item.BankAccountID > 0)
+                {
+                    if (Item.BankAccountID > 0)
                         edtBankAccount.SelectedValue = Item.BankAccountID;
                 }
             }
         }
+
         // загрузка данных выбранного расчетного счета, вызывается из обработчика SelectionChanged комбобокса Р/С
-        void LoadBankAccountData()
+        private void LoadBankAccountData()
         {
             BankAccountView a = edtBankAccount.SelectedItem as BankAccountView;
             if (a != null)
@@ -136,41 +139,46 @@ namespace bycar3.Views.Invoice
                 edtAccountBankName.Text = a.BankName;
             }
         }
+
         // добавление запчасти в инвойс ==============================
-        void AddNewOffering()
+        private void AddNewOffering()
         {
-            SpareInInvoiceSelectView2 v = new SpareInInvoiceSelectView2();            
-            v._InvoiceID = Item.id;            
+            SpareInInvoiceSelectView2 v = new SpareInInvoiceSelectView2();
+            v._InvoiceID = Item.id;
             v.CurrentCurrencyCode = "BYR";
             v.ShowDialog();
             LoadOfferings();
         }
+
         // удаление запчасти из инвойса =============================
-        void DeleteSelectedOffering()
+        private void DeleteSelectedOffering()
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButton.YesNo);
             if (res == MessageBoxResult.Yes)
-            {                
+            {
                 // удалить выделенный товар
                 int offeringId = getSelectedOfferingId();
                 da.InvoiceOfferingDelete(offeringId);
                 LoadOfferings();
             }
         }
+
         // удаление новосозданного инвойса по закрытию окна =========
-        void Delete()
+        private void Delete()
         {
             if (Item != null)
                 da.InvoiceDelete(Item.id);
         }
+
         // генерация отчета для печати инвойса
-        void Print()
+        private void Print()
         {
             FormToItem();
             Reporter.GenerateInvoiceReport(Item.id);
         }
+
         // вызов окна создания нового расчетного счета и выбор его созданного
-        void CreateNewBankAccount()
+        private void CreateNewBankAccount()
         {
             account a = edtAccount.SelectedItem as account;
             if (a != null)
@@ -181,30 +189,34 @@ namespace bycar3.Views.Invoice
                 edtBankAccount.SelectedValue = v.AccountID;
             }
             else
-                MessageBox.Show("Сначала выберите контрагента!");            
+                MessageBox.Show("Сначала выберите контрагента!");
         }
+
         // вызов окна создания нового контаргента
-        void CreateNewAccount()
+        private void CreateNewAccount()
         {
             int NewID = 0;
             AccountsEditView v = new AccountsEditView();
             v.ShowDialog();
             NewID = v._id;
             LoadAccounts();
+
             //edtAccount.SelectedValue = NewID;
             //if (v.Selected != null)
-                edtAccount.SelectedValue = NewID;
+            edtAccount.SelectedValue = NewID;
         }
+
         // Создать инвойс
-        void CreateInvoice()
+        private void CreateInvoice()
         {
             DeleteNew = true;
-            Item = new invoice();              
+            Item = new invoice();
             Item = da.InvoiceCreate(Item);
             edtNumber.Text = Item.InvoiceNumber.ToString();
         }
+
         // получить ID ыфбранной детали
-        int getSelectedOfferingId()
+        private int getSelectedOfferingId()
         {
             int result = 0;
             try
@@ -225,13 +237,15 @@ namespace bycar3.Views.Invoice
             }
             return result;
         }
-        #endregion
+
+        #endregion LOGIC METHODS
 
         public InvoiceEditView()
         {
             InitializeComponent();
             CreateInvoice();
         }
+
         public InvoiceEditView(int ID)
         {
             InitializeComponent();
@@ -250,11 +264,12 @@ namespace bycar3.Views.Invoice
             if (DeleteNew)
                 Delete();
         }
+
         private void btnSpareAdd_Click(object sender, RoutedEventArgs e)
-        {                        
+        {
             AddNewOffering();
-        }        
-                
+        }
+
         private void btnSpareDelete_Click(object sender, RoutedEventArgs e)
         {
             if (dgSpares.SelectedItem == null)
@@ -263,10 +278,11 @@ namespace bycar3.Views.Invoice
                 return;
             }
             DeleteSelectedOffering();
-        }             
+        }
+
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            Print();                            
+            Print();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -274,7 +290,7 @@ namespace bycar3.Views.Invoice
             DeleteNew = false;
             FormToItem();
             Close();
-        }      
+        }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -291,11 +307,11 @@ namespace bycar3.Views.Invoice
         {
             CreateNewAccount();
         }
-                        
+
         private void btnBankAccountCreateNew_Click(object sender, RoutedEventArgs e)
         {
             CreateNewBankAccount();
-        }        
+        }
 
         private void edtAccountBankNum_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -304,9 +320,9 @@ namespace bycar3.Views.Invoice
 
         private void dgSpares_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
         }
-        void CreateOutgoByInvoice()
+
+        private void CreateOutgoByInvoice()
         {
             da = new DataAccess();
             this.Item = FormToItem();
@@ -323,8 +339,9 @@ namespace bycar3.Views.Invoice
             {
                 MessageBox.Show("Вероятно, данный счет-фактура создан в предыдущей версии программы, поэтому не все товары могут быть перенесены в новую накладную.");
             }
-            SpareOutgoEditView v = new SpareOutgoEditView(this.Item);            
+            SpareOutgoEditView v = new SpareOutgoEditView(this.Item);
             v.ShowDialog();
+
             //Close();
         }
 
@@ -340,14 +357,14 @@ namespace bycar3.Views.Invoice
             v.ShowDialog();
             LoadAccounts();
             if (v.Selected != null)
-                edtAccount.SelectedValue = v.Selected._Id;            
+                edtAccount.SelectedValue = v.Selected._Id;
         }
 
         private void btnBankSelect_Click(object sender, RoutedEventArgs e)
         {
             SelectView v = new SelectView();
             v.ClassName = (new bank_account()).ToString();
-            if(edtBankAccount.SelectedItem != null)
+            if (edtBankAccount.SelectedItem != null)
                 v.ParentItemID = (int)edtAccount.SelectedValue;
             v.ShowDialog();
             LoadBankAccounts();

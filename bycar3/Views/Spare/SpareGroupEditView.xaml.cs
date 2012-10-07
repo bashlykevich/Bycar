@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -21,19 +11,21 @@ namespace bycar3.Views
     {
         public string _parentName = null;
         public string _groupName = null;
-     
+
         public SpareGroupEditView()
         {
             InitializeComponent();
         }
+
         public void LoadItem(string name)
         {
             _groupName = name;
             DataAccess da = new DataAccess();
-            spare_group b = da.GetSpareGroup(name);            
+            spare_group b = da.GetSpareGroup(name);
             edtName.Text = b.name;
             edtDescr.Text = b.description;
         }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             int res = 0;
@@ -51,7 +43,7 @@ namespace bycar3.Views
                 MessageBox.Show("Группа с таким названием уже существует!");
             }
         }
-        
+
         private int EditItem()
         {
             DataAccess da = new DataAccess();
@@ -61,14 +53,15 @@ namespace bycar3.Views
             item.description = edtDescr.Text;
             return da.SpareGroupEdit(item);
         }
+
         private spare_group CreateItem()
-        {            
-                DataAccess da = new DataAccess();
-                spare_group i = new spare_group();
-                i.name = edtName.Text;
-                i.description = edtDescr.Text;
-                i.ParentGroup = da.GetSpareGroups().FirstOrDefault(g => g.name == _parentName);
-                return da.SpareGroupCreate(i);
+        {
+            DataAccess da = new DataAccess();
+            spare_group i = new spare_group();
+            i.name = edtName.Text;
+            i.description = edtDescr.Text;
+            i.ParentGroup = da.GetSpareGroups().FirstOrDefault(g => g.name == _parentName);
+            return da.SpareGroupCreate(i);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
 using bycar;
 using CodeReason.Reports;
-using System.IO;
-using System.Data;
-using System.Windows.Xps.Packaging;
-using System.Text.RegularExpressions;
 
 namespace bycar3.Reporting
 {
@@ -25,9 +17,12 @@ namespace bycar3.Reporting
     public partial class ReportViewSpareOutgo : Window
     {
         #region DATAMEMBERS
-        int SpareOutgoId = -1;
-        spare_outgo Outgo = null;
-        #endregion
+
+        private int SpareOutgoId = -1;
+        private spare_outgo Outgo = null;
+
+        #endregion DATAMEMBERS
+
         public ReportViewSpareOutgo(int outgoId)
         {
             InitializeComponent();
@@ -55,20 +50,23 @@ namespace bycar3.Reporting
                 decimal asum = 0;
                 DataAccess da = new DataAccess();
                 string BCC = da.getBasicCurrencyCode();
+
                 //Income.currencyReference.Load();
                 //string CCC = Income.currency.code;
 
                 // Таблица ТОВАРЫ В НАКЛАДНОЙ
                 DataTable dt = new DataTable("mtable");
-                // описываем столбцы таблицы                
+
+                // описываем столбцы таблицы
                 dt.Columns.Add("SpareName", typeof(string));
                 dt.Columns.Add("UnitName", typeof(string));
-                dt.Columns.Add("Quantity", typeof(int));
-                dt.Columns.Add("Price", typeof(double));
-                dt.Columns.Add("Amount", typeof(double));
+                dt.Columns.Add("Quantity", typeof(string));
+                dt.Columns.Add("Price", typeof(string));
+                dt.Columns.Add("Amount", typeof(string));
                 dt.Columns.Add("VAT", typeof(string));
-                dt.Columns.Add("VATAmount", typeof(double));
-                dt.Columns.Add("Total", typeof(double));
+                dt.Columns.Add("VATAmount", typeof(string));
+                dt.Columns.Add("Total", typeof(string));
+
                 // забиваем таблицу данными
                 List<ReportOutgo> list = new List<ReportOutgo>();
                 list = da.GetReportOutgoes(SpareOutgoId);
@@ -88,15 +86,15 @@ namespace bycar3.Reporting
                         vs += VatSum;
                         asum += Sum;
 
-                        dt.Rows.Add(new object[] {                            
+                        dt.Rows.Add(new object[] {
                             list[i].SpareName,
                             list[i].UnitName,
-                            list[i].quantity,
-                            Price,
-                            Sum,
+                            list[i].quantity.ToString("0.##"),
+                            Price.ToString("0.##"),
+                            Sum.ToString("0.##"),
                             list[i].VatName,
-                            VatSum,
-                            Total
+                            VatSum.ToString("0.##"),
+                            Total.ToString("0.##")
                         });
                     }
                 }
@@ -106,6 +104,7 @@ namespace bycar3.Reporting
                 }
                 string str_ts = RSDN.RusCurrency.Str(ts, "BYR");
                 string str_vs = RSDN.RusCurrency.Str(vs, "BYR");
+
                 // set constant document values
                 //string strDate = Outgo.created_on.Value.GetDateTimeFormats('d')[3];
                 string strDate = Outgo.created_on.Value.Day.ToString();
@@ -115,36 +114,47 @@ namespace bycar3.Reporting
                     case 1:
                         mnth = "января";
                         break;
+
                     case 2:
                         mnth = "февраля";
                         break;
+
                     case 3:
                         mnth = "марта";
                         break;
+
                     case 4:
                         mnth = "апреля";
                         break;
+
                     case 5:
                         mnth = "мая";
                         break;
+
                     case 6:
                         mnth = "июня";
                         break;
+
                     case 7:
                         mnth = "июля";
                         break;
+
                     case 8:
                         mnth = "августа";
                         break;
+
                     case 9:
                         mnth = "сентября";
                         break;
+
                     case 10:
                         mnth = "октября";
                         break;
+
                     case 11:
                         mnth = "ноября";
                         break;
+
                     case 12:
                         mnth = "декабря";
                         break;
@@ -152,12 +162,13 @@ namespace bycar3.Reporting
                 strDate += " " + mnth + " " + Outgo.created_on.Value.Year + " г.";
 
                 data.ReportDocumentValues.Add("ReportDate", strDate); // print date is now
+
                 //data.ReportDocumentValues.Add("IncomeNumber", Income.id);
                 data.ReportDocumentValues.Add("VATAmountSumStr", str_vs);
                 data.ReportDocumentValues.Add("TotalSumStr", str_ts);
-                data.ReportDocumentValues.Add("AmountSum", asum);
-                data.ReportDocumentValues.Add("VATAmountSum", vs);
-                data.ReportDocumentValues.Add("TotalSum", ts);
+                data.ReportDocumentValues.Add("AmountSum", asum.ToString("0.##"));
+                data.ReportDocumentValues.Add("VATAmountSum", vs.ToString("0.##"));
+                data.ReportDocumentValues.Add("TotalSum", ts.ToString("0.##"));
                 data.ReportDocumentValues.Add("accepter", Outgo.accepter);
                 data.ReportDocumentValues.Add("address", Outgo.address);
                 SpareOutgoView sov = da.GetSpareOutgoView(Outgo.id);

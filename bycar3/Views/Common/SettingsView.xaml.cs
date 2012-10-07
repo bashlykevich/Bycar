@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.Views.Admin_Units;
 using bycar3.Core;
+using bycar3.Views.Admin_Units;
 
 namespace bycar3.Views.Common
 {
@@ -21,34 +14,39 @@ namespace bycar3.Views.Common
     /// </summary>
     public partial class SettingsView : Window
     {
-        DataAccess da = new DataAccess();
-        settings_profile profile = null;
-        string CurrencyCodeOld = "";
-        string CurrencyCodeOld_IncomeDef = "";
+        private DataAccess da = new DataAccess();
+        private settings_profile profile = null;
+        private string CurrencyCodeOld = "";
+        private string CurrencyCodeOld_IncomeDef = "";
+
         // CUSTOM FUNCTIONS
-        void LoadBankAccounts()
+        private void LoadBankAccounts()
         {
             da = new DataAccess();
             dgItems.DataContext = da.ProfileBankAccountViewGet();
         }
-        void LoadUsers()
+
+        private void LoadUsers()
         {
             DataAccess db = new DataAccess();
             dgUsers.DataContext = db.GetAdminUnits();
         }
-        void LoadSearchFields()
+
+        private void LoadSearchFields()
         {
             edtDefaultSearchField.Items.Add("Код магазина");
             edtDefaultSearchField.Items.Add("Наименование");
             edtDefaultSearchField.Items.Add("Код");
         }
-        void AddBankAccount()
+
+        private void AddBankAccount()
         {
             ProfileBankAccountDialog v = new ProfileBankAccountDialog();
             v.ShowDialog();
             LoadBankAccounts();
         }
-        void DeleteBankAccount()
+
+        private void DeleteBankAccount()
         {
             if (dgItems.SelectedItem != null)
             {
@@ -61,7 +59,8 @@ namespace bycar3.Views.Common
                 }
             }
         }
-        void EditBankAccount()
+
+        private void EditBankAccount()
         {
             try
             {
@@ -76,7 +75,8 @@ namespace bycar3.Views.Common
             catch (Exception)
             { }
         }
-        void LoadCurrencies()
+
+        private void LoadCurrencies()
         {
             edtBasicCurrency.Items.Clear();
             edtDefaultIncomeCurrency.Items.Clear();
@@ -89,26 +89,30 @@ namespace bycar3.Views.Common
             edtBasicCurrency.SelectedItem = da.getBasicCurrencyCode();
             edtDefaultIncomeCurrency.SelectedItem = profile.DefaultIncomeCurrencyCode;
         }
-        void SaveBasicCurrency()
+
+        private void SaveBasicCurrency()
         {
             RecalulateBasics();
         }
-        void RecalulateBasics()
+
+        private void RecalulateBasics()
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите изменить базовую валюту? (Будут обновлены курсы)", "Изменение базовой валюты!", MessageBoxButton.YesNo);
             if (res == MessageBoxResult.Yes)
             {
                 DataAccess da = new DataAccess();
                 string OldBasicCode = da.getBasicCurrencyCode();
-                // изменить базовую валюту       
+
+                // изменить базовую валюту
                 da.UpdateBasicCurrencyCode(edtBasicCurrency.SelectedItem.ToString());
-                // пересчитать приходы                
+
+                // пересчитать приходы
                 da.RecalculateBasics(OldBasicCode);
                 MessageBox.Show("Пересчет завершен! Базовая валюта изменена.");
             }
         }
 
-        void LoadCurrentProfile()
+        private void LoadCurrentProfile()
         {
             if (profile == null)
             {
@@ -117,6 +121,7 @@ namespace bycar3.Views.Common
             profile.DefaultIncomeCurrencyCode = profile.DefaultIncomeCurrencyCode.Replace(" ", String.Empty);
             edtAddress.Text = profile.AddressFact;
             edtName.Text = profile.CompanyName;
+
             //edtDefaultIsCashless.IsChecked = profile.DefaultIsCashless == 1 ? true : false;
             edtUNN.Text = profile.UNN;
             LoadCurrencies();
@@ -132,15 +137,18 @@ namespace bycar3.Views.Common
 
             edtDefaultSearchField.SelectedIndex = profile.DefSearchFieldIndex.HasValue ? profile.DefSearchFieldIndex.Value : 0;
             edtSearchTypeInMainWindow.SelectedIndex = profile.UseScanner.HasValue ? profile.UseScanner.Value : 0;
+
             //edtBankAccount.Text = profile.BankAccount;
             // edtBankAddress.Text = profile.BankAddress;
             // edtBankMFO.Text = profile.BankMFO;
             // edtBankName.Text = profile.BankName;
         }
-        void SaveProfile()
+
+        private void SaveProfile()
         {
             profile.CompanyName = edtName.Text;
             profile.UNN = edtUNN.Text;
+
             //profile.DefaultIsCashless = edtDefaultIsCashless.IsChecked.Value?1:0;
             profile.SeniorAccountant = edtAccountant.Text;
             profile.CompanyHead = edtCompanyHead.Text;
@@ -163,7 +171,8 @@ namespace bycar3.Views.Common
                 SaveBasicCurrency();
             da.ProfileEdit(profile);
         }
-        string FixAnalogues()
+
+        private string FixAnalogues()
         {
             int cntTotal = 0;
             int cntEqual = 0;
@@ -188,14 +197,13 @@ namespace bycar3.Views.Common
             LoadBankAccounts();
             LoadSearchFields();
             LoadUsers();
-            if (Marvin.Instance.CurrentUser.is_admin != 1)                        
+            if (Marvin.Instance.CurrentUser.is_admin != 1)
             {
                 spButtons.Visibility = System.Windows.Visibility.Collapsed;
                 dgUsers.IsEnabled = false;
-            }   
+            }
             /*
             {
-             
                 btnUserAdd.IsEnabled = true;
                 btnUserEdit.IsEnabled = true;
                 btnUserDelete.IsEnabled = true;
@@ -245,13 +253,15 @@ namespace bycar3.Views.Common
         {
             EditUser();
         }
-        void CreateUser()
+
+        private void CreateUser()
         {
             UserEditView v = new UserEditView();
             v.ShowDialog();
             LoadUsers();
         }
-        void EditUser()
+
+        private void EditUser()
         {
             if (dgUsers.SelectedItem == null)
                 return;
@@ -259,10 +269,11 @@ namespace bycar3.Views.Common
             v.ShowDialog();
             LoadUsers();
         }
-        void DeleteUsers()
+
+        private void DeleteUsers()
         {
-             if (dgUsers.SelectedItems.Count > 0)
-            {                
+            if (dgUsers.SelectedItems.Count > 0)
+            {
                 MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записи?", "Удаление", MessageBoxButton.YesNo);
                 if (res == MessageBoxResult.Yes)
                 {
@@ -273,11 +284,12 @@ namespace bycar3.Views.Common
                         return;
                     }
                     foreach (admin_unit user in dgUsers.SelectedItems)
-                            db.AdminUnitDelete(user.id);                                                                 
+                        db.AdminUnitDelete(user.id);
                     LoadUsers();
                 }
             }
         }
+
         private void btnUserAdd_Click(object sender, RoutedEventArgs e)
         {
             CreateUser();
@@ -285,7 +297,7 @@ namespace bycar3.Views.Common
 
         private void dgUsers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            EditUser();            
+            EditUser();
         }
     }
 }

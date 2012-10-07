@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 //using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using bycar3.External_Code;
 using bycar;
 
 namespace bycar3.Views.Reporting
@@ -23,7 +14,7 @@ namespace bycar3.Views.Reporting
     public partial class ReportFilterOutgoesView : Window
     {
         // CUSTOM FUNCTIONS
-        void LoadComboboxCurrencies()
+        private void LoadComboboxCurrencies()
         {
             DataAccess da = new DataAccess();
             List<currency> x = da.GetCurrency();
@@ -32,6 +23,7 @@ namespace bycar3.Views.Reporting
                 edtCurrency.Items.Add(c.code);
             edtCurrency.SelectedItem = da.getBasicCurrencyCode();
         }
+
         /*
         void GenerateReportOutgoes()
         {
@@ -66,14 +58,12 @@ namespace bycar3.Views.Reporting
                 headerDate2 += edtFinish.SelectedDate.Value.Month + ".";
                 headerDate2 += edtFinish.SelectedDate.Value.Year;
 
-
                 string header1 = "Расход за период с " + headerDate1 + " по " + headerDate2;
                 string rng1 = "$A" + row + ":$H" + row;
                 Excel.Range r = eWorksheet.get_Range(rng1);
                 r.Merge(Type.Missing);
                 eWorksheet.Cells[row, 1] = header1;
                 row += 2;
-
 
                 int col = 1;
                 int colQ = 0;
@@ -90,7 +80,7 @@ namespace bycar3.Views.Reporting
                     colQ = col - 1;
                 }
                 if (cbPrice.IsChecked.Value)
-                    eWorksheet.Cells[row, col++] = " Цена, " + CCC;                
+                    eWorksheet.Cells[row, col++] = " Цена, " + CCC;
                 if (cbVat.IsChecked.Value)
                     eWorksheet.Cells[row, col++] = " НДС, %";
                 if (cbPriceFull.IsChecked.Value)
@@ -128,14 +118,14 @@ namespace bycar3.Views.Reporting
                     double _TotalAmount = CurrencyHelper.GetPrice(CCC, xTotalAmount);
                     int tmp = (int)(_TotalAmount * 100);
                     _TotalAmount = (double)tmp / 100;
-                    
+
                     double VatRate = list[i].VatRate;
                     double _Vat = _TotalAmount * VatRate / 100;
 
                     double _Price = _TotalAmount - _Vat;
-                                       
+
                     if (cbPrice.IsChecked.Value)
-                        eWorksheet.Cells[row, col++] = _Price;                    
+                        eWorksheet.Cells[row, col++] = _Price;
                     if (cbVat.IsChecked.Value)
                         eWorksheet.Cells[row, col++] = list[i].VatRate;
                     if (cbPriceFull.IsChecked.Value)
@@ -178,6 +168,7 @@ namespace bycar3.Views.Reporting
         {
             InitializeComponent();
         }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             //GenerateReportOutgoes();

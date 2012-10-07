@@ -1,7 +1,7 @@
 ﻿<Window x:Class="bycar3.Reporting.ReportViewDailySales"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Продажи" 
+        Title="Продажи"
         WindowState="Maximized"
         Activated="Window_Activated"
         Height="300" Width="300">

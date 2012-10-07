@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -24,29 +15,32 @@ namespace bycar3.Views
             InitializeComponent();
             ReloadList();
         }
+
         private void ReloadList()
         {
-            DataAccess da = new DataAccess();            
-            dgList.DataContext = da.GetUnits();            
+            DataAccess da = new DataAccess();
+            dgList.DataContext = da.GetUnits();
         }
 
         private void dgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                EditSelectedItem();                                
+                EditSelectedItem();
             }
             catch (Exception)
             {
                 ReloadList();
             };
         }
+
         private void CreateItem()
         {
             UnitsEditView v = new UnitsEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;
@@ -63,7 +57,7 @@ namespace bycar3.Views
                 v._id = b.id;
                 v.edtName.Text = b.name;
                 v.edtDescr.Text = b.description;
-                v.ShowDialog();                
+                v.ShowDialog();
             }
             ReloadList();
         }
@@ -76,14 +70,15 @@ namespace bycar3.Views
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            EditSelectedItem();            
+            EditSelectedItem();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             int id = 0;
             unit b = null;
@@ -103,6 +98,6 @@ namespace bycar3.Views
                     ReloadList();
                 }
             }
-        }      
+        }
     }
 }

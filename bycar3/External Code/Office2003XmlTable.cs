@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using bycar;
-using System.Xml;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
+using System.Xml;
+using bycar;
 using bycar3.Views.Common;
-using System.Globalization;
 
 namespace bycar3.External_Code
 {
@@ -18,12 +14,12 @@ namespace bycar3.External_Code
         {
             List<brand> brands = new List<brand>();
 
-            // Объявляем и забиваем файл в документ  
+            // Объявляем и забиваем файл в документ
             XmlDocument xd = new XmlDocument();
             FileStream fs = new FileStream(FilePath, FileMode.Open);
             xd.Load(fs);
 
-            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"  
+            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"
             for (int i = 0; i < list.Count; i++)
             {
                 brand b = new brand();
@@ -31,7 +27,8 @@ namespace bycar3.External_Code
                 b.name = list[i].LastChild.InnerText;
                 brands.Add(b);
             }
-            // Закрываем поток  
+
+            // Закрываем поток
             fs.Close();
 
             return brands;
@@ -41,12 +38,12 @@ namespace bycar3.External_Code
         {
             List<spare_group> items = new List<spare_group>();
 
-            // Объявляем и забиваем файл в документ  
+            // Объявляем и забиваем файл в документ
             XmlDocument xd = new XmlDocument();
             FileStream fs = new FileStream(FilePath, FileMode.Open);
             xd.Load(fs);
 
-            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "row"  
+            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "row"
             for (int i = 0; i < list.Count; i++)
             {
                 spare_group b = new spare_group();
@@ -64,11 +61,13 @@ namespace bycar3.External_Code
             }
             MessageBox.Show("Добавлено  " + xc.ToString() + " элементов.");
             FixGroupsParents(list);
-            // Закрываем поток  
+
+            // Закрываем поток
             fs.Close();
 
             return items;
         }
+
         private static void FixGroupsParents(XmlNodeList list)
         {
             DataAccess da = new DataAccess();
@@ -84,29 +83,31 @@ namespace bycar3.External_Code
                 da.SpareGroupUpdateParent(Code1C, ParentCode1C);
             }
         }
+
         //private delegate void UpdateProgressBarDelegate(System.Windows.DependencyProperty dp, Object value);
 
         public static int getSpares(string FilePath)
         {
             List<spare> items = new List<spare>();
 
-            // Объявляем и забиваем файл в документ  
+            // Объявляем и забиваем файл в документ
             XmlDocument xd = new XmlDocument();
             FileStream fs = new FileStream(FilePath, FileMode.Open);
             xd.Load(fs);
             DataAccess da = new DataAccess();
 
-            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"  
+            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"
 
             LoadingWindowView v = new LoadingWindowView();
             v._ProgressBar.Minimum = 0;
             v._ProgressBar.Maximum = list.Count;
             v._ProgressBar.Value = list.Count / 2;
+
             //object value = 0;
-            //Сохраняем значение ProgressBar            
+            //Сохраняем значение ProgressBar
             //Создаем новый экземпляр делегата для ProgressBar
             // который показывает на метод ProgressBar.SetValue
-            //UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(v._ProgressBar.SetValue);                                   
+            //UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(v._ProgressBar.SetValue);
             v.Show();
             string Errors = "";
             for (int i = 1; i < list.Count; i++)
@@ -129,7 +130,8 @@ namespace bycar3.External_Code
                     Errors += qwe.Message;
                 }
             }
-            // Закрываем поток  
+
+            // Закрываем поток
             fs.Close();
             v.Close();
             return items.Count;
@@ -139,13 +141,13 @@ namespace bycar3.External_Code
         {
             List<spare_analogue> items = new List<spare_analogue>();
 
-            // Объявляем и забиваем файл в документ  
+            // Объявляем и забиваем файл в документ
             XmlDocument xd = new XmlDocument();
             FileStream fs = new FileStream(FilePath, FileMode.Open);
             xd.Load(fs);
             DataAccess da = new DataAccess();
 
-            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"              
+            XmlNodeList list = xd.GetElementsByTagName("Row"); // Создаем и заполняем лист по тегу "user"
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].HasChildNodes)
@@ -156,7 +158,8 @@ namespace bycar3.External_Code
                     da.SpareAnalogueCreate(is_equal, Spare1Code1C, Spare2Code1C);
                 }
             }
-            // Закрываем поток  
+
+            // Закрываем поток
             fs.Close();
 
             return items.Count;
@@ -166,24 +169,25 @@ namespace bycar3.External_Code
         {
             List<spare_analogue> items = new List<spare_analogue>();
             string Message = "";
-            // Объявляем и забиваем файл в документ  
+
+            // Объявляем и забиваем файл в документ
             XmlDocument xd = new XmlDocument();
             FileStream fs = new FileStream(FilePath, FileMode.Open);
             xd.Load(fs);
             DataAccess da = new DataAccess();
 
             XmlNodeList list = xd.GetElementsByTagName("Row");
+
             //int RemainsInputID = da.getRemainsInputID();
             MessageBox.Show("Будет импортировано " + list.Count + " записей.");
-            string m1="";
-            System.Globalization.CultureInfo ci = 
+            string m1 = "";
+            System.Globalization.CultureInfo ci =
           System.Globalization.CultureInfo.InstalledUICulture;
-        System.Globalization.NumberFormatInfo ni = (System.Globalization.NumberFormatInfo)
-          ci.NumberFormat.Clone();
-        ni.NumberDecimalSeparator = "."; 
+            System.Globalization.NumberFormatInfo ni = (System.Globalization.NumberFormatInfo)
+              ci.NumberFormat.Clone();
+            ni.NumberDecimalSeparator = ".";
             for (int i = 0; i < list.Count; i++)
             {
-
                 if (list[i].HasChildNodes)
                 {
                     decimal P = 0;
@@ -192,24 +196,31 @@ namespace bycar3.External_Code
                         P = decimal.Parse(list[i].ChildNodes[4].InnerText, ni);
                         da = new DataAccess();
                         spare_in_spare_income offering = new spare_in_spare_income();
+
                         //[id] - генериурется автоматически
                         //[num]
                         offering.num = 0;
+
                         //[description]
                         offering.description = "";
+
                         //[QIn]
                         decimal Q = 0;
                         Q = decimal.Parse(list[i].ChildNodes[3].InnerText, ni);
                         offering.QIn = Q;
-                        //[PIn]
 
+                        //[PIn]
                         offering.PIn = P;
+
                         //[PInBasic]
                         offering.PInBasic = P;
+
                         //[VatRateID]
                         offering.vat_rate = da.getZeroVatRate();
+
                         //[Markup]
                         offering.Markup = 0;
+
                         //[SpareIncomeID] - в зависимости от поля #5
                         string WarehouseMarker = list[i].ChildNodes[5].InnerText;
                         int SpareIncomeID = 61;
@@ -218,22 +229,30 @@ namespace bycar3.External_Code
                         else
                             SpareIncomeID = 62;
                         offering.spare_income = da.SpareIncomeGet(SpareIncomeID);
+
                         //[CurrencyID]
                         offering.CurrencyID = 1;
+
                         //[S]
                         offering.S = Q * P;
+
                         //[SBasic]
                         offering.SBasic = Q * P;
+
                         //[POut]
                         offering.POut = P;
+
                         //[POutBasic]
                         offering.POutBasic = P;
+
                         //[QRest]
                         offering.QRest = Q;
                         string mess = "";
+
                         //===================================================== [SpareID]
                         string SpareCode1C = list[i].ChildNodes[0].InnerText;
                         mess += "1C:[" + SpareCode1C + "] - ";
+
                         //  search by code1C
                         spare sp = null;
                         sp = da.GetSpare(SpareCode1C);
@@ -241,6 +260,7 @@ namespace bycar3.External_Code
                         if (sp == null)
                         {
                             mess += "not found! ";
+
                             // search by spare code
                             code = list[i].ChildNodes[1].InnerText;
                             mess += "CODE:[" + code + "] - ";
@@ -250,6 +270,7 @@ namespace bycar3.External_Code
                         if (sp == null)
                         {
                             mess += "not found! ";
+
                             // search by spare name
                             name = list[i].ChildNodes[2].InnerText;
                             mess += "NAME:[" + name + "] - ";
@@ -263,7 +284,8 @@ namespace bycar3.External_Code
                 }
             }
             MessageBox.Show(m1);
-            // Закрываем поток  
+
+            // Закрываем поток
             fs.Close();
             return Message;
         }

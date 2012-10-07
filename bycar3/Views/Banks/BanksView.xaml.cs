@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -43,12 +34,14 @@ namespace bycar3.Views
                 ReloadList();
             };
         }
+
         private void CreateBank()
         {
             BanksEditView v = new BanksEditView();
             v._ID = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedBank()
         {
             int id = 0;
@@ -58,7 +51,7 @@ namespace bycar3.Views
                 object sel = dgList.SelectedItem;
                 b = (bank)sel;
                 id = b.id;
-            }            
+            }
             if (id > 0)
             {
                 BanksEditView v = new BanksEditView();
@@ -71,8 +64,9 @@ namespace bycar3.Views
                 v.ShowDialog();
                 ReloadList();
             }
-        }        
-        void DeleteItem()
+        }
+
+        private void DeleteItem()
         {
             int id = 0;
             bank b = null;
@@ -93,6 +87,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
@@ -108,6 +103,5 @@ namespace bycar3.Views
             CreateBank();
             ReloadList();
         }
-
     }
 }

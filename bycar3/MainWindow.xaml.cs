@@ -1,40 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using bycar3.Views;
 using bycar;
-using bycar3.Views.Spare_Income;
-using bycar3.Views.Spare_Outgo;
-using bycar3.Views.Common;
+using bycar3.Core;
 using bycar3.External_Code;
-using Microsoft.Win32;
-using bycar3.Views.Revision;
+using bycar3.Reporting;
+using bycar3.Views;
+using bycar3.Views.Common;
 using bycar3.Views.Currency;
 using bycar3.Views.Reporting;
-using bycar3.Reporting;
-using bycar3.Views.Invoice;
-using bycar3.Views.Overpricing;
 using bycar3.Views.Request;
+using bycar3.Views.Revision;
 using bycar3.Views.Revision3;
-using System.Data;
-using System.IO;
 using DataStreams.Csv;
-using splashDemo;
-using System.ComponentModel;
-using System.Threading;
-using System.Diagnostics;
-using bycar3.Core;
-using System.Globalization;
+using Microsoft.Win32;
 
 namespace bycar3
 {
@@ -44,23 +28,25 @@ namespace bycar3
     public partial class MainWindow : Window
     {
         #region DATA MEMBERS
-        bycar3.Views.Main_window.UCSpares uc_Spares = null;
-        bycar3.Views.Main_window.UCMovements uc_Movements = null;
-        int _Workspace = 0;
+
+        private bycar3.Views.Main_window.UCSpares uc_Spares = null;
+        private bycar3.Views.Main_window.UCMovements uc_Movements = null;
+        private int _Workspace = 0;
         public bool RevisionModeOn = false;
 
-        #endregion
-        DataAccess da = new DataAccess();
+        #endregion DATA MEMBERS
+
+        private DataAccess da = new DataAccess();
 
         #region CUSTOM FUNCTIONS
 
         /* OLD
-         * 
-         * 
+         *
+         *
         /*
         Thread splash = null;
         void SplashThreadStart()
-        {            
+        {
             splash = new Thread(SplashWindowShow);
             splash.IsBackground = true;
             splash.SetApartmentState(ApartmentState.STA);
@@ -69,33 +55,31 @@ namespace bycar3
         void SplashThreadStop()
         {
             if (splash != null)
-            {               
+            {
                 splash.Abort();
                 splash = null;
             }
         }
         void SplashWindowShow()
         {
-            new SplashWindow().ShowDialog(); 
+            new SplashWindow().ShowDialog();
         }
          *  void Start()
         {
             // InitializeWindow();
             int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
             edtSearchField.SelectedIndex = sfi.HasValue ? sfi.Value : 0;
+
             //LoadCurrencies();     ЗАЧЕМ???
             //ShowUCSpares(true);   ЗАЧЕМ???
             //PrintRemains();       ЗАЧЕМ???
 
             // SettingsLoad();
 
-            this.Visibility = System.Windows.Visibility.Visible;            
+            this.Visibility = System.Windows.Visibility.Visible;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            
-            
             //PrintRemains();
             //DataAccess da = new DataAccess();
             /* v#1
@@ -105,13 +89,13 @@ namespace bycar3
                 v.ShowDialog();
             }
             this.Visibility = System.Windows.Visibility.Visible;
-            
+
             // DEBUG COMMAND
             //ImportSpareCodesFromCSV2();
-
         }
          */
-        void LoadCurrencies()
+
+        private void LoadCurrencies()
         {
             DataAccess da = new DataAccess();
             List<currency> lst = da.GetCurrency();
@@ -124,7 +108,7 @@ namespace bycar3
             }
         }
 
-        void ChangeBasicCurrency()
+        private void ChangeBasicCurrency()
         {
             if (uc_Spares != null)
                 uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();
@@ -142,8 +126,7 @@ namespace bycar3
             }*/
         }
 
-
-        void InitializeWindow()
+        private void InitializeWindow()
         {
             int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
             edtSearchField.SelectedIndex = sfi.HasValue ? sfi.Value : 0;
@@ -152,7 +135,7 @@ namespace bycar3
             PrintRemains();
         }
 
-        bool ItemCreate()
+        private bool ItemCreate()
         {
             bool flag = false;
             switch (_Workspace)
@@ -160,6 +143,7 @@ namespace bycar3
                 case 0: // номенклатура
                     uc_Spares.SpareCreate();
                     break;
+
                 case 1: // товародвижение
                     uc_Movements.ItemCreate();
                     break;
@@ -167,47 +151,51 @@ namespace bycar3
             return flag;
         }
 
-        void ItemEdit()
+        private void ItemEdit()
         {
             switch (_Workspace)
             {
                 case 0: // номенклатура
                     uc_Spares.SpareEdit();
                     break;
+
                 case 1: // товародвижение
                     uc_Movements.ItemEdit();
                     break;
             }
         }
 
-        void ItemCopy()
+        private void ItemCopy()
         {
             switch (_Workspace)
             {
                 case 0: // номенклатура
                     uc_Spares.SpareCopy();
                     break;
+
                 case 1: // товародвижение
                     break;
             }
         }
 
-        void ItemDelete()
+        private void ItemDelete()
         {
             switch (_Workspace)
             {
                 case 0: // номенклатура
                     uc_Spares.SpareDelete();
                     break;
+
                 case 1: // товародвижение
                     uc_Movements.ItemDelete();
                     break;
             }
         }
 
-        void ImportBrands()
+        private void ImportBrands()
         {
             string FilePath = "";
+
             // вызов диалога выбора файла для импорта
             OpenFileDialog dlg = new OpenFileDialog();
 
@@ -226,6 +214,7 @@ namespace bycar3
                 items = Office2003XmlTable.getBrands(FilePath);
 
                 int count = items.Count;
+
                 // перенос списка полученных брендов в БД
                 if (items != null)
                 {
@@ -239,18 +228,20 @@ namespace bycar3
             }
         }
 
-        void ImportSparesFromCSV()
+        private void ImportSparesFromCSV()
         {
             ConsoleManager.Show();
             Console.WriteLine(DateTime.Now.ToShortTimeString() + " - started...");
             string FilePath = "";
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".csv"; // Default file extension
+
             //    dlg.Filter = "*.csv"; // Filter files by extension
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
                 DataAccess da = new DataAccess();
+
                 // Open document
                 FilePath = dlg.FileName;
                 int counter = 0;
@@ -302,18 +293,20 @@ namespace bycar3
             Application.Current.Shutdown();
         }
 
-        void ImportSpareCodesFromCSV()
+        private void ImportSpareCodesFromCSV()
         {
             ConsoleManager.Show();
             Console.WriteLine(DateTime.Now.ToShortTimeString() + " - started...");
             string FilePath = "";
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".csv"; // Default file extension
+
             //    dlg.Filter = "*.csv"; // Filter files by extension
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
                 DataAccess da = new DataAccess();
+
                 // Open document
                 FilePath = dlg.FileName;
                 int counter = 0;
@@ -359,18 +352,21 @@ namespace bycar3
             ConsoleManager.Hide();
             Application.Current.Shutdown();
         }
-        void ImportSpareCodesFromCSV2()
+
+        private void ImportSpareCodesFromCSV2()
         {
             ConsoleManager.Show();
             Console.WriteLine(DateTime.Now.ToShortTimeString() + " - started...");
             string FilePath = "";
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".csv"; // Default file extension
+
             //    dlg.Filter = "*.csv"; // Filter files by extension
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
                 DataAccess da = new DataAccess();
+
                 // Open document
                 FilePath = dlg.FileName;
                 using (CsvReader csvData = new CsvReader(FilePath))
@@ -389,9 +385,10 @@ namespace bycar3
             Application.Current.Shutdown();
         }
 
-        void ImportGroups()
+        private void ImportGroups()
         {
             string FilePath = "";
+
             // вызов диалога выбора файла для импорта
             OpenFileDialog dlg = new OpenFileDialog();
 
@@ -410,6 +407,7 @@ namespace bycar3
                 items = Office2003XmlTable.getGroups(FilePath);
 
                 int count = items.Count;
+
                 // перенос списка полученных записе в БД
                 if (items != null)
                 {
@@ -418,9 +416,10 @@ namespace bycar3
             }
         }
 
-        void ImportSpares()
+        private void ImportSpares()
         {
             string FilePath = "";
+
             // вызов диалога выбора файла для импорта
             OpenFileDialog dlg = new OpenFileDialog();
 
@@ -436,15 +435,17 @@ namespace bycar3
                 // Open document
                 FilePath = dlg.FileName;
                 int count = count = Office2003XmlTable.getSpares(FilePath);
+
                 // перенос списка полученных записе в БД
                 MessageBox.Show("Импортировано " + count + " записей.");
                 ShowUCSpares(true);
             }
         }
 
-        void ImportAnalogues()
+        private void ImportAnalogues()
         {
             string FilePath = "";
+
             //bool FailFlag = false;
             // вызов диалога выбора файла для импорта
             OpenFileDialog dlg = new OpenFileDialog();
@@ -468,10 +469,12 @@ namespace bycar3
                 //if (!FailFlag)
                 //{
                 MessageBox.Show("Импортировано " + count + " записей.");
+
                 //}
             }
         }
-        void ImportRemains()
+
+        private void ImportRemains()
         {
             // вызов диалога выбора файла для импорта
             OpenFileDialog dlg = new OpenFileDialog();
@@ -484,25 +487,28 @@ namespace bycar3
             // Process open file dialog box results
             if (result == true)
             {
-                // Open document                
+                // Open document
                 string mess = Office2003XmlTable.getRemains(dlg.FileName);
                 MessageBox.Show(mess);
             }
         }
 
-        void ItemSearch()
+        private void ItemSearch()
         {
             // получение параметров
             string SearchText = edtSearchText.Text;
 
             int SearcFieldIndex = edtSearchField.SelectedIndex;
+
             //bool StrongSearch = false;
             switch (_Workspace)
             {
                 case 0: // номенклатура
+
                     //uc_Spares.SparesSearchByText(SearcFieldIndex, SearchText, StrongSearch);
                     uc_Spares._SearchTextAndIndex(SearchText, SearcFieldIndex);
                     break;
+
                 case 1: // товародвижение
                     break;
             }
@@ -514,7 +520,7 @@ namespace bycar3
             v.ShowDialog();
         }
 
-        #endregion
+        #endregion CUSTOM FUNCTIONS
 
         // ACTION HANDLERS
         // КОНСТРУКТОР MainWindow()
@@ -522,9 +528,10 @@ namespace bycar3
         {
             // InitializeComponent() - auto-generated function
             InitializeComponent();
-            /* В конструкторе класса главного окна инициализируем большой список, 
+            /* В конструкторе класса главного окна инициализируем большой список,
              * подгружать остальную инфу будем при показе окна */
             SpareContainer.Instance.Update();
+
             //Start();
             /* + окно загружено,
              * + инициализируем user control'ы,
@@ -533,6 +540,7 @@ namespace bycar3
              * + отображаем суммарное количество деталей и деталей в остатках,
              * + связывем значения по умолчанию,
              * проверяем свежесть курсов валюты и загружаем свежие, если надо*/
+
             // v#2
             // ======== defs
             int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
@@ -542,12 +550,15 @@ namespace bycar3
             this.btnItemEdit.ToolTip = "Удалить из базы выделенный товар";
             LoadCurrencies();
             _Workspace = 0;
+
             // ======== user control
             string curr = da.getProfileCurrent().BasicCurrencyCode;
             uc_Spares = new Views.Main_window.UCSpares(this, curr);
             mMainGrid.Children.Add(uc_Spares);
+
             // bind spares
             uc_Spares.dgSpares.DataContext = SpareContainer.Instance.Spares;
+
             // покажем контрол
             uc_Spares.Visibility = System.Windows.Visibility.Visible;
             PrintRemains();
@@ -633,9 +644,6 @@ namespace bycar3
         }
 
         /*
-                                      
-      
-       
 
         private void dgSpares_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -663,16 +671,16 @@ namespace bycar3
             }
         }
 
-
-        void SpareSearch()
+        private void SpareSearch()
         {
             string searchString = edtSearchText.Text;
             int searchFieldIndex = edtSearchField.SelectedIndex;
+
             //ReloadSpares(searchFieldIndex, searchString);
             ClearSearchTextBox();
         }
 
-        void ClearSearchTextBox()
+        private void ClearSearchTextBox()
         {
             edtSearchText.Text = "Введите текст...";
             edtSearchText.FontStyle = FontStyles.Italic;
@@ -691,13 +699,14 @@ namespace bycar3
             ShowUCSpares(true);
             uc_Spares._GroupID = 1;
         }
+
         private void btnWorkspaceMovements_Click(object sender, RoutedEventArgs e)
         {
             ShowUCSpares(false);
             ShowUCMovements(true);
         }
 
-        void ShowUCSpares(bool show)
+        private void ShowUCSpares(bool show)
         {
             if (uc_Spares == null)
             {
@@ -705,6 +714,7 @@ namespace bycar3
                 uc_Spares.ParentWindow = this;
                 mMainGrid.Children.Add(uc_Spares);
                 uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();
+
                 //uc_Spares.LoadSpares();
                 uc_Spares.LoadGroups(false);
             }
@@ -721,7 +731,8 @@ namespace bycar3
             _Workspace = 0;
             PrintRemains();
         }
-        void ShowUCMovements(bool show)
+
+        private void ShowUCMovements(bool show)
         {
             if (uc_Movements == null)
             {
@@ -798,7 +809,7 @@ namespace bycar3
             CallRevisionWindow();
             /*RevisionModeOn = mi_Settings_RevisionOn.IsChecked;
             uc_Spares.RevisionMode(RevisionModeOn);
-            if (RevisionModeOn)            
+            if (RevisionModeOn)
                 spRevisionPanel.Visibility = System.Windows.Visibility.Visible;
             else
                 spRevisionPanel.Visibility = System.Windows.Visibility.Hidden;*/
@@ -806,22 +817,21 @@ namespace bycar3
 
         private void btnRevisionPlus_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnRevisionMinus_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (uc_Spares != null)
                 uc_Spares._SearchFieldIndex = edtSearchField.SelectedIndex;
-        }        
+        }
+
         private void edtSearchText_KeyDown(object sender, KeyEventArgs e)
-        {         
-            if(e.Key == Key.Enter)
+        {
+            if (e.Key == Key.Enter)
                 SmartSpareSearch();
         }
 
@@ -883,7 +893,6 @@ namespace bycar3
 
         private void mi_File_FixBP_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void mi_File_Request_Click(object sender, RoutedEventArgs e)
@@ -898,8 +907,10 @@ namespace bycar3
             //v.treeSpareGroups.DataContext = uc_Spares.treeSpareGroups.Items;
             v.ShowDialog();
         }
-        string code = "";
-        void SmartSpareSearch()
+
+        private string code = "";
+
+        private void SmartSpareSearch()
         {
             if (uc_Spares.grBasket.Visibility != System.Windows.Visibility.Visible)
                 return;
@@ -928,6 +939,7 @@ namespace bycar3
                 //edtSearchString.Content = "error";
             }
         }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             /*
@@ -950,7 +962,7 @@ namespace bycar3
                 lbSparesQ.Content = code;
             }
             else*/
-                edtSearchText.Focus();
+            edtSearchText.Focus();
         }
 
         private void btnSearchClear_Click(object sender, RoutedEventArgs e)
@@ -964,6 +976,7 @@ namespace bycar3
             SettingsSave();
             Application.Current.Shutdown();
         }
+
         private void SettingsLoad()
         {
             //ShowUCSpares(Settings.Settings.Default.CurrentWorkspace == 0);
@@ -972,6 +985,7 @@ namespace bycar3
             //edtSearchField.SelectedIndex = Settings.Settings.Default.SearchFieldIndex;
             //ItemSearch();
         }
+
         private void SettingsSave()
         {
             //Settings.Settings.Default.CurrentWorkspace = uc_Spares.IsVisible ? 0 : 1;
@@ -979,18 +993,21 @@ namespace bycar3
             //Settings.Settings.Default.SearchFieldIndex = edtSearchField.SelectedIndex;
             //Settings.Settings.Default.Save();
         }
+
         public void PrintRemains()
         {
             lbSparesQ.Content = "Все наименования: "
-                                + SpareContainer.Instance.Spares.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
+                                + SpareContainer.Instance.Spares.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
-            lbSparesQ.Content += "Наименования с остатком: " 
-                                + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
+            lbSparesQ.Content += "Наименования с остатком: "
+                                + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
-            //lbSparesQ.Content += "Сумма остатков: " + SpareContainer.Instance.Remains.Sum(x => x.QRest) + ". ";            
-            lbSparesQ.Content += "Сумма остатков: " 
-                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU")) 
-                            + " единиц базовой валюты.";            
+
+            //lbSparesQ.Content += "Сумма остатков: " + SpareContainer.Instance.Remains.Sum(x => x.QRest) + ". ";
+            lbSparesQ.Content += "Сумма остатков: "
+                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
+                            + " единиц базовой валюты.";
+
             // + "; остатков: " + SpareContainer.Instance.Remains.Count;
             //settings_profile p = da.getProfileCurrent();
             //if (p.UseScanner == 1)
@@ -998,12 +1015,15 @@ namespace bycar3
             //else
             //    edtSearchText.SearchMode = UIControls.SearchMode.Instant;
         }
+
         public string LastSearch = "";
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             ItemSearch2();
         }
-        void ItemSearch2()
+
+        private void ItemSearch2()
         {
             // получение параметров
             string SearchText = edtSearchText.Text;
@@ -1011,14 +1031,17 @@ namespace bycar3
                 return;
 
             int SearcFieldIndex = edtSearchField.SelectedIndex;
+
             //bool StrongSearch = false;
             switch (_Workspace)
             {
                 case 0: // номенклатура
+
                     //uc_Spares.SparesSearchByText(SearcFieldIndex, SearchText, StrongSearch);
                     uc_Spares._SearchTextAndIndex(SearchText, SearcFieldIndex);
                     LastSearch = SearchText;
                     break;
+
                 case 1: // товародвижение
                     break;
             }
@@ -1026,7 +1049,7 @@ namespace bycar3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // login            
+            // login
             settings_profile settings = da.getProfileCurrent();
             if (settings.DefaultUserID > 0)
             {
@@ -1039,6 +1062,7 @@ namespace bycar3
                 if (!v1.Res)
                 {
                     App.Current.Shutdown();
+
                     //Close();
                     return;
                 }
@@ -1056,6 +1080,7 @@ namespace bycar3
         private void mi_Reports_DailySales_Click(object sender, RoutedEventArgs e)
         {
             DateTime dt = DateTime.Now;
+
             // показать диалог выбора даты отчета
             SelectReportDataView v = new SelectReportDataView();
             bool? res = v.ShowDialog();
@@ -1066,6 +1091,7 @@ namespace bycar3
         private void mi_Reports_SpareSalesByCode_Click(object sender, RoutedEventArgs e)
         {
             DateTime dt = DateTime.Now;
+
             // показать диалог выбора даты отчета
             SelectReportSalesByCodeDate v = new SelectReportSalesByCodeDate();
             bool? res = v.ShowDialog();
@@ -1100,7 +1126,8 @@ namespace bycar3
         {
             edtSearchText.Focus();
         }
-        void LogOut()
+
+        private void LogOut()
         {
             MessageBoxResult res = MessageBox.Show("Программа будет закрыта. Вы уверены?", "Выход", MessageBoxButton.YesNo);
             if (res == MessageBoxResult.Yes)
@@ -1111,13 +1138,10 @@ namespace bycar3
                 App.Current.Shutdown();
             }
         }
+
         private void miLogout_Click(object sender, RoutedEventArgs e)
         {
             LogOut();
         }
     }
 }
-
-
-
-

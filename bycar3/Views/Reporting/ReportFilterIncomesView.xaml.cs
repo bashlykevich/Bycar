@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
+
 //using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using bycar3.External_Code;
 
 namespace bycar3.Views.Reporting
 {
@@ -22,18 +13,18 @@ namespace bycar3.Views.Reporting
     /// </summary>
     public partial class ReportFilterIncomesView : Window
     {
-
         // CUSTOM FUNCTIONS
-        void LoadComboboxCurrencies()
+        private void LoadComboboxCurrencies()
         {
-            DataAccess da = new DataAccess();            
+            DataAccess da = new DataAccess();
             List<currency> x = da.GetCurrency();
             edtCurrency.Items.Clear();
             foreach (currency c in x)
                 edtCurrency.Items.Add(c.code);
             edtCurrency.SelectedItem = da.getBasicCurrencyCode();
         }
-        void GenerateReportIncomes()
+
+        private void GenerateReportIncomes()
         {
             /*
             List<ReportIncome> list = new List<ReportIncome>();
@@ -57,7 +48,7 @@ namespace bycar3.Views.Reporting
                     headerDate1 += "0";
                 headerDate1 += edtStart.SelectedDate.Value.Month + ".";
                 headerDate1 += edtStart.SelectedDate.Value.Year;
-                
+
                 string headerDate2 = "";
                 if (edtFinish.SelectedDate.Value.Day < 10)
                     headerDate2 += "0";
@@ -67,7 +58,6 @@ namespace bycar3.Views.Reporting
                 headerDate2 += edtFinish.SelectedDate.Value.Month + ".";
                 headerDate2 += edtFinish.SelectedDate.Value.Year;
 
-
                 string header1 = "Приход за период с " + headerDate1 + " по " + headerDate2;
                 string rng1 = "$A" + row + ":$K" + row;
                 Excel.Range r = eWorksheet.get_Range(rng1);
@@ -75,11 +65,10 @@ namespace bycar3.Views.Reporting
                 eWorksheet.Cells[row, 1] = header1;
                 row += 2;
 
-
                 int col = 1;
                 int colQ = 0;
                 int colS = 0;
-                               
+
                     eWorksheet.Cells[row, col++] = " № п/п";
                 if (cbName.IsChecked.Value)
                     eWorksheet.Cells[row, col++] = " Наименование товара                             ";
@@ -119,6 +108,7 @@ namespace bycar3.Views.Reporting
                 int TableStartRow = row - 1;
                 double TotalAmount = 0;
                 int TotalQ = 0;
+
                 // DATA OUTPUT
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -153,7 +143,6 @@ namespace bycar3.Views.Reporting
                     int tmp = (int)(Price * 100);
                     Price = (double)tmp / 100;
 
-
                     double PriceFull1 = list[i].PriceFullBasic.Value;
                     double PriceFull = CurrencyHelper.GetPrice(CCC, PriceFull1);
                     tmp = (int)(PriceFull * 100);
@@ -165,53 +154,53 @@ namespace bycar3.Views.Reporting
                     double Total = CurrencyHelper.GetPrice(CCC, Total1);
                     tmp = (int)(Total * 100);
                     Total = (double)tmp / 100;*/
-                    
-              /*      TotalAmount += _Total;
-                    if (cbPrice.IsChecked.Value)
-                        eWorksheet.Cells[row, col++] =  _Price;
-                    if (cbPers.IsChecked.Value)
-                    {
-                        eWorksheet.Cells[row, col++] = list[i].Markup.Value;
-                        eWorksheet.Cells[row, col++] = _Markup;
-                    }
-                    if (cbVat.IsChecked.Value)
-                    {
-                        eWorksheet.Cells[row, col++] = list[i].VatRate;
-                        eWorksheet.Cells[row, col++] = _Vat;
-                    }
-                    if (cbPriceFull.IsChecked.Value)
-                        eWorksheet.Cells[row, col++] = _PriceFull;
-                    if (cbTotal.IsChecked.Value)
-                        eWorksheet.Cells[row, col++] = _Total;
-                    row++;
-                }
-                if (cbTotal.IsChecked.Value)
-                {
-                    eWorksheet.Cells[row, colS] = TotalAmount;
-                    eWorksheet.Cells[row, colQ] = TotalQ;
-                    eWorksheet.Cells[row, 2] = "Итого:";
-                    string rngx = "$A" + row + ":$K" + row;
-                    eWorksheet.Range[rngx].Font.Bold = true;
-                }
-                int TableFinishRow = row;
-                string rng0 = "$A" + TableStartRow + ":$K" + TableFinishRow;
-                Excel.Range r0 = eWorksheet.get_Range(rng0);
-                r0.Borders.Weight = 2;
 
-                row++;
-                string footer1 = "Всего на сумму: " + RSDN.RusCurrency.Str(TotalAmount, CCC);
-                string rngf1 = "$A" + row + ":$K" + row;
-                Excel.Range rf1 = eWorksheet.get_Range(rngf1);
-                rf1.Merge(Type.Missing);
-                eWorksheet.Cells[row, 1] = footer1;
+            /*      TotalAmount += _Total;
+                  if (cbPrice.IsChecked.Value)
+                      eWorksheet.Cells[row, col++] =  _Price;
+                  if (cbPers.IsChecked.Value)
+                  {
+                      eWorksheet.Cells[row, col++] = list[i].Markup.Value;
+                      eWorksheet.Cells[row, col++] = _Markup;
+                  }
+                  if (cbVat.IsChecked.Value)
+                  {
+                      eWorksheet.Cells[row, col++] = list[i].VatRate;
+                      eWorksheet.Cells[row, col++] = _Vat;
+                  }
+                  if (cbPriceFull.IsChecked.Value)
+                      eWorksheet.Cells[row, col++] = _PriceFull;
+                  if (cbTotal.IsChecked.Value)
+                      eWorksheet.Cells[row, col++] = _Total;
+                  row++;
+              }
+              if (cbTotal.IsChecked.Value)
+              {
+                  eWorksheet.Cells[row, colS] = TotalAmount;
+                  eWorksheet.Cells[row, colQ] = TotalQ;
+                  eWorksheet.Cells[row, 2] = "Итого:";
+                  string rngx = "$A" + row + ":$K" + row;
+                  eWorksheet.Range[rngx].Font.Bold = true;
+              }
+              int TableFinishRow = row;
+              string rng0 = "$A" + TableStartRow + ":$K" + TableFinishRow;
+              Excel.Range r0 = eWorksheet.get_Range(rng0);
+              r0.Borders.Weight = 2;
 
-                eWorkbook.Application.Visible = true;
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }*/
-        }        
+              row++;
+              string footer1 = "Всего на сумму: " + RSDN.RusCurrency.Str(TotalAmount, CCC);
+              string rngf1 = "$A" + row + ":$K" + row;
+              Excel.Range rf1 = eWorksheet.get_Range(rngf1);
+              rf1.Merge(Type.Missing);
+              eWorksheet.Cells[row, 1] = footer1;
+
+              eWorkbook.Application.Visible = true;
+          }
+          catch (Exception exc)
+          {
+              throw exc;
+          }*/
+        }
 
         // HANDLERS
         public ReportFilterIncomesView()

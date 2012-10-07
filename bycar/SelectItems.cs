@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using bycar.Utils;
 
 namespace bycar
-{   
+{
     public partial class account : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -16,7 +12,7 @@ namespace bycar
                 return id;
             }
             set
-            {                
+            {
             }
         }
 
@@ -28,7 +24,6 @@ namespace bycar
             }
             set
             {
-                
             }
         }
 
@@ -39,7 +34,7 @@ namespace bycar
                 return description;
             }
             set
-            {                
+            {
             }
         }
     }
@@ -54,7 +49,6 @@ namespace bycar
             }
             set
             {
-                
             }
         }
 
@@ -66,7 +60,6 @@ namespace bycar
             }
             set
             {
-                
             }
         }
 
@@ -93,7 +86,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -105,7 +97,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -124,7 +115,6 @@ namespace bycar
 
     public partial class brand : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -144,7 +134,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -162,7 +151,6 @@ namespace bycar
 
     public partial class spare_group : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -182,7 +170,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -200,7 +187,6 @@ namespace bycar
 
     public partial class unit : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -220,7 +206,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -235,11 +220,10 @@ namespace bycar
             }
         }
     }
-  
+
     /*
     public partial class bank_account : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -259,7 +243,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -283,7 +266,6 @@ namespace bycar
 
     public partial class BankAccountView : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -303,7 +285,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -311,7 +292,7 @@ namespace bycar
         {
             get
             {
-                return BankName;                
+                return BankName;
             }
             set
             {
@@ -319,10 +300,8 @@ namespace bycar
         }
     }
 
-
     public partial class car_producer : CommonSelectItem
     {
-
         public int _Id
         {
             get
@@ -342,7 +321,6 @@ namespace bycar
             }
             set
             {
-
             }
         }
 
@@ -357,5 +335,4 @@ namespace bycar
             }
         }
     }
-  
 }

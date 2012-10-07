@@ -1,21 +1,22 @@
 ﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
               FontSize="8"
               FontFamily="Times New Roman"
               FontWeight="Bold"
               PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="20.5cm">
-    <Section Padding="70,50,40,20">        
+    <Section Padding="70,50,40,20">
         <!-- ДАТА -->
-        <Paragraph 
+        <Paragraph
             FontSize="10">
-            Приложение к ТТН №ХХХХХХХХХ от <xrd:InlineDocumentValue PropertyName="ReportDate" />
+            Приложение к ТТН №ХХХХХХХХХ от
+            <xrd:InlineDocumentValue PropertyName="ReportDate" />
         </Paragraph>
         <!-- СВОДНАЯ ИНФА - 5 строк -->
         <Table FontSize="10">
             <Table.Columns>
-                <TableColumn Width="3cm"/>
-                <TableColumn/>
+                <TableColumn Width="3cm" />
+                <TableColumn />
             </Table.Columns>
             <TableRowGroup>
                 <TableRow>
@@ -24,28 +25,28 @@
                             Грузоотправитель:
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0">
                         <Paragraph>
                             <xrd:InlineDocumentValue PropertyName="param1" />
                         </Paragraph>
                     </TableCell>
-                </TableRow>                
+                </TableRow>
                 <TableRow>
                     <TableCell>
                         <Paragraph>
                             Грузополучатель:
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0">
                         <Paragraph>
                             <xrd:InlineDocumentValue PropertyName="param2" />
                         </Paragraph>
                     </TableCell>
-                </TableRow>                
+                </TableRow>
             </TableRowGroup>
         </Table>
 
@@ -55,17 +56,17 @@
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.2*"/>
-                    <TableColumn Width="0.25*"/>
-                    <TableColumn Width="0.35*"/>
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.2*" />
+                    <TableColumn Width="0.25*" />
+                    <TableColumn Width="0.35*" />
                 </Table.Columns>
-                <TableRowGroup>                    
+                <TableRowGroup>
                     <TableRow FontSize="6">
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
@@ -181,7 +182,7 @@
                             </Paragraph>
                         </TableCell>
                     </TableRow>
-                    <xrd:TableRowForDataTable 
+                    <xrd:TableRowForDataTable
                         FontWeight="Normal"
                         TableName="mtable">
                         <TableCell BorderBrush="Black"
@@ -211,7 +212,7 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="Amount"/>
+                                <xrd:InlineTableCellValue PropertyName="Amount" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -223,13 +224,13 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="VATAmount"/>
+                                <xrd:InlineTableCellValue PropertyName="VATAmount" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="Total"/>
+                                <xrd:InlineTableCellValue PropertyName="Total" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -254,13 +255,11 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
@@ -290,7 +289,6 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                     </TableRow>
@@ -309,19 +307,19 @@
         <!--ПОДВАЛ ТАБЛИЦЫ -->
         <Table FontSize="10">
             <Table.Columns>
-                <TableColumn Width="4cm"/>
-                <TableColumn Width="3cm"/>
-                <TableColumn Width="1.5cm"/>
-                <TableColumn/>
+                <TableColumn Width="4cm" />
+                <TableColumn Width="3cm" />
+                <TableColumn Width="1.5cm" />
+                <TableColumn />
             </Table.Columns>
-            <TableRowGroup>                                
+            <TableRowGroup>
                 <TableRow>
                     <TableCell>
                         <Paragraph>
                             Отпуск разрешил
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="3"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
@@ -332,7 +330,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph Margin="120,0,0,3" FontSize="6">
@@ -346,7 +343,7 @@
                             Сдал грузоотправитель
                         </Paragraph>
                     </TableCell>
-                    <TableCell 
+                    <TableCell
                         ColumnSpan="3"
                         BorderBrush="Black"
                         BorderThickness="0,0,0,0.01cm">
@@ -357,7 +354,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph
@@ -365,7 +361,7 @@
                             (должность, фамилия, инициалы, подпись, штамп (печать) грузоотправителя)
                         </Paragraph>
                     </TableCell>
-                </TableRow>               
+                </TableRow>
                 <TableRow>
                     <TableCell>
                         <Paragraph>
@@ -383,7 +379,6 @@
                 </TableRow>
                 <TableRow>
                     <TableCell>
-
                     </TableCell>
                     <TableCell ColumnSpan="3">
                         <Paragraph
@@ -391,7 +386,7 @@
                             (должность, фамилия, инициалы, подпись, штамп (печать) грузоотправителя)
                         </Paragraph>
                     </TableCell>
-                </TableRow>                
+                </TableRow>
             </TableRowGroup>
         </Table>
     </Section>

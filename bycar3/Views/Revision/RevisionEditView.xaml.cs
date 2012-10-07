@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 
@@ -20,11 +14,11 @@ namespace bycar3.Views.Revision
     /// </summary>
     public partial class RevisionEditView : Window
     {
-        DataAccess da = null;
-        int _SpareIncomeID = 0;
-        bool Ready = false;
+        private DataAccess da = null;
+        private int _SpareIncomeID = 0;
+        private bool Ready = false;
 
-        void Initialize()
+        private void Initialize()
         {
             da = new DataAccess();
             _SpareIncomeID = da.getRemainsInputID();
@@ -41,10 +35,11 @@ namespace bycar3.Views.Revision
             }
             edtCurrency.SelectedIndex = 0;
         }
+
         public void LoadOfferings()
         {
             da = new DataAccess();
-            dgSpares.DataContext = da.GetRemains(this._SpareIncomeID);            
+            dgSpares.DataContext = da.GetRemains(this._SpareIncomeID);
         }
 
         public void LoadOfferings(int searchFieldIndex, string searchString)
@@ -52,7 +47,8 @@ namespace bycar3.Views.Revision
             da = new DataAccess();
             dgSpares.DataContext = da.GetRemains(this._SpareIncomeID, searchFieldIndex, searchString);
         }
-        void AddOffering()
+
+        private void AddOffering()
         {
             SpareInRevisionSelectView v = new SpareInRevisionSelectView();
             v._ParentWindow = this;
@@ -61,7 +57,8 @@ namespace bycar3.Views.Revision
             v.CurrencyRateCode = edtCurrency.SelectedItem.ToString();
             v.ShowDialog();
         }
-        void DeleteOffering()
+
+        private void DeleteOffering()
         {
             int offeringId = getSelectedOfferingId();
             if (offeringId > 0)
@@ -70,9 +67,10 @@ namespace bycar3.Views.Revision
                 da.InOfferingDelete(offeringId);
                 SpareContainer.Instance.Update(SpareId);
                 LoadOfferings();
-            }            
+            }
         }
-        int getSelectedOfferingId()
+
+        private int getSelectedOfferingId()
         {
             int result = 0;
             try
@@ -93,7 +91,8 @@ namespace bycar3.Views.Revision
             }
             return result;
         }
-        int getSelectedSpareId()
+
+        private int getSelectedSpareId()
         {
             int result = 0;
             try
@@ -114,7 +113,8 @@ namespace bycar3.Views.Revision
             }
             return result;
         }
-        void SpareSearch()
+
+        private void SpareSearch()
         {
             if (edtSearchText.Text.Length > 0)
             {
@@ -127,16 +127,18 @@ namespace bycar3.Views.Revision
                 LoadOfferings();
             }
         }
-        void SaveEditedOffering(int index)
+
+        private void SaveEditedOffering(int index)
         {
             SpareInSpareIncomeView s = dgSpares.Items[index] as SpareInSpareIncomeView;
             decimal q = s.QRest.Value;
-            decimal p = s.PIn.Value;            
+            decimal p = s.PIn.Value;
             da = new DataAccess();
             currency_rate CRate = da.getCurrencyRate(edtCurrency.SelectedItem.ToString());
             decimal PriceBasic = p / CRate.rate;
-            da.InOfferingEdit(s.id, q, p, PriceBasic);            
+            da.InOfferingEdit(s.id, q, p, PriceBasic);
         }
+
         // HANDLERS
         public RevisionEditView()
         {
@@ -166,8 +168,8 @@ namespace bycar3.Views.Revision
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(Ready)
-                if(edtSearchText.Text.Length > 0)
+            if (Ready)
+                if (edtSearchText.Text.Length > 0)
                     SpareSearch();
         }
 
@@ -178,14 +180,14 @@ namespace bycar3.Views.Revision
         }
 
         private void dgSpares_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {            
+        {
             int index = e.Row.GetIndex();
             SpareInSpareIncomeView s = dgSpares.Items[index] as SpareInSpareIncomeView;
             int SpareId = s.SpareID.Value;
             decimal q = s.QRest.Value;
             decimal p = s.POut.Value;
             string ColumnName = e.Column.Header.ToString();
-            string val = (e.EditingElement as TextBox).Text;            
+            string val = (e.EditingElement as TextBox).Text;
             if (ColumnName.Contains("Количество"))
             {
                 decimal.TryParse(val, out q);
@@ -204,6 +206,7 @@ namespace bycar3.Views.Revision
         {
             SpareSearch();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();

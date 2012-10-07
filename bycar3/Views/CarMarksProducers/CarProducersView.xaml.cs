@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 
 namespace bycar3.Views
@@ -39,7 +30,8 @@ namespace bycar3.Views
         {
             DeleteItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             int id = 0;
             car_producer b = null;
@@ -60,6 +52,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void dgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -71,12 +64,14 @@ namespace bycar3.Views
                 ReloadList();
             };
         }
+
         private void CreateItem()
         {
             CarProducersEditView v = new CarProducersEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;
@@ -97,10 +92,12 @@ namespace bycar3.Views
                 ReloadList();
             }
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();

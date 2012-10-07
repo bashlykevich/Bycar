@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.Views.Currency;
 
@@ -20,8 +12,8 @@ namespace bycar3.Views
     /// </summary>
     public partial class CurrenciesView : Window
     {
-        int SelectedCurrencyID = 0;
-        string SelectedCurrencyCode = "";
+        private int SelectedCurrencyID = 0;
+        private string SelectedCurrencyCode = "";
 
         // CUSTOM FUNCTIONS
         private void LoadRates()
@@ -32,10 +24,12 @@ namespace bycar3.Views
                 SelectedCurrencyCode = (dgList.SelectedItem as currency).code;
 
                 DataAccess da = new DataAccess();
+
                 //dgRates.DataContext = da.GetCurrencyRates(SelectedCurrencyID);
             }
         }
-        void RateAdd()
+
+        private void RateAdd()
         {
             if (dgList.SelectedItem != null)
             {
@@ -45,16 +39,18 @@ namespace bycar3.Views
                 v.BasicCurrencyName = BasicCurencyCode();
                 v.ShowDialog();
                 LoadRates();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Выберите валютиу из списка!");
             }
         }
-        void RateEdit()
-        {            
+
+        private void RateEdit()
+        {
             if (dgRates.SelectedItem != null)
             {
-                int RateID = (dgRates.SelectedItem as currency_rate).id;                
+                int RateID = (dgRates.SelectedItem as currency_rate).id;
                 CurrencyRateEditView v = new CurrencyRateEditView();
                 v.RateID = RateID;
                 v.CurrencyID = SelectedCurrencyID;
@@ -70,25 +66,28 @@ namespace bycar3.Views
                 MessageBox.Show("Выберите запись для редактирования!");
             }
         }
-        void RateDelete()
+
+        private void RateDelete()
         {
             DataAccess da = new DataAccess();
-            if(dgRates.SelectedItem != null)
+            if (dgRates.SelectedItem != null)
             {
                 int RateID = (dgRates.SelectedItem as currency_rate).id;
                 da.CurrencyRateDelete(RateID);
                 LoadRates();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Выберите запись для удаления!");
             }
         }
 
-        string BasicCurencyCode()
-        {            
+        private string BasicCurencyCode()
+        {
             DataAccess da = new DataAccess();
-            return da.getBasicCurrencyCode();            
+            return da.getBasicCurrencyCode();
         }
+
         // HANDLERS
         public CurrenciesView()
         {
@@ -99,6 +98,7 @@ namespace bycar3.Views
         {
             ReloadList();
         }
+
         private void ReloadList()
         {
             DataAccess da = new DataAccess();
@@ -115,7 +115,8 @@ namespace bycar3.Views
         {
             EditSelectedItem();
         }
-        void DeleteItem()
+
+        private void DeleteItem()
         {
             int id = 0;
             currency b = null;
@@ -136,6 +137,7 @@ namespace bycar3.Views
                 }
             }
         }
+
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteItem();
@@ -152,12 +154,14 @@ namespace bycar3.Views
                 ReloadList();
             };
         }
+
         private void CreateItem()
         {
             CurrenciesEditView v = new CurrenciesEditView();
             v._id = -1;
             v.ShowDialog();
         }
+
         private void EditSelectedItem()
         {
             int id = 0;

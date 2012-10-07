@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Security;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace bycar3.External_Code
 {
@@ -42,6 +39,7 @@ namespace bycar3.External_Code
                 AllocConsole();
                 InvalidateOutAndError();
             }
+
             //#endif
         }
 
@@ -56,6 +54,7 @@ namespace bycar3.External_Code
                 SetOutAndErrorNull();
                 FreeConsole();
             }
+
             //#endif
         }
 
@@ -71,7 +70,7 @@ namespace bycar3.External_Code
             }
         }
 
-        static void InvalidateOutAndError()
+        private static void InvalidateOutAndError()
         {
             Type type = typeof(System.Console);
 
@@ -95,7 +94,7 @@ namespace bycar3.External_Code
             _InitializeStdOutError.Invoke(null, new object[] { true });
         }
 
-        static void SetOutAndErrorNull()
+        private static void SetOutAndErrorNull()
         {
             Console.SetOut(TextWriter.Null);
             Console.SetError(TextWriter.Null);

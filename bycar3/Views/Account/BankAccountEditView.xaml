@@ -1,5 +1,5 @@
 ﻿<Window x:Class="bycar3.Views.Account.BankAccountEditView"
-                
+
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Расчётный счёт" Height="180" Width="366" ResizeMode="NoResize"
@@ -25,19 +25,19 @@
         <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Name="edtAccountNumber" />
         <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Name="edtDescription" TextWrapping="Wrap"
                  AcceptsReturn="True"
-                 VerticalScrollBarVisibility="Visible"/>
+                 VerticalScrollBarVisibility="Visible" />
 
         <StackPanel
             Orientation="Horizontal"
             Grid.Column="1" Grid.Row="1">
-            <ComboBox             
+            <ComboBox
                 ItemsSource="{Binding}"
                 DisplayMemberPath="name"
                 SelectedValuePath="id"
 	    		Margin="3" Name="edtBank" Width="229" />
-            <Button                                
+            <Button
                 Click="btnBankSelect_Click"
-                Name="btnBankSelect"                                                 
+                Name="btnBankSelect"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Button.Content>
                     <Image Height="22" Width="15" Source="\Content\Icons\IconSelect.png" />
@@ -46,15 +46,15 @@
         </StackPanel>
 
         <StackPanel
-            Orientation="Horizontal"            
+            Orientation="Horizontal"
             Grid.Column="1" Grid.Row="3" Margin="75,0,0,0">
-            <Button                
-                Width="62"                                                 
+            <Button
+                Width="62"
                 Click="Button_Click"
             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                 Name="btnOk" Height="25">
                 <Button.Content>
-                    <StackPanel 
+                    <StackPanel
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
                         <Image Height="auto" Width="30" Source="\Content\Icons\IconOk.png" />
@@ -62,7 +62,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button                  
+            <Button
                 Click="btnCancel_Click"
                 Height="25" Name="btnCancel" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Button.Content>

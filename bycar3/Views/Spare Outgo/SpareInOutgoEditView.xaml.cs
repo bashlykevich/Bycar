@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 
@@ -21,6 +12,7 @@ namespace bycar3.Views.Spare_Outgo
     public partial class SpareInOutgoEditView : Window
     {
         #region DATA MEMBERS
+
         public int _SpareID = -1;
         public string _SpareName = "";
         public int _SpareInSpareIncomeID = -1;
@@ -28,12 +20,14 @@ namespace bycar3.Views.Spare_Outgo
         public decimal _Price = 1;
         public int _SpareOutgoID = -1;
         public string CurrentCurrencyCode = "";
-        bool Calculating = false;
+        private bool Calculating = false;
         public SpareInOutgoSelectView ParentWindow = null;
-        #endregion
+
+        #endregion DATA MEMBERS
 
         #region CUSTOM FUNCTIONS
-        void PrepareWindow()
+
+        private void PrepareWindow()
         {
             edtSpareName.Text = _SpareName;
             edtPrice.Text = _Price.ToString();
@@ -43,7 +37,8 @@ namespace bycar3.Views.Spare_Outgo
             CalculateSum();
             this.Title += " (" + CurrentCurrencyCode + ")";
         }
-        void CalculateByPrice()
+
+        private void CalculateByPrice()
         {
             decimal dDicscount = 0;
             decimal Price = 0;
@@ -51,7 +46,8 @@ namespace bycar3.Views.Spare_Outgo
             dDicscount = _Price - Price;
             edtDiscount.Text = dDicscount.ToString();
         }
-        void CalculateByDiscount()
+
+        private void CalculateByDiscount()
         {
             decimal dDicscount = 0;
             decimal Price = 0;
@@ -59,7 +55,8 @@ namespace bycar3.Views.Spare_Outgo
             Price = _Price - dDicscount;
             edtPrice.Text = Price.ToString();
         }
-        void CalculateSum()
+
+        private void CalculateSum()
         {
             decimal Q = 0;
             decimal P = 0;
@@ -80,9 +77,9 @@ namespace bycar3.Views.Spare_Outgo
             edtSum1.Text = S.ToString();
             edtTotal.Text = T.ToString();
         }
-        void CalculateSum2()
-        {
 
+        private void CalculateSum2()
+        {
             decimal Quantity = 0;
             decimal Discount = 0;
             decimal Price = 0;
@@ -95,9 +92,9 @@ namespace bycar3.Views.Spare_Outgo
             Total = Sum1 - Discount;
             edtSum1.Text = Sum1.ToString();
             edtTotal.Text = Total.ToString();
-
         }
-        bool CreateOutgo()
+
+        private bool CreateOutgo()
         {
             try
             {
@@ -119,7 +116,8 @@ namespace bycar3.Views.Spare_Outgo
             }
             return true;
         }
-        #endregion
+
+        #endregion CUSTOM FUNCTIONS
 
         // HANDLERS
         public SpareInOutgoEditView()
@@ -145,6 +143,7 @@ namespace bycar3.Views.Spare_Outgo
             if (!Calculating)
             {
                 Calculating = true;
+
                 //CalculateByPrice();
                 CalculateSum();
                 Calculating = false;
@@ -156,6 +155,7 @@ namespace bycar3.Views.Spare_Outgo
             if (!Calculating)
             {
                 Calculating = true;
+
                 //CalculateByDiscount();
                 CalculateSum();
                 Calculating = false;

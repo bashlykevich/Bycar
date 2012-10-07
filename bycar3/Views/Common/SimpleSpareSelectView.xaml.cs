@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
-using bycar3.External_Code;
 using bycar3.Core;
+using bycar3.External_Code;
 
 namespace bycar3.Views.Common
 {
@@ -25,14 +19,18 @@ namespace bycar3.Views.Common
         {
             InitializeComponent();
         }
-        void LoadSpares()
+
+        private void LoadSpares()
         {
             LoadSpares(null, "");
         }
+
         //public int SpareID = 0;
         public SpareView SV = null;
-        DataAccess da = new DataAccess();
-        void LoadSpares(int? searchFieldIndex, string searchString)
+
+        private DataAccess da = new DataAccess();
+
+        private void LoadSpares(int? searchFieldIndex, string searchString)
         {
             da = new DataAccess();
             List<SpareView> items = new List<SpareView>();
@@ -47,7 +45,7 @@ namespace bycar3.Views.Common
             dgSpares.DataContext = items;
         }
 
-        void SpareSearch()
+        private void SpareSearch()
         {
             if (edtSearchText != null)
             {
@@ -57,13 +55,13 @@ namespace bycar3.Views.Common
             }
         }
 
-        void SpareAdd()
+        private void SpareAdd()
         {
             Marvin.Instance.SpareCreate();
             LoadSpares();
         }
 
-        void SpareEdit()
+        private void SpareEdit()
         {
             if (dgSpares.SelectedItem == null)
                 return;
@@ -72,7 +70,7 @@ namespace bycar3.Views.Common
             LoadSpares();
         }
 
-        void SpareDelete()
+        private void SpareDelete()
         {
             int id = 0;
             SpareView b = null;
@@ -94,7 +92,8 @@ namespace bycar3.Views.Common
                 }
             }
         }
-        string GetSelectedSpareName()
+
+        private string GetSelectedSpareName()
         {
             string result = "";
             try
@@ -117,7 +116,7 @@ namespace bycar3.Views.Common
             return result;
         }
 
-        int GetSelectedSpareId()
+        private int GetSelectedSpareId()
         {
             int result = 0;
             try
@@ -139,10 +138,12 @@ namespace bycar3.Views.Common
             }
             return result;
         }
-        void ShowSelectedSpareName()
+
+        private void ShowSelectedSpareName()
         {
             edtOfferingName.Content = GetSelectedSpareName();
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadSpares();
@@ -170,7 +171,7 @@ namespace bycar3.Views.Common
 
         private void dgSpares_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(dgSpares.SelectedItem != null)
+            if (dgSpares.SelectedItem != null)
                 SV = dgSpares.SelectedItem as SpareView;
             Close();
         }
@@ -204,9 +205,10 @@ namespace bycar3.Views.Common
         {
             edtSearchText.Focus();
         }
+
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             SpareSearch();
-        } 
+        }
     }
 }

@@ -1,24 +1,28 @@
 ﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports" 
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
               FontFamily="Times New Roman"
               FontSize="13"
               FontWeight="Bold"
-              PageWidth="29.7cm" 
+              PageWidth="29.7cm"
               PageHeight="21cm" ColumnWidth="29cm">
     <Section Padding="35">
 
         <Paragraph FontWeight="Normal">
-            <xrd:InlineDocumentValue PropertyName="ReportDate1" /> - <xrd:InlineDocumentValue PropertyName="ReportDate2" />
+            <xrd:InlineDocumentValue PropertyName="ReportDate1" /> -
+            <xrd:InlineDocumentValue PropertyName="ReportDate2" />
         </Paragraph>
         <Paragraph>
-            ТОВАР: <xrd:InlineDocumentValue PropertyName="SpareName" />
+            ТОВАР:
+            <xrd:InlineDocumentValue PropertyName="SpareName" />
         </Paragraph>
         <Paragraph>
-            КОД: <xrd:InlineDocumentValue PropertyName="SpareCodeShatem" />
+            КОД:
+            <xrd:InlineDocumentValue PropertyName="SpareCodeShatem" />
         </Paragraph>
         <Paragraph>
-            КОД МАГАЗИНА: <xrd:InlineDocumentValue PropertyName="SpareCode" />
+            КОД МАГАЗИНА:
+            <xrd:InlineDocumentValue PropertyName="SpareCode" />
         </Paragraph>
 
         <!-- Таблица ТОВАРНЫЙ РАЗДЕЛ -->
@@ -27,15 +31,15 @@
                BorderThickness="0.01cm"
                CellSpacing="0">
                 <Table.Columns>
-                    <TableColumn Width="0.05*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="*"/>                    
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.15*"/>
-                    <TableColumn Width="0.2*"/>
+                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.2*" />
                 </Table.Columns>
                 <TableRowGroup>
                     <TableRow FontSize="10">
@@ -94,7 +98,7 @@
                             </Paragraph>
                         </TableCell>
                     </TableRow>
-                    <xrd:TableRowForDataTable 
+                    <xrd:TableRowForDataTable
                         FontWeight="Normal"
                         TableName="mtable">
                         <TableCell BorderBrush="Black"
@@ -136,19 +140,19 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="P"/>
+                                <xrd:InlineTableCellValue PropertyName="P" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="VAT"/>
+                                <xrd:InlineTableCellValue PropertyName="VAT" />
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-                                <xrd:InlineTableCellValue PropertyName="T"/>
+                                <xrd:InlineTableCellValue PropertyName="T" />
                             </Paragraph>
                         </TableCell>
                     </xrd:TableRowForDataTable>
@@ -177,19 +181,16 @@
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"
                                BorderThickness="0.01cm">
                             <Paragraph TextAlignment="Center">
-
                             </Paragraph>
                         </TableCell>
                         <TableCell BorderBrush="Black"

@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using bycar;
 using bycar3.External_Code;
 
@@ -27,7 +19,7 @@ namespace bycar3.Views.Spare_Income
 
         #region MEMBERS
 
-        DataAccess da = new DataAccess();
+        private DataAccess da = new DataAccess();
         public int _OfferingID = -1;
         public int _SpareID = -1;
         public string _SpareName = "";
@@ -35,16 +27,16 @@ namespace bycar3.Views.Spare_Income
         public int _OfferingNumber = 0;
         public string CurrentCurrencyCode = "";
         public bool IsSimpleInput = false;
-        bool EditMode = false;
+        private bool EditMode = false;
 
-        decimal sum = 0;
+        private decimal sum = 0;
 
-        #endregion
+        #endregion MEMBERS
 
         #region FUNCTONS
 
-        void LoadOffering()
-        {           
+        private void LoadOffering()
+        {
             if (_SpareName.Length > 20)
             {
                 _SpareName = _SpareName.Remove(20);
@@ -55,10 +47,12 @@ namespace bycar3.Views.Spare_Income
                 spare_in_spare_income i = da.InOfferingGet(_OfferingID);
                 i.spareReference.Load();
                 i.vat_rateReference.Load();
+
                 //edtMakeup.Text = ((int)i.Markup).ToString();
                 edtPrice.Text = i.PIn.ToString();
                 edtQ.Text = i.QIn.ToString();
                 Title = i.spare.name;
+
                 //edtVAT.SelectedItem = i.vat_rate.name;
                 decimal PriceFull = i.POut.Value;
                 edtPriceFull.Text = PriceFull.ToString();
@@ -68,32 +62,35 @@ namespace bycar3.Views.Spare_Income
             {
                 edtQ.Text = "0";
                 edtPriceFull.Text = "0";
+
                 //edtMakeup.Text = "0";
                 edtPrice.Text = "0";
                 Title = _SpareName;
             }
         }
 
-        void CalculateSum(int param)
+        private void CalculateSum(int param)
         {
             if (!EditMode)
             {
                 EditMode = true;
-                decimal quantity = 0;                
+                decimal quantity = 0;
                 decimal fullprice = 0;
                 decimal.TryParse(edtQ.Text, out quantity);
                 decimal.TryParse(edtPriceFull.Text, out fullprice);
-                // округляем до 50 рублей    
+
+                // округляем до 50 рублей
                 if (CurrentCurrencyCode.Contains("BYR"))
                 {
                     decimal tmpd = Math.Round(fullprice / 50, 0);
                     fullprice = tmpd * 50;
-                }                
+                }
                 switch (param)
                 {
                     case 0: // иземенено количество
-                        sum = quantity * fullprice;                        
+                        sum = quantity * fullprice;
                         break;
+
                     case 4: // иземенено отпускная цена
                         sum = quantity * fullprice;
                         break;
@@ -105,7 +102,7 @@ namespace bycar3.Views.Spare_Income
                 }
                 else
                 {
-                    sum = Math.Round(sum, 2);                    
+                    sum = Math.Round(sum, 2);
                 }
                 edtTotalSum.Text = sum.ToString();
                 edtPrice.Text = fullprice.ToString();
@@ -113,7 +110,7 @@ namespace bycar3.Views.Spare_Income
             }
         }
 
-        bool CreateItem()
+        private bool CreateItem()
         {
             spare_in_spare_income offering = getItemFromFields();
             string vat = "Без НДС";//edtVAT.SelectedItem.ToString();
@@ -127,7 +124,7 @@ namespace bycar3.Views.Spare_Income
                 return false;
         }
 
-        bool EditItem()
+        private bool EditItem()
         {
             spare_in_spare_income offering = getItemFromFields();
             string vat = "Без НДС";//edtVAT.SelectedItem.ToString();
@@ -142,7 +139,7 @@ namespace bycar3.Views.Spare_Income
                 return false;
         }
 
-        bool SaveItem()
+        private bool SaveItem()
         {
             if (this._OfferingID > 0)
             {
@@ -155,7 +152,7 @@ namespace bycar3.Views.Spare_Income
             }
         }
 
-        spare_in_spare_income getItemFromFields()
+        private spare_in_spare_income getItemFromFields()
         {
             spare_in_spare_income item = new spare_in_spare_income();
             try
@@ -168,7 +165,7 @@ namespace bycar3.Views.Spare_Income
                 decimal p = decimal.Parse(edtPriceFull.Text);
                 item.POut = p;
                 item.PIn = p;
-                item.QIn = decimal.Parse(edtQ.Text);                                
+                item.QIn = decimal.Parse(edtQ.Text);
                 item.S = sum;
                 item.QRest = item.QIn;
             }
@@ -180,8 +177,7 @@ namespace bycar3.Views.Spare_Income
             return item;
         }
 
-        #endregion
-
+        #endregion FUNCTONS
 
         private void edtQ_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -191,7 +187,7 @@ namespace bycar3.Views.Spare_Income
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadOffering();
-            edtQ.Focus();            
+            edtQ.Focus();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -205,9 +201,7 @@ namespace bycar3.Views.Spare_Income
             {
                 MessageBox.Show("Проверьте правильность заполнения полей!");
             }
-
         }
-
 
         private void edtPriceFull_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -216,9 +210,9 @@ namespace bycar3.Views.Spare_Income
         }
 
         private void edtPriceFull_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {            
+        {
             //CheckPriceFull();
-            CalculateSum(4);            
+            CalculateSum(4);
         }
 
         private void edtPriceFull_KeyDown(object sender, KeyEventArgs e)
@@ -226,7 +220,7 @@ namespace bycar3.Views.Spare_Income
             //CheckPriceFull();
             CalculateSum(4);
         }
-        
+
         private void edtQ_GotFocus(object sender, RoutedEventArgs e)
         {
             if (edtQ.Text == "0")
@@ -253,6 +247,6 @@ namespace bycar3.Views.Spare_Income
         {
             if (e.Key == Key.Enter)
                 btnOk.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        }        
+        }
     }
 }

@@ -1,135 +1,135 @@
 ﻿<UserControl x:Class="bycar3.Views.Main_window.UCMovements"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"             
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              MaxWidth="2200"
              Loaded="UserControl_Loaded"
-             Style="{DynamicResource ResourceKey=ShatemUserControl}"             
+             Style="{DynamicResource ResourceKey=ShatemUserControl}"
              mc:Ignorable="d">
-    <Grid Name="grMain">        
-            <TabControl                 
-                Name="tabControlSpareMovements" 
-                TabStripPlacement="Left" 
+    <Grid Name="grMain">
+        <TabControl
+                Name="tabControlSpareMovements"
+                TabStripPlacement="Left"
                 SelectionChanged="tabControlSpareMovements_SelectionChanged"
                 Margin="5">
-                <TabItem Name="tabControlSpareIncome"                         
+            <TabItem Name="tabControlSpareIncome"
                          Loaded="tabControlSpareIncome_Loaded">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\IconMovesIn.png" />
-                            <TextBlock Text="Поступление" Margin="2,0,0,0" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </TabItem.Header>                    
-                        <DataGrid 
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\IconMovesIn.png" />
+                        <TextBlock Text="Поступление" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <DataGrid
                                 Name="dgSpareMovementIn"
                                 SelectionMode="Extended"
                                 AutoGenerateColumns="False"
-                                IsReadOnly="True"                                           
-                                HorizontalGridLinesBrush="LightGray" 
+                                IsReadOnly="True"
+                                HorizontalGridLinesBrush="LightGray"
                                 VerticalGridLinesBrush="LightGray"
-                                MouseDoubleClick="dgSpareMovementIn_MouseDoubleClick"                                    
-                                ItemsSource="{Binding}"                                                                   
+                                MouseDoubleClick="dgSpareMovementIn_MouseDoubleClick"
+                                ItemsSource="{Binding}"
                                 CanUserReorderColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Path=IDN}" Header="Номер" Width="0.1*"/>
-                                <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
-                                <DataGridTextColumn Binding="{Binding Path=AccountName}" Header="Поставщик" Width="0.3*" />
-                                <DataGridTextColumn Binding="{Binding Path=CurrencyName}" Header="Валюта" Width="0.2*"/>
-                                <DataGridTextColumn Binding="{Binding Path=WarehouseName}" Header="Склад" Width="0.2*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>                    
-                </TabItem>
-                <TabItem
-                    Name="tabItemOfferingsOut"                           
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=IDN}" Header="Номер" Width="0.1*" />
+                        <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
+                        <DataGridTextColumn Binding="{Binding Path=AccountName}" Header="Поставщик" Width="0.3*" />
+                        <DataGridTextColumn Binding="{Binding Path=CurrencyName}" Header="Валюта" Width="0.2*" />
+                        <DataGridTextColumn Binding="{Binding Path=WarehouseName}" Header="Склад" Width="0.2*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem
+                    Name="tabItemOfferingsOut"
                          Loaded="tabItemOfferingsOut_Loaded">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\IconMovesOut.png" />
-                            <TextBlock Text="Отгрузка" Margin="2,0,0,0" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </TabItem.Header>                                                           
-                        <DataGrid 
-                            Name="dgSpareMovementOut" 
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Height="26" Width="30" Source="\Content\Icons\IconMovesOut.png" />
+                        <TextBlock Text="Отгрузка" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <DataGrid
+                            Name="dgSpareMovementOut"
                             SelectionMode="Extended"
-                            AutoGenerateColumns="False"        
-                            HorizontalGridLinesBrush="LightGray" 
+                            AutoGenerateColumns="False"
+                            HorizontalGridLinesBrush="LightGray"
                             VerticalGridLinesBrush="LightGray"
                             MouseDoubleClick="dgSpareMovementOut_MouseDoubleClick"
                                      MinHeight="600"
-                                  IsReadOnly="True"              
+                                  IsReadOnly="True"
                                   ItemsSource="{Binding}"
                                   CanUserReorderColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Path=IDN}" Header="Номер" Width="0.1*"/>
-                                <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
-                                <DataGridTextColumn Binding="{Binding Path=description}" Header="Примечания"  Width="0.3*" />
-                                <DataGridTextColumn Binding="{Binding Path=CurrencyName}" Header="Валюта" Width="0.2*"/>
-                                <DataGridTextColumn Binding="{Binding Path=TotalSum}" Header="Всего" Width="0.2*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>                    
-                </TabItem>
-                <TabItem Name="tabItemInvoices" 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=IDN}" Header="Номер" Width="0.1*" />
+                        <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
+                        <DataGridTextColumn Binding="{Binding Path=description}" Header="Примечания"  Width="0.3*" />
+                        <DataGridTextColumn Binding="{Binding Path=CurrencyName}" Header="Валюта" Width="0.2*" />
+                        <DataGridTextColumn Binding="{Binding Path=TotalSum}" Header="Всего" Width="0.2*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="tabItemInvoices"
                          Loaded="tabItemInvoices_Loaded">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Height="auto" Width="30" Source="\Content\Icons\invoices.png" />
-                            <TextBlock Text="Счёт-фактуры" Margin="2,0,0,0" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Grid Name="grInvoices">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="220"/>
-                        </Grid.RowDefinitions>
-                        <DataGrid
-                            Name="dgInvoices" 
-                            AutoGenerateColumns="False"        
-                            HorizontalGridLinesBrush="LightGray" 
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\invoices.png" />
+                        <TextBlock Text="Счёт-фактуры" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Name="grInvoices">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="220" />
+                    </Grid.RowDefinitions>
+                    <DataGrid
+                            Name="dgInvoices"
+                            AutoGenerateColumns="False"
+                            HorizontalGridLinesBrush="LightGray"
                             VerticalGridLinesBrush="LightGray"
                             MouseDoubleClick="dgInvoices_MouseDoubleClick"
                             MinHeight="600"
-                            IsReadOnly="True"              
+                            IsReadOnly="True"
                             ItemsSource="{Binding}"
                             CanUserReorderColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Path=InvoiceNumber}" Header="Номер" Width="0.1*"/>
-                                <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
-                                <DataGridTextColumn Binding="{Binding Path=AccountName}" Header="Покупатель"  Width="0.3*" />
-                                <DataGridTextColumn Binding="{Binding Path=InvoiceSum}" Header="Сумма" Width="0.2*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                </TabItem>           
-                <TabItem 
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=InvoiceNumber}" Header="Номер" Width="0.1*" />
+                            <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.2*" />
+                            <DataGridTextColumn Binding="{Binding Path=AccountName}" Header="Покупатель"  Width="0.3*" />
+                            <DataGridTextColumn Binding="{Binding Path=InvoiceSum}" Header="Сумма" Width="0.2*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem
                     IsEnabled="True"
-                    Name="tabItemOverpricing" 
+                    Name="tabItemOverpricing"
                          Loaded="tabItemOverpricing_Loaded">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Height="auto" Width="30" Source="\Content\Icons\overpricing.png" />
-                            <TextBlock Text="Переоценка" Margin="2,0,0,0" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </TabItem.Header>                    
-                        <DataGrid 
-                            Name="dgOverpricing" 
-                            AutoGenerateColumns="False"        
-                            HorizontalGridLinesBrush="LightGray" 
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="auto" Width="30" Source="\Content\Icons\overpricing.png" />
+                        <TextBlock Text="Переоценка" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <DataGrid
+                            Name="dgOverpricing"
+                            AutoGenerateColumns="False"
+                            HorizontalGridLinesBrush="LightGray"
                             VerticalGridLinesBrush="LightGray"
                             MouseDoubleClick="dgOverpricing_MouseDoubleClick"
                             MinHeight="600"
-                            IsReadOnly="True"              
+                            IsReadOnly="True"
                             ItemsSource="{Binding}"
                             CanUserReorderColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Path=num}" Header="Номер" Width="0.35*"/>
-                                <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.35*" />
-                                <DataGridCheckBoxColumn Binding="{Binding Path=commited}" Header="Проведено?"  Width="0.3*" />                                
-                            </DataGrid.Columns>
-                        </DataGrid>                   
-                </TabItem>
-                <TabItem
-                    Name="tabItemSales"                           
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=num}" Header="Номер" Width="0.35*" />
+                        <DataGridTextColumn Binding="{Binding Path=DateString}" Header="Дата" Width="0.35*" />
+                        <DataGridCheckBoxColumn Binding="{Binding Path=commited}" Header="Проведено?"  Width="0.3*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem
+                    Name="tabItemSales"
                          Loaded="tabItemSales_Loaded">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -137,24 +137,24 @@
                         <TextBlock Text="Корзины" Margin="2,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Header>
-                <DataGrid 
-                            Name="dgSales" 
+                <DataGrid
+                            Name="dgSales"
                             SelectionMode="Extended"
-                            AutoGenerateColumns="False"        
-                            HorizontalGridLinesBrush="LightGray" 
+                            AutoGenerateColumns="False"
+                            HorizontalGridLinesBrush="LightGray"
                             VerticalGridLinesBrush="LightGray"
                             MouseDoubleClick="dgSales_MouseDoubleClick"
                                      MinHeight="600"
-                                  IsReadOnly="True"              
+                                  IsReadOnly="True"
                                   ItemsSource="{Binding}"
                                   CanUserReorderColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=Number}" Header="Номер" Width="0.2*"/>
+                        <DataGridTextColumn Binding="{Binding Path=Number}" Header="Номер" Width="0.2*" />
                         <DataGridTextColumn Binding="{Binding Path=SaleDate}" Header="Дата" Width="0.35*" />
                         <DataGridTextColumn Binding="{Binding Path=Pusd}" Header="Сумма, $"  Width="0.45*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-        </TabControl>        
+        </TabControl>
     </Grid>
 </UserControl>
