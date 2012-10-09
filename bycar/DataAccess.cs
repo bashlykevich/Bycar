@@ -4173,7 +4173,7 @@ namespace bycar
         public void OutOfferingDelete(int offeringId)
         {
             objDataContext = new DriveEntities();
-            spare_in_spare_outgo offering = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.id == offeringId);
+            spare_in_spare_outgo offering = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.id == offeringId);            
             if (offering == null)
                 return;
             // delete linked basket item
@@ -4189,10 +4189,11 @@ namespace bycar
                 //objDataContext.SaveChanges();
             }
 
-            //if(offering.spare_in_spare_income == null)
-            if (offering.spare_in_spare_incomeReference.Value != null)
-            {
+            if(offering.spare_in_spare_income == null)
                 offering.spare_in_spare_incomeReference.Load();
+            if (offering.spare_in_spare_income != null)
+            {
+                
                 spare_in_spare_income sin = objDataContext.spare_in_spare_income.FirstOrDefault(s => s.id == offering.spare_in_spare_income.id);
                 offering.spare_outgoReference.Load();
                 spare_outgo outgo = objDataContext.spare_outgo.FirstOrDefault(i => i.id == offering.spare_outgo.id);

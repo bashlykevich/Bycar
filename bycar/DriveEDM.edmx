@@ -862,7 +862,7 @@
           <Property Name="description" Type="varchar" MaxLength="500" />
           <Property Name="QIn" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="PIn" Type="decimal" Scale="2" />
-          <Property Name="PInBasic" Type="decimal" Scale="2" />
+          <Property Name="PInBasic" Type="decimal" Scale="8" />
           <Property Name="VatRateID" Type="int" />
           <Property Name="Markup" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="SpareIncomeID" Type="int" />
@@ -870,7 +870,7 @@
           <Property Name="S" Type="decimal" Scale="2" />
           <Property Name="SBasic" Type="decimal" Scale="2" />
           <Property Name="POut" Type="decimal" Scale="2" />
-          <Property Name="POutBasic" Type="decimal" Scale="2" />
+          <Property Name="POutBasic" Type="decimal" Scale="8" />
           <Property Name="QRest" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="spare_in_spare_outgo">
@@ -888,7 +888,7 @@
           <Property Name="total_sum" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="spare_outgo_id" Type="int" Nullable="false" />
           <Property Name="spare_in_spare_income_id" Type="int" />
-          <Property Name="basic_price" Type="decimal" Scale="2" />
+          <Property Name="basic_price" Type="decimal" Scale="8" />
           <Property Name="discount" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="spare_income">
@@ -3046,13 +3046,13 @@
           <Property Type="String" Name="description" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="QIn" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Decimal" Name="PIn" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="PInBasic" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PInBasic" Precision="18" Scale="8" />
           <Property Type="Decimal" Name="Markup" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Int32" Name="CurrencyID" />
           <Property Type="Decimal" Name="S" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="SBasic" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="POut" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="POutBasic" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="POutBasic" Precision="18" Scale="8" />
           <Property Type="Decimal" Name="QRest" Precision="10" Scale="2" />
           <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_income_spare" FromRole="spare_in_spare_income" ToRole="spare" />
           <NavigationProperty Name="spare_in_invoice" Relationship="bycar3Model.FK_spare_in_invoice_spare_in_spare_income" FromRole="spare_in_spare_income" ToRole="spare_in_invoice" />
@@ -3072,7 +3072,7 @@
           <Property Type="Decimal" Name="purchase_price" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="markup_percentage" Precision="10" Scale="0" />
           <Property Type="Decimal" Name="total_sum" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="basic_price" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="basic_price" Precision="18" Scale="8" />
           <Property Type="Decimal" Name="discount" Precision="18" Scale="2" />
           <NavigationProperty Name="spare" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare" FromRole="spare_in_spare_outgo" ToRole="spare" />
           <NavigationProperty Name="spare_in_spare_income" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" FromRole="spare_in_spare_outgo" ToRole="spare_in_spare_income" />
@@ -4361,8 +4361,8 @@
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_client_car_mark" >
           <ConnectorPoint PointX="11.5" PointY="5.075" />
-          <ConnectorPoint PointX="11.666666666666666" PointY="5.0749999999999993" />
-          <ConnectorPoint PointX="11.833333333333334" PointY="5.075" />
+          <ConnectorPoint PointX="11.791666666666666" PointY="5.0749999999999993" />
+          <ConnectorPoint PointX="11.958333333333334" PointY="5.075" />
           <ConnectorPoint PointX="12.25" PointY="5.075" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_currency_rate_currency" >
@@ -4381,38 +4381,36 @@
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_outgo_currency" >
           <ConnectorPoint PointX="4.90625" PointY="8.75" />
-          <ConnectorPoint PointX="4.90625" PointY="6.53125" />
-          <ConnectorPoint PointX="6.666666666666667" PointY="6.5312499999999991" />
-          <ConnectorPoint PointX="6.833333333333333" PointY="6.53125" />
-          <ConnectorPoint PointX="8.0579231770833335" PointY="6.5312499999999991" />
-          <ConnectorPoint PointX="8.2245898437500014" PointY="6.53125" />
-          <ConnectorPoint PointX="8.25" PointY="6.53125" />
+          <ConnectorPoint PointX="4.90625" PointY="6.5862557552083274" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="6.5862557552083265" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="6.5862557552083274" />
+          <ConnectorPoint PointX="8.25" PointY="6.5862557552083274" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_invoice" >
           <ConnectorPoint PointX="4.5" PointY="6.75" />
           <ConnectorPoint PointX="5" PointY="6.25" />
           <ConnectorPoint PointX="5" PointY="2.0348451538461525" />
+          <ConnectorPoint PointX="5.0348244349011209" PointY="2.0000207189450312" />
+          <ConnectorPoint PointX="5.1526755650988791" PointY="1.8821695887472736" />
           <ConnectorPoint PointX="5.2598451538461539" PointY="1.7749999999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_overpricing" >
           <ConnectorPoint PointX="4.5" PointY="1.7746913076923081" />
           <ConnectorPoint PointX="4.8785744349011217" PointY="2.1496913076923079" />
           <ConnectorPoint PointX="4.8785744349011217" PointY="3.00357443490112" />
-          <ConnectorPoint PointX="4.9410744349011217" PointY="3.0660744349011191" />
-          <ConnectorPoint PointX="5.1526755650988783" PointY="3.2776755650988783" />
+          <ConnectorPoint PointX="4.9410744349011217" PointY="3.0660744349011195" />
+          <ConnectorPoint PointX="5.0589255650988791" PointY="3.1839255650988783" />
           <ConnectorPoint PointX="5.25" PointY="3.375" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_revision_revision" >
           <ConnectorPoint PointX="6.75" PointY="7.375" />
-          <ConnectorPoint PointX="6.75" PointY="6.2749999999999986" />
-          <ConnectorPoint PointX="7" PointY="6.2749999999999986" />
-          <ConnectorPoint PointX="7" PointY="3.5749999999999993" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="3.5749999999999988" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="3.5749999999999993" />
-          <ConnectorPoint PointX="8.25" PointY="3.5749999999999993" />
+          <ConnectorPoint PointX="6.75" PointY="6.3999999999999986" />
+          <ConnectorPoint PointX="7" PointY="6.3999999999999986" />
+          <ConnectorPoint PointX="7" PointY="3.6250019999999932" />
+          <ConnectorPoint PointX="8.25" PointY="3.6250019999999932" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_analogue_spare" >
-          <ConnectorPoint PointX="4.5" PointY="3.5749999999999993" />
+          <ConnectorPoint PointX="4.5" PointY="3.6636153846153836" />
           <ConnectorPoint PointX="4.875" PointY="4.1429220769230755" />
           <ConnectorPoint PointX="4.875" PointY="5.2432317692307695" />
           <ConnectorPoint PointX="4.9410744349011217" PointY="5.30930620413189" />
@@ -4420,9 +4418,9 @@
           <ConnectorPoint PointX="5.2567682307692305" PointY="5.625" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_analogue_spare1" >
-          <ConnectorPoint PointX="4.5" PointY="3.486384615384615" />
-          <ConnectorPoint PointX="4.9517762324548071" PointY="4.1230806111380192" />
-          <ConnectorPoint PointX="5.0482237675451938" PointY="4.2590057771403691" />
+          <ConnectorPoint PointX="4.5" PointY="3.5749999999999993" />
+          <ConnectorPoint PointX="4.9485537914767086" PointY="4.146585005056922" />
+          <ConnectorPoint PointX="5.0514462085232923" PointY="4.2776991854192676" />
           <ConnectorPoint PointX="5.15625" PointY="4.4112489999999989" />
           <ConnectorPoint PointX="5.15625" PointY="5.5377115384615383" />
           <ConnectorPoint PointX="5.25" PointY="5.6314615384615383" />
@@ -4431,23 +4429,23 @@
           <ConnectorPoint PointX="4.4901538461538468" PointY="3.375" />
           <ConnectorPoint PointX="4.7848244349011209" PointY="3.0803294112527255" />
           <ConnectorPoint PointX="4.9026755650988791" PointY="2.9624782810549677" />
-          <ConnectorPoint PointX="4.94107443490112" PointY="2.9240794112527251" />
-          <ConnectorPoint PointX="5.1526755650988791" PointY="2.7124782810549677" />
+          <ConnectorPoint PointX="4.9410744349011209" PointY="2.9240794112527255" />
+          <ConnectorPoint PointX="5.0589255650988791" PointY="2.8062282810549677" />
           <ConnectorPoint PointX="5.15625" PointY="2.7089038461538468" />
           <ConnectorPoint PointX="5.15625" PointY="1.8589038461538445" />
           <ConnectorPoint PointX="5.25" PointY="1.7651538461538445" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_spare" >
           <ConnectorPoint PointX="4.5" PointY="3.574845153846153" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="3.5748451538461521" />
-          <ConnectorPoint PointX="5.177083333333333" PointY="3.574845153846153" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.5748451538461525" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.574845153846153" />
           <ConnectorPoint PointX="5.25" PointY="3.574845153846153" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_revision_spare" >
           <ConnectorPoint PointX="4.5" PointY="3.7746913076923065" />
           <ConnectorPoint PointX="4.8753086923076925" PointY="4.1499999999999986" />
-          <ConnectorPoint PointX="4.8875439146157831" PointY="4.1499999999999977" />
-          <ConnectorPoint PointX="5.1770833333333321" PointY="4.1499999999999986" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="4.1499999999999977" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="4.1499999999999986" />
           <ConnectorPoint PointX="6.916666666666667" PointY="4.1499999999999977" />
           <ConnectorPoint PointX="7.083333333333333" PointY="4.1499999999999986" />
           <ConnectorPoint PointX="7.875" PointY="4.1499999999999986" />
@@ -4490,19 +4488,23 @@
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_unit" >
           <ConnectorPoint PointX="2.25" PointY="3.3946913076923075" />
           <ConnectorPoint PointX="2.4884413076923071" PointY="3.15625" />
+          <ConnectorPoint PointX="2.6902810267462418" PointY="3.1562499999999996" />
+          <ConnectorPoint PointX="2.8569476934129088" PointY="3.15625" />
+          <ConnectorPoint PointX="3.7445103525383576" PointY="3.1562499999999996" />
+          <ConnectorPoint PointX="3.9111770192050246" PointY="3.15625" />
           <ConnectorPoint PointX="4.6255705128205138" PointY="3.1562499999999982" />
-          <ConnectorPoint PointX="5.177083333333333" PointY="3.15625" />
+          <ConnectorPoint PointX="5.1145833333333348" PointY="3.15625" />
           <ConnectorPoint PointX="6.0346361153846146" PointY="3.15625" />
           <ConnectorPoint PointX="6.0346361153846146" PointY="1.7749999999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_invoice_vat_rate" >
-          <ConnectorPoint PointX="3.5141538461538464" PointY="4.875" />
-          <ConnectorPoint PointX="3.6721563141283085" PointY="4.8146240097601076" />
-          <ConnectorPoint PointX="3.8278436858716911" PointY="4.7551326653693859" />
-          <ConnectorPoint PointX="4.7971563141283085" PointY="4.3847383890440028" />
-          <ConnectorPoint PointX="5.0778436858716915" PointY="4.2774819756848252" />
-          <ConnectorPoint PointX="5.09375" PointY="4.2714038461538451" />
-          <ConnectorPoint PointX="5.09375" PointY="1.9312499999999986" />
+          <ConnectorPoint PointX="3" PointY="4.875" />
+          <ConnectorPoint PointX="3.8278436858716911" PointY="4.875" />
+          <ConnectorPoint PointX="3.8278436858716911" PointY="1.9312499999999986" />
+          <ConnectorPoint PointX="4.4923268575737607" PointY="1.8582443152190769" />
+          <ConnectorPoint PointX="4.657996618883355" PointY="1.840042448133538" />
+          <ConnectorPoint PointX="5.0109151193452028" PointY="1.8012678667817237" />
+          <ConnectorPoint PointX="5.1765848806547972" PointY="1.7830659996961848" />
           <ConnectorPoint PointX="5.25" PointY="1.7749999999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_income_warehouse" >
@@ -4535,26 +4537,26 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="bycar3Model.settings_profile" Width="1.5" PointX="14.75" PointY="4.75" Height="0.39999999999999858" IsExpanded="false" />
         <EntityTypeShape EntityType="bycar3Model.SpareInSpareOutgoView" Width="1.5" PointX="8.375" PointY="14.75" Height="5.8263151041666674" />
-        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_income" Width="1.5" PointX="8.25" PointY="1.75" Height="4.6725065104166674" />
-        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_outgo" Width="1.5" PointX="10.5" PointY="0.75" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_income" Width="2.125" PointX="8.25" PointY="1.75" Height="4.6725065104166674" />
+        <EntityTypeShape EntityType="bycar3Model.spare_in_spare_outgo" Width="3.125" PointX="10.5" PointY="0.75" Height="3.5186979166666674" />
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare" >
-          <ConnectorPoint PointX="4.5" PointY="3.54359365384616" />
-          <ConnectorPoint PointX="4.84375" PointY="3.54359365384616" />
+          <ConnectorPoint PointX="4.5" PointY="3.5846913076923128" />
+          <ConnectorPoint PointX="4.84375" PointY="3.5846913076923128" />
           <ConnectorPoint PointX="4.84375" PointY="2.4968749999999993" />
-          <ConnectorPoint PointX="4.854166666666667" PointY="2.496874999999998" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="2.496874999999998" />
           <ConnectorPoint PointX="5.239583333333333" PointY="2.4968749999999993" />
           <ConnectorPoint PointX="5.9513027820512816" PointY="2.4968749999999988" />
           <ConnectorPoint PointX="6.1179694487179477" PointY="2.4968749999999993" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="2.4968749999999988" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="2.4968749999999993" />
           <ConnectorPoint PointX="8.25" PointY="2.4968749999999993" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare" >
           <ConnectorPoint PointX="4.5" PointY="3.3946913076923071" />
           <ConnectorPoint PointX="4.7848244349011209" PointY="3.1098668727911858" />
           <ConnectorPoint PointX="4.9026755650988791" PointY="2.992015742593428" />
-          <ConnectorPoint PointX="4.9375" PointY="2.9571913076923071" />
-          <ConnectorPoint PointX="4.9375" PointY="0.375" />
+          <ConnectorPoint PointX="4.9410744349011209" PointY="2.9536168727911858" />
+          <ConnectorPoint PointX="5.0589255650988791" PointY="2.835765742593428" />
+          <ConnectorPoint PointX="5.09375" PointY="2.8009413076923071" />
+          <ConnectorPoint PointX="5.09375" PointY="0.375" />
           <ConnectorPoint PointX="10.125" PointY="0.375" />
           <ConnectorPoint PointX="10.5" PointY="0.75" />
         </AssociationConnector>
@@ -4566,47 +4568,46 @@
           <ConnectorPoint PointX="6.75" PointY="1.7746913076923063" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_overpricing_spare_in_spare_income" >
-          <ConnectorPoint PointX="8.25" PointY="3.4125" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="3.4124999999999996" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="3.4125" />
-          <ConnectorPoint PointX="6.75" PointY="3.4125" />
+          <ConnectorPoint PointX="8.25" PointY="3.437500999999997" />
+          <ConnectorPoint PointX="6.75" PointY="3.437500999999997" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_spare_income" >
-          <ConnectorPoint PointX="7.5" PointY="9.375" />
-          <ConnectorPoint PointX="7.875" PointY="9" />
-          <ConnectorPoint PointX="7.875" PointY="6.7975065104166674" />
-          <ConnectorPoint PointX="8.25" PointY="6.4225065104166674" />
+          <ConnectorPoint PointX="7.5" PointY="9.53125" />
+          <ConnectorPoint PointX="10.34375" PointY="9.53125" />
+          <ConnectorPoint PointX="10.34375" PointY="6.4225065104166674" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_income_vat_rate" >
           <ConnectorPoint PointX="3.75" PointY="5.2749999999999986" />
-          <ConnectorPoint PointX="3.75" PointY="6.1812499999999986" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="6.1812499999999977" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="6.1812499999999986" />
-          <ConnectorPoint PointX="8.25" PointY="6.1812499999999986" />
+          <ConnectorPoint PointX="3.75" PointY="6.2437499999999986" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.2437499999999977" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.2437499999999986" />
+          <ConnectorPoint PointX="8.25" PointY="6.2437499999999986" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_in_spare_income" >
-          <ConnectorPoint PointX="9.75" PointY="3.0093489583333337" />
-          <ConnectorPoint PointX="10.5" PointY="3.0093489583333337" />
+          <ConnectorPoint PointX="10.375" PointY="3.1366861979166671" />
+          <ConnectorPoint PointX="10.5" PointY="3.1366861979166671" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_spare_outgo" >
           <ConnectorPoint PointX="9.75" PointY="6.5749999999999993" />
-          <ConnectorPoint PointX="11.75" PointY="6.5749999999999993" />
-          <ConnectorPoint PointX="11.75" PointY="4.6436979166666674" />
-          <ConnectorPoint PointX="11.25" PointY="4.6436979166666674" />
-          <ConnectorPoint PointX="11.25" PointY="4.2686979166666674" />
+          <ConnectorPoint PointX="10.260416666666666" PointY="6.5749999999999984" />
+          <ConnectorPoint PointX="10.427083333333334" PointY="6.5749999999999993" />
+          <ConnectorPoint PointX="11.875" PointY="6.5749999999999993" />
+          <ConnectorPoint PointX="11.875" PointY="4.2686979166666674" />
         </AssociationConnector>
         <AssociationConnector Association="bycar3Model.FK_spare_in_spare_outgo_vat_rate" >
           <ConnectorPoint PointX="3.75" PointY="4.875" />
-          <ConnectorPoint PointX="3.75" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="4.66697535897436" PointY="4.0249999999999968" />
-          <ConnectorPoint PointX="5.1770833333333339" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="4.0249999999999977" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="8" PointY="4.0249999999999986" />
-          <ConnectorPoint PointX="8" PointY="1.5" />
-          <ConnectorPoint PointX="10.125" PointY="1.5" />
-          <ConnectorPoint PointX="10.125" PointY="1.8796744791666669" />
-          <ConnectorPoint PointX="10.5" PointY="1.8796744791666669" />
+          <ConnectorPoint PointX="3.75" PointY="3.8374999999999986" />
+          <ConnectorPoint PointX="4.4794753589743594" PointY="3.8374999999999977" />
+          <ConnectorPoint PointX="4.7893313375162974" PointY="3.8374999999999986" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="3.8374999999999981" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="3.8374999999999986" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="3.8374999999999981" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="3.8374999999999986" />
+          <ConnectorPoint PointX="8.1875" PointY="3.8374999999999986" />
+          <ConnectorPoint PointX="8.1875" PointY="1.6875" />
+          <ConnectorPoint PointX="10.40625" PointY="1.6875" />
+          <ConnectorPoint PointX="10.40625" PointY="1.9433430989583336" />
+          <ConnectorPoint PointX="10.5" PointY="1.9433430989583336" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -287,7 +287,8 @@ namespace bycar3.Views.Spare_Income
                 {
                     edtAccount.SelectedItem = item.account.name;
                 }
-                edtWarehouse.SelectedItem = item.warehouse.name;
+                if(item.warehouse != null)
+                    edtWarehouse.SelectedItem = item.warehouse.name;
                 edtCurrency.SelectedItem = item.currency.code;
                 edtBasedOnDate.SelectedDate = item.base_doc_date.HasValue ? item.base_doc_date.Value : DateTime.Now;
                 edtBasedOnDoc.Text = item.base_doc;
