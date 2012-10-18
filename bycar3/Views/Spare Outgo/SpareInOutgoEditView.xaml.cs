@@ -21,7 +21,7 @@ namespace bycar3.Views.Spare_Outgo
         public int _SpareOutgoID = -1;
         public string CurrentCurrencyCode = "";
         private bool Calculating = false;
-        public SpareInOutgoSelectView ParentWindow = null;
+        public SpareInOutgoSelectView ParentWindow = null;     
 
         #endregion DATA MEMBERS
 
@@ -42,7 +42,7 @@ namespace bycar3.Views.Spare_Outgo
         {
             decimal dDicscount = 0;
             decimal Price = 0;
-            decimal.TryParse(edtPrice.Text, out Price);
+            Price = System.Xml.XmlConvert.ToDecimal(edtPrice.Text);
             dDicscount = _Price - Price;
             edtDiscount.Text = dDicscount.ToString();
         }
@@ -51,11 +51,21 @@ namespace bycar3.Views.Spare_Outgo
         {
             decimal dDicscount = 0;
             decimal Price = 0;
-            decimal.TryParse(edtDiscount.Text, out dDicscount);
+            dDicscount = System.Xml.XmlConvert.ToDecimal(edtDiscount.Text);  
             Price = _Price - dDicscount;
             edtPrice.Text = Price.ToString();
         }
 
+        void CheckField(TextBox edt)
+        {
+            if (System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator == ".")
+                if (edt.Text.Contains(","))
+                    edt.Text = edt.Text.Replace(",", ".");
+                else
+                    if (System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator == ",")
+                        if (edt.Text.Contains("."))
+                            edt.Text = edt.Text.Replace(".", ",");
+        }
         private void CalculateSum()
         {
             decimal Q = 0;
@@ -64,14 +74,23 @@ namespace bycar3.Views.Spare_Outgo
             decimal D = 0;
             decimal T = 0;
 
-            decimal.TryParse(edtQuantity.Text, out Q);
+            CheckField(edtQuantity);
+            CheckField(edtDiscount);
+            CheckField(edtPrice);
+            
+            if(decimal.TryParse(edtQuantity.Text, out Q))
+                Q = System.Xml.XmlConvert.ToDecimal(edtQuantity.Text);
+            
+            if (decimal.TryParse(edtPrice.Text, out P))
+                P = System.Xml.XmlConvert.ToDecimal(edtPrice.Text);
+            if (decimal.TryParse(edtDiscount.Text, out D))
+                D = System.Xml.XmlConvert.ToDecimal(edtDiscount.Text);  
             if (Q > _AvailableQuantity)
             {
                 Q = _AvailableQuantity;
                 edtQuantity.Text = Q.ToString();
             }
-            decimal.TryParse(edtPrice.Text, out P);
-            decimal.TryParse(edtDiscount.Text, out D);
+                     
             S = Q * P;
             T = S - D;
             edtSum1.Text = S.ToString();
@@ -85,9 +104,11 @@ namespace bycar3.Views.Spare_Outgo
             decimal Price = 0;
             decimal Total = 0;
             decimal Sum1 = 0;
-            decimal.TryParse(edtQuantity.Text, out Quantity);
-            decimal.TryParse(edtPrice.Text, out Price);
-            decimal.TryParse(edtDiscount.Text, out Discount);
+            
+            Quantity = System.Xml.XmlConvert.ToDecimal(edtQuantity.Text);
+            
+            Price = System.Xml.XmlConvert.ToDecimal(edtPrice.Text);
+            Discount = System.Xml.XmlConvert.ToDecimal(edtDiscount.Text); 
             Sum1 = Quantity * Price;
             Total = Sum1 - Discount;
             edtSum1.Text = Sum1.ToString();
@@ -99,13 +120,13 @@ namespace bycar3.Views.Spare_Outgo
             try
             {
                 decimal quantity = _AvailableQuantity + 1;
-                decimal.TryParse(edtQuantity.Text, out quantity);
+                quantity = System.Xml.XmlConvert.ToDecimal(edtQuantity.Text);                
                 if (quantity > _AvailableQuantity || quantity <= 0)
                     return false;
                 DataAccess da = new DataAccess();
                 decimal Price = decimal.Parse(edtPrice.Text);
                 decimal Discount = 0;
-                decimal.TryParse(edtDiscount.Text, out Discount);
+                Discount = System.Xml.XmlConvert.ToDecimal(edtDiscount.Text);
                 decimal BasicPrice = CurrencyHelper.GetBasicPrice(CurrentCurrencyCode, Price);
                 _SpareID = da.SpareInSpareOutgoCreate(_SpareInSpareIncomeID, quantity, _SpareOutgoID, Price, BasicPrice, Discount, 0);
                 SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
