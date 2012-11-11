@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              MaxWidth="2200"
-             Loaded="UserControl_Loaded"
+             Loaded="UserControl_Loaded"             
              Style="{DynamicResource ResourceKey=ShatemUserControl}"
              mc:Ignorable="d">
     <Grid Name="grMain">

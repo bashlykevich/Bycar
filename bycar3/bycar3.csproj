@@ -358,6 +358,7 @@
     <Compile Include="Views\Warehouse\WarehousesView.xaml.cs">
       <DependentUpon>WarehousesView.xaml</DependentUpon>
     </Compile>
+    <Resource Include="todo.txt" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

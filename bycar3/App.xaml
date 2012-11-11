@@ -3,37 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Startup="OnStartUp">
     <Application.Resources>
-        <Style TargetType="Window" x:Key="ShatemStyleKey">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+        <Style TargetType="Window" x:Key="ShatemStyleKey">        
         </Style>
-        <Style TargetType="Window" x:Key="ShatemWindow">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+        <Style TargetType="Window" x:Key="ShatemWindow">         
         </Style>
-        <Style TargetType="UserControl" x:Key="ShatemUserControl">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+        <Style TargetType="UserControl" x:Key="ShatemUserControl">            
         </Style>
         <Style TargetType="Button"
-               x:Key="ShatemButton">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+               x:Key="ShatemButton">            
             <Setter Property="Width" Value="140" />
             <Setter Property="Margin" Value="2,0,2,0" />
         </Style>
         <Style TargetType="ToggleButton"
-               x:Key="ShatemToggleButton">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+               x:Key="ShatemToggleButton">            
             <Setter Property="Width" Value="140" />
             <Setter Property="Margin" Value="2,0,2,0" />
         </Style>
 
         <Style TargetType="TextBox"
-               x:Key="ShatemTextBox">
-            <Setter Property="Background" Value="Aqua" />
+               x:Key="ShatemTextBox">            
             <Setter Property="Margin" Value="0" />
             <Setter Property="Height" Value="22" />
         </Style>
-        <Style TargetType="Grid"
-               x:Key="ShatemGrid">
-            <Setter Property="Background" Value="#FFAFCBF2" />
+        <Style TargetType="Grid" x:Key="ShatemGrid">            
         </Style>
         <Style TargetType="Menu"
                x:Key="MainMenuStyle">

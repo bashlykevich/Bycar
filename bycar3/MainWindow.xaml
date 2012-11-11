@@ -7,14 +7,13 @@
         xmlns:bycar="clr-namespace:bycar3.Views.Main_window"
         Title="IMBS: АРМ &quot;Драйв&quot;"
         WindowState="Maximized"
-        KeyDown="Window_KeyDown"
+        KeyDown="Window_KeyDown"      
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         MinHeight="700"
         Loaded="Window_Loaded"
         Closing="Window_Closing"
         MinWidth="800" mc:Ignorable="d">
-    <Grid
-        Background="#FFAFCBF2">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name="rdMenu"
                            Height="30" />
@@ -162,8 +161,7 @@
             </MenuItem>
         </Menu>
         <StackPanel Name="mToolBarTray"
-                    Orientation="Horizontal"
-                    Background="#FFAFCBF2"
+                    Orientation="Horizontal"                    
                     HorizontalAlignment="Stretch"
                     Margin="4"
                     Grid.Row="1">
@@ -334,14 +332,12 @@
                 </ToggleButton.Content>
             </ToggleButton>
         </StackPanel>
-        <Grid Name="mMainGrid"
-                      Background="#FFAFCBF2"
+        <Grid Name="mMainGrid"                      
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               Grid.Row="2">
         </Grid>
-        <StatusBar Name="mStatusBar"
-                   Background="#FFAFCBF2"
+        <StatusBar Name="mStatusBar"                   
                    Grid.Row="3">
             <StatusBarItem>
                 <Label Name="lbSparesQ" HorizontalAlignment="Stretch" />
