@@ -605,7 +605,7 @@ namespace bycar3.Views.Main_window
             {
                 foreach (TreeViewItem item in root.Items)
                 {
-                    if (item.Header == ItemHeader)
+                    if ((string)item.Header == ItemHeader)
                     {
                         root.Items.Remove(item);
                         return true;

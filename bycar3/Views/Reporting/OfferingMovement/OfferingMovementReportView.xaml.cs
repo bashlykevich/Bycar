@@ -78,6 +78,7 @@ namespace bycar3.Views.Reporting.OfferingMovement
                 dt.Columns.Add("Sum", typeof(string));
                 dt.Columns.Add("MarkupBasic", typeof(string));
                 dt.Columns.Add("VATBasic", typeof(string));
+                dt.Columns.Add("PriceOut", typeof(string));
                 dt.Columns.Add("Amount", typeof(string));
 
                 // забиваем таблицу данными
@@ -96,6 +97,7 @@ namespace bycar3.Views.Reporting.OfferingMovement
                         decimal T = list[i].S.Value;
                         decimal MS = S * M / 100;
                         decimal VS = S * V / 100;
+                        decimal PriceOut = T / Q;
 
                         _MS += MS;
                         _VS += VS;
@@ -116,6 +118,7 @@ namespace bycar3.Views.Reporting.OfferingMovement
                             S.ToString ("0.##"),
                             MS.ToString ("0.##"),
                             VS.ToString ("0.##"),
+                            PriceOut.ToString ("0.##"),
                             T.ToString ("0.##")
                              });
                     }

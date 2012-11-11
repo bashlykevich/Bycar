@@ -357,8 +357,8 @@ namespace bycar3.Views.Main_window
 
         private void EditRevision()
         {
-            int id = 0;
-            revision b = null;
+            //int id = 0;
+            //revision b = null;
             /*DataGrid dataGrid = dgRevision;
             if (dataGrid.SelectedItem != null)
             {
@@ -484,8 +484,8 @@ namespace bycar3.Views.Main_window
 
         private void DeleteRevision()
         {
-            int id = 0;
-            revision b = null;
+            //int id = 0;
+            //revision b = null;
             /*DataGrid dataGrid = dgRevision;
             if (dataGrid.SelectedItem != null)
             {

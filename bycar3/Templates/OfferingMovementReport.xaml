@@ -8,6 +8,9 @@
         <xrd:ReportProperties.ReportTitle>Накладная</xrd:ReportProperties.ReportTitle>
     </xrd:ReportProperties>
     <Section Padding="15" FontSize="12">
+        <Paragraph/>
+        <Paragraph/>
+        <Paragraph/>
         <Paragraph
             FontSize="16"
             TextAlignment="Center">Реестр розничных цен на товар №
@@ -47,12 +50,13 @@
                 </Table.Resources>
 
                 <Table.Columns>
-                    <TableColumn Width="0.05*" />
+                    <TableColumn Width="0.1*" />
                     <TableColumn Width="*" />
                     <TableColumn Width="0.25*" />
                     <TableColumn Width="0.2*" />
                     <TableColumn Width="0.15*" />
                     <TableColumn Width="0.15*" />
+                    <TableColumn Width="0.2*" />
                     <TableColumn Width="0.2*" />
                     <TableColumn Width="0.2*" />
                     <TableColumn Width="0.2*" />
@@ -121,6 +125,11 @@
                         <TableCell>
                             <Paragraph TextAlignment="Center">
                                 <Bold>НДС</Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
+                                <Bold>Цена отп.</Bold>
                             </Paragraph>
                         </TableCell>
                         <TableCell>
@@ -194,6 +203,11 @@
                         </TableCell>
                         <TableCell>
                             <Paragraph TextAlignment="Center">
+                                <xrd:InlineTableCellValue PropertyName="PriceOut" />
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">
                                 <xrd:InlineTableCellValue PropertyName="Amount" />
                             </Paragraph>
                         </TableCell>
@@ -225,6 +239,10 @@
                                 <Bold>
                                     <xrd:InlineDocumentValue PropertyName="TVS" />
                                 </Bold>
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph TextAlignment="Center">                                
                             </Paragraph>
                         </TableCell>
                         <TableCell>

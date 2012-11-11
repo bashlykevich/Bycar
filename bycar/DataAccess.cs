@@ -3031,7 +3031,7 @@ namespace bycar
                 {
                     res = objDataContext.spare_income.Max(s => s.IDN.Value) + 1;
                 }
-                catch (Exception ee1)
+                catch (Exception)
                 {
                     res = 1;
                 }
@@ -3403,7 +3403,7 @@ namespace bycar
                 objDataContext.SaveChanges();
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return 1;
             }
@@ -3482,7 +3482,7 @@ namespace bycar
                     if (offering != null)
                         objDataContext.DeleteObject(offering);
                 }
-                catch (Exception ex1)
+                catch (Exception)
                 {
                 }
 

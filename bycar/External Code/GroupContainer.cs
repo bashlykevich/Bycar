@@ -41,7 +41,7 @@ namespace bycar.External_Code
 
         public void Update(spare_group item) // обновление без удаления
         {
-            spare_group ind = items.Where(x => x != null).Where(x => x.id != null).FirstOrDefault(x => x.id == item.id);
+            spare_group ind = items.Where(x => x != null).FirstOrDefault(x => x.id == item.id);
             if (ind != null)
             {
                 int i = items.IndexOf(ind);
@@ -80,7 +80,7 @@ namespace bycar.External_Code
         public List<spare_group> GetGroups(int searchFieldIndex, string searchString)
         {
             throw new Exception("not implemented");
-            List<spare_group> items = new List<spare_group>();
+            //List<spare_group> items = new List<spare_group>();
             /*
             switch (searchFieldIndex)
             {
@@ -100,7 +100,7 @@ namespace bycar.External_Code
             if (items == null)
                 items = new List<SpareView>();
             */
-            return items.ToList();
+            //return items.ToList();
         }
 
         /*

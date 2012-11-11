@@ -106,7 +106,7 @@ namespace bycar3.External_Code
         public void Update(SpareView spare) // обновление без удаления
         {
             List<SpareView> items = this.Spares;
-            SpareView ind = items.Where(x => x != null).Where(x => x.id != null).FirstOrDefault(x => x.id == spare.id);
+            SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == spare.id);
             if (ind != null)
             {
                 int i = spares.IndexOf(ind);
@@ -121,7 +121,7 @@ namespace bycar3.External_Code
         public void Update(int SpareId)
         {
             List<SpareView> items = this.Spares.ToList();
-            SpareView ind = items.Where(x => x != null).Where(x => x.id != null).FirstOrDefault(x => x.id == SpareId);
+            SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == SpareId);
             if (ind != null)
             {
                 int i = spares.IndexOf(ind);

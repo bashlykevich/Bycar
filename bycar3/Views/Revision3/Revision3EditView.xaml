@@ -21,8 +21,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel
                     Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    Background="#FFAFCBF2"
+                    VerticalAlignment="Center"                    
                     HorizontalAlignment="Stretch"
                     Grid.Row="0">
                     <Button

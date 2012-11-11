@@ -17,7 +17,7 @@ namespace bycar3.Views.Revision3
     {
         #region MEMBERS
 
-        private int SelectedSpareID = 0;
+        //private int SelectedSpareID = 0;
 
         public bool RevisionModeOn = false;
         private int _searchFieldIndex = 0;

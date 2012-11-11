@@ -248,12 +248,10 @@
                           HorizontalAlignment="Stretch"
                           Background="Gray" />
             <TabControl Name="tabSpares"
-                        Grid.Row="2"
-                        Background="#FFAFCBF2"
+                        Grid.Row="2"                        
                         HorizontalAlignment="Stretch"
                          VerticalAlignment="Top">
-                <TabItem Name="tiAnalogues"
-                         Background="#FFAFCBF2"
+                <TabItem Name="tiAnalogues"                         
                          HorizontalAlignment="Stretch"
                          VerticalAlignment="Top">
                     <TabItem.Header>

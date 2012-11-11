@@ -216,10 +216,10 @@ namespace bycar3.Views.Spare_Income
 
                         case 4: // иземенено отпускная цена
                             sum = quantity * fullprice;
-                            if (price != null)
+                            //if (price != null)
                                 markup = (int)(100 * fullprice / price - 100 - RATE);
-                            else
-                                markup = 0;
+                            //else
+                              //  markup = 0;
                             edtMakeup.Text = markup.ToString();
                             break;
                     }
