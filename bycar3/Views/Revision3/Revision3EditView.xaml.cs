@@ -7,9 +7,39 @@ using System.Windows.Documents;
 using bycar;
 using bycar3.External_Code;
 using bycar3.Reporting;
+using System.Windows.Data;
+using System.Xml;
 
 namespace bycar3.Views.Revision3
 {
+    public class WarehouseToColumnConverter : IValueConverter
+    {
+
+        #region IValueConverter Members
+
+        object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            int WarehouseIndex = (Int32)parameter;
+            WarehouseIndex = WarehouseIndex < 0 ? 0 : WarehouseIndex;            
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(value as string);
+            string str = "";
+            XmlNodeList xnl = xml.SelectNodes("/root/w");
+            if (xnl.Count > 0)
+                str = xnl[WarehouseIndex].Attributes["q"].Value;
+            else
+                str = "###";            
+            return str;
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+
     /// <summary>
     /// Interaction logic for Revision3EditView.xaml
     /// </summary>
@@ -30,7 +60,7 @@ namespace bycar3.Views.Revision3
                 _searchFieldIndex = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -50,7 +80,7 @@ namespace bycar3.Views.Revision3
                 _searchText = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -64,7 +94,7 @@ namespace bycar3.Views.Revision3
                 _remainsOnly = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -76,7 +106,7 @@ namespace bycar3.Views.Revision3
             set
             {
                 _mismatchOnly = value;
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -90,7 +120,7 @@ namespace bycar3.Views.Revision3
                 _groupID = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -104,7 +134,7 @@ namespace bycar3.Views.Revision3
                 _brandName = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -118,7 +148,7 @@ namespace bycar3.Views.Revision3
                 _brandID = value;
 
                 //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -128,22 +158,24 @@ namespace bycar3.Views.Revision3
             _brandName = BrandName;
 
             //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-            LoadSpares2();
+            LoadSpares();
         }
 
         #endregion MEMBERS
 
         private DataAccess da = new DataAccess();
+   
 
         public void LoadSpares()
         {
-            LoadSpares2();
-        }
-
-        public void LoadSpares2()
-        {
             try
             {
+                //Binding="{Binding Path=QRests, Converter={StaticResource MyConverter}, ConverterParameter=1}"
+                Binding RestsBinding = new Binding("QRests");
+                RestsBinding.Converter = new WarehouseToColumnConverter();
+                RestsBinding.ConverterParameter = edtWarehouse.SelectedIndex;
+                dgtcRests.Binding = RestsBinding;
+
                 int SelectedSpareID = 0;
                 if (dgSpares.SelectedItem != null)
                     SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
@@ -245,6 +277,81 @@ namespace bycar3.Views.Revision3
 
         //========================================================
         public List<SpareView> FilterSpares(
+          int SearchFieldIndex,
+          string SearchText,
+          bool RemainsOnly,
+          int GroupID,
+          string BrandName,
+          bool MismatchOnly,
+            int WarehouseID)
+        {
+            List<SpareView> ResultList = new List<SpareView>();
+
+            int BrandID = 0;
+            if (BrandName.Length > 0)
+                BrandID = da.GetBrandIDByName(BrandName);
+
+            //int GroupID,
+            if (GroupID > 0 && (!(BrandID > 0)))
+            {
+                if (GroupID > 0)
+                {
+                    ResultList = SpareContainer.Instance.Spares.Where(x => x != null).Where(x => (x.GroupID == GroupID)
+                        || (x.spare_group1_id == GroupID)
+                        || (x.spare_group2_id == GroupID)
+                        || (x.spare_group3_id == GroupID)).ToList();
+                }
+            }
+            else
+
+                //int BrandID
+                if (BrandID > 0)
+                {
+                    if (GroupID > 0)
+                        ResultList = SpareContainer.Instance.Spares.Where(x => ((x.GroupID == GroupID)
+                        || (x.spare_group1_id == GroupID)
+                        || (x.spare_group2_id == GroupID)
+                        || (x.spare_group3_id == GroupID))
+                        && (x.BrandID == BrandID)).ToList();
+                }
+
+            //bool RemainsOnly,
+            if (RemainsOnly)
+            {
+                ResultList = ResultList.Where(i => i.QRest > 0).ToList();
+            }
+
+            //bool MismatchOnly,
+            if (MismatchOnly)
+            {
+                ResultList = ResultList.Where(i => i.QRest.Value != (int)i.q_rest.Value).ToList();
+            }
+
+            //int SearchFieldIndex,
+            //string SearchText,
+            if (SearchText.Length > 0)
+            {
+                // разобрать в завимосости от выбранного для поиска поле
+                switch (SearchFieldIndex)
+                {
+                    case 0:// ПОИСК ПО КОДУ
+                        ResultList = ResultList.Where(s => s.code != null).Where(s => s.code.ToLower().Contains(SearchText.ToLower())).ToList();
+                        break;
+
+                    case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
+                        ResultList = ResultList.Where(s => s.name.ToLower().Contains(SearchText.ToLower())).ToList();
+                        break;
+
+                    case 2:// ПОИСК ПО КОДУ ШАТЕ-М
+                        ResultList = ResultList.Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(SearchText.ToLower())).ToList();
+                        break;
+                }
+            }
+
+            return ResultList.ToList();
+        }
+
+        public List<SpareView> FilterSpares(
            int SearchFieldIndex,
            string SearchText,
            bool RemainsOnly,
@@ -318,6 +425,19 @@ namespace bycar3.Views.Revision3
             return ResultList.ToList();
         }
 
+        private void LoadWarehouses()
+        {
+            edtWarehouse.Items.Clear();
+            edtWarehouse.Items.Add("Все склады");
+            da = new DataAccess();
+            List<warehouse> list = da.GetWarehouses();
+            foreach (warehouse w in list)
+            {
+                edtWarehouse.Items.Add(w.name);
+            }
+            edtWarehouse.SelectedIndex = 0;
+        }
+
         //============================================================
         public Revision3EditView()
         {
@@ -329,6 +449,7 @@ namespace bycar3.Views.Revision3
             da = new DataAccess();
             LoadGroups(false);
             LoadSpares();
+            LoadWarehouses();
             edtDate.SelectedDate = DateTime.Now;
         }
 
@@ -523,6 +644,16 @@ namespace bycar3.Views.Revision3
         private void SearchTextBox_Search(object sender, RoutedEventArgs e)
         {
             ItemSearch();
+        }
+
+        private void edtWarehouse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WarehouseChanged();
+        }
+
+        private void WarehouseChanged()
+        {
+            LoadSpares();
         }
     }
 }

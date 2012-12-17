@@ -28,7 +28,7 @@ namespace bycar3
                 SplashThreadStop();
                 Marvin.Instance.Log(edf2.Message);
                 MessageBox.Show("EXCEPTION: " + edf2.Message + "\nINNER: " + edf2.InnerException.Message);
-            }
+            }                     
         }
 
         private Thread splash = null;

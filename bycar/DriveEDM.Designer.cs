@@ -1271,6 +1271,30 @@ namespace bycar
         {
             return base.ExecuteFunction<Nullable<global::System.Int16>>("GetSPID");
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public int SparesExt()
+        {
+            return base.ExecuteFunction("SparesExt");
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectResult<SpareView> GetSpareViews()
+        {
+            return base.ExecuteFunction<SpareView>("GetSpareViews");
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="mergeOption"></param>
+        public ObjectResult<SpareView> GetSpareViews(MergeOption mergeOption)
+        {
+            return base.ExecuteFunction<SpareView>("GetSpareViews", mergeOption);
+        }
 
         #endregion
     }
@@ -8629,6 +8653,30 @@ namespace bycar
         private global::System.String _ParentGroupName;
         partial void OnParentGroupNameChanging(global::System.String value);
         partial void OnParentGroupNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String QRest
+        {
+            get
+            {
+                return _QRest;
+            }
+            set
+            {
+                OnQRestChanging(value);
+                ReportPropertyChanging("QRest");
+                _QRest = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("QRest");
+                OnQRestChanged();
+            }
+        }
+        private global::System.String _QRest;
+        partial void OnQRestChanging(global::System.String value);
+        partial void OnQRestChanged();
 
         #endregion
     
@@ -16860,6 +16908,30 @@ namespace bycar
         private global::System.Int32 _id;
         partial void OnidChanging(global::System.Int32 value);
         partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String QRests
+        {
+            get
+            {
+                return _QRests;
+            }
+            set
+            {
+                OnQRestsChanging(value);
+                ReportPropertyChanging("QRests");
+                _QRests = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("QRests");
+                OnQRestsChanged();
+            }
+        }
+        private global::System.String _QRests;
+        partial void OnQRestsChanging(global::System.String value);
+        partial void OnQRestsChanged();
 
         #endregion
     

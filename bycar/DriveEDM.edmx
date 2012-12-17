@@ -356,7 +356,8 @@
       [SpareView].[demand] AS [demand], 
       [SpareView].[BrandID] AS [BrandID], 
       [SpareView].[UnitID] AS [UnitID], 
-      [SpareView].[id] AS [id]
+      [SpareView].[id] AS [id], 
+      [SpareView].[QRests] AS [QRests]
       FROM [dbo].[SpareView] AS [SpareView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_account_admin_unit" Association="bycar3Model.Store.FK_account_admin_unit">
@@ -783,6 +784,7 @@
           <Property Name="BrandName" Type="varchar" MaxLength="500" />
           <Property Name="GroupName" Type="varchar" MaxLength="500" />
           <Property Name="ParentGroupName" Type="varchar" MaxLength="500" />
+          <Property Name="QRest" Type="xml" />
         </EntityType>
         <EntityType Name="spare_analogue">
           <Key>
@@ -933,7 +935,7 @@
           <Property Name="AccountID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareLog">
           <Key>
@@ -974,7 +976,7 @@
           <Property Name="description" Type="varchar" MaxLength="250" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.AccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.AccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="AccountView">
           <Key>
@@ -994,7 +996,7 @@
           <Property Name="created_on" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.BankAccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.BankAccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="BankAccountView">
           <Key>
@@ -1013,7 +1015,7 @@
           <Property Name="IsMain" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.BasketView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.BasketView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="BasketView">
           <Key>
@@ -1034,7 +1036,7 @@
           <Property Name="SaleID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.ProfileBankAccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.ProfileBankAccountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="ProfileBankAccountView">
           <Key>
@@ -1051,7 +1053,7 @@
           <Property Name="BankMFO" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.ReportIncomes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.ReportIncomes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="ReportIncomes">
           <Key>
@@ -1096,7 +1098,7 @@
           <Property Name="S" Type="decimal" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.ReportOutgoes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.ReportOutgoes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="ReportOutgoes">
           <Key>
@@ -1129,7 +1131,7 @@
           <Property Name="total_sum" Type="decimal" Nullable="false" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareAnaloguesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareAnaloguesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareAnaloguesView">
           <Key>
@@ -1143,7 +1145,7 @@
           <Property Name="equal" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareIncomeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareIncomeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareIncomeView">
           <Key>
@@ -1164,7 +1166,7 @@
           <Property Name="num" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareInInvoiceView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareInInvoiceView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareInInvoiceView">
           <Key>
@@ -1202,7 +1204,7 @@
           <Property Name="quantity" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareInOverpricingView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareInOverpricingView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareInOverpricingView">
           <Key>
@@ -1234,7 +1236,7 @@
           <Property Name="id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareInSpareIncomeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareInSpareIncomeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareInSpareIncomeView">
           <Key>
@@ -1281,7 +1283,7 @@
           <Property Name="ParentGroupName" Type="varchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareInSpareOutgoView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareInSpareOutgoView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareInSpareOutgoView">
           <Key>
@@ -1318,7 +1320,7 @@
           <Property Name="WarehouseName" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareOutgoView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareOutgoView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareOutgoView">
           <Key>
@@ -1348,7 +1350,7 @@
           <Property Name="id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'Drive-078c.dbo.SpareView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'Drive-079.dbo.SpareView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="SpareView">
           <Key>
@@ -1376,6 +1378,7 @@
           <Property Name="BrandID" Type="int" Nullable="false" />
           <Property Name="UnitID" Type="int" Nullable="false" />
           <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="QRests" Type="xml" />
         </EntityType>
         <Association Name="FK_account_admin_unit">
           <End Role="admin_unit" Type="bycar3Model.Store.admin_unit" Multiplicity="0..1" />
@@ -1888,6 +1891,7 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetSPID3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Spares" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2102,6 +2106,8 @@
             <End Role="vat_rate" EntitySet="vat_rate" />
             <End Role="spare_in_spare_outgo" EntitySet="spare_in_spare_outgo" />
           </AssociationSet>
+          <FunctionImport Name="SparesExt" />
+          <FunctionImport Name="GetSpareViews" EntitySet="SpareViews" ReturnType="Collection(bycar3Model.SpareView)" />
           </EntityContainer>
         <EntityType Name="account">
           <Key>
@@ -2316,6 +2322,7 @@
           <NavigationProperty Name="unit" Relationship="bycar3Model.FK_spare_unit" FromRole="spare" ToRole="unit" />
           <NavigationProperty Name="spare_in_spare_income" Relationship="bycar3Model.FK_spare_in_spare_income_spare" FromRole="spare" ToRole="spare_in_spare_income" />
           <NavigationProperty Name="spare_in_spare_outgo" Relationship="bycar3Model.FK_spare_in_spare_outgo_spare" FromRole="spare" ToRole="spare_in_spare_outgo" />
+          <Property Type="String" Name="QRest" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="spare_analogue">
           <Key>
@@ -2742,6 +2749,7 @@
           <Property Type="Int32" Name="BrandID" Nullable="false" />
           <Property Type="Int32" Name="UnitID" Nullable="false" />
           <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="QRests" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_bank_account_account">
           <End Type="bycar3Model.account" Role="account" Multiplicity="1" />
@@ -3298,6 +3306,7 @@
           <EntitySetMapping Name="spares">
             <EntityTypeMapping TypeName="bycar3Model.spare">
               <MappingFragment StoreEntitySet="spare">
+                <ScalarProperty Name="QRest" ColumnName="QRest" />
                 <ScalarProperty Name="ParentGroupName" ColumnName="ParentGroupName" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="BrandName" ColumnName="BrandName" />
@@ -3679,6 +3688,7 @@
           <EntitySetMapping Name="SpareViews">
             <EntityTypeMapping TypeName="bycar3Model.SpareView">
               <MappingFragment StoreEntitySet="SpareView">
+                <ScalarProperty Name="QRests" ColumnName="QRests" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
@@ -4250,6 +4260,7 @@
             </EndProperty>
             <Condition ColumnName="vat_rate_id" IsNull="false" />
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetSpareViews" FunctionName="bycar3Model.Store.sp_Spares" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

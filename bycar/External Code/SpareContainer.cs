@@ -15,9 +15,8 @@ namespace bycar3.External_Code
             get
             {
                 if (spares == null)
-                    Update();
-                List<SpareView> items = spares;
-                return items;
+                    Update();                
+                return spares;
             }
         }
 
@@ -86,7 +85,8 @@ namespace bycar3.External_Code
         public void Update()
         {
             DataAccess da = new DataAccess();
-            spares = da.GetSpares();
+            bool UseStoredProcedure = true;
+            spares = da.GetSpares(UseStoredProcedure);
             RS = CalcRemainsSum();
         }
 

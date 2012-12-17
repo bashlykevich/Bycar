@@ -126,14 +126,16 @@ namespace bycar3
             }*/
         }
 
+        /*
         private void InitializeWindow()
         {
+          
             int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
             edtSearchField.SelectedIndex = sfi.HasValue ? sfi.Value : 0;
             LoadCurrencies();
             ShowUCSpares(true);
-            PrintRemains();
-        }
+            PrintRemains();                                
+        }*/
 
         private bool ItemCreate()
         {

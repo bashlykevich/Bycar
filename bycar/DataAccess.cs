@@ -1462,10 +1462,15 @@ namespace bycar
             return items1;
         }
 
-        public List<SpareView> GetSpares()
+        public List<SpareView> GetSpares(bool UseSP = false)
         {
-            List<SpareView> spares = (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();
-            return spares;
+            if (UseSP)
+                return GetSparesExt();
+            else return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();            
+        }
+        public List<SpareView> GetSparesExt()
+        {
+            return objDataContext.GetSpareViews().ToList();            
         }
 
         /*Feb15
