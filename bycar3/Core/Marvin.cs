@@ -61,17 +61,16 @@ namespace bycar3.Core
                     {
                         if (log.EventType == "U" || log.EventType == "I")
                         {
-                            SpareView item = db.SpareViews.FirstOrDefault(x => x.id == log.RecordID);
-                            if (item != null)
+                            int SpareID = log.RecordID;
+
+                            SpareContainer.Instance.Update(SpareID);
+                            mainWindowObj.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                new System.Windows.Threading.DispatcherOperationCallback(delegate
                             {
-                                SpareContainer.Instance.Update(item);
-                                mainWindowObj.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-                                    new System.Windows.Threading.DispatcherOperationCallback(delegate
-                                {
-                                    mainWindowObj.LoadSpares2();
-                                    return null;
-                                }), null);
-                            }
+                                mainWindowObj.LoadSpares2();
+                                return null;
+                            }), null);
+
                         }
                         else if (log.EventType == "D")
                         {
@@ -186,7 +185,7 @@ namespace bycar3.Core
             DataAccess da = new DataAccess();
             spare s = da.SpareCreateSilent(Name, CodeShatem, GroupName, ParentGroupName, BrandName, UnitName, Description);
             SpareView SpareViewItem = da.GetSpareView(s.id);
-            SpareContainer.Instance.Update(SpareViewItem);
+            SpareContainer.Instance.Update(s.id);
             int BrandID = SpareViewItem.BrandID;
             int GroupID = SpareViewItem.GroupID;
             if (SpareContainer.Instance.Spares.Where(i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
@@ -210,9 +209,8 @@ namespace bycar3.Core
             sp.q_demand_clear = QDemand;
             sp.q_rest = 0;
             sp.description = Description;
-            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);
-            SpareView SpareViewItem = da.GetSpareView(s.id);
-            SpareContainer.Instance.Update(SpareViewItem);
+            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);            
+            SpareContainer.Instance.Update(s.id);
 
             if (SpareContainer.Instance.Spares.Where(i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
             {
@@ -237,9 +235,7 @@ namespace bycar3.Core
             sp.description = Description;
             spare s = da.SpareCreate(sp, BrandID, GroupID, UnitName);
 
-            //Feb15 int GroupID = s.spare_group.id;
-            SpareView SpareViewItem = da.GetSpareView(s.id);
-            SpareContainer.Instance.Update(SpareViewItem);
+            SpareContainer.Instance.Update(s.id);
 
             if (SpareContainer.Instance.Spares.Where(
                     i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
@@ -286,11 +282,8 @@ namespace bycar3.Core
             int OldBrandID = sp.brand.id;
             int OldGroupID = sp.spare_group.id;
 
-            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);
-            SpareView SpareViewItem = da.GetSpareView(s.id);
-            SpareContainer.Instance.Update(SpareViewItem);
-
-            //string BrandName = SpareViewItem.BrandName;
+            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);            
+            SpareContainer.Instance.Update(s.id);
 
             if (OldBrandID != BrandID || OldGroupID != GroupID)
             {

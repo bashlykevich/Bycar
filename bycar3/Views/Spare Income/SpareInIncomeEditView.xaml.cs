@@ -253,7 +253,7 @@ namespace bycar3.Views.Spare_Income
             if (_SpareID > 0 && offering != null)
             {
                 da.InOfferingCreate(offering, _SpareID, _SpareIncomeID, vat);
-                SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
+                SpareContainer.Instance.Update(_SpareID);
                 return true;
             }
             else
@@ -268,7 +268,7 @@ namespace bycar3.Views.Spare_Income
             {
                 _SpareID = da.InOfferingGet(_OfferingID).spare.id;
                 da.InOfferingEdit(offering, vat);
-                SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
+                SpareContainer.Instance.Update(_SpareID);
                 return true;
             }
             else

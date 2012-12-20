@@ -6,16 +6,10 @@
         Loaded="Window_Loaded"
         Title="Инвентаризация"
         Height="466"
-        Width="1232"
+        Width="1390"
         WindowState="Maximized"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         WindowStartupLocation="CenterScreen">
-    <!--
-    <Window.Resources>
-        <local:WarehouseToColumnConverter x:Key="MyConverter"/>
-    </Window.Resources>
-    -->
-    
     <Grid>
         <Border
             Margin="5"
@@ -113,6 +107,15 @@
                         Margin="4"
                         SelectionChanged="edtWarehouse_SelectionChanged"
                         Width="140" />
+                    <Button
+                        Name="btnFixQ"
+                        Click="btnFixQ_Click"
+                        Content="Исправить выделенный"
+                        ToolTip="Для текущего товара исправить количество на указанное фактическое"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Height="30"
+                        Margin="2"
+                        Width="200"/>                        
                 </StackPanel>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

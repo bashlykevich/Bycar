@@ -85,7 +85,7 @@ namespace bycar3.Views.Invoice
             //v.CurrentCurrencyCode = this.CurrentCurrencyCode;
             v.ShowDialog();
             DataAccess da = new DataAccess();
-            SpareContainer.Instance.Update(da.GetSpareView(SpareID));
+            SpareContainer.Instance.Update(SpareID);
             dgSpares.DataContext = SpareContainer.Instance.Spares.Where(i => i.QRest > 0).ToList();
         }
 

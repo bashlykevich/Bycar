@@ -32,7 +32,66 @@ namespace bycar
             root = objDataContext.spare_group.FirstOrDefault(i => i.id == 1);
             u = objDataContext.units.FirstOrDefault(i => i.id == 1);
         }
-
+        public void FixIncomeQuantity(int SpareID, decimal NewQuantity)
+        {
+            objDataContext = new DriveEntities();
+            SpareView spare = SpareContainer.Instance.Spares.FirstOrDefault(x => x.id == SpareID);
+            decimal difference = NewQuantity - (decimal)spare.QRest;
+            // обновить записи о поступлениях
+            var incomes = from income in objDataContext.spare_in_spare_income where income.spare.id == SpareID orderby income.spare_income.si_date select income;            
+            if (incomes.Count() == 0)
+                throw new Exception("Не найдено ни одного прихода по данному товару!");
+            List<spare_in_spare_income> sisiList = incomes.ToList();
+            // если было 0
+            if (spare.QRest == 0)
+            {
+                spare_in_spare_income income = sisiList.First();
+                income.QRest = NewQuantity;
+                objDataContext.SaveChanges();
+            }
+            else
+            {
+                // если было >0                
+                List<spare_in_spare_income>.Enumerator incomeEnumerator = sisiList.GetEnumerator();
+                // если надо увеличить количество
+                if (difference > 0)
+                {
+                    incomeEnumerator.MoveNext();
+                    incomeEnumerator.Current.QRest += difference;
+                }
+                else
+                // если надо уменьшить количество
+                {
+                    // если новое количество = 0
+                    if (NewQuantity <= 0)
+                    {
+                        while (incomeEnumerator.MoveNext())
+                            incomeEnumerator.Current.QRest = 0;                        
+                    }
+                    else
+                        while (difference != 0)
+                        {
+                            incomeEnumerator.MoveNext();
+                            // если в последнем приходе больше, чем разница                        
+                            if (incomeEnumerator.Current.QRest > (-1) * difference)
+                            {
+                                incomeEnumerator.Current.QRest += difference;
+                                difference = 0;
+                            }
+                            else
+                            // если в последнем приходе меньше, чем разница
+                            {
+                                difference += (decimal)incomeEnumerator.Current.QRest;
+                                incomeEnumerator.Current.QRest = 0;                                
+                            }                            
+                        }
+                }
+                objDataContext.SaveChanges();
+            }
+            // обновить запись в кэше (в БД)           
+            //spare.QRest = (double)NewQuantity;
+            SpareContainer.Instance.Update(SpareID, true);
+        }
         public void SaleDelete(int SaleID)
         {
             objDataContext = new DriveEntities();
@@ -1462,85 +1521,20 @@ namespace bycar
             return items1;
         }
 
-        public List<SpareView> GetSpares(bool UseSP = false)
+        public List<SpareView> GetSpares(bool UseSP = true)
         {
             if (UseSP)
                 return GetSparesExt();
-            else return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();            
+            else return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();
         }
         public List<SpareView> GetSparesExt()
         {
-            return objDataContext.GetSpareViews().ToList();            
+            return objDataContext.GetSpareViews(null).OrderBy(s => s.codeShatem).ToList();
         }
-
-        /*Feb15
-        public List<SpareView> GetSpares(
-            int SearchFieldIndex,
-            string SearchText,
-            bool RemainsOnly,
-            string GroupName,
-            int GroupID,
-            string BrandName,
-            int BrandID)
-        {
-            List<SpareView> ResultList = new List<SpareView>();
-
-            //string GroupName,
-            //int GroupID,
-            if ((GroupName.Length > 0 || GroupID > 0)&&(!(BrandName.Length > 0 || BrandID > 0)))
-            {
-                if (GroupID > 0)
-                {
-                    ResultList = GetSpares(GroupID);
-                }
-                else
-                    ResultList = GetSpares(GroupName);
-            } else
-
-            //string BrandName,
-            //int BrandID
-           if (BrandName.Length > 0 || BrandID > 0)
-            {
-                if (GroupName.Length > 0)
-                    ResultList = GetSpares(GroupName, BrandName);
-                if (GroupID > 0)
-                    ResultList = GetSparesByGroupIDBrandName(GroupID, BrandName);
-            }
-
-            //bool RemainsOnly,
-            if (RemainsOnly)
-            {
-                ResultList = ResultList.Where(i => i.QRest > 0).ToList();
-            }
-
-            //int SearchFieldIndex,
-            //string SearchText,
-            if (SearchText.Length > 0)
-            {
-                // разобрать в завимосости от выбранного для поиска поле
-                switch(SearchFieldIndex)
-                {
-                    case 0:// ПОИСК ПО КОДУ
-                        ResultList = ResultList.Where(s => s.code != null).Where(s => s.code.ToLower().Contains(SearchText.ToLower())).ToList();
-                        break;
-
-                    case 1:// ПОИСК ПО НАИМЕНОВАНИЮ
-                        ResultList = ResultList.Where(s => s.name.ToLower().Contains(SearchText.ToLower())).ToList();
-                        break;
-
-                    case 2:// ПОИСК ПО КОДУ ШАТЕ-М
-                        ResultList = ResultList.Where(s => s.codeShatem != null).Where(s => s.codeShatem.ToLower().Contains(SearchText.ToLower())).ToList();
-                        break;
-                }
-            }
-
-            return ResultList.Take(1000).ToList();
-        }
-        */
-
+   
         public List<SpareView> GetSparesAvailable()
         {
-            var spares = (from s in objDataContext.SpareViews where s.QRest > 0 orderby s.codeShatem select s).Take(1000);
+            var spares = (from s in objDataContext.GetSpareViews(null) where s.QRest > 0 orderby s.codeShatem select s).Take(1000);
             return spares.ToList();
         }
 
@@ -1573,10 +1567,13 @@ namespace bycar
                 return null;
         }
 
-        public SpareView GetSpareView(int id)
+        public SpareView GetSpareView(int id, bool UseSP = true)
         {
             objDataContext = new DriveEntities();
-            return objDataContext.SpareViews.FirstOrDefault(s => s.id == id);
+            if (UseSP)
+                return objDataContext.GetSpareViews(id).FirstOrDefault();
+            else
+                return objDataContext.SpareViews.FirstOrDefault(s => s.id == id);
         }
 
         public string FixAnalogues()
@@ -3104,9 +3101,8 @@ namespace bycar
 
                 objDataContext.DeleteObject(sisi);
                 objDataContext.SaveChanges();
-
-                SpareView SV = GetSpareView(SpareID);
-                SpareContainer.Instance.Update(SV);
+                
+                SpareContainer.Instance.Update(SpareID);
 
                 sisi = objDataContext.spare_in_spare_income.FirstOrDefault(i => i.spare_income.id == SpareIncomeID);
             }
@@ -3520,9 +3516,8 @@ namespace bycar
                     item.spareReference.Load();
                 int SpareID = item.spare.id;
                 objDataContext.DeleteObject(item);
-                objDataContext.SaveChanges();
-                SpareView SV = GetSpareView(SpareID);
-                SpareContainer.Instance.Update(SV);
+                objDataContext.SaveChanges();                
+                SpareContainer.Instance.Update(SpareID);
                 item = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.spare_in_spare_income.id == SpareInSpareIncomeID);
             }
         }
@@ -3537,9 +3532,8 @@ namespace bycar
                 int SpareID = item.spare.id;
                 FixOfferingsOutsOnDeletingIncome(item.id);
                 objDataContext.DeleteObject(item);
-                objDataContext.SaveChanges();
-                SpareView SV = GetSpareView(SpareID);
-                SpareContainer.Instance.Update(SV);
+                objDataContext.SaveChanges();                
+                SpareContainer.Instance.Update(SpareID);
                 item = objDataContext.spare_in_spare_income.FirstOrDefault(i => i.spare_income.id == spareIncomeId);
             }
         }
@@ -3555,9 +3549,8 @@ namespace bycar
                 //int SpareID = item.spare.id;
                 FixOfferingsOutsOnDeletingIncome(item.id);
                 objDataContext.DeleteObject(item);
-                objDataContext.SaveChanges();
-                SpareView SV = GetSpareView(SpareID);
-                SpareContainer.Instance.Update(SV);
+                objDataContext.SaveChanges();                
+                SpareContainer.Instance.Update(SpareID);
                 item = objDataContext.spare_in_spare_income.FirstOrDefault(i => i.spare.id == SpareID);
             }
         }
@@ -4106,10 +4099,8 @@ namespace bycar
                     inc.QRest += item.quantity;
                 }
                 objDataContext.DeleteObject(item);
-                objDataContext.SaveChanges();
-                SpareView s = objDataContext.SpareViews.FirstOrDefault(x => x.id == SpareID);
-                if (s != null)
-                    SpareContainer.Instance.Update(s);
+                objDataContext.SaveChanges();                
+                SpareContainer.Instance.Update(SpareID);
                 item = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.spare_outgo.id == spareOutgoId);
             }
         }
@@ -4178,7 +4169,7 @@ namespace bycar
         public void OutOfferingDelete(int offeringId)
         {
             objDataContext = new DriveEntities();
-            spare_in_spare_outgo offering = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.id == offeringId);            
+            spare_in_spare_outgo offering = objDataContext.spare_in_spare_outgo.FirstOrDefault(i => i.id == offeringId);
             if (offering == null)
                 return;
             // delete linked basket item
@@ -4194,11 +4185,11 @@ namespace bycar
                 //objDataContext.SaveChanges();
             }
 
-            if(offering.spare_in_spare_income == null)
+            if (offering.spare_in_spare_income == null)
                 offering.spare_in_spare_incomeReference.Load();
             if (offering.spare_in_spare_income != null)
             {
-                
+
                 spare_in_spare_income sin = objDataContext.spare_in_spare_income.FirstOrDefault(s => s.id == offering.spare_in_spare_income.id);
                 offering.spare_outgoReference.Load();
                 spare_outgo outgo = objDataContext.spare_outgo.FirstOrDefault(i => i.id == offering.spare_outgo.id);

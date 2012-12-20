@@ -102,54 +102,79 @@ namespace bycar3.External_Code
             }
             Spares.Add(spare);
         }*/
-
-        public void Update(SpareView spare) // обновление без удаления
+        /* dec2012
+        public void Update(SpareView NewSpareInstance, bool UpdateFromDB = true) // обновление без удаления
         {
+            if (UpdateFromDB)
+            {
+                DataAccess da = new DataAccess();                
+                SpareView OldSpareInstance = Spares.Where(x => x != null).FirstOrDefault(x => x.id == NewSpareInstance.id);
+                // если в кэше такая есть, запоминает индекс и перезаписываем
+                if (OldSpareInstance != null)
+                {
+                    int i = Spares.IndexOf(OldSpareInstance);
+                    spares[i] = NewSpareInstance;
+                }
+                else
+                {
+                    spares.Add(NewSpareInstance);
+                }
+            }
+            else
+            {
             List<SpareView> items = this.Spares;
-            SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == spare.id);
+            SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == NewSpareInstance.id);
             if (ind != null)
             {
                 int i = spares.IndexOf(ind);
-                spares[i] = spare;
+                spares[i] = NewSpareInstance;
             }
             else
             {
-                spares.Add(spare);
+                spares.Add(NewSpareInstance);
             }
         }
-
-        public void Update(int SpareId)
+        }
+        */
+        public void Update(int SpareID, bool UpdateFromDB = true)
         {
-            List<SpareView> items = this.Spares.ToList();
-            SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == SpareId);
-            if (ind != null)
+            if (UpdateFromDB)
             {
-                int i = spares.IndexOf(ind);
-                spares[i] = ind;
+                DataAccess da = new DataAccess();
+                SpareView OldSpareInstance = Spares.Where(x => x != null).FirstOrDefault(x => x.id == SpareID);
+                SpareView NewSpareInstance = da.GetSpareView(SpareID, true);
+                // если в кэше такая есть, запоминает индекс и перезаписываем
+                if (OldSpareInstance != null)
+                {
+                    int i = Spares.IndexOf(OldSpareInstance);
+                    spares[i] = NewSpareInstance;
+                }
+                else
+                {                                     
+                    spares.Add(NewSpareInstance);
+                }
             }
             else
             {
-                DataAccess db = new DataAccess();
-                SpareView sv = db.GetSpareView(SpareId);
-                spares.Add(sv);
+                List<SpareView> items = this.Spares.ToList();
+                SpareView ind = items.Where(x => x != null).FirstOrDefault(x => x.id == SpareID);
+                if (ind != null)
+                {
+                    int i = spares.IndexOf(ind);
+                    spares[i] = ind;
+                }
+                else
+                {
+                    DataAccess db = new DataAccess();
+                    SpareView sv = db.GetSpareView(SpareID);
+                    spares.Add(sv);
+                }
             }
-        }
-
-        /*
-        public void Update(int SpareId)
-        {
-            if (spares.Where(x => x != null).Where(x => x.id == SpareId).Count() > 0)
-            {
-                spares.Remove(spares.Where(x => x != null).FirstOrDefault(x => x.id == SpareId));
-            }
-            DataAccess da = new DataAccess();
-            SpareView sv = da.GetSpareView(SpareId);
-            spares.Add(sv);
-        }*/
+        }          
 
         public void Remove(int id)
         {
-            SpareView sv = spares.FirstOrDefault(x => x.id == id);
+            SpareView sv = Spares.FirstOrDefault(x => x.id == id);
             spares.Remove(sv);
         }
 
@@ -272,6 +297,11 @@ namespace bycar3.External_Code
             }
 
             return ResultList.ToList();
+        }
+        public void FixQuantity(int SpareID, decimal NewQuantity)
+        {
+            DataAccess db = new DataAccess();            
+            db.FixIncomeQuantity(SpareID, NewQuantity);
         }
     }
 }

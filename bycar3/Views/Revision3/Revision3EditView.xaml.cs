@@ -11,35 +11,7 @@ using System.Windows.Data;
 using System.Xml;
 
 namespace bycar3.Views.Revision3
-{
-    public class WarehouseToColumnConverter : IValueConverter
-    {
-
-        #region IValueConverter Members
-
-        object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            int WarehouseIndex = (Int32)parameter;
-            WarehouseIndex = WarehouseIndex < 0 ? 0 : WarehouseIndex;            
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(value as string);
-            string str = "";
-            XmlNodeList xnl = xml.SelectNodes("/root/w");
-            if (xnl.Count > 0)
-                str = xnl[WarehouseIndex].Attributes["q"].Value;
-            else
-                str = "###";            
-            return str;
-        }
-
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-    }
-
+{   
     /// <summary>
     /// Interaction logic for Revision3EditView.xaml
     /// </summary>
@@ -655,5 +627,61 @@ namespace bycar3.Views.Revision3
         {
             LoadSpares();
         }
+
+        private void btnFixQ_Click(object sender, RoutedEventArgs e)
+        {
+            FixCurrentSpareQuantity();
+        }
+        void FixCurrentSpareQuantity()
+        {
+            int SelectedSpareID = 0;
+            SpareView spare = null;
+            if (dgSpares.SelectedItem != null)
+                spare = dgSpares.SelectedItem as SpareView;
+            else
+                return;
+            SelectedSpareID = spare.id;
+            decimal NewQuantity = spare.q_rest.HasValue?spare.q_rest.Value:0;
+            try
+            {
+                SpareContainer.Instance.FixQuantity(SelectedSpareID, NewQuantity);
+                LoadSpares();
+                MessageBox.Show("Изменения сохранены.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }           
+        }
     }
+    public class WarehouseToColumnConverter : IValueConverter
+    {
+
+        #region IValueConverter Members
+
+        object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+                return "Ошибка!";
+            int WarehouseIndex = (Int32)parameter;
+            WarehouseIndex = WarehouseIndex < 0 ? 0 : WarehouseIndex;
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(value as string);
+            string str = "";
+            XmlNodeList xnl = xml.SelectNodes("/root/w");
+            if (xnl.Count > 0)
+                str = xnl[WarehouseIndex].Attributes["q"].Value;
+            else
+                str = "###";
+            return str;
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+
 }

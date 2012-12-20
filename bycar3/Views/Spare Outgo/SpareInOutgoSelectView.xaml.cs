@@ -103,7 +103,7 @@ namespace bycar3.Views.Spare_Outgo
                 v.ShowDialog();
                 int SpareID = (dgIncomes.SelectedItem as SpareInSpareIncomeView).SpareID.Value;
                 DataAccess da = new DataAccess();
-                SpareContainer.Instance.Update(da.GetSpareView(SpareID));
+                SpareContainer.Instance.Update(SpareID);
                 if (ParentWindow != null)
                 {
                     ParentWindow.LoadOfferings();

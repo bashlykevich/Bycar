@@ -1275,25 +1275,39 @@ namespace bycar
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public int SparesExt()
+        /// <param name="spareID">No Metadata Documentation available.</param>
+        public ObjectResult<SpareView> GetSpareViews(Nullable<global::System.Int32> spareID)
         {
-            return base.ExecuteFunction("SparesExt");
-        }
+            ObjectParameter spareIDParameter;
+            if (spareID.HasValue)
+            {
+                spareIDParameter = new ObjectParameter("SpareID", spareID);
+            }
+            else
+            {
+                spareIDParameter = new ObjectParameter("SpareID", typeof(global::System.Int32));
+            }
     
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectResult<SpareView> GetSpareViews()
-        {
-            return base.ExecuteFunction<SpareView>("GetSpareViews");
+            return base.ExecuteFunction<SpareView>("GetSpareViews", spareIDParameter);
         }
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="mergeOption"></param>
-        public ObjectResult<SpareView> GetSpareViews(MergeOption mergeOption)
+        /// <param name="spareID">No Metadata Documentation available.</param>
+        public ObjectResult<SpareView> GetSpareViews(Nullable<global::System.Int32> spareID, MergeOption mergeOption)
         {
-            return base.ExecuteFunction<SpareView>("GetSpareViews", mergeOption);
+            ObjectParameter spareIDParameter;
+            if (spareID.HasValue)
+            {
+                spareIDParameter = new ObjectParameter("SpareID", spareID);
+            }
+            else
+            {
+                spareIDParameter = new ObjectParameter("SpareID", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<SpareView>("GetSpareViews", mergeOption, spareIDParameter);
         }
 
         #endregion

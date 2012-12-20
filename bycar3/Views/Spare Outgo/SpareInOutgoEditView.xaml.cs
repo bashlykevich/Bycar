@@ -129,7 +129,7 @@ namespace bycar3.Views.Spare_Outgo
                 Discount = System.Xml.XmlConvert.ToDecimal(edtDiscount.Text);
                 decimal BasicPrice = CurrencyHelper.GetBasicPrice(CurrentCurrencyCode, Price);
                 _SpareID = da.SpareInSpareOutgoCreate(_SpareInSpareIncomeID, quantity, _SpareOutgoID, Price, BasicPrice, Discount, 0);
-                SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
+                SpareContainer.Instance.Update(_SpareID);
             }
             catch (Exception)
             {

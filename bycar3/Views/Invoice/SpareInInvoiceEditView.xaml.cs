@@ -97,7 +97,7 @@ namespace bycar3.Views.Invoice
             if (_SpareID > 0 && offering != null)
             {
                 da.InvoiceOfferingCreate(offering, _SpareID, _InvoiceID, vat, _SpareInSpareIncomeID);
-                SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
+                SpareContainer.Instance.Update(_SpareID);
                 return true;
             }
             else
@@ -115,7 +115,7 @@ namespace bycar3.Views.Invoice
                 _SpareID = da.InOfferingGet(_OfferingID).spare.id;
 
                 //da.InvoiceOfferingEdit(offering, vat);
-                SpareContainer.Instance.Update(da.GetSpareView(_SpareID));
+                SpareContainer.Instance.Update(_SpareID);
                 return true;
             }
             else

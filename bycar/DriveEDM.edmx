@@ -1891,7 +1891,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetSPID3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="sp_Spares" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Spares" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SpareID" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2106,8 +2108,9 @@
             <End Role="vat_rate" EntitySet="vat_rate" />
             <End Role="spare_in_spare_outgo" EntitySet="spare_in_spare_outgo" />
           </AssociationSet>
-          <FunctionImport Name="SparesExt" />
-          <FunctionImport Name="GetSpareViews" EntitySet="SpareViews" ReturnType="Collection(bycar3Model.SpareView)" />
+          <FunctionImport Name="GetSpareViews" EntitySet="SpareViews" ReturnType="Collection(bycar3Model.SpareView)">
+            <Parameter Name="SpareID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="account">
           <Key>

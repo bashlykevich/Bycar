@@ -1184,7 +1184,7 @@ namespace bycar3.Views.Main_window
                 db.BasketCreate(item);
 
                 // обновляем остаток товара в кэше
-                SpareContainer.Instance.Update(db.GetSpareView(item.SpareID.Value));
+                SpareContainer.Instance.Update(item.SpareID.Value);
             }
 
             // Закрыть корзину, очистить список

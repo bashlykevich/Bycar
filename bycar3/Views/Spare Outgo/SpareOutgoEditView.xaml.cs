@@ -201,7 +201,7 @@ namespace bycar3.Views.Spare_Outgo
             int offeringId = getSelectedOfferingId();
             da.OutOfferingDelete(offeringId);
             int SpareID = (dgSpares.SelectedItem as SpareInSpareOutgoView).spare_id;
-            SpareContainer.Instance.Update(da.GetSpareView(SpareID));
+            SpareContainer.Instance.Update(SpareID);
             LoadOfferings();
         }
 
