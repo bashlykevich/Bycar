@@ -931,7 +931,7 @@ namespace bycar3
             lbSparesQ.Content += "Наименования с остатком: "
                                 + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
-            CalculateRemsinInBackground();
+            // DISABLE CalculateRemsinInBackground();
         }
 
         public string LastSearch = "";
@@ -1063,8 +1063,9 @@ namespace bycar3
         {
             LogOut();
         }
-        #region Background Tasks
-        
+
+        /*
+        #region Background Tasks        
         BackgroundWorker BackgroundRemainsCalculation;
         void CalculateRemsinInBackground()
         {
@@ -1084,6 +1085,6 @@ namespace bycar3
                             + " единиц базовой валюты.";
         }      
         #endregion
-
+        */
     }
 }

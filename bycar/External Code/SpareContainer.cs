@@ -22,6 +22,8 @@ namespace bycar3.External_Code
             }
         }
 
+        // DISABLE
+        /*
         double RS = -1;
         public double RemainsSum()
         {
@@ -54,7 +56,7 @@ namespace bycar3.External_Code
                 }               
             }
             return RS;
-        }
+        }*/
      
         public List<SpareView> Remains
         {
