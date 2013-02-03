@@ -9,6 +9,7 @@ using bycar;
 using bycar3.Core;
 using bycar3.External_Code;
 using bycar3.Views.Spare_Outgo;
+using System.Collections;
 
 namespace bycar3.Views.Main_window
 {
@@ -56,7 +57,7 @@ namespace bycar3.Views.Main_window
             {
                 _searchFieldIndex = value;
 
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
                 LoadSpares2();
             }
         }
@@ -76,7 +77,7 @@ namespace bycar3.Views.Main_window
             {
                 _searchText = value;
 
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
                 LoadSpares2();
             }
         }
@@ -90,7 +91,7 @@ namespace bycar3.Views.Main_window
             {
                 _remainsOnly = value;
 
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
                 LoadSpares2();
             }
         }
@@ -104,7 +105,7 @@ namespace bycar3.Views.Main_window
                     set
                     {
                         //_groupName = value;
-                        ////XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+                        ////XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
                     }
                 }*/
         private int _groupID = 1;
@@ -116,11 +117,11 @@ namespace bycar3.Views.Main_window
             {
                 _groupID = value;
 
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
                 LoadSpares2();
             }
         }
-
+    
         private string _brandName = "";
 
         public string _BrandName
@@ -129,22 +130,6 @@ namespace bycar3.Views.Main_window
             set
             {
                 _brandName = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
-                LoadSpares2();
-            }
-        }
-
-        private int _brandID = 0;
-
-        public int _BrandID
-        {
-            get { return _brandID; }
-            set
-            {
-                _brandID = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares2();
             }
         }
@@ -153,8 +138,6 @@ namespace bycar3.Views.Main_window
         {
             _groupID = GroupID;
             _brandName = BrandName;
-
-            //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
             LoadSpares2();
         }
 
@@ -164,26 +147,10 @@ namespace bycar3.Views.Main_window
 
         // ======= ГРУППЫ =========================================
         // загрузить список групп в дерево
+
         public void LoadGroups(bool expand)
         {
-            da = new DataAccess();
-            treeSpareGroups.Items.Clear();
-            NotRootGroups = da.GetSpareGroups().Where(g => g.ParentGroup != null).ToList();
-            var list = da.GetSpareGroups().Where(g => g.ParentGroup == null).OrderBy(g => g.name);
-            foreach (spare_group g in list)
-            {
-                TreeViewItem root = new TreeViewItem();
-                root.Header = g.name;
-                if (g.IsBrand)
-                    root.Name = "BrandTVIId" + g.id;
-                else
-                    root.Name = "TVIId" + g.id;
-                BuildTreeBrunch(root, g.id, expand);
-                root.IsExpanded = true;
-                root.IsSelected = true;
-                treeSpareGroups.Items.Add(root);
-            }
-            treeSpareGroups.UpdateLayout();
+            LoadGroups();
         }
 
         // создать группу
@@ -280,57 +247,32 @@ namespace bycar3.Views.Main_window
         }*/
 
         // выбрана другая группа
-        private void GroupsTreeViewSelectionChanged()
+
+        private void GroupsTreeViewSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeViewItem selectedItem = treeSpareGroups.SelectedItem as TreeViewItem;
-            if (selectedItem != null)
-            {
-                string selectedItemHeader = selectedItem.Header.ToString();
-                DataAccess da = new DataAccess();
+            spare_group group = e.NewValue as spare_group;
+            DataAccess da = new DataAccess();
 
-                // Если выбрана не группа, а брэнд, отобразить список групп с двумя наложенными фильтрами:
-                //  1. Выбранный брэнд
-                //  2. Родительская для выранного брэнда группа
-                if (selectedItem.Name.Contains("BrandTVIId"))
-                {
-                    // TMP tree_cm_Create.IsEnabled = false;
-                    // TMP tree_cm_Delete.IsEnabled = false;
-                    // TMP tree_cm_Edit.IsEnabled = false;
-                    string brandName = selectedItemHeader;
-                    if (selectedItem != null)
-                    {
-                        TreeViewItem parent = ItemsControl.ItemsControlFromItemContainer(selectedItem) as TreeViewItem;
-                        if (parent != null)
-                        {
-                            int GroupID = 0;
-                            Int32.TryParse((parent.Name.Replace("TVIId", " ")), out GroupID);
-                            _GroupIDBrandName(GroupID, brandName);
-                        }
-                        else
-                        {
-                            LoadSpares();
-                        }
-                    }
-                }
-                else
-                {
-                    // TMP tree_cm_Create.IsEnabled = true;
-                    // TMP tree_cm_Edit.IsEnabled = true;
-                    // Если выбрана группа, отобразить элементы всех дочерних подгрупп
-                    int GroupID = 0;
-                    Int32.TryParse((selectedItem.Name.Replace("TVIId", " ")), out GroupID);
+            // Если выбрана не группа, а брэнд, отобразить список групп с двумя наложенными фильтрами:
+            //  1. Выбранный брэнд
+            //  2. Родительская для выранного брэнда группа
+            if (group.IsBrand)
+            {                
+                string brandName = group.name;
+                int groupID = group.ParentGroup.id;
+                _GroupIDBrandName(groupID, brandName);
 
-                    // TMP if (selectedItem == treeSpareGroups.Items[0])
-                    // TMP    tree_cm_Delete.IsEnabled = false;
-                    // TMP else
-                    // TMP     tree_cm_Delete.IsEnabled = true;
-                    _GroupIDBrandName(GroupID, "");
-                }
             }
+            else
+            {
+                int GroupID = group.id;
+                _GroupIDBrandName(GroupID, "");
+            }
+
             dgSpares.SelectedIndex = 0;
         }
 
-        private void CreateSpareMovementOut()
+      private void CreateSpareMovementOut()
         {
             // вызвать диалог добавление прихода
             SpareOutgoEditView v = new SpareOutgoEditView();
@@ -397,7 +339,7 @@ namespace bycar3.Views.Main_window
 
         public void LoadSpares()
         {
-            //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
+            //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
             LoadSpares2();
         }
 
@@ -447,7 +389,6 @@ namespace bycar3.Views.Main_window
            string BrandName)
         {
             List<SpareView> ResultList = new List<SpareView>();
-
             int BrandID = 0;
             if (BrandName.Length > 0)
                 BrandID = da.GetBrandIDByName(BrandName);
@@ -841,21 +782,13 @@ namespace bycar3.Views.Main_window
 
             ParentWindow = parent;
             CurrentCurrencyName = CurrencyName;
+            LoadGroups();
 
-            // load groups
-            spare_group g = da.GetRootGroup();
-            TreeViewItem root = new TreeViewItem();
-            root.Header = g.name;
-            root.Name = "TVIId" + g.id;
-            BuildTreeBrunch(root, g.id, false);
-            root.IsExpanded = true;
-            treeSpareGroups.Items.Add(root);
-            treeSpareGroups.UpdateLayout();
         }
 
         private void treeSpareGroups_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            GroupsTreeViewSelectionChanged();
+            GroupsTreeViewSelectionChanged(sender, e);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -1097,12 +1030,7 @@ namespace bycar3.Views.Main_window
         {
             GoToSpare();
         }
-
-        private void treeSpareGroups_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            GroupsTreeViewSelectionChanged();
-        }
-
+        
         private void dgAnalogues_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             GoToSpare();
@@ -1191,6 +1119,11 @@ namespace bycar3.Views.Main_window
             grBasket.Visibility = System.Windows.Visibility.Collapsed;
             treeSpareGroups.Visibility = System.Windows.Visibility.Visible;
             BasketItems = new List<BasketView>();
+        }
+        void LoadGroups()
+        {
+            DataAccess db = new DataAccess();
+            treeSpareGroups.ItemsSource = da.GetRoots();
         }
     }
 }

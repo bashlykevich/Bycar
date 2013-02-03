@@ -528,11 +528,14 @@ namespace bycar3
         // КОНСТРУКТОР MainWindow()
         public MainWindow()
         {
+            DateTime time1 = DateTime.Now;
+            DateTime t = DateTime.Now;
+
             // InitializeComponent() - auto-generated function
             InitializeComponent();
             /* В конструкторе класса главного окна инициализируем большой список,
              * подгружать остальную инфу будем при показе окна */
-            SpareContainer.Instance.Update();
+            t = DateTime.Now; SpareContainer.Instance.Update(); Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
 
             //Start();
             /* + окно загружено,
@@ -550,20 +553,23 @@ namespace bycar3
             this.btnItemAdd.ToolTip = "Добавить новый товар в базу";
             this.btnItemDelete.ToolTip = "Редактировать выделенный товар";
             this.btnItemEdit.ToolTip = "Удалить из базы выделенный товар";
+
             LoadCurrencies();
             _Workspace = 0;
-
             // ======== user control
             string curr = da.getProfileCurrent().BasicCurrencyCode;
-            uc_Spares = new Views.Main_window.UCSpares(this, curr);
+            uc_Spares = new Views.Main_window.UCSpares(this, curr); 
             mMainGrid.Children.Add(uc_Spares);
 
             // bind spares
             uc_Spares.dgSpares.DataContext = SpareContainer.Instance.Spares;
-
             // покажем контрол
             uc_Spares.Visibility = System.Windows.Visibility.Visible;
             PrintRemains();
+            
+            TimeSpan time = DateTime.Now - time1;
+            string ts = time.TotalSeconds.ToString() + " seconds";
+            Log("MainWindow: " + ts);
         }
 
         private void mi_Contacts_Click(object sender, RoutedEventArgs e)
@@ -817,13 +823,7 @@ namespace bycar3
                 spRevisionPanel.Visibility = System.Windows.Visibility.Hidden;*/
         }
 
-        private void btnRevisionPlus_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void btnRevisionMinus_Click(object sender, RoutedEventArgs e)
-        {
-        }
+  
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -904,9 +904,8 @@ namespace bycar3
         }
 
         private void btnRevision_Click(object sender, RoutedEventArgs e)
-        {
-            Revision3EditView v = new Revision3EditView();
-            //v.treeSpareGroups.DataContext = uc_Spares.treeSpareGroups.Items;
+        {            
+            Revision3EditView v = new Revision3EditView();            
             v.ShowDialog();
         }
 
@@ -944,6 +943,8 @@ namespace bycar3
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if(e.Key == Key.Delete)
+                MessageBox.Show(message);
             /*
             if (uc_Spares.grBasket.Visibility == System.Windows.Visibility.Visible)
             {
@@ -1048,10 +1049,13 @@ namespace bycar3
                     break;
             }
         }
-
+        string message = "";
+        void Log(string s)
+        {
+            message += DateTime.Now.ToString("hh:mm:ss.fff") + " > " + s + "\n";
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // login
             settings_profile settings = da.getProfileCurrent();
             if (settings.DefaultUserID > 0)
             {
@@ -1070,13 +1074,12 @@ namespace bycar3
                 }
             }
             this.Title += " - " + Marvin.Instance.CurrentUser.name;
-
             // check currencies up-to-date
             if (!da.AreCurrenciesUpToDate())
             {
                 CurrenciesInput v = new CurrenciesInput(DateTime.Now);
                 v.ShowDialog();
-            }
+             }            
         }
 
         private void mi_Reports_DailySales_Click(object sender, RoutedEventArgs e)

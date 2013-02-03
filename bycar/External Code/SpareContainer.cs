@@ -2,6 +2,7 @@
 using System.Linq;
 using bycar;
 using bycar.Utils;
+using bycar.External_Code;
 
 namespace bycar3.External_Code
 {
@@ -85,9 +86,10 @@ namespace bycar3.External_Code
         public void Update()
         {
             DataAccess da = new DataAccess();
-            bool UseStoredProcedure = true;
-            spares = da.GetSpares(UseStoredProcedure);
-            RS = CalcRemainsSum();
+            //bool UseStoredProcedure = true;
+            spares = da.GetSpares();
+            //to backgroundworker 
+            //RS = CalcRemainsSum();
         }
 
         /*
@@ -138,11 +140,12 @@ namespace bycar3.External_Code
         */
         public void Update(int SpareID, bool UpdateFromDB = true)
         {
+            Helper.CalculateQRests(SpareID);
             if (UpdateFromDB)
             {
                 DataAccess da = new DataAccess();
                 SpareView OldSpareInstance = Spares.Where(x => x != null).FirstOrDefault(x => x.id == SpareID);
-                SpareView NewSpareInstance = da.GetSpareView(SpareID, true);
+                SpareView NewSpareInstance = da.GetSpareView(SpareID);
                 // если в кэше такая есть, запоминает индекс и перезаписываем
                 if (OldSpareInstance != null)
                 {
@@ -169,7 +172,7 @@ namespace bycar3.External_Code
                     SpareView sv = db.GetSpareView(SpareID);
                     spares.Add(sv);
                 }
-            }
+            }            
         }          
 
         public void Remove(int id)
@@ -301,7 +304,7 @@ namespace bycar3.External_Code
         public void FixQuantity(int SpareID, decimal NewQuantity)
         {
             DataAccess db = new DataAccess();            
-            db.FixIncomeQuantity(SpareID, NewQuantity);
+            db.FixIncomeQuantity(SpareID, NewQuantity);           
         }
     }
 }

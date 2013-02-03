@@ -29,9 +29,11 @@ namespace bycar
         public DataAccess()
         {
             objDataContext = new DriveEntities();
+            objDataContext.ContextOptions.LazyLoadingEnabled = true;
             root = objDataContext.spare_group.FirstOrDefault(i => i.id == 1);
             u = objDataContext.units.FirstOrDefault(i => i.id == 1);
         }
+        
         public void FixIncomeQuantity(int SpareID, decimal NewQuantity)
         {
             objDataContext = new DriveEntities();
@@ -92,6 +94,7 @@ namespace bycar
             //spare.QRest = (double)NewQuantity;
             SpareContainer.Instance.Update(SpareID, true);
         }
+        
         public void SaleDelete(int SaleID)
         {
             objDataContext = new DriveEntities();
@@ -1521,11 +1524,9 @@ namespace bycar
             return items1;
         }
 
-        public List<SpareView> GetSpares(bool UseSP = true)
+        public List<SpareView> GetSpares()
         {
-            if (UseSP)
-                return GetSparesExt();
-            else return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();
+            return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();
         }
         public List<SpareView> GetSparesExt()
         {
@@ -1567,13 +1568,10 @@ namespace bycar
                 return null;
         }
 
-        public SpareView GetSpareView(int id, bool UseSP = true)
+        public SpareView GetSpareView(int id)
         {
             objDataContext = new DriveEntities();
-            if (UseSP)
-                return objDataContext.GetSpareViews(id).FirstOrDefault();
-            else
-                return objDataContext.SpareViews.FirstOrDefault(s => s.id == id);
+            return objDataContext.SpareViews.FirstOrDefault(s => s.id == id);
         }
 
         public string FixAnalogues()
@@ -2154,6 +2152,12 @@ namespace bycar
             return original;
         }
 
+        public void SpareEdit(int SpareID, string xml)
+        {
+            spare s = objDataContext.spares.FirstOrDefault(i => i.id == SpareID);
+            s.QRest = xml;
+            objDataContext.SaveChanges();            
+        }
         public bool SpareEdit(string CodeShateM, string Code)
         {
             // get spare
@@ -2589,7 +2593,10 @@ namespace bycar
         {
             return objDataContext.spare_group.FirstOrDefault(i => i.id == 1);
         }
-
+        public ICollection<object> GetRoots()
+        {                              
+            return objDataContext.spare_group.Where(x => x.ParentGroup == null).ToList<object>();
+        }
         public spare_group SpareGroupCreate(spare_group i)
         {
             if (SpareGroupNameExist(i.name))

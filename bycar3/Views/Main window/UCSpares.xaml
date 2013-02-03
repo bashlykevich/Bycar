@@ -129,12 +129,21 @@
                     </Button.Content>
                 </Button>
             </Grid>
-        </Grid>
+        </Grid>        
         <TreeView Name="treeSpareGroups"
                   Width="260"
-                  Grid.Column="1"
-                  MouseDown="treeSpareGroups_MouseDown"
+                  Grid.Column="1"                  
                   SelectedItemChanged="treeSpareGroups_SelectedItemChanged">
+            <TreeView.ItemContainerStyle>
+                <Style>
+
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=spare_group1}">
+                    <TextBlock Text="{Binding Path=name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="tree_cm_Refresh" Header="Обновить" Click="tree_cm_Refresh_Click" />
@@ -143,6 +152,7 @@
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>
+
         <Grid Grid.Column="2"
               Name="spMainGrid"
               VerticalAlignment="Stretch"

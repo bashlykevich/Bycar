@@ -12,23 +12,15 @@ namespace bycar3
     /// </summary>
     public partial class App : Application
     {
+      
         private void OnStartUp(Object sender, StartupEventArgs e)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            try
-            {
-                SplashThreadStart();
-                MainWindow mw = new MainWindow();
-                mw.Show();
-                mw.Activate();
-                SplashThreadStop();
-            }
-            catch (Exception edf2)
-            {
-                SplashThreadStop();
-                Marvin.Instance.Log(edf2.Message);
-                MessageBox.Show("EXCEPTION: " + edf2.Message + "\nINNER: " + edf2.InnerException.Message);
-            }                     
+            SplashThreadStart();
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            mw.Activate();
+            SplashThreadStop();           
         }
 
         private Thread splash = null;

@@ -50,6 +50,7 @@
       <DependentUpon>DriveEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="External Code\GroupContainer.cs" />
+    <Compile Include="External Code\Helper.cs" />
     <Compile Include="External Code\SpareContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectItems.cs" />
