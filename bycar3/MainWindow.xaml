@@ -342,6 +342,9 @@
             <StatusBarItem>
                 <Label Name="lbSparesQ" HorizontalAlignment="Stretch" />
             </StatusBarItem>
+            <StatusBarItem>
+                <Label Name="edtStatus" HorizontalAlignment="Stretch" />
+            </StatusBarItem>
         </StatusBar>
     </Grid>
 </Window>

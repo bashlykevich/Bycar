@@ -10,6 +10,7 @@ using bycar3.Core;
 using bycar3.External_Code;
 using bycar3.Views.Spare_Outgo;
 using System.Collections;
+using System.ComponentModel;
 
 namespace bycar3.Views.Main_window
 {
@@ -21,6 +22,7 @@ namespace bycar3.Views.Main_window
         #region MEMBERS
 
         private DataAccess da = new DataAccess();
+        private IList items;
         private string currentCurrencyName = "";
 
         //XXXList<SpareView> SPARES = null;
@@ -56,9 +58,7 @@ namespace bycar3.Views.Main_window
             set
             {
                 _searchFieldIndex = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -76,9 +76,7 @@ namespace bycar3.Views.Main_window
             set
             {
                 _searchText = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -90,24 +88,10 @@ namespace bycar3.Views.Main_window
             set
             {
                 _remainsOnly = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
-        /*
-                string _groupName = "";
-
-                public string _GroupName
-                {
-                    get { return _groupName; }
-                    set
-                    {
-                        //_groupName = value;
-                        ////XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-                    }
-                }*/
         private int _groupID = 1;
 
         public int _GroupID
@@ -116,9 +100,7 @@ namespace bycar3.Views.Main_window
             set
             {
                 _groupID = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-                LoadSpares2();
+                LoadSpares();
             }
         }
     
@@ -130,7 +112,7 @@ namespace bycar3.Views.Main_window
             set
             {
                 _brandName = value;
-                LoadSpares2();
+                LoadSpares();
             }
         }
 
@@ -138,7 +120,7 @@ namespace bycar3.Views.Main_window
         {
             _groupID = GroupID;
             _brandName = BrandName;
-            LoadSpares2();
+            LoadSpares();
         }
 
         #endregion MEMBERS
@@ -338,49 +320,11 @@ namespace bycar3.Views.Main_window
         // загрузить список запчастей с сервера
 
         public void LoadSpares()
-        {
-            //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _brandName, _brandName);
-            LoadSpares2();
+        {            
+            //LoadSpares2();
+            LoadSparesInBackground();
         }
-
-        /*
-        public void LoadSpares(
-            int SearchFieldIndex,
-            string SearchText,
-            bool RemainsOnly,
-            string GroupName,
-            int GroupID,
-            string BrandName,
-            int BrandID)
-        {
-            int SelectedSpareID = 0;
-            if (dgSpares.SelectedItem != null)
-                SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
-
-            da = new DataAccess();
-            dgSpares.DataContext = da.GetSpares(SearchFieldIndex, SearchText, RemainsOnly, GroupName, GroupID, BrandName, BrandID);
-
-            bool LastSelectedExistInPoll = false;
-            int i = 0;
-            while (i < dgSpares.Items.Count)
-            {
-                if ((dgSpares.Items[i] as SpareView).id == SelectedSpareID)
-                {
-                    LastSelectedExistInPoll = true;
-                    SpareView s = dgSpares.Items[i] as SpareView;
-                    dgSpares.SelectedItem = s;
-                    dgSpares.UpdateLayout();
-                    dgSpares.ScrollIntoView(s);
-                    break;
-                }
-                i++;
-            }
-            if (!LastSelectedExistInPoll)
-            {
-                ScrollToFirstSpare();
-            }
-        }*/
-
+     
         public List<SpareView> FilterSpares(
            int SearchFieldIndex,
            string SearchText,
@@ -452,7 +396,37 @@ namespace bycar3.Views.Main_window
 
             return ResultList.ToList();
         }
+        BackgroundWorker BackgroundLoad;        
+        void LoadSparesInBackground()
+        {
+            ParentWindow.edtStatus.Content = "Загрузка...";
+            SelectedSpareID = 0;
+            if (dgSpares.SelectedItem != null)
+                SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
 
+            BackgroundLoad = new BackgroundWorker();
+            BackgroundLoad.DoWork += new DoWorkEventHandler(BackgroundLoad_DoWork);
+            BackgroundLoad.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundLoad_RunWorkerCompleted);
+            BackgroundLoad.RunWorkerAsync();
+            
+        }
+        private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
+        {            
+            items = FilterSpares(_searchFieldIndex, _searchText, _remainsOnly, _groupID, _brandName);             
+        }
+        private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            dgSpares.DataContext = items;
+            if (dgSpares.HasItems && GotoMode != 4)
+            {
+                SpareView s = dgSpares.Items[0] as SpareView;
+                dgSpares.SelectedItem = s;
+                dgSpares.UpdateLayout();
+                dgSpares.ScrollIntoView(s);
+            }
+            GotoMode = 0;
+            ParentWindow.edtStatus.Content = "ok";
+        }
         public void LoadSpares2()
         {
             int SelectedSpareID = 0;
@@ -467,28 +441,7 @@ namespace bycar3.Views.Main_window
                 dgSpares.UpdateLayout();
                 dgSpares.ScrollIntoView(s);
             }
-            GotoMode = 0;
-            /*
-            bool LastSelectedExistInPoll = false;
-            int i = 0;
-
-            while (i < dgSpares.Items.Count)
-            {
-                if ((dgSpares.Items[i] as SpareView).id == SelectedSpareID)
-                {
-                    LastSelectedExistInPoll = true;
-                    SpareView s = dgSpares.Items[i] as SpareView;
-                    dgSpares.SelectedItem = s;
-                    dgSpares.UpdateLayout();
-                    dgSpares.ScrollIntoView(s);
-                    break;
-                }
-                i++;
-            }
-            if (!LastSelectedExistInPoll)
-            {
-                ScrollToFirstSpare();
-            }*/
+            GotoMode = 0;            
         }
 
         public void LoadSparesSimple()

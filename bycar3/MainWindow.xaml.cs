@@ -41,61 +41,6 @@ namespace bycar3
 
         #region CUSTOM FUNCTIONS
 
-        /* OLD
-         *
-         *
-        /*
-        Thread splash = null;
-        void SplashThreadStart()
-        {
-            splash = new Thread(SplashWindowShow);
-            splash.IsBackground = true;
-            splash.SetApartmentState(ApartmentState.STA);
-            splash.Start();
-        }
-        void SplashThreadStop()
-        {
-            if (splash != null)
-            {
-                splash.Abort();
-                splash = null;
-            }
-        }
-        void SplashWindowShow()
-        {
-            new SplashWindow().ShowDialog();
-        }
-         *  void Start()
-        {
-            // InitializeWindow();
-            int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
-            edtSearchField.SelectedIndex = sfi.HasValue ? sfi.Value : 0;
-
-            //LoadCurrencies();     ЗАЧЕМ???
-            //ShowUCSpares(true);   ЗАЧЕМ???
-            //PrintRemains();       ЗАЧЕМ???
-
-            // SettingsLoad();
-
-            this.Visibility = System.Windows.Visibility.Visible;
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //PrintRemains();
-            //DataAccess da = new DataAccess();
-            /* v#1
-            if (!da.AreCurrenciesUpToDate())
-            {
-                CurrenciesInput v = new CurrenciesInput(DateTime.Now);
-                v.ShowDialog();
-            }
-            this.Visibility = System.Windows.Visibility.Visible;
-
-            // DEBUG COMMAND
-            //ImportSpareCodesFromCSV2();
-        }
-         */
-
         private void LoadCurrencies()
         {
             DataAccess da = new DataAccess();
@@ -112,32 +57,9 @@ namespace bycar3
         private void ChangeBasicCurrency()
         {
             if (uc_Spares != null)
-                uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();
-            /*
-            if (!CurrencyChangeListenerOff)
-            {
-                MessageBoxResult res = MessageBox.Show("Пересчет приходов может занять некоторое время. Вы действительно хотите изменить основную валюту?", "Изменение основной валюты", MessageBoxButton.YesNo);
-                if (res == MessageBoxResult.Yes)
-                {
-                    DataAccess da = new DataAccess();
-                    string NewBasicCurrencyCode = edtCurrentCurrency.SelectedValue.ToString();
-                    da.UpdateBasicCurrencyCode(NewBasicCurrencyCode);
-                    LoadCurrencies();
-                }
-            }*/
+                uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();           
         }
-
-        /*
-        private void InitializeWindow()
-        {
-          
-            int? sfi = da.getProfileCurrent().DefSearchFieldIndex;
-            edtSearchField.SelectedIndex = sfi.HasValue ? sfi.Value : 0;
-            LoadCurrencies();
-            ShowUCSpares(true);
-            PrintRemains();                                
-        }*/
-
+    
         private bool ItemCreate()
         {
             bool flag = false;
@@ -516,8 +438,7 @@ namespace bycar3
                     break;
             }
         }
-
-        public void CallRevisionWindow()
+       public void CallRevisionWindow()
         {
             RevisionEditView v = new RevisionEditView();
             v.ShowDialog();
@@ -1000,26 +921,7 @@ namespace bycar3
             //Settings.Settings.Default.SearchFieldIndex = edtSearchField.SelectedIndex;
             //Settings.Settings.Default.Save();
         }
-        BackgroundWorker BackgroundRemainsCalculation;
-        void CalculateRemsinInBackground()
-        {
-            BackgroundRemainsCalculation = new BackgroundWorker();
-            BackgroundRemainsCalculation.DoWork += new DoWorkEventHandler(BackgroundRemainsCalculation_DoWork);
-            BackgroundRemainsCalculation.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundRemainsCalculation_RunWorkerCompleted);
-            BackgroundRemainsCalculation.RunWorkerAsync();
-        }
-        private void BackgroundRemainsCalculation_DoWork(object sender, DoWorkEventArgs e)
-        {
-            SpareContainer.Instance.RemainsSum();
-        }
-        private void BackgroundRemainsCalculation_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            lbSparesQ.Content += "Сумма остатков: "
-                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
-                            + " единиц базовой валюты.";
-            //message += SpareContainer.Instance.timing.TotalSeconds + " seconds in back";
-        }
-
+       
         public void PrintRemains()
         {
             lbSparesQ.Content = "Все наименования: "
@@ -1161,5 +1063,27 @@ namespace bycar3
         {
             LogOut();
         }
+        #region Background Tasks
+        
+        BackgroundWorker BackgroundRemainsCalculation;
+        void CalculateRemsinInBackground()
+        {
+            BackgroundRemainsCalculation = new BackgroundWorker();
+            BackgroundRemainsCalculation.DoWork += new DoWorkEventHandler(BackgroundRemainsCalculation_DoWork);
+            BackgroundRemainsCalculation.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundRemainsCalculation_RunWorkerCompleted);
+            BackgroundRemainsCalculation.RunWorkerAsync();
+        }
+        private void BackgroundRemainsCalculation_DoWork(object sender, DoWorkEventArgs e)
+        {
+            SpareContainer.Instance.RemainsSum();
+        }
+        private void BackgroundRemainsCalculation_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lbSparesQ.Content += "Сумма остатков: "
+                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
+                            + " единиц базовой валюты.";
+        }      
+        #endregion
+
     }
 }
