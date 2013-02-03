@@ -131,7 +131,7 @@ namespace bycar3.Views.Main_window
         // ======= ГРУППЫ =========================================
         // загрузить список групп в дерево
 
-        public void LoadGroups(bool expand)
+        public void LoadGroups(bool expand = false)
         {
             LoadGroups();
         }
@@ -233,25 +233,27 @@ namespace bycar3.Views.Main_window
 
         private void GroupsTreeViewSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            spare_group group = e.NewValue as spare_group;
-            DataAccess da = new DataAccess();
-
-            // Если выбрана не группа, а брэнд, отобразить список групп с двумя наложенными фильтрами:
-            //  1. Выбранный брэнд
-            //  2. Родительская для выранного брэнда группа
-            if (group.IsBrand)
+            if (e.NewValue != null)
             {
-                string brandName = group.name;
-                int groupID = group.ParentGroup.id;
-                _GroupIDBrandName(groupID, brandName);
+                spare_group group = e.NewValue as spare_group;
+                DataAccess da = new DataAccess();
 
-            }
-            else
-            {
-                int GroupID = group.id;
-                _GroupIDBrandName(GroupID, "");
-            }
+                // Если выбрана не группа, а брэнд, отобразить список групп с двумя наложенными фильтрами:
+                //  1. Выбранный брэнд
+                //  2. Родительская для выранного брэнда группа
+                if (group.IsBrand)
+                {
+                    string brandName = group.name;
+                    int groupID = group.ParentGroup.id;
+                    _GroupIDBrandName(groupID, brandName);
 
+                }
+                else
+                {
+                    int GroupID = group.id;
+                    _GroupIDBrandName(GroupID, "");
+                }
+            }
             dgSpares.SelectedIndex = 0;
         }
 
@@ -1083,6 +1085,7 @@ namespace bycar3.Views.Main_window
         void LoadGroups()
         {
             DataAccess db = new DataAccess();
+            treeSpareGroups.ItemsSource = null;
             treeSpareGroups.ItemsSource = da.GetRoots();
         }       
     }

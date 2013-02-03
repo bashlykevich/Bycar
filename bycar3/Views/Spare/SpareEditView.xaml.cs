@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Linq;
 using bycar;
 using bycar3.Core;
 using bycar3.Views.Common;
 using bycar3.Views.Main_window;
+using System.ComponentModel;
+using bycar3.External_Code;
 
 namespace bycar3.Views
 {
@@ -83,28 +86,7 @@ namespace bycar3.Views
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if (this._id > 0)
-            {
-                _spare = EditItem();
-                TemporarySaved = false;
-                this.Close();
-            }
-            else
-            {
-                DataAccess da = new DataAccess();
-                if (!da.CodeExist(edtCode.Text) || edtCode.Text.Equals(""))
-                {
-                    _spare = CreateItem();
-                    if (_spare == null)
-                        return;
-                    TemporarySaved = false;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Такой код магазина уже существует!");
-                }
-            }
+            Save();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -143,7 +125,7 @@ namespace bycar3.Views
             string Description = edtDescr.Text;
             return Marvin.Instance.SpareCreate(Name, Code, CodeShatem, QDemand, GroupID, BrandID, UnitID, Description);
         }
-
+      
         private spare EditItem()
         {
             if (!Validated())
@@ -354,5 +336,140 @@ namespace bycar3.Views
                 Marvin.Instance.SpareDelete(SpareViewItem);
             }
         }
+
+        #region Save In Background
+        BackgroundWorker BackgroundSave;
+      
+        void Save()
+        {
+            if (!Validated())
+            {
+                MessageBox.Show("Проверьте правильность заполнения полей");
+                return;
+            }
+            BackgroundSave = new BackgroundWorker();
+            
+
+            if (this._id > 0)
+            {
+                // edit
+                BackgroundSave.DoWork += new DoWorkEventHandler(BackgroundEdit_DoWork);
+            }
+            else
+            {
+                // create
+                DataAccess da = new DataAccess();
+                if (!da.CodeExist(edtCode.Text) || edtCode.Text.Equals(""))
+                {
+                    BackgroundSave.DoWork += new DoWorkEventHandler(BackgroundCreate_DoWork);
+                }
+                else
+                {
+                    MessageBox.Show("Такой код магазина уже существует!");
+                    return;
+                }
+            }
+            Bind();
+
+            ParentWorkspace.ParentWindow.edtStatus.Content = "сохранение...";
+            BackgroundSave.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundSave_RunWorkerCompleted);
+            if (BackgroundSave.IsBusy)
+                BackgroundSave.CancelAsync();
+            BackgroundSave.RunWorkerAsync();
+
+            TemporarySaved = false;
+            this.Close();
+        }
+        // Spare fields
+        string SpareUpdateName;
+        string  SpareUpdateCode;
+        string  SpareUpdateCodeShatem;
+        int SpareUpdateQDemand;
+        int SpareUpdateGroupID;
+        int SpareUpdateBrandID;
+        int SpareUpdateUnitID;
+        string SpareUpdateDescription;
+        bool ReloadGroups = false;
+        void Bind()
+        {            
+            SpareUpdateName = edtName.Text;
+            SpareUpdateCode = edtCode.Text;
+            SpareUpdateCodeShatem = edtCodeShatem.Text;
+            SpareUpdateQDemand = 0;
+            Int32.TryParse(edtQ_Demand.Text, out SpareUpdateQDemand);
+            SpareUpdateGroupID = (int)edtGroup.SelectedValue;
+            SpareUpdateBrandID = (int)edtBrand.SelectedValue;
+            SpareUpdateUnitID = (int)edtUnit.SelectedValue;
+            SpareUpdateDescription = edtDescr.Text;
+        }
+        private void BackgroundCreate_DoWork(object sender, DoWorkEventArgs e)
+        {
+            DataAccess da = new DataAccess();
+            spare sp = new spare();
+            sp.name = SpareUpdateName;
+            sp.code = SpareUpdateCode;
+            sp.codeShatem = SpareUpdateCodeShatem;
+            sp.q_demand = SpareUpdateQDemand;
+            sp.q_demand_clear = SpareUpdateQDemand;
+            sp.q_rest = 0;
+            sp.description = SpareUpdateDescription;
+            spare s = da.SpareCreate(sp, SpareUpdateBrandID, SpareUpdateGroupID, SpareUpdateUnitID);
+            SpareContainer.Instance.Update(s.id);
+
+            if (SpareContainer.Instance.Spares.Where(i => i.BrandID == SpareUpdateBrandID && i.GroupID == SpareUpdateGroupID).Count() == 1)
+            {
+                if (s.brand == null)
+                    s.brandReference.Load();
+                da.SpareGroupCreate(SpareUpdateGroupID, s.brand.name);
+                ReloadGroups = true;
+            }
+        }        
+        private void BackgroundEdit_DoWork(object sender, DoWorkEventArgs e)
+        { 
+            int SpareID = _spare.id;
+            DataAccess da = new DataAccess();
+            spare sp = da.GetSpare(SpareID);
+            sp.name = SpareUpdateName;
+            sp.code = SpareUpdateCode;
+            sp.codeShatem = SpareUpdateCodeShatem;
+            sp.q_demand = SpareUpdateQDemand;
+            sp.q_demand_clear = SpareUpdateQDemand;
+            sp.q_rest = 0;
+            sp.description = SpareUpdateDescription;
+            if (sp.brand == null)
+                sp.brandReference.Load();
+            if (sp.spare_group == null)
+                sp.spare_groupReference.Load();
+
+            string OldBrandName = sp.BrandName;
+            int OldBrandID = sp.brand.id;
+            int OldGroupID = sp.spare_group.id;
+
+            spare s = da.SpareEdit(sp, SpareUpdateBrandID, SpareUpdateGroupID, SpareUpdateUnitID);
+            SpareContainer.Instance.Update(s.id);
+
+            if (OldBrandID != SpareUpdateBrandID || OldGroupID != SpareUpdateGroupID)
+            {
+                if (SpareContainer.Instance.Spares.Where(i => i.BrandID == OldBrandID && i.GroupID == OldGroupID).Count() == 0)
+                {
+                    da.SpareGroupDelete(OldBrandID, OldGroupID);
+                    ReloadGroups = true;
+                }
+                if (SpareContainer.Instance.Spares.Where(i => i.BrandID == SpareUpdateBrandID && i.GroupID == SpareUpdateGroupID).Count() == 1)
+                {
+                    da.SpareGroupCreate(SpareUpdateGroupID, SpareUpdateBrandID);
+                    ReloadGroups = true;
+                    
+                }
+            }
+        }
+        private void BackgroundSave_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if(ReloadGroups)
+                ParentWorkspace.LoadGroups();           
+            ParentWorkspace.ParentWindow.edtStatus.Content = "ok";
+        }
+
+        #endregion
     }
 }

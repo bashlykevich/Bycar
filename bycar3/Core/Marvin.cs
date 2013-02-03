@@ -220,7 +220,7 @@ namespace bycar3.Core
             }
             return s;
         }
-
+       
         // ЗАПЧАСТЬ - ДОБАВИТЬ - СОХРАНИТЬ
         public spare SpareCreate(string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, string UnitName, string Description)
         {
@@ -300,7 +300,29 @@ namespace bycar3.Core
             }
             return s;
         }
+        public spare SpareEditInBackground(int SpareID, string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, int UnitID, string Description)
+        {
+            DataAccess da = new DataAccess();
+            spare sp = da.GetSpare(SpareID);
+            sp.name = Name;
+            sp.code = Code;
+            sp.codeShatem = CodeShatem;
+            sp.q_demand = QDemand;
+            sp.q_demand_clear = QDemand;
+            sp.q_rest = 0;
+            sp.description = Description;
+            if (sp.brand == null)
+                sp.brandReference.Load();
+            if (sp.spare_group == null)
+                sp.spare_groupReference.Load();
 
+            string OldBrandName = sp.BrandName;
+            int OldBrandID = sp.brand.id;
+            int OldGroupID = sp.spare_group.id;
+
+            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);            
+            return s;
+        }
         // ЗАПЧАСТЬ - УДАЛИТЬ
         public void SpareDelete(SpareView item)
         {

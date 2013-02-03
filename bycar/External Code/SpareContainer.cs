@@ -134,9 +134,9 @@ namespace bycar3.External_Code
         }
         }
         */
-        public void Update(int SpareID, bool UpdateFromDB = true)
+        public void Update(int SpareID, bool UpdateFromDB = true, bool SkipQRestsCalculation = false)
         {
-            Helper.CalculateQRests(SpareID);
+            
             if (UpdateFromDB)
             {
                 DataAccess da = new DataAccess();
@@ -168,7 +168,12 @@ namespace bycar3.External_Code
                     SpareView sv = db.GetSpareView(SpareID);
                     spares.Add(sv);
                 }
-            }            
+            }
+            if (!SkipQRestsCalculation)
+            {
+                Helper.CalculateQRests(SpareID);
+                Update(SpareID, true, true);
+            }
         }          
 
         public void Remove(int id)
