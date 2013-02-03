@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:convert="clr-namespace:bycar3.Helpers.ValueConversion"
              MaxWidth="2200"
              Loaded="UserControl_Loaded"             
              Style="{DynamicResource ResourceKey=ShatemUserControl}"             
-             mc:Ignorable="d" xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit">
+             mc:Ignorable="d" 
+             xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit">
+    <UserControl.Resources>
+        <convert:GroupToBooleanConverter x:Key="groupConverter" />
+    </UserControl.Resources>
     <Grid
         Name="grMain"
         Style="{DynamicResource ResourceKey=ShatemGrid}"
@@ -135,13 +140,13 @@
                   Grid.Column="1"                  
                   SelectedItemChanged="treeSpareGroups_SelectedItemChanged">
             <TreeView.ItemContainerStyle>
-                <Style>
-
+                <Style TargetType="TreeViewItem" >                    
+                    <Setter Property="IsExpanded" Value="{Binding Path=ParentGroup, Converter={StaticResource groupConverter}}" />
                 </Style>
             </TreeView.ItemContainerStyle>
-            <TreeView.ItemTemplate>
+            <TreeView.ItemTemplate>                
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=spare_group1}">
-                    <TextBlock Text="{Binding Path=name}" />
+                    <TextBlock Text="{Binding Path=name}" />                    
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
             <TreeView.ContextMenu>

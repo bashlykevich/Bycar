@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Xml;
 using System.Collections;
 using System.ComponentModel;
+using bycar3.Helpers.ValueConversion;
 
 namespace bycar3.Views.Revision3
 {   
@@ -134,24 +135,19 @@ namespace bycar3.Views.Revision3
             Binding RestsBinding = new Binding("QRests");
             RestsBinding.Converter = new WarehouseToColumnConverter();
             RestsBinding.ConverterParameter = edtWarehouse.SelectedIndex;
-            dgtcRests.Binding = RestsBinding;             
+            dgtcRests.Binding = RestsBinding;
 
             BackgroundLoad = new BackgroundWorker();
             BackgroundLoad.DoWork += new DoWorkEventHandler(BackgroundLoad_DoWork);
             BackgroundLoad.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundLoad_RunWorkerCompleted);
+            if (BackgroundLoad.IsBusy)
+                BackgroundLoad.CancelAsync();
             BackgroundLoad.RunWorkerAsync();
-
         }
         
         private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
-                items = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);
-            }
-            catch (Exception)
-            {
-            }
+            items = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);            
         }
 
         private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -571,34 +567,4 @@ namespace bycar3.Views.Revision3
             }           
         }
     }
-    public class WarehouseToColumnConverter : IValueConverter
-    {
-
-        #region IValueConverter Members
-
-        object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value == null)
-                return "Ошибка!";
-            int WarehouseIndex = (Int32)parameter;
-            WarehouseIndex = WarehouseIndex < 0 ? 0 : WarehouseIndex;
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(value as string);
-            string str = "";
-            XmlNodeList xnl = xml.SelectNodes("/r/w");
-            if (xnl.Count > 0)
-                str = xnl[WarehouseIndex].Attributes["q"].Value;
-            else
-                str = "###";
-            return str;
-        }
-
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-    }
-
 }

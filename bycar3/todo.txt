@@ -1,4 +1,4 @@
-﻿+ Дерево групп: раскрывать ROOT-елемент
+﻿+ Bugfix: корректное отображение остатков по складам
 + в BackgroundWorker: сохранение запчасти (Ok pressed)
 + Version to settings
 

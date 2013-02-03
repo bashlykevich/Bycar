@@ -83,7 +83,9 @@
     </ApplicationDefinition>
     <Compile Include="bycar.cs" />
     <Compile Include="Core\Marvin.cs" />
-    <Compile Include="External Code\ConsoleManager.cs" />
+    <Compile Include="Helpers\ConsoleManager.cs" />
+    <Compile Include="Helpers\ValueConversion\GroupToBooleanConverter.cs" />
+    <Compile Include="Helpers\ValueConversion\WarehouseToColumnConverter.cs" />
     <Compile Include="Reporting\ReportViewDailySales.xaml.cs">
       <DependentUpon>ReportViewDailySales.xaml</DependentUpon>
     </Compile>
@@ -98,11 +100,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="External Code\BalloonDecorator.cs" />
-    <Compile Include="External Code\CurrencyHelper.cs" />
-    <Compile Include="External Code\Office2003XmlTable.cs" />
-    <Compile Include="External Code\PagingCollectionView.cs" />
-    <Compile Include="External Code\RusNumber.cs" />
+    <Compile Include="Helpers\BalloonDecorator.cs" />
+    <Compile Include="Helpers\CurrencyHelper.cs" />
+    <Compile Include="Helpers\Office2003XmlTable.cs" />
+    <Compile Include="Helpers\PagingCollectionView.cs" />
+    <Compile Include="Helpers\RusNumber.cs" />
     <Compile Include="Reporting\Reporter.cs" />
     <Compile Include="Reporting\ReportViewInvoice.xaml.cs">
       <DependentUpon>ReportViewInvoice.xaml</DependentUpon>

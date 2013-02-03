@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:UIControls;assembly=UIControls"
         xmlns:local="clr-namespace:bycar3.Views.Revision3"
+        xmlns:convert="clr-namespace:bycar3.Helpers.ValueConversion"
         Loaded="Window_Loaded"
         Title="Инвентаризация"
         Height="466"
@@ -10,6 +11,9 @@
         WindowState="Maximized"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <convert:GroupToBooleanConverter x:Key="groupConverter" />
+    </Window.Resources>
     <Grid>
         <Border
             Margin="5"
@@ -131,8 +135,8 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
                         <TreeView.ItemContainerStyle>
-                            <Style>                                
-
+                            <Style TargetType="TreeViewItem" >
+                                <Setter Property="IsExpanded" Value="{Binding Path=ParentGroup, Converter={StaticResource groupConverter}}" />
                             </Style>
                         </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>

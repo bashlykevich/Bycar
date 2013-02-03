@@ -11,6 +11,7 @@ using bycar3.External_Code;
 using bycar3.Views.Spare_Outgo;
 using System.Collections;
 using System.ComponentModel;
+using System.Windows.Data;
 
 namespace bycar3.Views.Main_window
 {
@@ -1083,6 +1084,6 @@ namespace bycar3.Views.Main_window
         {
             DataAccess db = new DataAccess();
             treeSpareGroups.ItemsSource = da.GetRoots();
-        }
+        }       
     }
 }
