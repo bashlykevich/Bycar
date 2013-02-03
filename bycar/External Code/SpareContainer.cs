@@ -29,14 +29,14 @@ namespace bycar3.External_Code
                 Update();
             if (RS < 0)
             {
+               DataAccess da = new DataAccess();                   
                 RS = 0;
-                List<SpareView> remains = spares.Where(i => i.QRest.HasValue).ToList();
-                remains = remains.Where(i => i.QRest > 0).ToList();
+                var remains = from s in spares where s.QRest > 0 select s;
+                //remains = remains.Where(i => i.QRest > 0).ToList();
                 foreach (SpareView sv in remains)
                 {
-                    DataAccess da = new DataAccess();
-                    List<SpareInSpareIncomeView> items = da.GetIncomes(sv.id);
-                    foreach (SpareInSpareIncomeView i in items)
+                    var incomes = da.GetIncomes(sv.id);
+                    foreach (SpareInSpareIncomeView i in incomes)
                     {
                         decimal POutBasic = 0;
                         if (!i.POutBasic.HasValue)
@@ -51,7 +51,7 @@ namespace bycar3.External_Code
                         }
                         RS += (double)(POutBasic * i.QRest.Value);
                     }
-                }
+                }               
             }
             return RS;
         }

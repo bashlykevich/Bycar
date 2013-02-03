@@ -1017,6 +1017,7 @@ namespace bycar3
             lbSparesQ.Content += "Сумма остатков: "
                             + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                             + " единиц базовой валюты.";
+            //message += SpareContainer.Instance.timing.TotalSeconds + " seconds in back";
         }
 
         public void PrintRemains()
