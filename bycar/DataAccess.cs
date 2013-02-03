@@ -1535,8 +1535,7 @@ namespace bycar
    
         public List<SpareView> GetSparesAvailable()
         {
-            var spares = (from s in objDataContext.GetSpareViews(null) where s.QRest > 0 select s).Take(1000);
-            return spares.ToList();
+            return (from s in objDataContext.GetSpareViews(null) where s.QRest > 0 select s).ToList();            
         }
 
         public spare GetSpare(int id)
@@ -1600,6 +1599,7 @@ namespace bycar
 
         public List<SpareView> GetAnalogues(int spareId)
         {
+            
             List<SpareView> items = new List<SpareView>();
             List<spare_analogue> analogues = objDataContext.spare_analogue.Where(a => a.spare.id == spareId).ToList();
             foreach (spare_analogue a in analogues)

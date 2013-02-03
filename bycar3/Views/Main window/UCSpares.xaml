@@ -152,7 +152,6 @@
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>
-
         <Grid Grid.Column="2"
               Name="spMainGrid"
               VerticalAlignment="Stretch"
@@ -181,7 +180,7 @@
                              ItemsSource="{Binding}"
                              AutoGenerateColumns="False"
                              IsReadOnly="True"
-                          CanUserResizeRows="False"
+                             CanUserResizeRows="False"
                              MouseDoubleClick="dgSpares_MouseDoubleClick"
                              SelectionChanged="dgSpares_SelectionChanged"
                              CanUserReorderColumns="False"

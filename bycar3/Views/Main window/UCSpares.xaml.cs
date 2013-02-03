@@ -103,7 +103,7 @@ namespace bycar3.Views.Main_window
                 LoadSpares();
             }
         }
-    
+
         private string _brandName = "";
 
         public string _BrandName
@@ -239,7 +239,7 @@ namespace bycar3.Views.Main_window
             //  1. Выбранный брэнд
             //  2. Родительская для выранного брэнда группа
             if (group.IsBrand)
-            {                
+            {
                 string brandName = group.name;
                 int groupID = group.ParentGroup.id;
                 _GroupIDBrandName(groupID, brandName);
@@ -254,7 +254,7 @@ namespace bycar3.Views.Main_window
             dgSpares.SelectedIndex = 0;
         }
 
-      private void CreateSpareMovementOut()
+        private void CreateSpareMovementOut()
         {
             // вызвать диалог добавление прихода
             SpareOutgoEditView v = new SpareOutgoEditView();
@@ -310,7 +310,7 @@ namespace bycar3.Views.Main_window
             if (ParentWindow.edtShowRests.IsChecked.HasValue)
                 if (ParentWindow.edtShowRests.IsChecked.Value)
                     ParentWindow.edtShowRests.IsChecked = false;
-            LoadSparesSimple();
+            LoadSpares();
             SpareView s = SpareContainer.Instance.Spares.FirstOrDefault(x => x.id == SpareID);
             dgSpares.SelectedItem = s;
             dgSpares.ScrollIntoView(s);
@@ -320,11 +320,10 @@ namespace bycar3.Views.Main_window
         // загрузить список запчастей с сервера
 
         public void LoadSpares()
-        {            
-            //LoadSpares2();
+        {
             LoadSparesInBackground();
         }
-     
+
         public List<SpareView> FilterSpares(
            int SearchFieldIndex,
            string SearchText,
@@ -340,33 +339,34 @@ namespace bycar3.Views.Main_window
             if (GroupID == 0)
             {
                 ResultList = SpareContainer.Instance.Spares;
-            } else
-            if (GroupID > 0 && (!(BrandID > 0)))
-            {
-                if (GroupID > 0)
-                {
-                    List<SpareView> tmps = SpareContainer.Instance.Spares.ToList();
-                    List<SpareView> tmps1 = tmps.Where(x => x != null).ToList();
-                    ResultList = tmps1.Where(x => (x.GroupID == GroupID)
-                        || (x.spare_group1_id == GroupID)
-                        || (x.spare_group2_id == GroupID)
-                        || (x.spare_group3_id == GroupID)).ToList();
-                }
             }
             else
-                if (BrandID > 0)
+                if (GroupID > 0 && (!(BrandID > 0)))
                 {
                     if (GroupID > 0)
                     {
                         List<SpareView> tmps = SpareContainer.Instance.Spares.ToList();
                         List<SpareView> tmps1 = tmps.Where(x => x != null).ToList();
-                        ResultList = tmps1.Where(x => ((x.GroupID == GroupID)
-                        || (x.spare_group1_id == GroupID)
-                        || (x.spare_group2_id == GroupID)
-                        || (x.spare_group3_id == GroupID))
-                        && (x.BrandID == BrandID)).ToList();
+                        ResultList = tmps1.Where(x => (x.GroupID == GroupID)
+                            || (x.spare_group1_id == GroupID)
+                            || (x.spare_group2_id == GroupID)
+                            || (x.spare_group3_id == GroupID)).ToList();
                     }
                 }
+                else
+                    if (BrandID > 0)
+                    {
+                        if (GroupID > 0)
+                        {
+                            List<SpareView> tmps = SpareContainer.Instance.Spares.ToList();
+                            List<SpareView> tmps1 = tmps.Where(x => x != null).ToList();
+                            ResultList = tmps1.Where(x => ((x.GroupID == GroupID)
+                            || (x.spare_group1_id == GroupID)
+                            || (x.spare_group2_id == GroupID)
+                            || (x.spare_group3_id == GroupID))
+                            && (x.BrandID == BrandID)).ToList();
+                        }
+                    }
             //bool RemainsOnly,
             if (RemainsOnly)
             {
@@ -396,7 +396,7 @@ namespace bycar3.Views.Main_window
 
             return ResultList.ToList();
         }
-        BackgroundWorker BackgroundLoad;        
+        BackgroundWorker BackgroundLoad;
         void LoadSparesInBackground()
         {
             ParentWindow.edtStatus.Content = "загрузка...";
@@ -407,12 +407,14 @@ namespace bycar3.Views.Main_window
             BackgroundLoad = new BackgroundWorker();
             BackgroundLoad.DoWork += new DoWorkEventHandler(BackgroundLoad_DoWork);
             BackgroundLoad.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundLoad_RunWorkerCompleted);
+            if (BackgroundLoad.IsBusy)
+                BackgroundLoad.CancelAsync();
             BackgroundLoad.RunWorkerAsync();
-            
+
         }
         private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
-        {            
-            items = FilterSpares(_searchFieldIndex, _searchText, _remainsOnly, _groupID, _brandName);             
+        {
+            items = FilterSpares(_searchFieldIndex, _searchText, _remainsOnly, _groupID, _brandName);
         }
         private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -427,10 +429,113 @@ namespace bycar3.Views.Main_window
             GotoMode = 0;
             ParentWindow.edtStatus.Content = "ok";
         }
-      
-        public void LoadSparesSimple()
+
+        BackgroundWorker BackgroundShowDetails;
+        void ShowSpareDetailsInBackground(IList selectedItems)
         {
-            dgSpares.DataContext = FilterSpares(_searchFieldIndex, "", false, 1, "");
+            ParentWindow.edtStatus.Content = "загрузка";
+            BackgroundShowDetails = new BackgroundWorker();
+            BackgroundShowDetails.DoWork += new DoWorkEventHandler(BackgroundShowDetails_DoWork);
+            BackgroundShowDetails.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundShowDetails_RunWorkerCompleted);
+            if (BackgroundShowDetails.IsBusy)
+                BackgroundShowDetails.CancelAsync();
+            BackgroundShowDetails.RunWorkerAsync(selectedItems);
+
+        }
+        private void BackgroundShowDetails_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // DETAILED INFO
+            IList selectedItems = e.Argument as IList;
+            if (selectedItems.Count == 0)
+            {
+                DetailSpareInfo_Brand = "";
+                DetailSpareInfo_Group = "";
+                DetailSpareInfo_Name = "";
+                Detail_Incomes = null;
+                Detail_Analogues = null;
+            }
+            else
+            {
+                SpareView selected = selectedItems[0] as SpareView;
+                DetailSpareInfo_Brand = selected.BrandName;
+                DetailSpareInfo_Name = selected.name;
+                // построим путь по группам к запчасти
+                // текущая группа
+                DataAccess db = new DataAccess();
+                spare s = db.GetSpare(selected.id);
+                string gp = s.spare_group.name;
+                // родительская
+                if (s.spare_group1 != null)
+                    gp = s.spare_group1.name + "/" + gp;
+                // дедушка
+                if (s.spare_group2 != null)
+                    gp = s.spare_group2.name + "/" + gp;
+                // прадедушка
+                if (s.spare_group3 != null)
+                    gp = s.spare_group3.name + "/" + gp;
+                DetailSpareInfo_Group = gp;
+
+                // INCOMES & ANALOGS WINDOWS
+                // anlogues                
+                Detail_Analogues = db.GetAnalogues(selected.id);
+                
+                // incomes   
+                Detail_Incomes = db.GetIncomes(selected.id);
+                foreach (SpareInSpareIncomeView i in Detail_Incomes)
+                {
+                    decimal POutBasic = 0;
+                    decimal PInBasic = 0;
+                    if (!i.POutBasic.HasValue)
+                    {
+                        string IncomeCurrencyCode = i.CurrencyCode;
+
+                        decimal PIn = i.PIn.Value;
+                        POutBasic = CurrencyHelper.GetBasicPrice(IncomeCurrencyCode, PIn);
+                    }
+                    else
+                    {
+                        POutBasic = i.POutBasic.Value;
+                    }
+                    if (i.PInBasic.HasValue)
+                    {
+                        PInBasic = i.PInBasic.Value;
+                    }
+                    else
+                    {
+                        string IncomeCurrencyCode = i.CurrencyCode;
+                        decimal PIn = i.PIn.Value;
+                        PInBasic = CurrencyHelper.GetBasicPrice(IncomeCurrencyCode, PIn);
+                    }
+                    i.DF_PriceInCurrency = CurrencyHelper.GetPrice(currentCurrencyName, POutBasic);
+                    i.DF_PriceInCurrencyIn = CurrencyHelper.GetPrice(currentCurrencyName, PInBasic);
+
+                    string strDate = "";
+                    if (i.SpareIncomeDate.Value.Day < 10)
+                        strDate += "0";
+                    strDate += i.SpareIncomeDate.Value.Day + ".";
+                    if (i.SpareIncomeDate.Value.Month < 10)
+                        strDate += "0";
+                    strDate += i.SpareIncomeDate.Value.Month + ".";
+                    strDate += i.SpareIncomeDate.Value.Year;
+                    i.DF_Date = strDate;
+                }                
+            }
+        }
+        string DetailSpareInfo_Brand;
+        string DetailSpareInfo_Group;
+        string DetailSpareInfo_Name;
+        IList Detail_Incomes;
+        IList Detail_Analogues;
+        private void BackgroundShowDetails_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            edtSpareBrand.Text = DetailSpareInfo_Brand;
+            edtSpareGroup.Text = DetailSpareInfo_Group;
+            edtSpareName.Text = DetailSpareInfo_Name;
+
+            dgAnalogues.DataContext = Detail_Analogues;
+            dgIncomes.DataContext = Detail_Incomes;
+
+            ParentWindow.edtStatus.Content = "ok";
         }
 
         private void ScrollToFirstSpare()
@@ -507,94 +612,12 @@ namespace bycar3.Views.Main_window
         {
         }
 
-        private void SparesSelectionChanged()
-        {
-            SpareView selected = (SpareView)dgSpares.SelectedItem;
-            if (selected != null)
-            {
-                SelectedSpareID = selected.id;
-                edtSpareName.Text = selected.name;
-                DataAccess db = new DataAccess();
-                spare s = db.GetSpare(SelectedSpareID);
-                if (s.brand == null)
-                    s.brandReference.Load();
-                if (s.spare_group == null)
-                    s.spare_groupReference.Load();
-                edtSpareBrand.Text = s.brand.name;
-
-                // построим путь по группам к запчасти
-                // текущая группа
-                string gp = s.spare_group.name;
-
-                // родительская
-                if (s.spare_group1 == null)
-                    s.spare_group1Reference.Load();
-                if (s.spare_group1 != null)
-                    gp = s.spare_group1.name + "/" + gp;
-
-                // дедушка
-                if (s.spare_group2 == null)
-                    s.spare_group2Reference.Load();
-                if (s.spare_group2 != null)
-                    gp = s.spare_group2.name + "/" + gp;
-
-                // прадедушка
-                if (s.spare_group3 == null)
-                    s.spare_group3Reference.Load();
-                if (s.spare_group3 != null)
-                    gp = s.spare_group3.name + "/" + gp;
-                edtSpareGroup.Text = gp;
-            }
-            else
-            {
-                dgIncomes.DataContext = null;
-                dgIncomes.UpdateLayout();
-
-                dgAnalogues.DataContext = null;
-                dgAnalogues.UpdateLayout();
-
-                edtSpareBrand.Text = "";
-                edtSpareGroup.Text = "";
-                edtSpareName.Text = "";
-            }
-        }
-
         // РАЗНОЕ
         // поиск по заданной строке (возможен строгий поиск)
         public void SparesSearchByText(int searchFieldIndex, string text, bool StrongSearch)
         {
             _SearchFieldIndex = searchFieldIndex;
             _SearchText = text;
-        }
-
-        private void LoadDetail()
-        {
-            if (dgSpares.SelectedItem != null)
-            {
-                int SpareID = ((SpareView)dgSpares.SelectedItem).id;
-                LoadAnalogues(SpareID);
-                LoadIncomes(SpareID);
-
-                //LoadHistory(SpareID);
-
-                /*switch (tabSpares.SelectedIndex)
-                {
-                    case 0: // аналоги
-                        LoadAnalogues(SpareID);
-                        break;
-
-                    case 1: // приходы
-                        LoadIncomes(SpareID);
-                        break;
-                }*/
-            }
-        }
-
-        private void LoadAnalogues(int SpareID)
-        {
-            da = new DataAccess();
-            List<SpareView> items = da.GetAnalogues(SpareID);
-            dgAnalogues.DataContext = items;
         }
 
         private void LoadIncomes()
@@ -919,8 +942,7 @@ namespace bycar3.Views.Main_window
 
         private void dgSpares_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SparesSelectionChanged();
-            LoadDetail();
+            ShowSpareDetailsInBackground(e.AddedItems);
         }
 
         private void dgIncomes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -967,7 +989,7 @@ namespace bycar3.Views.Main_window
         {
             GoToSpare();
         }
-        
+
         private void dgAnalogues_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             GoToSpare();

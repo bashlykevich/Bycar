@@ -1,4 +1,4 @@
-﻿+ в BackgroundWorker: отображение инфы по выделенной запчасти
+﻿+ Дерево групп: раскрывать ROOT-елемент
 + в BackgroundWorker: сохранение запчасти (Ok pressed)
 + Version to settings
 
