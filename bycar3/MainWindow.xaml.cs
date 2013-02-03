@@ -528,14 +528,16 @@ namespace bycar3
         // КОНСТРУКТОР MainWindow()
         public MainWindow()
         {
-            DateTime time1 = DateTime.Now;
-            DateTime t = DateTime.Now;
+            //DateTime time1 = DateTime.Now;
+            //DateTime t = DateTime.Now;
 
             // InitializeComponent() - auto-generated function
             InitializeComponent();
             /* В конструкторе класса главного окна инициализируем большой список,
              * подгружать остальную инфу будем при показе окна */
-            t = DateTime.Now; SpareContainer.Instance.Update(); Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
+            //t = DateTime.Now; 
+            SpareContainer.Instance.Update(); 
+            //Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
 
             //Start();
             /* + окно загружено,
@@ -567,9 +569,9 @@ namespace bycar3
             uc_Spares.Visibility = System.Windows.Visibility.Visible;
             PrintRemains();
             
-            TimeSpan time = DateTime.Now - time1;
-            string ts = time.TotalSeconds.ToString() + " seconds";
-            Log("MainWindow: " + ts);
+            //TimeSpan time = DateTime.Now - time1;
+            //string ts = time.TotalSeconds.ToString() + " seconds";
+            //Log("MainWindow: " + ts);
         }
 
         private void mi_Contacts_Click(object sender, RoutedEventArgs e)

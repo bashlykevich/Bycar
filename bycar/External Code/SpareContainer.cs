@@ -3,6 +3,7 @@ using System.Linq;
 using bycar;
 using bycar.Utils;
 using bycar.External_Code;
+using System;
 
 namespace bycar3.External_Code
 {
@@ -86,10 +87,17 @@ namespace bycar3.External_Code
         public void Update()
         {
             DataAccess da = new DataAccess();
-            //bool UseStoredProcedure = true;
+           //string message = "";
+            /* test
+            
+            DateTime t = DateTime.Now;
+            t = DateTime.Now; da.GetSpares(true); message += "Sort on:  " + ((DateTime.Now - t).TotalSeconds + " secs\n");
+            t = DateTime.Now; da.GetSpares(false); message += "Sort off: " + ((DateTime.Now - t).TotalSeconds + " secs\n");   
+         */
             spares = da.GetSpares();
             //to backgroundworker 
             //RS = CalcRemainsSum();
+            //return message;
         }
 
         /*

@@ -1526,7 +1526,7 @@ namespace bycar
 
         public List<SpareView> GetSpares()
         {
-            return (from s in objDataContext.SpareViews orderby s.codeShatem select s).ToList();
+            return (from s in objDataContext.SpareViews select s).ToList();            
         }
         public List<SpareView> GetSparesExt()
         {
@@ -1535,7 +1535,7 @@ namespace bycar
    
         public List<SpareView> GetSparesAvailable()
         {
-            var spares = (from s in objDataContext.GetSpareViews(null) where s.QRest > 0 orderby s.codeShatem select s).Take(1000);
+            var spares = (from s in objDataContext.GetSpareViews(null) where s.QRest > 0 select s).Take(1000);
             return spares.ToList();
         }
 
