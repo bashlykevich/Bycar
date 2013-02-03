@@ -10,6 +10,7 @@ using bycar3.Reporting;
 using System.Windows.Data;
 using System.Xml;
 using System.Collections;
+using System.ComponentModel;
 
 namespace bycar3.Views.Revision3
 {   
@@ -21,7 +22,7 @@ namespace bycar3.Views.Revision3
         #region MEMBERS
 
         //private int SelectedSpareID = 0;
-
+        private IList items;       
         public bool RevisionModeOn = false;
         private int _searchFieldIndex = 0;
 
@@ -49,8 +50,6 @@ namespace bycar3.Views.Revision3
             set
             {
                 _searchText = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares();
             }
         }
@@ -63,8 +62,6 @@ namespace bycar3.Views.Revision3
             set
             {
                 _remainsOnly = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares();
             }
         }
@@ -81,7 +78,7 @@ namespace bycar3.Views.Revision3
             }
         }
 
-        private int _groupID = 39;
+        private int _groupID = 0; // all spares
 
         public int _GroupID
         {
@@ -89,8 +86,6 @@ namespace bycar3.Views.Revision3
             set
             {
                 _groupID = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares();
             }
         }
@@ -103,8 +98,6 @@ namespace bycar3.Views.Revision3
             set
             {
                 _brandName = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares();
             }
         }
@@ -117,8 +110,6 @@ namespace bycar3.Views.Revision3
             set
             {
                 _brandID = value;
-
-                //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
                 LoadSpares();
             }
         }
@@ -127,35 +118,54 @@ namespace bycar3.Views.Revision3
         {
             _groupID = GroupID;
             _brandName = BrandName;
-
-            //XXXXXXLoadSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupName, _GroupID, _BrandName, _BrandID);
             LoadSpares();
         }
 
         #endregion MEMBERS
 
         private DataAccess da = new DataAccess();
-   
 
-        public void LoadSpares()
+        BackgroundWorker BackgroundLoad;
+        
+        void LoadSparesInBackground()
+        {
+            edtStatus.Content = "загрузка...";
+
+            Binding RestsBinding = new Binding("QRests");
+            RestsBinding.Converter = new WarehouseToColumnConverter();
+            RestsBinding.ConverterParameter = edtWarehouse.SelectedIndex;
+            dgtcRests.Binding = RestsBinding;             
+
+            BackgroundLoad = new BackgroundWorker();
+            BackgroundLoad.DoWork += new DoWorkEventHandler(BackgroundLoad_DoWork);
+            BackgroundLoad.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundLoad_RunWorkerCompleted);
+            BackgroundLoad.RunWorkerAsync();
+
+        }
+        
+        private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                //Binding="{Binding Path=QRests, Converter={StaticResource MyConverter}, ConverterParameter=1}"
-                Binding RestsBinding = new Binding("QRests");
-                RestsBinding.Converter = new WarehouseToColumnConverter();
-                RestsBinding.ConverterParameter = edtWarehouse.SelectedIndex;
-                dgtcRests.Binding = RestsBinding;
-
-                int SelectedSpareID = 0;
-                if (dgSpares.SelectedItem != null)
-                    SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
-                dgSpares.DataContext = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);
+                items = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);
             }
             catch (Exception)
             {
             }
-        }            
+        }
+
+        private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            dgSpares.DataContext = items;
+            edtStatus.Content = "ok";
+        }
+
+        public void LoadSpares()
+        {
+            if(IsReady)
+                LoadSparesInBackground();
+        }
+        
         public List<string> getBrandsInSpareGroup(int GroupID)
         {
             List<string> items = new List<string>();
@@ -173,8 +183,7 @@ namespace bycar3.Views.Revision3
             items.Sort();
             return items;
         }
-
-        //========================================================
+        
         public List<SpareView> FilterSpares(
           int SearchFieldIndex,
           string SearchText,
@@ -264,7 +273,10 @@ namespace bycar3.Views.Revision3
             if (BrandName.Length > 0)
                 BrandID = da.GetBrandIDByName(BrandName);
 
-            //int GroupID,
+            if (GroupID == 0)
+            {
+                ResultList = SpareContainer.Instance.Spares;
+            } else
             if (GroupID > 0 && (!(BrandID > 0)))
             {
                 if (GroupID > 0)
@@ -342,18 +354,20 @@ namespace bycar3.Views.Revision3
         {
             InitializeComponent();
         }
-
+        bool IsReady = false;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            IsReady = true;
             da = new DataAccess();
             LoadGroups();
             LoadSpares();
             LoadWarehouses();
             edtDate.SelectedDate = DateTime.Now;
+            
         }
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             _SearchFieldIndex = edtSearchField.SelectedIndex;
         }
 
@@ -506,7 +520,7 @@ namespace bycar3.Views.Revision3
         void LoadGroups()
         {            
             treeSpareGroups.ItemsSource = da.GetRoots();
-            _groupID = 1;
+            _groupID = 0;
         }
         private void GroupsTreeViewSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {

@@ -92,7 +92,7 @@ namespace bycar3.Views.Main_window
             }
         }
 
-        private int _groupID = 1;
+        private int _groupID = 0; // all spares
 
         public int _GroupID
         {
@@ -305,7 +305,7 @@ namespace bycar3.Views.Main_window
             //ParentWindow.edtSearchText.
             _searchText = "";
             _brandName = "";
-            _groupID = 1;
+            _groupID = 0;
             _remainsOnly = false;
             if (ParentWindow.edtShowRests.IsChecked.HasValue)
                 if (ParentWindow.edtShowRests.IsChecked.Value)
@@ -337,7 +337,10 @@ namespace bycar3.Views.Main_window
             if (BrandName.Length > 0)
                 BrandID = da.GetBrandIDByName(BrandName);
 
-            //int GroupID,
+            if (GroupID == 0)
+            {
+                ResultList = SpareContainer.Instance.Spares;
+            } else
             if (GroupID > 0 && (!(BrandID > 0)))
             {
                 if (GroupID > 0)
@@ -351,8 +354,6 @@ namespace bycar3.Views.Main_window
                 }
             }
             else
-
-                //int BrandID
                 if (BrandID > 0)
                 {
                     if (GroupID > 0)
@@ -366,7 +367,6 @@ namespace bycar3.Views.Main_window
                         && (x.BrandID == BrandID)).ToList();
                     }
                 }
-
             //bool RemainsOnly,
             if (RemainsOnly)
             {
@@ -399,7 +399,7 @@ namespace bycar3.Views.Main_window
         BackgroundWorker BackgroundLoad;        
         void LoadSparesInBackground()
         {
-            ParentWindow.edtStatus.Content = "Загрузка...";
+            ParentWindow.edtStatus.Content = "загрузка...";
             SelectedSpareID = 0;
             if (dgSpares.SelectedItem != null)
                 SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
@@ -427,23 +427,7 @@ namespace bycar3.Views.Main_window
             GotoMode = 0;
             ParentWindow.edtStatus.Content = "ok";
         }
-        public void LoadSpares2()
-        {
-            int SelectedSpareID = 0;
-            if (dgSpares.SelectedItem != null)
-                SelectedSpareID = (dgSpares.SelectedItem as SpareView).id;
-
-            dgSpares.DataContext = FilterSpares(_searchFieldIndex, _searchText, _remainsOnly, _groupID, _brandName);
-            if (dgSpares.HasItems && GotoMode != 4)
-            {
-                SpareView s = dgSpares.Items[0] as SpareView;
-                dgSpares.SelectedItem = s;
-                dgSpares.UpdateLayout();
-                dgSpares.ScrollIntoView(s);
-            }
-            GotoMode = 0;            
-        }
-
+      
         public void LoadSparesSimple()
         {
             dgSpares.DataContext = FilterSpares(_searchFieldIndex, "", false, 1, "");

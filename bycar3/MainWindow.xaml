@@ -340,10 +340,13 @@
         <StatusBar Name="mStatusBar"                   
                    Grid.Row="3">
             <StatusBarItem>
-                <Label Name="lbSparesQ" HorizontalAlignment="Stretch" />
+                <Label Name="lbSparesQ" />
+            </StatusBarItem>
+            <StatusBarItem>   
+                <Label Name="edtStatusLbl" Content=" Состояние: "/>
             </StatusBarItem>
             <StatusBarItem>
-                <Label Name="edtStatus" HorizontalAlignment="Stretch" />
+                <Label Name="edtStatus" Content="ok"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

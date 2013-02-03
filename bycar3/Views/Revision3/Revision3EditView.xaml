@@ -20,6 +20,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel
                     Orientation="Horizontal"
@@ -171,7 +172,17 @@
                             <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=q_rest}" Header="Фактически" Width="0.1*" />
                         </DataGrid.Columns>
                     </DataGrid>
+                    
                 </Grid>
+                <StatusBar Name="mStatusBar"                   
+                   Grid.Row="2">                   
+                       <StatusBarItem>
+                            <Label Name="edtStatusLbl" Content="Состояние: "/>
+                        </StatusBarItem>
+                        <StatusBarItem>
+                            <Label Name="edtStatus" Content="ok"/>
+                        </StatusBarItem>
+                    </StatusBar>                
             </Grid>
         </Border>
     </Grid>

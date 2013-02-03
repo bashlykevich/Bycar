@@ -67,7 +67,7 @@ namespace bycar3.Core
                             mainWindowObj.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
                                 new System.Windows.Threading.DispatcherOperationCallback(delegate
                             {
-                                mainWindowObj.LoadSpares2();
+                                mainWindowObj.LoadSpares();
                                 return null;
                             }), null);
 
@@ -78,7 +78,7 @@ namespace bycar3.Core
                             mainWindowObj.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
                             new System.Windows.Threading.DispatcherOperationCallback(delegate
                             {
-                                mainWindowObj.LoadSpares2();
+                                mainWindowObj.LoadSpares();
                                 return null;
                             }), null);
                         }
@@ -256,7 +256,7 @@ namespace bycar3.Core
             bool? res = v.ShowDialog();
             if (v._spare != null)
             {
-                MainWindowObj.LoadSpares2();
+                MainWindowObj.LoadSpares();
                 MainWindowObj.dgSpares.SelectedItem = SpareContainer.Instance.Spares.FirstOrDefault(x => x.id == SpareID);
             }
         }
