@@ -19,6 +19,7 @@ using bycar3.Views.Revision;
 using bycar3.Views.Revision3;
 using DataStreams.Csv;
 using Microsoft.Win32;
+using System.ComponentModel;
 
 namespace bycar3
 {
@@ -528,16 +529,17 @@ namespace bycar3
         // КОНСТРУКТОР MainWindow()
         public MainWindow()
         {
-            //DateTime time1 = DateTime.Now;
-            //DateTime t = DateTime.Now;
+            DateTime time1 = DateTime.Now;
+            DateTime t = DateTime.Now;
 
             // InitializeComponent() - auto-generated function
             InitializeComponent();
             /* В конструкторе класса главного окна инициализируем большой список,
              * подгружать остальную инфу будем при показе окна */
-            //t = DateTime.Now; 
+            t = DateTime.Now; 
+
             SpareContainer.Instance.Update(); 
-            //Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
+            Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
 
             //Start();
             /* + окно загружено,
@@ -569,9 +571,9 @@ namespace bycar3
             uc_Spares.Visibility = System.Windows.Visibility.Visible;
             PrintRemains();
             
-            //TimeSpan time = DateTime.Now - time1;
-            //string ts = time.TotalSeconds.ToString() + " seconds";
-            //Log("MainWindow: " + ts);
+            TimeSpan time = DateTime.Now - time1;
+            string ts = time.TotalSeconds.ToString() + " seconds";
+            Log("MainWindow: " + ts);
         }
 
         private void mi_Contacts_Click(object sender, RoutedEventArgs e)
@@ -998,27 +1000,35 @@ namespace bycar3
             //Settings.Settings.Default.SearchFieldIndex = edtSearchField.SelectedIndex;
             //Settings.Settings.Default.Save();
         }
+        BackgroundWorker BackgroundRemainsCalculation;
+        void CalculateRemsinInBackground()
+        {
+            BackgroundRemainsCalculation = new BackgroundWorker();
+            BackgroundRemainsCalculation.DoWork += new DoWorkEventHandler(BackgroundRemainsCalculation_DoWork);
+            BackgroundRemainsCalculation.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundRemainsCalculation_RunWorkerCompleted);
+            BackgroundRemainsCalculation.RunWorkerAsync();
+        }
+        private void BackgroundRemainsCalculation_DoWork(object sender, DoWorkEventArgs e)
+        {
+            SpareContainer.Instance.RemainsSum();
+        }
+        private void BackgroundRemainsCalculation_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lbSparesQ.Content += "Сумма остатков: "
+                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
+                            + " единиц базовой валюты.";
+        }
 
         public void PrintRemains()
         {
             lbSparesQ.Content = "Все наименования: "
                                 + SpareContainer.Instance.Spares.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
+            
             lbSparesQ.Content += "Наименования с остатком: "
                                 + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
-
-            //lbSparesQ.Content += "Сумма остатков: " + SpareContainer.Instance.Remains.Sum(x => x.QRest) + ". ";
-            lbSparesQ.Content += "Сумма остатков: "
-                            + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
-                            + " единиц базовой валюты.";
-
-            // + "; остатков: " + SpareContainer.Instance.Remains.Count;
-            //settings_profile p = da.getProfileCurrent();
-            //if (p.UseScanner == 1)
-            //    edtSearchText.SearchMode = UIControls.SearchMode.Delayed;
-            //else
-            //    edtSearchText.SearchMode = UIControls.SearchMode.Instant;
+            CalculateRemsinInBackground();
         }
 
         public string LastSearch = "";

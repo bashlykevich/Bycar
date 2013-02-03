@@ -22,43 +22,40 @@ namespace bycar3.External_Code
             }
         }
 
-        private double RS = 0;
-
+        double RS = -1;
         public double RemainsSum()
         {
             if (spares == null)
                 Update();
-            return RS;
-        }
-
-        private double CalcRemainsSum()
-        {
-            RS = 0;
-            List<SpareView> remains = spares.Where(i => i.QRest.HasValue).ToList();
-            remains = remains.Where(i => i.QRest > 0).ToList();
-            foreach (SpareView sv in remains)
+            if (RS < 0)
             {
-                DataAccess da = new DataAccess();
-                List<SpareInSpareIncomeView> items = da.GetIncomes(sv.id);
-                foreach (SpareInSpareIncomeView i in items)
+                RS = 0;
+                List<SpareView> remains = spares.Where(i => i.QRest.HasValue).ToList();
+                remains = remains.Where(i => i.QRest > 0).ToList();
+                foreach (SpareView sv in remains)
                 {
-                    decimal POutBasic = 0;
-                    if (!i.POutBasic.HasValue)
+                    DataAccess da = new DataAccess();
+                    List<SpareInSpareIncomeView> items = da.GetIncomes(sv.id);
+                    foreach (SpareInSpareIncomeView i in items)
                     {
-                        string IncomeCurrencyCode = i.CurrencyCode;
-                        decimal PIn = i.PIn.Value;
-                        POutBasic = CurrencyHelper.GetBasicPrice(IncomeCurrencyCode, PIn);
+                        decimal POutBasic = 0;
+                        if (!i.POutBasic.HasValue)
+                        {
+                            string IncomeCurrencyCode = i.CurrencyCode;
+                            decimal PIn = i.PIn.Value;
+                            POutBasic = CurrencyHelper.GetBasicPrice(IncomeCurrencyCode, PIn);
+                        }
+                        else
+                        {
+                            POutBasic = i.POutBasic.Value;
+                        }
+                        RS += (double)(POutBasic * i.QRest.Value);
                     }
-                    else
-                    {
-                        POutBasic = i.POutBasic.Value;
-                    }
-                    RS += (double)(POutBasic * i.QRest.Value);
                 }
             }
             return RS;
         }
-
+     
         public List<SpareView> Remains
         {
             get
@@ -86,20 +83,9 @@ namespace bycar3.External_Code
 
         public void Update()
         {
-            DataAccess da = new DataAccess();
-           //string message = "";
-            /* test
-            
-            DateTime t = DateTime.Now;
-            t = DateTime.Now; da.GetSpares(true); message += "Sort on:  " + ((DateTime.Now - t).TotalSeconds + " secs\n");
-            t = DateTime.Now; da.GetSpares(false); message += "Sort off: " + ((DateTime.Now - t).TotalSeconds + " secs\n");   
-         */
-            spares = da.GetSpares();
-            //to backgroundworker 
-            //RS = CalcRemainsSum();
-            //return message;
-        }
-
+            DataAccess da = new DataAccess();           
+            spares = da.GetSpares();            
+        }        
         /*
          * OLD
         public void Update(SpareView spare)
