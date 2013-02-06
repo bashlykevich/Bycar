@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using bycar;
-using bycar.Utils;
 using bycar.External_Code;
-using System;
 
 namespace bycar3.External_Code
 {
@@ -17,7 +15,7 @@ namespace bycar3.External_Code
             get
             {
                 if (spares == null)
-                    Update();                
+                    Update();
                 return spares;
             }
         }
@@ -31,9 +29,10 @@ namespace bycar3.External_Code
                 Update();
             if (RS < 0)
             {
-               DataAccess da = new DataAccess();                   
+               DataAccess da = new DataAccess();
                 RS = 0;
                 var remains = from s in spares where s.QRest > 0 select s;
+
                 //remains = remains.Where(i => i.QRest > 0).ToList();
                 foreach (SpareView sv in remains)
                 {
@@ -53,11 +52,11 @@ namespace bycar3.External_Code
                         }
                         RS += (double)(POutBasic * i.QRest.Value);
                     }
-                }               
+                }
             }
             return RS;
         }*/
-     
+
         public List<SpareView> Remains
         {
             get
@@ -85,9 +84,10 @@ namespace bycar3.External_Code
 
         public void Update()
         {
-            DataAccess da = new DataAccess();           
-            spares = da.GetSpares();            
-        }        
+            DataAccess da = new DataAccess();
+            spares = da.GetSpares();
+        }
+
         /*
          * OLD
         public void Update(SpareView spare)
@@ -105,8 +105,9 @@ namespace bycar3.External_Code
         {
             if (UpdateFromDB)
             {
-                DataAccess da = new DataAccess();                
+                DataAccess da = new DataAccess();
                 SpareView OldSpareInstance = Spares.Where(x => x != null).FirstOrDefault(x => x.id == NewSpareInstance.id);
+
                 // если в кэше такая есть, запоминает индекс и перезаписываем
                 if (OldSpareInstance != null)
                 {
@@ -134,14 +135,15 @@ namespace bycar3.External_Code
         }
         }
         */
+
         public void Update(int SpareID, bool UpdateFromDB = true, bool SkipQRestsCalculation = false)
         {
-            
             if (UpdateFromDB)
             {
                 DataAccess da = new DataAccess();
                 SpareView OldSpareInstance = Spares.Where(x => x != null).FirstOrDefault(x => x.id == SpareID);
                 SpareView NewSpareInstance = da.GetSpareView(SpareID);
+
                 // если в кэше такая есть, запоминает индекс и перезаписываем
                 if (OldSpareInstance != null)
                 {
@@ -149,7 +151,7 @@ namespace bycar3.External_Code
                     spares[i] = NewSpareInstance;
                 }
                 else
-                {                                     
+                {
                     spares.Add(NewSpareInstance);
                 }
             }
@@ -174,7 +176,7 @@ namespace bycar3.External_Code
                 Helper.CalculateQRests(SpareID);
                 Update(SpareID, true, true);
             }
-        }          
+        }
 
         public void Remove(int id)
         {
@@ -302,10 +304,11 @@ namespace bycar3.External_Code
 
             return ResultList.ToList();
         }
+
         public void FixQuantity(int SpareID, decimal NewQuantity)
         {
-            DataAccess db = new DataAccess();            
-            db.FixIncomeQuantity(SpareID, NewQuantity);           
+            DataAccess db = new DataAccess();
+            db.FixIncomeQuantity(SpareID, NewQuantity);
         }
     }
 }

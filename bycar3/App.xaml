@@ -3,29 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Startup="OnStartUp">
     <Application.Resources>
-        <Style TargetType="Window" x:Key="ShatemStyleKey">        
+        <Style TargetType="Window" x:Key="ShatemStyleKey">
         </Style>
-        <Style TargetType="Window" x:Key="ShatemWindow">         
+        <Style TargetType="Window" x:Key="ShatemWindow">
         </Style>
-        <Style TargetType="UserControl" x:Key="ShatemUserControl">            
+        <Style TargetType="UserControl" x:Key="ShatemUserControl">
         </Style>
         <Style TargetType="Button"
-               x:Key="ShatemButton">            
+               x:Key="ShatemButton">
             <Setter Property="Width" Value="140" />
             <Setter Property="Margin" Value="2,0,2,0" />
         </Style>
         <Style TargetType="ToggleButton"
-               x:Key="ShatemToggleButton">            
+               x:Key="ShatemToggleButton">
             <Setter Property="Width" Value="140" />
             <Setter Property="Margin" Value="2,0,2,0" />
         </Style>
 
         <Style TargetType="TextBox"
-               x:Key="ShatemTextBox">            
+               x:Key="ShatemTextBox">
             <Setter Property="Margin" Value="0" />
             <Setter Property="Height" Value="22" />
         </Style>
-        <Style TargetType="Grid" x:Key="ShatemGrid">            
+        <Style TargetType="Grid" x:Key="ShatemGrid">
         </Style>
         <Style TargetType="Menu"
                x:Key="MainMenuStyle">

@@ -7,7 +7,7 @@
         xmlns:bycar="clr-namespace:bycar3.Views.Main_window"
         Title="IMBS: АРМ &quot;Драйв&quot;"
         WindowState="Maximized"
-        KeyDown="Window_KeyDown"      
+        KeyDown="Window_KeyDown"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
         MinHeight="700"
         Loaded="Window_Loaded"
@@ -161,7 +161,7 @@
             </MenuItem>
         </Menu>
         <StackPanel Name="mToolBarTray"
-                    Orientation="Horizontal"                    
+                    Orientation="Horizontal"
                     HorizontalAlignment="Stretch"
                     Margin="4"
                     Grid.Row="1">
@@ -332,21 +332,21 @@
                 </ToggleButton.Content>
             </ToggleButton>
         </StackPanel>
-        <Grid Name="mMainGrid"                      
+        <Grid Name="mMainGrid"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               Grid.Row="2">
         </Grid>
-        <StatusBar Name="mStatusBar"                   
+        <StatusBar Name="mStatusBar"
                    Grid.Row="3">
             <StatusBarItem>
                 <Label Name="lbSparesQ" />
             </StatusBarItem>
-            <StatusBarItem>   
-                <Label Name="edtStatusLbl" Content=" Состояние: "/>
+            <StatusBarItem>
+                <Label Name="edtStatusLbl" Content=" Состояние: " />
             </StatusBarItem>
             <StatusBarItem>
-                <Label Name="edtStatus" Content="ok"/>
+                <Label Name="edtStatus" Content="ok" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using bycar;
 using bycar3.External_Code;
-using bycar3.Reporting;
-using System.Windows.Data;
-using System.Xml;
-using System.Collections;
-using System.ComponentModel;
 using bycar3.Helpers.ValueConversion;
+using bycar3.Reporting;
 
 namespace bycar3.Views.Revision3
-{   
+{
     /// <summary>
     /// Interaction logic for Revision3EditView.xaml
     /// </summary>
@@ -23,7 +22,8 @@ namespace bycar3.Views.Revision3
         #region MEMBERS
 
         //private int SelectedSpareID = 0;
-        private IList items;       
+        private IList items;
+
         public bool RevisionModeOn = false;
         private int _searchFieldIndex = 0;
 
@@ -126,9 +126,9 @@ namespace bycar3.Views.Revision3
 
         private DataAccess da = new DataAccess();
 
-        BackgroundWorker BackgroundLoad;
-        
-        void LoadSparesInBackground()
+        private BackgroundWorker BackgroundLoad;
+
+        private void LoadSparesInBackground()
         {
             edtStatus.Content = "загрузка...";
 
@@ -144,10 +144,10 @@ namespace bycar3.Views.Revision3
                 BackgroundLoad.CancelAsync();
             BackgroundLoad.RunWorkerAsync();
         }
-        
+
         private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
         {
-            items = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);            
+            items = FilterSpares(_SearchFieldIndex, _SearchText, _RemainsOnly, _GroupID, _BrandName, _mismatchOnly);
         }
 
         private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -158,10 +158,10 @@ namespace bycar3.Views.Revision3
 
         public void LoadSpares()
         {
-            if(IsReady)
+            if (IsReady)
                 LoadSparesInBackground();
         }
-        
+
         public List<string> getBrandsInSpareGroup(int GroupID)
         {
             List<string> items = new List<string>();
@@ -179,7 +179,7 @@ namespace bycar3.Views.Revision3
             items.Sort();
             return items;
         }
-        
+
         public List<SpareView> FilterSpares(
           int SearchFieldIndex,
           string SearchText,
@@ -272,29 +272,30 @@ namespace bycar3.Views.Revision3
             if (GroupID == 0)
             {
                 ResultList = SpareContainer.Instance.Spares;
-            } else
-            if (GroupID > 0 && (!(BrandID > 0)))
-            {
-                if (GroupID > 0)
-                {
-                    ResultList = SpareContainer.Instance.Spares.Where(x => x != null).Where(x => (x.GroupID == GroupID)
-                        || (x.spare_group1_id == GroupID)
-                        || (x.spare_group2_id == GroupID)
-                        || (x.spare_group3_id == GroupID)).ToList();
-                }
             }
             else
-
-                //int BrandID
-                if (BrandID > 0)
+                if (GroupID > 0 && (!(BrandID > 0)))
                 {
                     if (GroupID > 0)
-                        ResultList = SpareContainer.Instance.Spares.Where(x => ((x.GroupID == GroupID)
-                        || (x.spare_group1_id == GroupID)
-                        || (x.spare_group2_id == GroupID)
-                        || (x.spare_group3_id == GroupID))
-                        && (x.BrandID == BrandID)).ToList();
+                    {
+                        ResultList = SpareContainer.Instance.Spares.Where(x => x != null).Where(x => (x.GroupID == GroupID)
+                            || (x.spare_group1_id == GroupID)
+                            || (x.spare_group2_id == GroupID)
+                            || (x.spare_group3_id == GroupID)).ToList();
+                    }
                 }
+                else
+
+                    //int BrandID
+                    if (BrandID > 0)
+                    {
+                        if (GroupID > 0)
+                            ResultList = SpareContainer.Instance.Spares.Where(x => ((x.GroupID == GroupID)
+                            || (x.spare_group1_id == GroupID)
+                            || (x.spare_group2_id == GroupID)
+                            || (x.spare_group3_id == GroupID))
+                            && (x.BrandID == BrandID)).ToList();
+                    }
 
             //bool RemainsOnly,
             if (RemainsOnly)
@@ -350,7 +351,9 @@ namespace bycar3.Views.Revision3
         {
             InitializeComponent();
         }
-        bool IsReady = false;
+
+        private bool IsReady = false;
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsReady = true;
@@ -359,11 +362,10 @@ namespace bycar3.Views.Revision3
             LoadSpares();
             LoadWarehouses();
             edtDate.SelectedDate = DateTime.Now;
-            
         }
 
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
+        {
             _SearchFieldIndex = edtSearchField.SelectedIndex;
         }
 
@@ -389,7 +391,7 @@ namespace bycar3.Views.Revision3
         {
             GroupsTreeViewSelectionChanged(sender, e);
         }
-       
+
         private bool isManualEditCommit;
 
         private void HandleMainDataGridCellEditEnding(
@@ -513,11 +515,13 @@ namespace bycar3.Views.Revision3
         {
             LoadSpares();
         }
-        void LoadGroups()
-        {            
+
+        private void LoadGroups()
+        {
             treeSpareGroups.ItemsSource = da.GetRoots();
             _groupID = 0;
         }
+
         private void GroupsTreeViewSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             spare_group group = e.NewValue as spare_group;
@@ -531,7 +535,6 @@ namespace bycar3.Views.Revision3
                 string brandName = group.name;
                 int groupID = group.ParentGroup.id;
                 _GroupIDBrandName(groupID, brandName);
-
             }
             else
             {
@@ -541,11 +544,13 @@ namespace bycar3.Views.Revision3
 
             dgSpares.SelectedIndex = 0;
         }
+
         private void btnFixQ_Click(object sender, RoutedEventArgs e)
         {
             FixCurrentSpareQuantity();
         }
-        void FixCurrentSpareQuantity()
+
+        private void FixCurrentSpareQuantity()
         {
             int SelectedSpareID = 0;
             SpareView spare = null;
@@ -554,7 +559,7 @@ namespace bycar3.Views.Revision3
             else
                 return;
             SelectedSpareID = spare.id;
-            decimal NewQuantity = spare.q_rest.HasValue?spare.q_rest.Value:0;
+            decimal NewQuantity = spare.q_rest.HasValue ? spare.q_rest.Value : 0;
             try
             {
                 SpareContainer.Instance.FixQuantity(SelectedSpareID, NewQuantity);
@@ -564,7 +569,7 @@ namespace bycar3.Views.Revision3
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }           
+            }
         }
     }
 }

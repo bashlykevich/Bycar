@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading;
 using System.Windows;
-using bycar3.Core;
 using splashDemo;
 
 namespace bycar3
@@ -12,7 +11,6 @@ namespace bycar3
     /// </summary>
     public partial class App : Application
     {
-      
         private void OnStartUp(Object sender, StartupEventArgs e)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -20,7 +18,7 @@ namespace bycar3
             MainWindow mw = new MainWindow();
             mw.Show();
             mw.Activate();
-            SplashThreadStop();           
+            SplashThreadStop();
         }
 
         private Thread splash = null;

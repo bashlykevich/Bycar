@@ -19,7 +19,6 @@ using bycar3.Views.Revision;
 using bycar3.Views.Revision3;
 using DataStreams.Csv;
 using Microsoft.Win32;
-using System.ComponentModel;
 
 namespace bycar3
 {
@@ -57,9 +56,9 @@ namespace bycar3
         private void ChangeBasicCurrency()
         {
             if (uc_Spares != null)
-                uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();           
+                uc_Spares.CurrentCurrencyName = edtCurrentCurrency.SelectedItem.ToString();
         }
-    
+
         private bool ItemCreate()
         {
             bool flag = false;
@@ -438,7 +437,8 @@ namespace bycar3
                     break;
             }
         }
-       public void CallRevisionWindow()
+
+        public void CallRevisionWindow()
         {
             RevisionEditView v = new RevisionEditView();
             v.ShowDialog();
@@ -457,9 +457,9 @@ namespace bycar3
             InitializeComponent();
             /* В конструкторе класса главного окна инициализируем большой список,
              * подгружать остальную инфу будем при показе окна */
-            t = DateTime.Now; 
+            t = DateTime.Now;
 
-            SpareContainer.Instance.Update(); 
+            SpareContainer.Instance.Update();
             Log((DateTime.Now - t).TotalSeconds + " secs SpareContainer.Instance.Update()");
 
             //Start();
@@ -481,17 +481,19 @@ namespace bycar3
 
             LoadCurrencies();
             _Workspace = 0;
+
             // ======== user control
             string curr = da.getProfileCurrent().BasicCurrencyCode;
-            uc_Spares = new Views.Main_window.UCSpares(this, curr); 
+            uc_Spares = new Views.Main_window.UCSpares(this, curr);
             mMainGrid.Children.Add(uc_Spares);
 
             // bind spares
             uc_Spares.dgSpares.DataContext = SpareContainer.Instance.Spares;
+
             // покажем контрол
             uc_Spares.Visibility = System.Windows.Visibility.Visible;
             PrintRemains();
-            
+
             TimeSpan time = DateTime.Now - time1;
             string ts = time.TotalSeconds.ToString() + " seconds";
             Log("MainWindow: " + ts);
@@ -748,8 +750,6 @@ namespace bycar3
                 spRevisionPanel.Visibility = System.Windows.Visibility.Hidden;*/
         }
 
-  
-
         private void edtSearchField_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (uc_Spares != null)
@@ -829,8 +829,8 @@ namespace bycar3
         }
 
         private void btnRevision_Click(object sender, RoutedEventArgs e)
-        {            
-            Revision3EditView v = new Revision3EditView();            
+        {
+            Revision3EditView v = new Revision3EditView();
             v.ShowDialog();
         }
 
@@ -868,7 +868,7 @@ namespace bycar3
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Delete)
+            if (e.Key == Key.Delete)
                 MessageBox.Show(message);
             /*
             if (uc_Spares.grBasket.Visibility == System.Windows.Visibility.Visible)
@@ -921,16 +921,17 @@ namespace bycar3
             //Settings.Settings.Default.SearchFieldIndex = edtSearchField.SelectedIndex;
             //Settings.Settings.Default.Save();
         }
-       
+
         public void PrintRemains()
         {
             lbSparesQ.Content = "Все наименования: "
                                 + SpareContainer.Instance.Spares.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
-            
+
             lbSparesQ.Content += "Наименования с остатком: "
                                 + SpareContainer.Instance.Remains.Count.ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                                 + ". ";
+
             // DISABLE CalculateRemsinInBackground();
         }
 
@@ -964,11 +965,14 @@ namespace bycar3
                     break;
             }
         }
-        string message = "";
-        void Log(string s)
+
+        private string message = "";
+
+        private void Log(string s)
         {
             message += DateTime.Now.ToString("hh:mm:ss.fff") + " > " + s + "\n";
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             settings_profile settings = da.getProfileCurrent();
@@ -989,12 +993,13 @@ namespace bycar3
                 }
             }
             this.Title += " - " + Marvin.Instance.CurrentUser.name;
+
             // check currencies up-to-date
             if (!da.AreCurrenciesUpToDate())
             {
                 CurrenciesInput v = new CurrenciesInput(DateTime.Now);
                 v.ShowDialog();
-             }            
+            }
         }
 
         private void mi_Reports_DailySales_Click(object sender, RoutedEventArgs e)
@@ -1065,7 +1070,9 @@ namespace bycar3
         }
 
         /*
-        #region Background Tasks        
+
+        #region Background Tasks
+
         BackgroundWorker BackgroundRemainsCalculation;
         void CalculateRemsinInBackground()
         {
@@ -1083,8 +1090,10 @@ namespace bycar3
             lbSparesQ.Content += "Сумма остатков: "
                             + SpareContainer.Instance.RemainsSum().ToString("N", CultureInfo.CreateSpecificCulture("ru-RU"))
                             + " единиц базовой валюты.";
-        }      
-        #endregion
+        }
+
+        #endregion Background Tasks
+
         */
     }
 }

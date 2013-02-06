@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Name="mToolBarTray"
-                    Orientation="Horizontal"                     
+                    Orientation="Horizontal"
                      Margin="5"
                      HorizontalAlignment="Stretch"
                      Grid.Row="0">
@@ -76,9 +76,9 @@
             <ToolBarTray
             Grid.Column="0"
             Width="40"
-            HorizontalAlignment="Right"            
+            HorizontalAlignment="Right"
             Orientation="Vertical">
-                <ToolBar>               
+                <ToolBar>
                     <Button Name="btnRateAdd"
                         Click="btnRateAdd_Click">
                         <Image Source=".\Content\img\img_new.png" Width="30" />

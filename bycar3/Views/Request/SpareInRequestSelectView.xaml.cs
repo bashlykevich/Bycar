@@ -14,7 +14,7 @@ namespace bycar3.Views.Request
     {
         #region MEMBERS
 
-        public RequestEditView ParentWindow = null;        
+        public RequestEditView ParentWindow = null;
         public int _ParentItemID = -1;
 
         #endregion MEMBERS

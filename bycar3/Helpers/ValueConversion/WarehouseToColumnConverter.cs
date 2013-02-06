@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 using System.Xml;
 
@@ -9,7 +6,6 @@ namespace bycar3.Helpers.ValueConversion
 {
     public class WarehouseToColumnConverter : IValueConverter
     {
-
         #region IValueConverter Members
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -34,6 +30,6 @@ namespace bycar3.Helpers.ValueConversion
             throw new NotImplementedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
 }

@@ -76,7 +76,7 @@
             </Grid.RowDefinitions>
 
             <Expander
-                ToolTip="Дополнительная информация о текущей расходной накладной"            
+                ToolTip="Дополнительная информация о текущей расходной накладной"
             Grid.Row="0"
             Margin="6,3,3,3"
             Name="expAppendix"

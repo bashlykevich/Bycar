@@ -120,7 +120,7 @@
                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                         Height="30"
                         Margin="2"
-                        Width="200"/>
+                        Width="200" />
                 </StackPanel>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -135,7 +135,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
                         <TreeView.ItemContainerStyle>
-                            <Style TargetType="TreeViewItem" >
+                            <Style TargetType="TreeViewItem">
                                 <Setter Property="IsExpanded" Value="{Binding Path=ParentGroup, Converter={StaticResource groupConverter}}" />
                             </Style>
                         </TreeView.ItemContainerStyle>
@@ -176,17 +176,16 @@
                             <DataGridTextColumn IsReadOnly="False" Binding="{Binding Path=q_rest}" Header="Фактически" Width="0.1*" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    
                 </Grid>
-                <StatusBar Name="mStatusBar"                   
-                   Grid.Row="2">                   
-                       <StatusBarItem>
-                            <Label Name="edtStatusLbl" Content="Состояние: "/>
-                        </StatusBarItem>
-                        <StatusBarItem>
-                            <Label Name="edtStatus" Content="ok"/>
-                        </StatusBarItem>
-                    </StatusBar>                
+                <StatusBar Name="mStatusBar"
+                   Grid.Row="2">
+                    <StatusBarItem>
+                        <Label Name="edtStatusLbl" Content="Состояние: " />
+                    </StatusBarItem>
+                    <StatusBarItem>
+                        <Label Name="edtStatus" Content="ok" />
+                    </StatusBarItem>
+                </StatusBar>
             </Grid>
         </Border>
     </Grid>

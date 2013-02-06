@@ -8,9 +8,9 @@
         <xrd:ReportProperties.ReportTitle>Накладная</xrd:ReportProperties.ReportTitle>
     </xrd:ReportProperties>
     <Section Padding="15" FontSize="12">
-        <Paragraph/>
-        <Paragraph/>
-        <Paragraph/>
+        <Paragraph />
+        <Paragraph />
+        <Paragraph />
         <Paragraph
             FontSize="16"
             TextAlignment="Center">Реестр розничных цен на товар №
@@ -242,7 +242,7 @@
                             </Paragraph>
                         </TableCell>
                         <TableCell>
-                            <Paragraph TextAlignment="Center">                                
+                            <Paragraph TextAlignment="Center">
                             </Paragraph>
                         </TableCell>
                         <TableCell>

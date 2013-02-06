@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 
 namespace bycar3.Helpers.ValueConversion
@@ -22,6 +19,6 @@ namespace bycar3.Helpers.ValueConversion
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,9 +11,6 @@ using bycar;
 using bycar3.Core;
 using bycar3.External_Code;
 using bycar3.Views.Spare_Outgo;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Data;
 
 namespace bycar3.Views.Main_window
 {
@@ -246,7 +245,6 @@ namespace bycar3.Views.Main_window
                     string brandName = group.name;
                     int groupID = group.ParentGroup.id;
                     _GroupIDBrandName(groupID, brandName);
-
                 }
                 else
                 {
@@ -370,6 +368,7 @@ namespace bycar3.Views.Main_window
                             && (x.BrandID == BrandID)).ToList();
                         }
                     }
+
             //bool RemainsOnly,
             if (RemainsOnly)
             {
@@ -399,8 +398,10 @@ namespace bycar3.Views.Main_window
 
             return ResultList.ToList();
         }
-        BackgroundWorker BackgroundLoad;
-        void LoadSparesInBackground()
+
+        private BackgroundWorker BackgroundLoad;
+
+        private void LoadSparesInBackground()
         {
             ParentWindow.edtStatus.Content = "загрузка...";
             SelectedSpareID = 0;
@@ -413,12 +414,13 @@ namespace bycar3.Views.Main_window
             if (BackgroundLoad.IsBusy)
                 BackgroundLoad.CancelAsync();
             BackgroundLoad.RunWorkerAsync();
-
         }
+
         private void BackgroundLoad_DoWork(object sender, DoWorkEventArgs e)
         {
             items = FilterSpares(_searchFieldIndex, _searchText, _remainsOnly, _groupID, _brandName);
         }
+
         private void BackgroundLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             dgSpares.DataContext = items;
@@ -433,8 +435,9 @@ namespace bycar3.Views.Main_window
             ParentWindow.edtStatus.Content = "ok";
         }
 
-        BackgroundWorker BackgroundShowDetails;
-        void ShowSpareDetailsInBackground(IList selectedItems)
+        private BackgroundWorker BackgroundShowDetails;
+
+        private void ShowSpareDetailsInBackground(IList selectedItems)
         {
             ParentWindow.edtStatus.Content = "загрузка";
             BackgroundShowDetails = new BackgroundWorker();
@@ -443,8 +446,8 @@ namespace bycar3.Views.Main_window
             if (BackgroundShowDetails.IsBusy)
                 BackgroundShowDetails.CancelAsync();
             BackgroundShowDetails.RunWorkerAsync(selectedItems);
-
         }
+
         private void BackgroundShowDetails_DoWork(object sender, DoWorkEventArgs e)
         {
             // DETAILED INFO
@@ -462,27 +465,31 @@ namespace bycar3.Views.Main_window
                 SpareView selected = selectedItems[0] as SpareView;
                 DetailSpareInfo_Brand = selected.BrandName;
                 DetailSpareInfo_Name = selected.name;
+
                 // построим путь по группам к запчасти
                 // текущая группа
                 DataAccess db = new DataAccess();
                 spare s = db.GetSpare(selected.id);
                 string gp = s.spare_group.name;
+
                 // родительская
                 if (s.spare_group1 != null)
                     gp = s.spare_group1.name + "/" + gp;
+
                 // дедушка
                 if (s.spare_group2 != null)
                     gp = s.spare_group2.name + "/" + gp;
+
                 // прадедушка
                 if (s.spare_group3 != null)
                     gp = s.spare_group3.name + "/" + gp;
                 DetailSpareInfo_Group = gp;
 
                 // INCOMES & ANALOGS WINDOWS
-                // anlogues                
+                // anlogues
                 Detail_Analogues = db.GetAnalogues(selected.id);
-                
-                // incomes   
+
+                // incomes
                 Detail_Incomes = db.GetIncomes(selected.id);
                 foreach (SpareInSpareIncomeView i in Detail_Incomes)
                 {
@@ -521,14 +528,16 @@ namespace bycar3.Views.Main_window
                     strDate += i.SpareIncomeDate.Value.Month + ".";
                     strDate += i.SpareIncomeDate.Value.Year;
                     i.DF_Date = strDate;
-                }                
+                }
             }
         }
-        string DetailSpareInfo_Brand;
-        string DetailSpareInfo_Group;
-        string DetailSpareInfo_Name;
-        IList Detail_Incomes;
-        IList Detail_Analogues;
+
+        private string DetailSpareInfo_Brand;
+        private string DetailSpareInfo_Group;
+        private string DetailSpareInfo_Name;
+        private IList Detail_Incomes;
+        private IList Detail_Analogues;
+
         private void BackgroundShowDetails_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             edtSpareBrand.Text = DetailSpareInfo_Brand;
@@ -746,7 +755,6 @@ namespace bycar3.Views.Main_window
             ParentWindow = parent;
             CurrentCurrencyName = CurrencyName;
             LoadGroups();
-
         }
 
         private void treeSpareGroups_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -1082,11 +1090,12 @@ namespace bycar3.Views.Main_window
             treeSpareGroups.Visibility = System.Windows.Visibility.Visible;
             BasketItems = new List<BasketView>();
         }
-        void LoadGroups()
+
+        private void LoadGroups()
         {
             DataAccess db = new DataAccess();
             treeSpareGroups.ItemsSource = null;
             treeSpareGroups.ItemsSource = da.GetRoots();
-        }       
+        }
     }
 }

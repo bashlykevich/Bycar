@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Linq;
 using bycar;
 using bycar3.Core;
+using bycar3.External_Code;
 using bycar3.Views.Common;
 using bycar3.Views.Main_window;
-using System.ComponentModel;
-using bycar3.External_Code;
 
 namespace bycar3.Views
 {
@@ -125,7 +125,7 @@ namespace bycar3.Views
             string Description = edtDescr.Text;
             return Marvin.Instance.SpareCreate(Name, Code, CodeShatem, QDemand, GroupID, BrandID, UnitID, Description);
         }
-      
+
         private spare EditItem()
         {
             if (!Validated())
@@ -230,7 +230,7 @@ namespace bycar3.Views
                 DataAccess db = new DataAccess();
                 db.SpareAnalogueDelete(SpareID, AnalogueID);
             }
-            loadAnalogues(_id);          
+            loadAnalogues(_id);
         }
 
         private void EditSelectedAnalogue()
@@ -334,9 +334,10 @@ namespace bycar3.Views
         }
 
         #region Save In Background
-        BackgroundWorker BackgroundSave;
-      
-        void Save()
+
+        private BackgroundWorker BackgroundSave;
+
+        private void Save()
         {
             if (!Validated())
             {
@@ -344,7 +345,6 @@ namespace bycar3.Views
                 return;
             }
             BackgroundSave = new BackgroundWorker();
-            
 
             if (this._id > 0)
             {
@@ -376,18 +376,21 @@ namespace bycar3.Views
             TemporarySaved = false;
             this.Close();
         }
+
         // Spare fields
-        string SpareUpdateName;
-        string  SpareUpdateCode;
-        string  SpareUpdateCodeShatem;
-        int SpareUpdateQDemand;
-        int SpareUpdateGroupID;
-        int SpareUpdateBrandID;
-        int SpareUpdateUnitID;
-        string SpareUpdateDescription;
-        bool ReloadGroups = false;
-        void Bind()
-        {            
+        private string SpareUpdateName;
+
+        private string SpareUpdateCode;
+        private string SpareUpdateCodeShatem;
+        private int SpareUpdateQDemand;
+        private int SpareUpdateGroupID;
+        private int SpareUpdateBrandID;
+        private int SpareUpdateUnitID;
+        private string SpareUpdateDescription;
+        private bool ReloadGroups = false;
+
+        private void Bind()
+        {
             SpareUpdateName = edtName.Text;
             SpareUpdateCode = edtCode.Text;
             SpareUpdateCodeShatem = edtCodeShatem.Text;
@@ -398,6 +401,7 @@ namespace bycar3.Views
             SpareUpdateUnitID = (int)edtUnit.SelectedValue;
             SpareUpdateDescription = edtDescr.Text;
         }
+
         private void BackgroundCreate_DoWork(object sender, DoWorkEventArgs e)
         {
             DataAccess da = new DataAccess();
@@ -419,9 +423,10 @@ namespace bycar3.Views
                 da.SpareGroupCreate(SpareUpdateGroupID, s.brand.name);
                 ReloadGroups = true;
             }
-        }        
+        }
+
         private void BackgroundEdit_DoWork(object sender, DoWorkEventArgs e)
-        { 
+        {
             int SpareID = _spare.id;
             DataAccess da = new DataAccess();
             spare sp = da.GetSpare(SpareID);
@@ -455,17 +460,17 @@ namespace bycar3.Views
                 {
                     da.SpareGroupCreate(SpareUpdateGroupID, SpareUpdateBrandID);
                     ReloadGroups = true;
-                    
                 }
             }
         }
+
         private void BackgroundSave_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(ReloadGroups)
-                ParentWorkspace.LoadGroups();           
+            if (ReloadGroups)
+                ParentWorkspace.LoadGroups();
             ParentWorkspace.ParentWindow.edtStatus.Content = "ok";
         }
 
-        #endregion
+        #endregion Save In Background
     }
 }

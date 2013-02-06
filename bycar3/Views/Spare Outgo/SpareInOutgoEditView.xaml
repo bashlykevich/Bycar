@@ -94,7 +94,7 @@
             Content="Сумма со скидкой"
             Margin="10,2,5,2" />
 
-        <TextBox            
+        <TextBox
             Name="edtQuantity"
             Grid.Column="2"
             Grid.Row="2"

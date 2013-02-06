@@ -70,7 +70,6 @@ namespace bycar3.Core
                                 mainWindowObj.LoadSpares();
                                 return null;
                             }), null);
-
                         }
                         else if (log.EventType == "D")
                         {
@@ -209,7 +208,7 @@ namespace bycar3.Core
             sp.q_demand_clear = QDemand;
             sp.q_rest = 0;
             sp.description = Description;
-            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);            
+            spare s = da.SpareCreate(sp, BrandID, GroupID, UnitID);
             SpareContainer.Instance.Update(s.id);
 
             if (SpareContainer.Instance.Spares.Where(i => i.BrandID == BrandID && i.GroupID == GroupID).Count() == 1)
@@ -220,7 +219,7 @@ namespace bycar3.Core
             }
             return s;
         }
-       
+
         // ЗАПЧАСТЬ - ДОБАВИТЬ - СОХРАНИТЬ
         public spare SpareCreate(string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, string UnitName, string Description)
         {
@@ -282,7 +281,7 @@ namespace bycar3.Core
             int OldBrandID = sp.brand.id;
             int OldGroupID = sp.spare_group.id;
 
-            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);            
+            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);
             SpareContainer.Instance.Update(s.id);
 
             if (OldBrandID != BrandID || OldGroupID != GroupID)
@@ -300,6 +299,7 @@ namespace bycar3.Core
             }
             return s;
         }
+
         public spare SpareEditInBackground(int SpareID, string Name, string Code, string CodeShatem, int QDemand, int GroupID, int BrandID, int UnitID, string Description)
         {
             DataAccess da = new DataAccess();
@@ -320,9 +320,10 @@ namespace bycar3.Core
             int OldBrandID = sp.brand.id;
             int OldGroupID = sp.spare_group.id;
 
-            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);            
+            spare s = da.SpareEdit(sp, BrandID, GroupID, UnitID);
             return s;
         }
+
         // ЗАПЧАСТЬ - УДАЛИТЬ
         public void SpareDelete(SpareView item)
         {

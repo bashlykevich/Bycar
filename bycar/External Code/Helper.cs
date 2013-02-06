@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using bycar3.External_Code;
 
 namespace bycar.External_Code
@@ -16,8 +14,9 @@ namespace bycar.External_Code
             List<warehouse> warehouses = da.GetWarehouses();
             List<double> Qs = new List<double>();
             xml += "<r>";
+
             // Q total
-            double q0 = spare.QRest.HasValue? spare.QRest.Value:0;
+            double q0 = spare.QRest.HasValue ? spare.QRest.Value : 0;
             Qs.Add(q0);
 
             // all actual incomes

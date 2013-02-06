@@ -80,6 +80,7 @@ namespace bycar.External_Code
         public List<spare_group> GetGroups(int searchFieldIndex, string searchString)
         {
             throw new Exception("not implemented");
+
             //List<spare_group> items = new List<spare_group>();
             /*
             switch (searchFieldIndex)
@@ -100,6 +101,7 @@ namespace bycar.External_Code
             if (items == null)
                 items = new List<SpareView>();
             */
+
             //return items.ToList();
         }
 
