@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -137,22 +138,6 @@ namespace bycar
             }
         }
         private ObjectSet<account_type> _account_type;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<analog> analogs
-        {
-            get
-            {
-                if ((_analogs == null))
-                {
-                    _analogs = base.CreateObjectSet<analog>("analogs");
-                }
-                return _analogs;
-            }
-        }
-        private ObjectSet<analog> _analogs;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -875,6 +860,7 @@ namespace bycar
         private ObjectSet<spare_in_spare_outgo> _spare_in_spare_outgo;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -891,14 +877,6 @@ namespace bycar
         public void AddToaccount_type(account_type account_type)
         {
             base.AddObject("account_type", account_type);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the analogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToanalogs(analog analog)
-        {
-            base.AddObject("analogs", analog);
         }
     
         /// <summary>
@@ -1262,6 +1240,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Function Imports
     
         /// <summary>
@@ -1311,11 +1290,11 @@ namespace bycar
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -1342,6 +1321,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1588,6 +1568,7 @@ namespace bycar
         partial void Oncreated_onChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1696,6 +1677,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1722,6 +1704,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1824,6 +1807,7 @@ namespace bycar
         partial void Oncreated_onChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1866,6 +1850,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1892,6 +1877,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2165,6 +2151,7 @@ namespace bycar
         partial void Oncreated_onChanged();
 
         #endregion
+
     
     }
     
@@ -2196,6 +2183,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2298,6 +2286,7 @@ namespace bycar
         partial void OnpasswordChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2368,205 +2357,7 @@ namespace bycar
         }
 
         #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bycar3Model", Name="analog")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class analog : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new analog object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        public static analog Createanalog(global::System.Int32 id)
-        {
-            analog analog = new analog();
-            analog.id = id;
-            return analog;
-        }
 
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String S1_BRAND
-        {
-            get
-            {
-                return _S1_BRAND;
-            }
-            set
-            {
-                OnS1_BRANDChanging(value);
-                ReportPropertyChanging("S1_BRAND");
-                _S1_BRAND = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("S1_BRAND");
-                OnS1_BRANDChanged();
-            }
-        }
-        private global::System.String _S1_BRAND;
-        partial void OnS1_BRANDChanging(global::System.String value);
-        partial void OnS1_BRANDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String S1_CODE_SM
-        {
-            get
-            {
-                return _S1_CODE_SM;
-            }
-            set
-            {
-                OnS1_CODE_SMChanging(value);
-                ReportPropertyChanging("S1_CODE_SM");
-                _S1_CODE_SM = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("S1_CODE_SM");
-                OnS1_CODE_SMChanged();
-            }
-        }
-        private global::System.String _S1_CODE_SM;
-        partial void OnS1_CODE_SMChanging(global::System.String value);
-        partial void OnS1_CODE_SMChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String S2_BRAND
-        {
-            get
-            {
-                return _S2_BRAND;
-            }
-            set
-            {
-                OnS2_BRANDChanging(value);
-                ReportPropertyChanging("S2_BRAND");
-                _S2_BRAND = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("S2_BRAND");
-                OnS2_BRANDChanged();
-            }
-        }
-        private global::System.String _S2_BRAND;
-        partial void OnS2_BRANDChanging(global::System.String value);
-        partial void OnS2_BRANDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String S2_CODE_SM
-        {
-            get
-            {
-                return _S2_CODE_SM;
-            }
-            set
-            {
-                OnS2_CODE_SMChanging(value);
-                ReportPropertyChanging("S2_CODE_SM");
-                _S2_CODE_SM = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("S2_CODE_SM");
-                OnS2_CODE_SMChanged();
-            }
-        }
-        private global::System.String _S2_CODE_SM;
-        partial void OnS2_CODE_SMChanging(global::System.String value);
-        partial void OnS2_CODE_SMChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> S1_ID
-        {
-            get
-            {
-                return _S1_ID;
-            }
-            set
-            {
-                OnS1_IDChanging(value);
-                ReportPropertyChanging("S1_ID");
-                _S1_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("S1_ID");
-                OnS1_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _S1_ID;
-        partial void OnS1_IDChanging(Nullable<global::System.Int32> value);
-        partial void OnS1_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> S2_ID
-        {
-            get
-            {
-                return _S2_ID;
-            }
-            set
-            {
-                OnS2_IDChanging(value);
-                ReportPropertyChanging("S2_ID");
-                _S2_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("S2_ID");
-                OnS2_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _S2_ID;
-        partial void OnS2_IDChanging(Nullable<global::System.Int32> value);
-        partial void OnS2_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-
-        #endregion
-    
     }
     
     /// <summary>
@@ -2595,6 +2386,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2769,6 +2561,7 @@ namespace bycar
         partial void Oncreated_onChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2855,6 +2648,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2879,6 +2673,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2981,6 +2776,7 @@ namespace bycar
         partial void OnIsMainChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3061,6 +2857,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3089,6 +2886,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3317,6 +3115,7 @@ namespace bycar
         partial void OnIsMainChanged();
 
         #endregion
+
     
     }
     
@@ -3342,6 +3141,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3564,6 +3364,7 @@ namespace bycar
         partial void OnSaleIDChanged();
 
         #endregion
+
     
     }
     
@@ -3589,6 +3390,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3907,6 +3709,7 @@ namespace bycar
         partial void OnSaleIDChanged();
 
         #endregion
+
     
     }
     
@@ -3934,6 +3737,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4036,6 +3840,7 @@ namespace bycar
         partial void Oncode1CChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4062,6 +3867,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4088,6 +3894,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4166,6 +3973,7 @@ namespace bycar
         partial void OndescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4230,6 +4038,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4256,6 +4065,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4334,6 +4144,7 @@ namespace bycar
         partial void OndescriptonChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4360,6 +4171,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4386,6 +4198,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4464,6 +4277,7 @@ namespace bycar
         partial void OndescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4506,6 +4320,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4534,6 +4349,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4660,6 +4476,7 @@ namespace bycar
         partial void Onis_basicChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4730,6 +4547,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4758,6 +4576,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4836,6 +4655,7 @@ namespace bycar
         partial void OnrateChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4878,6 +4698,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4902,6 +4723,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5244,6 +5066,7 @@ namespace bycar
         partial void OnInvoiceNumberChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5308,6 +5131,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5340,6 +5164,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5466,6 +5291,7 @@ namespace bycar
         partial void OnQChanged();
 
         #endregion
+
     
     }
     
@@ -5491,6 +5317,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5665,6 +5492,7 @@ namespace bycar
         partial void OnnumChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5691,6 +5519,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5717,6 +5546,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5843,6 +5673,7 @@ namespace bycar
         partial void OnProfileIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5885,6 +5716,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5911,6 +5743,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6112,6 +5945,7 @@ namespace bycar
         partial void OnBankMFOChanged();
 
         #endregion
+
     
     }
     
@@ -6157,6 +5991,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6841,6 +6676,7 @@ namespace bycar
         partial void OnSChanged();
 
         #endregion
+
     
     }
     
@@ -6874,6 +6710,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -7396,6 +7233,7 @@ namespace bycar
         partial void Ontotal_sumChanged();
 
         #endregion
+
     
     }
     
@@ -7421,6 +7259,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -7523,6 +7362,7 @@ namespace bycar
         partial void OnDateStringChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -7549,6 +7389,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -7583,6 +7424,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -7781,6 +7623,7 @@ namespace bycar
         partial void OnPrurChanged();
 
         #endregion
+
     
     }
     
@@ -7810,6 +7653,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -8296,6 +8140,7 @@ namespace bycar
         partial void OnDefaultUserIDChanged();
 
         #endregion
+
     
     }
     
@@ -8327,6 +8172,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -8693,6 +8539,7 @@ namespace bycar
         partial void OnQRestChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9079,6 +8926,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -9103,6 +8951,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9181,6 +9030,7 @@ namespace bycar
         partial void Onis_equalChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9261,6 +9111,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -9289,6 +9140,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9463,6 +9315,7 @@ namespace bycar
         partial void OnChildCountChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9615,6 +9468,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -9639,6 +9493,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9789,6 +9644,7 @@ namespace bycar
         partial void Ontotal_with_vatChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9983,6 +9839,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10007,6 +9864,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10277,6 +10135,7 @@ namespace bycar
         partial void OnreceiptDateChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10395,6 +10254,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10419,6 +10279,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10497,6 +10358,7 @@ namespace bycar
         partial void Onquantity_realChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10577,6 +10439,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10605,6 +10468,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10923,6 +10787,7 @@ namespace bycar
         partial void OnQRestChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11107,6 +10972,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11135,6 +11001,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11357,6 +11224,7 @@ namespace bycar
         partial void OndiscountChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11513,6 +11381,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11539,6 +11408,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11737,6 +11607,7 @@ namespace bycar
         partial void OnIDNChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11877,6 +11748,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11901,6 +11773,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -12363,6 +12236,7 @@ namespace bycar
         partial void OnAccountIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -12427,6 +12301,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -12455,6 +12330,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -12563,6 +12439,7 @@ namespace bycar
         partial void OnequalChanged();
 
         #endregion
+
     
     }
     
@@ -12590,6 +12467,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -12887,6 +12765,7 @@ namespace bycar
         partial void OnnumChanged();
 
         #endregion
+
     
     }
     
@@ -12918,6 +12797,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -13581,6 +13461,7 @@ namespace bycar
         partial void OnquantityChanged();
 
         #endregion
+
     
     }
     
@@ -13608,6 +13489,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -14169,6 +14051,7 @@ namespace bycar
         partial void OnidChanged();
 
         #endregion
+
     
     }
     
@@ -14198,6 +14081,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -15098,6 +14982,7 @@ namespace bycar
         partial void OnParentGroupNameChanged();
 
         #endregion
+
     
     }
     
@@ -15131,6 +15016,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -15749,6 +15635,7 @@ namespace bycar
         partial void OnWarehouseNameChanged();
 
         #endregion
+
     
     }
     
@@ -15782,6 +15669,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -15920,6 +15808,7 @@ namespace bycar
         partial void OnRecordIDChanged();
 
         #endregion
+
     
     }
     
@@ -15945,6 +15834,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -16479,6 +16369,7 @@ namespace bycar
         partial void OnidChanged();
 
         #endregion
+
     
     }
     
@@ -16516,6 +16407,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -16948,6 +16840,7 @@ namespace bycar
         partial void OnQRestsChanged();
 
         #endregion
+
     
     }
     
@@ -16975,6 +16868,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -17053,6 +16947,7 @@ namespace bycar
         partial void OndescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -17101,6 +16996,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -17129,6 +17025,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -17207,6 +17104,7 @@ namespace bycar
         partial void OnrateChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -17277,6 +17175,7 @@ namespace bycar
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -17303,6 +17202,7 @@ namespace bycar
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -17381,6 +17281,7 @@ namespace bycar
         partial void OndescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -17407,8 +17308,10 @@ namespace bycar
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

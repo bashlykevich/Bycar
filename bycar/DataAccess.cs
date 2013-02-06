@@ -2513,23 +2513,23 @@ namespace bycar
                 }
             }
         }
-
-        public void SpareAnalogueDelete(int id)
+        
+        public void SpareAnalogueDelete(int SpareID, int SpareID1)
         {
-            spare_analogue b = objDataContext.spare_analogue.FirstOrDefault(o => o.id == id);
-
-            // если есть взаимный аналог - и его удалить
-            if (b.spare == null)
-                b.spareReference.Load();
-            if (b.spare1 == null)
-                b.spare1Reference.Load();
-            spare_analogue a = objDataContext.spare_analogue.FirstOrDefault(o => (o.spare.id == b.spare1.id) && (o.spare1.id == b.spare.id));
-            if (a != null)
-                objDataContext.DeleteObject(a);
-            objDataContext.DeleteObject(b);
+            List<spare_analogue> analoguesToDelete = objDataContext.spare_analogue.Where(a => a.spare.id == SpareID && a.spare1.id == SpareID1).ToList();
+            while (analoguesToDelete.Count() > 0)
+            {
+                objDataContext.DeleteObject(analoguesToDelete[0]);
+                analoguesToDelete.Remove(analoguesToDelete[0]);                
+            }
+            List<spare_analogue>  analoguesToDeleteBack = objDataContext.spare_analogue.Where(a => a.spare.id == SpareID1 && a.spare1.id == SpareID).ToList();
+            while (analoguesToDeleteBack.Count() > 0)
+            {
+                objDataContext.DeleteObject(analoguesToDeleteBack[0]);
+                analoguesToDeleteBack.Remove(analoguesToDeleteBack[0]);
+            }
             objDataContext.SaveChanges();
-        }
-
+        }      
         #endregion SPARES ANALOGUES
 
         #region SPARE GROUPS

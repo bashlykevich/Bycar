@@ -216,25 +216,21 @@ namespace bycar3.Views
 
         private void DeleteSelectedAnalogue()
         {
-            int id = 0;
-            SpareView b = null;
-            if (dgAnalogues.SelectedItem != null)
+            if (dgAnalogues.SelectedItems.Count == 0)
             {
-                object sel = dgAnalogues.SelectedItem;
-                b = (SpareView)sel;
-                id = b.id;
-                string spareName1 = _oldName;
-                string spareName2 = b.name;
-                DataAccess da = new DataAccess();
-                spare_analogue sp = da.getSpareAnalogue(spareName1, spareName2);
-
-                MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButton.YesNo);
-                if (res == MessageBoxResult.Yes)
-                {
-                    da.SpareAnalogueDelete(sp.id);
-                    loadAnalogues(this._id);
-                }
+                MessageBox.Show("Не выбрано ни одного элемента!");
+                return;
             }
+            if (MessageBox.Show("Вы действительно хотите удалить выделенные аналоги?", "Удаление", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+            foreach (SpareView spare in dgAnalogues.SelectedItems)
+            {
+                int SpareID = _id;
+                int AnalogueID = spare.id;
+                DataAccess db = new DataAccess();
+                db.SpareAnalogueDelete(SpareID, AnalogueID);
+            }
+            loadAnalogues(_id);          
         }
 
         private void EditSelectedAnalogue()
