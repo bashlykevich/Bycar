@@ -834,7 +834,7 @@ namespace bycar3
             v.ShowDialog();
         }
 
-        private string code = "";
+        //private string code = "";
 
         private void SmartSpareSearch()
         {

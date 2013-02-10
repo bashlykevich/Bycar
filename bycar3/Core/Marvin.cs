@@ -93,7 +93,7 @@ namespace bycar3.Core
 
         #region ПОЛЯ
 
-        private Views CurrentView = Views.Spares;
+        //private Views CurrentView = Views.Spares;
         private UCSpares mainWindowObj = null;
         private int spid = 0;
         protected System.Timers.Timer timer;

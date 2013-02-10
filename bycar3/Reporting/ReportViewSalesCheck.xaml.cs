@@ -20,10 +20,10 @@ namespace bycar3.Reporting
         public string UnitName;
         public decimal Quantity;
         public decimal Price;
-        public decimal Amount;
+       // public decimal Amount;
         public string VAT;
-        public decimal VATAmount;
-        public decimal Total;
+        //public decimal VATAmount;
+        //public decimal Total;
         public decimal total_sum;
         public decimal VatRate;
     }

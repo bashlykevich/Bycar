@@ -23,7 +23,7 @@ namespace bycar3.Views.Spare_Outgo
         //bool isNew = true;
 
         private invoice Invoice = null;
-        private bool isSaved = false;
+        //private bool isSaved = false;
 
         public SpareOutgoEditView()
         {
@@ -452,7 +452,7 @@ namespace bycar3.Views.Spare_Outgo
                     da.SpareOutgoSetOpened(this._id);
                 }
             }
-            isSaved = true;
+            //isSaved = true;
             cbEmptySpareOutgo.IsEnabled = false;
 
             //}
