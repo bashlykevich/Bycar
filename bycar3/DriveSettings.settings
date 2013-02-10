@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="bycar3" GeneratedClassName="bycar">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="bycar3" GeneratedClassName="DriveSettings">
   <Profiles />
   <Settings>
     <Setting Name="SelectedSpareID" Type="System.Guid" Scope="User">

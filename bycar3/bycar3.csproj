@@ -51,6 +51,7 @@
       <HintPath>Libs\Rubenhak.Common.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
@@ -95,10 +96,10 @@
     <Compile Include="Reporting\ReportViewSpareSalesByPeriod.xaml.cs">
       <DependentUpon>ReportViewSpareSalesByPeriod.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.Designer.cs">
+    <Compile Include="DriveSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
+      <DependentUpon>DriveSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BalloonDecorator.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
@@ -843,9 +844,9 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Include="DriveSettings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DriveSettings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="App.Config">

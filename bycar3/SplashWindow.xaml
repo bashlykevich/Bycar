@@ -46,7 +46,13 @@
 				<DropShadowEffect Color="#FF3E3E3E" Direction="201" Opacity="0.68" ShadowDepth="3" BlurRadius="6" />
 			</TextBlock.Effect>
         </TextBlock>
-        <TextBlock FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="282,85,12,0" Text="версия 1.80-080" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"><TextBlock.Effect>
+        <TextBlock FontSize="16" 
+                   Name="edtVersion"
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   Margin="282,85,12,0"                    
+                   TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"><TextBlock.Effect>
 				<DropShadowEffect BlurRadius="6" Color="#FF797979" Direction="201" Opacity="0.68" ShadowDepth="3" /></TextBlock.Effect></TextBlock>
         <Image
 			Margin="20,12,318,85" Source="Content/Menu/Cars.gif" />

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Windows;
 using System.Windows.Media.Animation;
+using System.Configuration;
 
 namespace splashDemo
 {
@@ -23,6 +24,11 @@ namespace splashDemo
         public SplashWindow()
         {
             InitializeComponent();
+            
+            
+            string DriveApplicationVersion = bycar3.Properties.Settings.Default.DriveApplicationVersion;
+            string DriveDatabaseVersion = bycar3.Properties.Settings.Default.DriveDatabaseVersion;
+            edtVersion.Text = "версия " + DriveApplicationVersion + "-" + DriveDatabaseVersion;
             showDelegate = new ShowDelegate(this.showText);
             hideDelegate = new HideDelegate(this.hideText);
             Showboard = this.Resources["showStoryBoard"] as Storyboard;

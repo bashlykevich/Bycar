@@ -10,5 +10,11 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=BASHX\MSSQLSERVER2;Initial Catalog=bycar3;Persist Security Info=True;User ID=sa;Password=imbs</Value>
     </Setting>
+    <Setting Name="DriveApplicationVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1.81</Value>
+    </Setting>
+    <Setting Name="DriveDatabaseVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
