@@ -7,7 +7,7 @@
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource ResourceKey=ShatemWindow}"
-        Title="Товар в накладной" Height="276" Width="278">
+        Title="Товар в накладной 111" Height="276" Width="278">
     <Grid Height="233" Width="248">
         <TextBox local:TextBoxMaskBehavior.Mask="Decimal"
                  local:TextBoxMaskBehavior.MinimumValue="0"

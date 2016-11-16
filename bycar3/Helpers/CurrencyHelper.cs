@@ -173,10 +173,7 @@ namespace bycar3.External_Code
                     }
                 }
             }
-            if (CurrencyCode.Contains("BYR"))
-                return Math.Round(Price);
-            else
-                return Math.Round(Price, 2);
+            return Math.Round(Price, 2);
         }
     }
 }

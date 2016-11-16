@@ -79,12 +79,6 @@ namespace bycar3.Views.Spare_Income
                 decimal.TryParse(edtQ.Text, out quantity);
                 decimal.TryParse(edtPriceFull.Text, out fullprice);
 
-                // округляем до 50 рублей
-                if (CurrentCurrencyCode.Contains("BYR"))
-                {
-                    decimal tmpd = Math.Round(fullprice / 50, 0);
-                    fullprice = tmpd * 50;
-                }
                 switch (param)
                 {
                     case 0: // иземенено количество
@@ -95,15 +89,7 @@ namespace bycar3.Views.Spare_Income
                         sum = quantity * fullprice;
                         break;
                 }
-                if (CurrentCurrencyCode.Contains("BYR"))
-                {
-                    decimal tmpd = Math.Round(sum / 50, 0);
-                    sum = tmpd * 50;
-                }
-                else
-                {
-                    sum = Math.Round(sum, 2);
-                }
+                sum = Math.Round(sum, 2);
                 edtTotalSum.Text = sum.ToString();
                 edtPrice.Text = fullprice.ToString();
                 EditMode = false;

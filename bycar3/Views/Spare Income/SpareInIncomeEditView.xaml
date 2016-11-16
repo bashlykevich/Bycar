@@ -60,6 +60,8 @@
             Margin="5"
             GotFocus="edtPrice_GotFocus"
             Name="edtPrice"
+            local:TextBoxMaskBehavior.Mask="Decimal"
+            local:TextBoxMaskBehavior.MinimumValue="0"
             KeyUp="edtPrice_KeyUp"
             TextChanged="edtPrice_TextChanged" />
         <custom:BalloonDecorator x:Name="bPrice"
@@ -83,6 +85,8 @@
         <TextBox
             Grid.Column="1" Grid.Row="3" Margin="5"
             Name="edtMakeup"
+            local:TextBoxMaskBehavior.Mask="Decimal"
+            local:TextBoxMaskBehavior.MinimumValue="0"
             KeyUp="edtMakeup_KeyUp"
             GotFocus="edtMakeup_GotFocus"
             TextChanged="edtMakeup_TextChanged" />
@@ -119,6 +123,8 @@
         <Label Grid.Column="0" Grid.Row="5" Margin="3" Content="Цена отпускная" />
         <TextBox Grid.Column="1"
                  Grid.Row="5" Margin="5"
+                 local:TextBoxMaskBehavior.Mask="Decimal"
+                 local:TextBoxMaskBehavior.MinimumValue="0"
                  Name="edtPriceFull"
                  KeyUp="edtPriceFull_KeyUp"
                  FocusableChanged="edtPriceFull_FocusableChanged"

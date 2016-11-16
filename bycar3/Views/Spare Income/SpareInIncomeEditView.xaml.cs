@@ -44,7 +44,7 @@ namespace bycar3.Views.Spare_Income
                 spare_in_spare_income i = da.InOfferingGet(_OfferingID);
                 i.spareReference.Load();
                 i.vat_rateReference.Load();
-                edtMakeup.Text = ((int)i.Markup).ToString();
+                edtMakeup.Text = i.Markup.ToString();
                 edtPrice.Text = i.PIn.ToString();
                 edtQ.Text = i.QIn.ToString();
                 edtSpareName.Content = i.spare.name;
@@ -128,22 +128,12 @@ namespace bycar3.Views.Spare_Income
                     EditMode = true;
                     decimal quantity = 0;
                     decimal price = 0;
-                    int markup = 0;
+                    decimal markup = 0;
                     decimal fullprice = 0;
                     decimal.TryParse(edtQ.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out quantity);
                     decimal.TryParse(edtPrice.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out price);
-                    Int32.TryParse(edtMakeup.Text, out markup);
+                    decimal.TryParse(edtMakeup.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out markup);
                     decimal.TryParse(edtPriceFull.Text, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out fullprice);
-
-                    // округляем до 50 рублей
-                    if (CurrentCurrencyCode.Contains("BYR"))
-                    {
-                        decimal tmpd = Math.Round(price / 50, 0);
-                        price = tmpd * 50;
-
-                        tmpd = Math.Round(fullprice / 50, 0);
-                        fullprice = tmpd * 50;
-                    }
 
                     // get VAR RATE
                     decimal RATE = 0;
@@ -151,7 +141,6 @@ namespace bycar3.Views.Spare_Income
                     decimal s1 = 0;
                     decimal sm = 0;
                     decimal sv = 0;
-                    decimal pp1 = 0;
                     switch (param)
                     {
                         case 0: // иземенено количество
@@ -160,11 +149,6 @@ namespace bycar3.Views.Spare_Income
                             sv = s1 * RATE / 100;
                             sum = s1 + sm + sv;
                             fullprice = quantity == 0 ? 0 : (sum / quantity);
-                            if (CurrentCurrencyCode.Contains("BYR"))
-                            {
-                                pp1 = Math.Round(fullprice / 50, 0);
-                                fullprice = pp1 * 50;
-                            }
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
@@ -175,11 +159,6 @@ namespace bycar3.Views.Spare_Income
                             sv = s1 * RATE / 100;
                             sum = s1 + sm + sv;
                             fullprice = quantity == 0 ? 0 : (sum / quantity);
-                            if (CurrentCurrencyCode.Contains("BYR"))
-                            {
-                                pp1 = Math.Round(fullprice / 50, 0);
-                                fullprice = pp1 * 50;
-                            }
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
@@ -190,11 +169,6 @@ namespace bycar3.Views.Spare_Income
                             sv = s1 * RATE / 100;
                             sum = s1 + sm + sv;
                             fullprice = quantity == 0 ? 0 : (sum / quantity);
-                            if (CurrentCurrencyCode.Contains("BYR"))
-                            {
-                                pp1 = Math.Round(fullprice / 50, 0);
-                                fullprice = pp1 * 50;
-                            }
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
@@ -205,11 +179,6 @@ namespace bycar3.Views.Spare_Income
                             sv = s1 * RATE / 100;
                             sum = s1 + sm + sv;
                             fullprice = quantity == 0 ? 0 : (sum / quantity);
-                            if (CurrentCurrencyCode.Contains("BYR"))
-                            {
-                                pp1 = Math.Round(fullprice / 50, 0);
-                                fullprice = pp1 * 50;
-                            }
                             edtPriceFull.Text = fullprice.ToString();
                             sum = fullprice * quantity;
                             break;
@@ -226,16 +195,8 @@ namespace bycar3.Views.Spare_Income
                             break;
                     }
                     decimal fpbefore = fullprice;
-                    if (CurrentCurrencyCode.Contains("BYR"))
-                    {
-                        decimal tmpd = Math.Round(sum / 50, 0);
-                        sum = tmpd * 50;
-                    }
-                    else
-                    {
-                        sum = Math.Round(sum, 2);
-                        fullprice = Math.Round(fullprice, 2);
-                    }
+                    sum = Math.Round(sum, 2);
+                    fullprice = Math.Round(fullprice, 2);
                     edtTotalSum.Text = sum.ToString();
                     if (fpbefore != fullprice)
                         edtPriceFull.Text = fullprice.ToString();

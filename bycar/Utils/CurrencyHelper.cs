@@ -255,9 +255,7 @@ namespace bycar.Utils
                     }
                 }
             }
-
-            //march22 return Math.Round(Price);
-            return Math.Round(Price);
+            return Math.Round(Price, 2);
         }
     }
 }

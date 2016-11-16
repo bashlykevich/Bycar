@@ -22,7 +22,7 @@ namespace bycar3.Views.Invoice
         //int VRId = 0;               // Vat Rate ID
         private decimal VRSum = 0;              // Vat Rate Sum
 
-        private int VRate = 0;
+        private decimal VRate = 0;
         private decimal TS = 0;
 
         // OLD
@@ -224,7 +224,7 @@ namespace bycar3.Views.Invoice
         {
             decimal res = 0;
             decimal.TryParse(edtVAT.SelectedItem.ToString().Replace('%', ' '), out res);
-            VRate = (int)res;
+            VRate = (decimal)res;
             CalculateSum(3);
         }
 
