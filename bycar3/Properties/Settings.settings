@@ -5,10 +5,10 @@
     <Setting Name="bycar3ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=BASHX\MSSQLSERVER2;Initial Catalog=bycar3;Persist Security Info=True;User ID=sa;Password=imbs&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=BASH-XPS\SQLEXPRESS;Initial Catalog=Drive-068-LE;Persist Security Info=True;User ID=imbs;Password=imbs&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=BASHX\MSSQLSERVER2;Initial Catalog=bycar3;Persist Security Info=True;User ID=sa;Password=imbs</Value>
+      <Value Profile="(Default)">Data Source=BASH-XPS\SQLEXPRESS;Initial Catalog=Drive-068-LE;Persist Security Info=True;User ID=imbs;Password=imbs</Value>
     </Setting>
     <Setting Name="DriveApplicationVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">1.81</Value>
