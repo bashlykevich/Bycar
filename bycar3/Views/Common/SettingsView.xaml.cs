@@ -50,12 +50,15 @@ namespace bycar3.Views.Common
         {
             if (dgItems.SelectedItem != null)
             {
-                MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButton.YesNo);
-                if (res == MessageBoxResult.Yes)
+                if (dgItems.SelectedItem as ProfileBankAccountView != null)
                 {
-                    int ID = (dgItems.SelectedItem as ProfileBankAccountView).id;
-                    da.ProfileBankAccountDelete(ID);
-                    LoadBankAccounts();
+                    MessageBoxResult res = MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButton.YesNo);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        int ID = (dgItems.SelectedItem as ProfileBankAccountView).id;
+                        da.ProfileBankAccountDelete(ID);
+                        LoadBankAccounts();
+                    }
                 }
             }
         }
