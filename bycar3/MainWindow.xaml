@@ -83,13 +83,6 @@
                 <MenuItem.Icon>
                     <Image Height="20" Source="Content\Menu\m_settings.png" />
                 </MenuItem.Icon>
-                <MenuItem Name="mi_Settings_RevisionOn"
-                          Header="Ввод остатков"
-                          Click="mi_Settings_RevisionOn_Click">
-                    <MenuItem.Icon>
-                        <Image Width="20" Height="20" Source="Content\Menu\dss_32.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem
                     Name="mi_Settings_Settings"
                     Click="mi_Settings_Settings_Click"
