@@ -32,9 +32,9 @@
                 <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="0.6*" />
             </Grid.ColumnDefinitions>
-            <Label Content="USD"  Grid.Column="0" Grid.Row="0" Margin="2" />
-            <Label Content="EURO" Grid.Column="0" Grid.Row="1" Margin="2" />
-            <Label Content="RUR"  Grid.Column="0" Grid.Row="2" Margin="2" />
+            <Label Content="1 USD"  Grid.Column="0" Grid.Row="0" Margin="2" />
+            <Label Content="1 EURO" Grid.Column="0" Grid.Row="1" Margin="2" />
+            <Label Content="1 RUR"  Grid.Column="0" Grid.Row="2" Margin="2" />
 
             <TextBox
                 Name="edtUSD"

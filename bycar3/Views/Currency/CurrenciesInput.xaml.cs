@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
-using System.Windows.Documents;
 using bycar;
 using bycar3.NbrbServiceReference;
 
@@ -53,24 +52,24 @@ namespace bycar3.Views.Currency
         private void LoadRatesFromWeb(DateTime date)
         {
             try
-            {
+             {
                 ExRatesSoapClient ws = new ExRatesSoapClient();
                 DataSet ds = ws.ExRatesDaily(date);
                 DataTable dt = ds.Tables["DailyExRatesOnDate"];
                 DataRowCollection rows = dt.Rows;
-                int rowIndexUsd = 4;
-                int rowIndexEuro = 5;
-                int rowIndexRur = 15;
+                int rowIndexUsd = 2;
+                int rowIndexEuro = 3;
+                int rowIndexRur = 21;
 
                 edtEURO.Text = rows[rowIndexEuro]["Cur_OfficialRate"].ToString();
                 edtUSD.Text = rows[rowIndexUsd]["Cur_OfficialRate"].ToString();
-                edtRUR.Text = rows[rowIndexRur]["Cur_OfficialRate"].ToString();
+                edtRUR.Text = ((decimal)rows[rowIndexRur]["Cur_OfficialRate"]/100).ToString();
             }
             catch (Exception)
             {
-                edtEURO.Text = "4000";
-                edtUSD.Text = "3000";
-                edtRUR.Text = "100";
+                edtEURO.Text = "1";
+                edtUSD.Text = "1";
+                edtRUR.Text = "1";
                 MessageBox.Show("Не удалось загрузить курсы из интернета! Проверьте подключение.");
             }
             AddRates();

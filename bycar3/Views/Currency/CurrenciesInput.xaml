@@ -26,11 +26,11 @@
             Grid.ColumnSpan="2"
             IsEnabled="False"
             Margin="81,5,0,0" />
-        <Label Content="USD" Grid.Row="1"  Grid.Column="0" Margin="20,2,10,5" />
+        <Label Content="1 USD" Grid.Row="1"  Grid.Column="0" Margin="20,2,10,5" />
         <TextBox Name="edtUSD" Grid.Row="1"  Grid.Column="1" Margin="10,5,10,5" />
-        <Label Content="EURO" Grid.Row="2"  Grid.Column="0" Margin="20,2,10,5" />
+        <Label Content="1 EURO" Grid.Row="2"  Grid.Column="0" Margin="20,2,10,5" />
         <TextBox Name="edtEURO" Grid.Row="2"  Grid.Column="1" Margin="10,5,10,5" />
-        <Label Content="RUR" Grid.Row="3"  Grid.Column="0" Margin="20,2,10,5" />
+        <Label Content="1 RUR" Grid.Row="3"  Grid.Column="0" Margin="20,2,10,5" />
         <TextBox Name="edtRUR" Grid.Row="3"  Grid.Column="1" Margin="10,5,10,5" />
 
         <Button
