@@ -11,7 +11,7 @@
       <Value Profile="(Default)">Data Source=BASH-XPS\SQLEXPRESS;Initial Catalog=Drive-068-LE;Persist Security Info=True;User ID=imbs;Password=imbs</Value>
     </Setting>
     <Setting Name="DriveApplicationVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1.9D</Value>
+      <Value Profile="(Default)">1.91D</Value>
     </Setting>
     <Setting Name="DriveDatabaseVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">80</Value>
