@@ -36,7 +36,7 @@ namespace bycar3.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.81")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.9D")]
         public string DriveApplicationVersion {
             get {
                 return ((string)(this["DriveApplicationVersion"]));
