@@ -19,9 +19,9 @@ namespace bycar3.External_Code
             decimal BasicPrice = 0;
             DataAccess da = new DataAccess();
             string BasicCurrencyCode = da.getBasicCurrencyCode();
-            decimal RateUsd = da.getCurrencyRate("USD").rate;
-            decimal RateEur = da.getCurrencyRate("EUR").rate;
-            decimal RateRur = da.getCurrencyRate("RUR").rate;
+            decimal RateUsd = da.getCurrencyRateValue("USD");
+            decimal RateEur = da.getCurrencyRateValue("EUR");
+            decimal RateRur = da.getCurrencyRateValue("RUR");
 
             if (BasicCurrencyCode.Equals(CurrencyCode))
             {
@@ -100,9 +100,9 @@ namespace bycar3.External_Code
             decimal Price = 0;
             DataAccess da = new DataAccess();
             string BasicCurrencyCode = da.getBasicCurrencyCode();
-            decimal RateUsd = da.getCurrencyRate("USD").rate;
-            decimal RateEur = da.getCurrencyRate("EUR").rate;
-            decimal RateRur = da.getCurrencyRate("RUR").rate;
+            decimal RateUsd = da.getCurrencyRateValue("USD");
+            decimal RateEur = da.getCurrencyRateValue("EUR");
+            decimal RateRur = da.getCurrencyRateValue("RUR");
 
             if (BasicCurrencyCode.Equals(CurrencyCode))
             {

@@ -1399,19 +1399,22 @@ namespace bycar
         {
             currency_rate rate = null;
             List<currency_rate> rates = (from r in objDataContext.currency_rate
-                                         where r.currency.code.Contains(CurrencyCode)
+                                         where (r.currency.code.Contains(CurrencyCode) && r.rate > 0 )
                                          orderby r.rate_date descending
                                          select r).ToList();
-            /*if (rates.Count == 0)
-            {
-                rates = (from r in objDataContext.currency_rate
-                         where r.currency.code.Contains(CurrencyCode)
-                         orderby r.rate_date descending
-                         select r).ToList();
-                rate = rates[0];
-            }*/
             if (rates.Count > 0)
                 rate = rates[0];
+            return rate;
+        }
+        public decimal getCurrencyRateValue(string CurrencyCode)
+        {
+            decimal rate = 1; // default value
+            List<currency_rate> rates = (from r in objDataContext.currency_rate
+                                         where (r.currency.code.Contains(CurrencyCode) && r.rate > 0)
+                                         orderby r.rate_date descending
+                                         select r).ToList();
+            if (rates.Count > 0)
+                rate = rates[0].rate;
             return rate;
         }
 

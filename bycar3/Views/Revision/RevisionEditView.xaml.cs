@@ -135,6 +135,11 @@ namespace bycar3.Views.Revision
             decimal p = s.PIn.Value;
             da = new DataAccess();
             currency_rate CRate = da.getCurrencyRate(edtCurrency.SelectedItem.ToString());
+            if(CRate == null)
+            {
+                MessageBox.Show("Не удаётся получить из справочника курс валюты! Возможно, стоит ввести актуальный курс.");
+                return;
+            }
             decimal PriceBasic = p / CRate.rate;
             da.InOfferingEdit(s.id, q, p, PriceBasic);
         }

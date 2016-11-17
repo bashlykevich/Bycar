@@ -422,6 +422,7 @@
     <Resource Include="Content\Icons\profile_edit.png" />
     <Resource Include="Content\Icons\User-icon.png" />
     <Resource Include="Content\Icons\Log-Out-icon.png" />
+    <Content Include="SQL-scripts\denominate.sql" />
     <Content Include="SQL-scripts\update-to-080-data.sql" />
     <Content Include="SQL-scripts\update-to-080-schema.sql" />
     <Content Include="Templates\OfferingMovementReport.xaml">
