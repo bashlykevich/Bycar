@@ -43,7 +43,7 @@ namespace bycar3.Views.Currency
             // RUR
             currency_rate r3 = da.getCurrencyRate("RUR", dt);
             if (r3 != null)
-                edtRUR.Text = r3.rate.ToString();
+                edtRUR.Text = (r3.rate*100).ToString();
             else
                 res = false;
             return res;
@@ -63,7 +63,7 @@ namespace bycar3.Views.Currency
 
                 edtEURO.Text = rows[rowIndexEuro]["Cur_OfficialRate"].ToString();
                 edtUSD.Text = rows[rowIndexUsd]["Cur_OfficialRate"].ToString();
-                edtRUR.Text = ((decimal)rows[rowIndexRur]["Cur_OfficialRate"]/100).ToString();
+                edtRUR.Text = rows[rowIndexRur]["Cur_OfficialRate"].ToString();
             }
             catch (Exception)
             {
@@ -98,7 +98,7 @@ namespace bycar3.Views.Currency
             currency c3 = da.GetCurrency("RUR");
             currency_rate r3 = new currency_rate();
             r3.currency = c3;
-            r3.rate = decimal.Parse(edtRUR.Text);
+            r3.rate = decimal.Parse(edtRUR.Text)/100;
             r3.rate_date = DateTime.Now;
 
             rates.Add(r1);
@@ -130,7 +130,7 @@ namespace bycar3.Views.Currency
             currency c3 = da.GetCurrency("RUR");
             currency_rate r3 = new currency_rate();
             r3.currency = c3;
-            r3.rate = decimal.Parse(edtRUR.Text);
+            r3.rate = decimal.Parse(edtRUR.Text)/100;
             r3.rate_date = edtDate.SelectedDate.Value;
 
             rates.Add(r1);

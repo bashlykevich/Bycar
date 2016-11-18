@@ -50,7 +50,7 @@ namespace bycar3.Views.Currency
             // RUR
             currency_rate r3 = da.getCurrencyRate("RUR", dt);
             if (r3 != null)
-                edtRUR.Text = r3.rate.ToString();
+                edtRUR.Text = (r3.rate*100).ToString();
             else
                 res = false;
             return res;
@@ -64,9 +64,9 @@ namespace bycar3.Views.Currency
                 DataSet ds = ws.ExRatesDaily(date);
                 DataTable dt = ds.Tables["DailyExRatesOnDate"];
                 DataRowCollection rows = dt.Rows;
-                int rowIndexUsd = 4;
-                int rowIndexEuro = 5;
-                int rowIndexRur = 15;
+                int rowIndexUsd = 2;
+                int rowIndexEuro = 3;
+                int rowIndexRur = 21;
 
                 edtEURO.Text = rows[rowIndexEuro]["Cur_OfficialRate"].ToString();
                 edtUSD.Text = rows[rowIndexUsd]["Cur_OfficialRate"].ToString();
@@ -102,7 +102,7 @@ namespace bycar3.Views.Currency
             currency c3 = da.GetCurrency("RUR");
             currency_rate r3 = new currency_rate();
             r3.currency = c3;
-            r3.rate = decimal.Parse(edtRUR.Text);
+            r3.rate = decimal.Parse(edtRUR.Text)/100;
             r3.rate_date = edtDate.SelectedDate.Value;
 
             rates.Add(r1);

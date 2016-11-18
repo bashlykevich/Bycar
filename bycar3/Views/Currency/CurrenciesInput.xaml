@@ -16,22 +16,21 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*" />
-            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="85*" />
+            <ColumnDefinition Width="109*" />
         </Grid.ColumnDefinitions>
         <DatePicker
             Name="edtDate"
             Grid.Row="0"
-            Grid.Column="0"
             Grid.ColumnSpan="2"
             IsEnabled="False"
-            Margin="81,5,0,0" />
-        <Label Content="1 USD" Grid.Row="1"  Grid.Column="0" Margin="20,2,10,5" />
-        <TextBox Name="edtUSD" Grid.Row="1"  Grid.Column="1" Margin="10,5,10,5" />
-        <Label Content="1 EURO" Grid.Row="2"  Grid.Column="0" Margin="20,2,10,5" />
-        <TextBox Name="edtEURO" Grid.Row="2"  Grid.Column="1" Margin="10,5,10,5" />
-        <Label Content="1 RUR" Grid.Row="3"  Grid.Column="0" Margin="20,2,10,5" />
-        <TextBox Name="edtRUR" Grid.Row="3"  Grid.Column="1" Margin="10,5,10,5" />
+            Margin="83,5,-0.4,0.4" />
+        <Label Content="1 USD" Grid.Row="1"  Grid.Column="0" Margin="20,1.6,9.8,5.4" />
+        <TextBox Name="edtUSD" Grid.Row="1"  Grid.Column="1" Margin="10.2,4.6,9.6,5.4" />
+        <Label Content="1 EURO" Grid.Row="2"  Grid.Column="0" Margin="20,1.6,9.8,4.8" />
+        <TextBox Name="edtEURO" Grid.Row="2"  Grid.Column="1" Margin="10.2,4.6,9.6,4.8" />
+        <Label Content="100 RUR" Grid.Row="3"  Grid.Column="0" Margin="20,2.2,9.8,4.8" />
+        <TextBox Name="edtRUR" Grid.Row="3"  Grid.Column="1" Margin="10.2,5.2,9.6,4.8" />
 
         <Button
                 Width="80"
@@ -39,8 +38,8 @@
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                 Grid.Row="4"
                 Grid.Column="1"
-                Margin="15,6,15,4"
-                Name="btnOK">
+                Margin="14.2,7.2,14.6,5.2"
+                Name="btnOK" Height="22">
             <Button.Content>
                 <StackPanel
                         HorizontalAlignment="Left"

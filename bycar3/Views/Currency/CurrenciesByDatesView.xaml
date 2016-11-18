@@ -13,7 +13,11 @@
             <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="0.4*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid
+            Grid.Row="0"
             Grid.Column="0">
             <Calendar
                 Name="edtDate"
@@ -21,6 +25,7 @@
         </Grid>
         <Grid
             Margin="2,30,2,30"
+            Grid.Row="0"
             Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -29,28 +34,28 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition Width="0.6*" />
+                <ColumnDefinition Width="63*" />
+                <ColumnDefinition Width="94*" />
             </Grid.ColumnDefinitions>
-            <Label Content="1 USD"  Grid.Column="0" Grid.Row="0" Margin="2" />
-            <Label Content="1 EURO" Grid.Column="0" Grid.Row="1" Margin="2" />
-            <Label Content="1 RUR"  Grid.Column="0" Grid.Row="2" Margin="2" />
+            <Label Content="1 USD"  Grid.Column="0" Grid.Row="0" Margin="2,2,2.2,1.8" />
+            <Label Content="1 EURO" Grid.Column="0" Grid.Row="1" Margin="2,2.2,2.2,1.6" />
+            <Label Content="100 RUR"  Grid.Column="0" Grid.Row="2" Margin="2,2.4,2.2,2.4" />
 
             <TextBox
                 Name="edtUSD"
                 IsEnabled="False"
                 Grid.Column="1"
-                Grid.Row="0" Margin="5" />
+                Grid.Row="0" Margin="4.8,5,4.6,4.8" />
             <TextBox
                 Name="edtEURO"
-                IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="5" />
+                IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="4.8,5.2,4.6,4.6" />
             <TextBox
                 Name="edtRUR"
-                IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="5" />
+                IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="4.8,5.4,4.6,5.4" />
             <Button
                 Name="btnRatesInput"
                 Click="btnRatesInput_Click"
-                Content="Изменить" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Margin="12,5,12,2" />
+                Content="Изменить" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="12,4.6,11.6,2.2" />
         </Grid>
     </Grid>
 </Window>
